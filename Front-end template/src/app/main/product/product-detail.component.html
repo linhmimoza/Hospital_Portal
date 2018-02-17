@@ -1,0 +1,104 @@
+<!-- This is User Detail Page
+<test-selector></test-selector> -->
+<div class="row">
+    <div class="col-lg-12">
+        <div action="forms-validation.html" class="form-horizontal">
+            <section class="panel">
+                <header class="panel-heading">
+                    <div class="panel-actions">
+                        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+                    </div>
+
+                    <h2 class="panel-title">{{title}}</h2>
+                </header>
+                <div class="panel-body" style="padding-right:350px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Mà sản phẩm
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" [(ngModel)]="product.Code" class="form-control" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Tên
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" [(ngModel)]="product.Name" class="form-control" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Gía
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="number" [(ngModel)]="product.Price" class="form-control" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Loại sản phẩm
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <select [(ngModel)]="product.CategoryId" class="form-control">
+                                <option *ngFor="let category of categories" [ngValue]="category.Id">{{category.Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Nhà sản xuất
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <select [(ngModel)]="product.ManufacturerId" class="form-control">
+                                <option value="" disabled selected>Vui lòng chọn...</option>
+                                <option *ngFor="let manufacturer of manufacturers" [ngValue]="manufacturer.Id">{{manufacturer.Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Nhà cung cấp
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <select [(ngModel)]="product.SupplierId" class="form-control">
+                                <option value="" disabled selected>Vui lòng chọn...</option>
+                                <option *ngFor="let supplier of suppliers" [ngValue]="supplier.Id">{{supplier.Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Đơn vị tính
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <select [(ngModel)]="product.UnitId" class="form-control">
+                                <option *ngFor="let unit of units" [ngValue]="unit.Id">{{unit.Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Mô tả</label>
+                        <div class="col-sm-9">
+                            <textarea [(ngModel)]="product.Description" rows="5" class="form-control" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-9 col-sm-offset-3">
+                            <button class="btn btn-primary" (click)="save()">
+                                <i class="fa fa-floppy-o"></i>
+                                Lưu</button>
+                            <button class="btn btn-default" (click)="back()">
+                                <i class="fa fa-undo"></i>
+                                Trở về</button>
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        </div>
+    </div>
+</div>

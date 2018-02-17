@@ -1,0 +1,8 @@
+- Pull code front-end template ve. 
+- Mo bang visual studio code
+- Mo terminal trong thu muc src chay lenh: 
+	+ npm install
+	+ ng serve de chay trang web
+- Port là http://localhost:4200
+- Username: admin password: 123 
+- Có gì k hieu hoi ban Linh

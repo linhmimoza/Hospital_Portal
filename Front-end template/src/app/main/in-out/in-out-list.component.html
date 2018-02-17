@@ -1,0 +1,67 @@
+<!-- This is User List Page
+<!-- <dashboard></dashboard> -->
+<!-- <test-selector></test-selector> -->
+<section class="panel">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+            <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+        </div>
+        <h2 class="panel-title">Lịch sử xuất nhập hàng</h2>
+    </header>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="mb-md">
+                    <button class="btn btn-primary" [routerLink]="['/main/in-out-detail',0]">Thêm
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped mb-none">
+            <colgroup>
+                <col width="150px"/>
+                <col width="150px"/>
+                <col width="100px"/>
+                <col width="100px"/>
+                <col />
+                <col width="200px"/>
+                <col width="50px"/>
+                <col width="50px"/>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Khách hàng</th>
+                    <th>Sản phẩm</th>
+                    <th>Gía</th>
+                    <th>Số lượng</th>
+                    <th>Hình thức</th>
+                    <th>Ngày</th>
+                    <th class="hidden-phone"></th>
+                    <th class="hidden-phone"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let inOut of inOuts" class="gradeX">
+                    <td>{{inOut.Username}}</td>
+                    <td>{{inOut.ProductName}}</td>
+                    <td>{{inOut.Price}}</td>      
+                    <td>{{inOut.Quantity}}</td>        
+                    <td>{{inOut.Type}}</td>      
+                    <td>{{inOut.Date}}</td>        
+                    <td align="center">
+                        <a>
+                            <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(inOut)"></i>
+                        </a>
+                    </td>
+                    <td align="center">
+                        <a>
+                            <i style="cursor:pointer" class="fa fa-trash-o text-danger"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

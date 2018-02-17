@@ -1,0 +1,58 @@
+<section class="panel">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+            <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+        </div>
+        <h2 class="panel-title">Danh sách nhà cung cấp</h2>
+    </header>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="mb-md">
+                    <button class="btn btn-primary" [routerLink]="['/main/supplier-detail',0]">Thêm
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped mb-none" id="datatable-default">
+            <colgroup>
+                <col width="250px" />
+                <col width="200px" />
+                <col />
+                <col width="200px" />
+                <col width="50px" />
+                <col width="50px" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Nhà sản xuất</th>
+                    <th>Địa chỉ</th>
+                    <th>Số điện thoại</th>
+                    <th>Email</th>
+                    <th class="hidden-phone"></th>
+                    <th class="hidden-phone"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="gradeX" *ngFor="let supplier of suppliers">
+                    <td>{{supplier.Name}}</td>
+                    <td>{{supplier.Address}}</td>
+                    <td>{{supplier.Phone}}</td>
+                    <td>{{supplier.Email}}</td>
+                    <td align="center">
+                        <a>
+                            <i class="fa fa-pencil-square-o" (click)="detail(supplier)"></i>
+                        </a>
+                    </td>
+                    <td align="center">
+                        <a>
+                            <i class="fa fa-trash-o text-danger"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

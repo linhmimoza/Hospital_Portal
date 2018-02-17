@@ -1,0 +1,120 @@
+<!-- This is User Detail Page
+<test-selector></test-selector> -->
+<div class="row">
+    <div class="col-lg-12">
+        <div action="forms-validation.html" class="form-horizontal">
+            <section class="panel">
+                <header class="panel-heading">
+                    <div class="panel-actions">
+                        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+                    </div>
+
+                    <h2 class="panel-title">{{title}}</h2>
+                    <!-- <p class="panel-subtitle">
+                        Basic validation will display a label with the error after the form control.
+                    </p> -->
+                </header>
+                <div class="panel-body" style="padding-right:350px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Tên tài khoản
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" [(ngModel)]="user.Username" class="form-control" placeholder="Eg.: John Doe" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Mật khẩu
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="password" [(ngModel)]="user.Password" class="form-control" required/>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label class="col-sm-3 control-label">Nhập lại mật khẩu
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="password" [(ngModel)]="user.Password" class="form-control" required/>
+                        </div>
+                    </div> -->
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Tên
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" [(ngModel)]="user.FirstName" class="form-control" placeholder="Eg.: John" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Họ
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" [(ngModel)]="user.LastName" class="form-control" placeholder="Eg.: Doe" required/>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-group">
+                        <label class="col-sm-3 control-label">Email
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+                                <input type="email" [(ngModel)]="user.Email" class="form-control" placeholder="eg.: email@email.com" required/>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+
+                        </div>
+                    </div> -->
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Vai trò
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <select [(ngModel)]="user.RoleId" class="form-control">
+                                <option *ngFor="let role of roles" [ngValue]="role.Id">{{role.Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Trạng thái
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <div class="checkbox-custom checkbox-default">
+                                <input [(ngModel)]="user.IsActived" type="checkbox" checked="">
+                                <label>Hoạt động</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Mô tả</label>
+                        <div class="col-sm-9">
+                            <textarea [(ngModel)]="user.Description" rows="5" class="form-control" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-9 col-sm-offset-3">
+                            <button class="btn btn-primary" (click)="save()">
+                                <i class="fa fa-floppy-o"></i>
+                                Lưu</button>
+                            <button class="btn btn-default" (click)="back()">
+                                <i class="fa fa-undo"></i>
+                                Trở về</button>
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        </div>
+    </div>
+</div>

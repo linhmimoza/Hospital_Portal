@@ -1,0 +1,77 @@
+<!-- This is User List Page
+<!-- <dashboard></dashboard> -->
+<!-- <test-selector></test-selector> -->
+<section class="panel">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+            <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+        </div>
+        <h2 class="panel-title">Danh sách tài khoản</h2>
+    </header>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="mb-md">
+                    <button class="btn btn-primary" [routerLink]="['/main/user-detail',0]">Thêm
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped mb-none">
+            <colgroup>
+                <col width="150px" />
+                <col width="150px" />
+                <col width="150px" />
+                <col width="150px" />
+                <col width="150px" />
+                <col />
+                <col width="150px" />
+                <col width="50px" />
+                <col width="50px" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Tên tài khoản</th>
+                    <th>Họ và tên</th>
+                    <th>Vai trò</th>
+                    <th>Người tạo</th>
+                    <th>Mô tả</th>
+                    <th class="text-center">Ngày tạo</th>
+                    <th class="hidden-phone">Tình trạng</th>
+                    <th class="hidden-phone"></th>
+                    <th class="hidden-phone"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users" class="gradeX">
+                    <td>{{user.Username}}</td>
+                    <td>{{user.LastName + ' ' + user.FirstName}}</td>
+                    <td>{{user.RoleName}}</td>
+                    <td>{{user.CreatorName}}</td>
+                    <td>{{user.Description}}</td>
+                    <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td>
+                    <td class="text-center">
+                        <!-- <span [ngClass]="{'bg-primary':user.IsActived,'bg-danger':!user.IsActived}"> -->
+
+                        <div class="grid-status" [ngClass]="{'bg-primary':user.IsActived,'bg-danger':!user.IsActived}">
+
+                            {{user.IsActived?'Hoạt động':'Khóa'}}
+                        </div>
+                    </td>
+                    <td align="center">
+                        <a>
+                            <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(user)"></i>
+                        </a>
+                    </td>
+                    <td align="center">
+                        <a class="text-danger remove-row" >
+                            <i style="cursor:pointer" class="fa fa-trash-o text-danger" (click)="delete(user)"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

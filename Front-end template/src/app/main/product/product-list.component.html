@@ -1,0 +1,64 @@
+<section class="panel">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+            <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+        </div>
+        <h2 class="panel-title">Danh sách sản phẩm</h2>
+    </header>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="mb-md">
+                    <button class="btn btn-primary" [routerLink]="['/main/product-detail',0]">Thêm
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped mb-none">
+            <colgroup>
+                <col width="150px" />
+                <col width="150px" />
+                <col width="150px" />
+                <col width="150px" />
+                <col width="150px" />
+                <col />
+                <col width="50px" />
+                <col width="50px" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Mã sản phẩm</th>
+                    <th>Tên</th>
+                    <th>Giá</th>
+                    <th>Nhà cung cấp</th>
+                    <th>Nhà sản xuất</th>
+                    <th>Mô tả</th>
+                    <th class="hidden-phone"></th>
+                    <th class="hidden-phone"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of products" class="gradeX">
+                    <td>{{product.Code}}</td>
+                    <td>{{product.Name}}</td>
+                    <td>{{product.Price}}</td>
+                    <td>{{product.SupplierName}}</td>
+                    <td>{{product.ManufacturerName}}</td>
+                    <td>{{product.Description}}</td>                
+                    <td align="center">
+                        <a>
+                            <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(product)"></i>
+                        </a>
+                    </td>
+                    <td align="center">
+                        <a>
+                            <i style="cursor:pointer" class="fa fa-trash-o text-danger"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

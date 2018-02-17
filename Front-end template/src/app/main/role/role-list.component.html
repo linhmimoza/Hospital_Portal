@@ -1,0 +1,54 @@
+<section class="panel">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <!-- <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+            <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a> -->
+        </div>
+        <h2 class="panel-title">Danh sách vai trò</h2>
+    </header>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="mb-md">
+                    <button class="btn btn-primary" [routerLink]="['/main/role-detail',0]">Thêm
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped mb-none" >
+        <!-- id="datatable-default"> -->
+            <colgroup >
+                <col width="350px"/>
+                <col />
+                <col width="50px"/>
+                <col width="50px"/>
+                <!-- <col style="width:150"/> -->
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Vai trò</th>
+                    <th>Mô tả</th>
+                    <th class="hidden-phone"></th>
+                    <th class="hidden-phone"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="gradeX" *ngFor="let role of roles">
+                    <td>{{role.Name}}</td>
+                    <td>{{role.Description}}</td>
+                    <td align="center">
+                        <a>
+                            <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(role)"></i>
+                        </a>
+                    </td>
+                    <td align="center">
+                        <a>
+                            <i style="cursor:pointer" class="fa fa-trash-o text-danger" (click)="delete(role)"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

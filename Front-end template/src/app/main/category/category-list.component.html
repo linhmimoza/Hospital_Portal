@@ -1,0 +1,52 @@
+<section class="panel">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+            <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+        </div>
+        <h2 class="panel-title">Danh sách loại sản phẩm</h2>
+    </header>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="mb-md">
+                    <button class="btn btn-primary" [routerLink]="['/main/category-detail',0]">Thêm
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped mb-none">
+            <colgroup>
+                <col width="350px" />
+                <col />
+                <col width="50px" />
+                <col width="50px" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Loại sản phẩm</th>
+                    <th>Mô tả</th>
+                    <th class="hidden-phone"></th>
+                    <th class="hidden-phone"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let category of categories" class="gradeX">
+                    <td>{{category.Name}}</td>
+                    <td>{{category.Description}}</td>                
+                    <td align="center">
+                        <a>
+                            <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(category)"></i>
+                        </a>
+                    </td>
+                    <td align="center">
+                        <a>
+                            <i style="cursor:pointer" class="fa fa-trash-o text-danger"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

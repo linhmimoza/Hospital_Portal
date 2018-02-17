@@ -1,0 +1,10 @@
+
+.grid-status{
+    font-weight: 500;
+    padding: 5px 8px;
+    border-radius: 20px;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+}

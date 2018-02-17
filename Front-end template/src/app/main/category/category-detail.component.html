@@ -1,0 +1,56 @@
+<!-- This is User Detail Page
+<test-selector></test-selector> -->
+<div class="row">
+    <div class="col-lg-12">
+        <div action="forms-validation.html" class="form-horizontal">
+            <section class="panel">
+                <header class="panel-heading">
+                    <div class="panel-actions">
+                        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+                    </div>
+
+                    <h2 class="panel-title">{{title}}</h2>
+                </header>
+                <div class="panel-body" style="padding-right:350px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Loại sản phẩm
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" [(ngModel)]="category.Name" class="form-control" required/>
+                        </div>
+                    </div>                 
+                    <!-- <div class="form-group">
+                        <label class="col-sm-3 control-label">Loại hàng
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <select [(ngModel)]="category.ParentId" class="form-control">
+                              <option *ngFor="let role of roles" [ngValue]="category.Id">{{category.Name}}</option>
+                            </select>
+                        </div>
+                    </div> -->
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Mô tả</label>
+                        <div class="col-sm-9">
+                            <textarea [(ngModel)]="category.Description" rows="5" class="form-control" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-9 col-sm-offset-3">
+                            <button class="btn btn-primary" (click)="save()">
+                                <i class="fa fa-floppy-o"></i>
+                                Lưu</button>
+                            <button class="btn btn-default" (click)="back()">
+                                <i class="fa fa-undo"></i>
+                                Trở về</button>
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        </div>
+    </div>
+</div>
