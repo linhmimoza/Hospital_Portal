@@ -66,12 +66,14 @@ public class Mission implements Serializable {
     private Date updateDate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "mission")
     private List<MissionWorker> missionWorkerList;
-    @JoinColumn(name = "Createby", referencedColumnName = "UserId")
-    @ManyToOne(optional = false)
-    private User user;
-    @JoinColumn(name = "Updateby", referencedColumnName = "UserId")
-    @ManyToOne
-    private User user1;
+    
+    @Basic(optional = false)
+    @Column(name = "Createby")
+    private Integer createby;
+    
+    @Basic(optional = false)
+    @Column(name = "Updateby")
+    private Integer updateby;
 
     public Mission() {
     }
@@ -80,6 +82,21 @@ public class Mission implements Serializable {
         this.missionId = missionId;
     }
 
+    public Mission(Integer missionId, String startDate, String endDate, String place, String content, String note, int status, Date createDate, Date updateDate, Integer createby, Integer updateby) {
+        this.missionId = missionId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.place = place;
+        this.content = content;
+        this.note = note;
+        this.status = status;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
+        this.createby = createby;
+        this.updateby = updateby;
+    }
+
+    
     public Mission(Integer missionId, String startDate, String endDate, String place, String content, int status, Date createDate) {
         this.missionId = missionId;
         this.startDate = startDate;
@@ -170,20 +187,20 @@ public class Mission implements Serializable {
         this.missionWorkerList = missionWorkerList;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getCreateby() {
+        return createby;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCreateby(Integer createby) {
+        this.createby = createby;
     }
 
-    public User getUser1() {
-        return user1;
+    public Integer getUpdateby() {
+        return updateby;
     }
 
-    public void setUser1(User user1) {
-        this.user1 = user1;
+    public void setUpdateby(Integer updateby) {
+        this.updateby = updateby;
     }
 
     @Override

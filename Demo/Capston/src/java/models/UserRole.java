@@ -6,6 +6,7 @@
 package models;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -30,18 +31,26 @@ public class UserRole implements Serializable {
     protected UserRolePK userRolePK;
     @Column(name = "Status")
     private Boolean status;
-    @JoinColumn(name = "RoleId", referencedColumnName = "RoleId", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Role role;
-    @JoinColumn(name = "UserId", referencedColumnName = "UserId", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private User user;
+    
+    @Basic(optional = false)
+    @Column(name = "RoleId")
+    private Integer roleId;
+    
+    @Basic(optional = false)
+    @Column(name = "UserId")
+    private Integer userId;
 
     public UserRole() {
     }
 
     public UserRole(UserRolePK userRolePK) {
         this.userRolePK = userRolePK;
+    }
+
+    public UserRole(Boolean status, Integer roleId, Integer userId) {
+        this.status = status;
+        this.roleId = roleId;
+        this.userId = userId;
     }
 
     public UserRole(int roleId, int userId) {
@@ -64,20 +73,20 @@ public class UserRole implements Serializable {
         this.status = status;
     }
 
-    public Role getRole() {
-        return role;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     @Override

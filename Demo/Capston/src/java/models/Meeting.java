@@ -62,16 +62,19 @@ public class Meeting implements Serializable {
     @Basic(optional = false)
     @Column(name = "Status")
     private int status;
-    @JoinColumn(name = "RoomId", referencedColumnName = "RoomId")
-    @ManyToOne(optional = false)
-    private Room room;
-    @JoinColumn(name = "CreateBy", referencedColumnName = "UserId")
-    @ManyToOne(optional = false)
-    private User user;
-    @JoinColumn(name = "UpdateBy", referencedColumnName = "UserId")
-    @ManyToOne
-    private User user1;
-
+    
+    @Basic(optional = false)
+    @Column(name = "RoomId")
+    private Integer roomId;
+    
+    @Basic(optional = false)
+    @Column(name = "CreateBy")
+    private Integer createBy;
+    
+    @Basic(optional = false)
+    @Column(name = "UpdateBy")
+    private Integer updateBy;
+    
     public Meeting() {
     }
 
@@ -79,6 +82,21 @@ public class Meeting implements Serializable {
         this.meetingId = meetingId;
     }
 
+    public Meeting(Integer meetingId, String meetingName, Date startTime, Date endTime, String content, String note, Date createDate, Date updateDate, int status, Integer roomId, Integer createBy, Integer updateBy) {
+        this.meetingId = meetingId;
+        this.meetingName = meetingName;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.content = content;
+        this.note = note;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
+        this.status = status;
+        this.roomId = roomId;
+        this.createBy = createBy;
+        this.updateBy = updateBy;
+    }
+    
     public Meeting(Integer meetingId, String meetingName, Date startTime, Date endTime, Date createDate, int status) {
         this.meetingId = meetingId;
         this.meetingName = meetingName;
@@ -160,29 +178,31 @@ public class Meeting implements Serializable {
         this.status = status;
     }
 
-    public Room getRoom() {
-        return room;
+    public Integer getRoomId() {
+        return roomId;
     }
 
-    public void setRoom(Room room) {
-        this.room = room;
+    public void setRoomId(Integer roomId) {
+        this.roomId = roomId;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getCreateBy() {
+        return createBy;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCreateBy(Integer createBy) {
+        this.createBy = createBy;
     }
 
-    public User getUser1() {
-        return user1;
+    public Integer getUpdateBy() {
+        return updateBy;
     }
 
-    public void setUser1(User user1) {
-        this.user1 = user1;
+    public void setUpdateBy(Integer updateBy) {
+        this.updateBy = updateBy;
     }
+
+    
 
     @Override
     public int hashCode() {

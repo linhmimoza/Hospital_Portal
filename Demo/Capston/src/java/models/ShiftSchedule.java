@@ -55,15 +55,19 @@ public class ShiftSchedule implements Serializable {
     @Column(name = "UpdateDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
-    @JoinColumn(name = "DepartmentId", referencedColumnName = "DepartmentId")
-    @ManyToOne(optional = false)
-    private Department department;
-    @JoinColumn(name = "Createby", referencedColumnName = "UserId")
-    @ManyToOne(optional = false)
-    private User user;
-    @JoinColumn(name = "Updateby", referencedColumnName = "UserId")
-    @ManyToOne
-    private User user1;
+    
+    @Basic(optional = false)
+    @Column(name = "DepartmentId")
+    private Integer departmentId;
+    
+    @Basic(optional = false)
+    @Column(name = "Createby")
+    private Integer createby;
+    
+    @Basic(optional = false)
+    @Column(name = "Updateby")
+    private Integer updateby;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shiftSchedule")
     private List<ShiftDay> shiftDayList;
 
@@ -72,6 +76,18 @@ public class ShiftSchedule implements Serializable {
 
     public ShiftSchedule(Integer shiftScheduleId) {
         this.shiftScheduleId = shiftScheduleId;
+    }
+
+    public ShiftSchedule(Integer shiftScheduleId, String startDate, String endDate, int status, Date createDate, Date updateDate, Integer departmentId, Integer createby, Integer updateby) {
+        this.shiftScheduleId = shiftScheduleId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.status = status;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
+        this.departmentId = departmentId;
+        this.createby = createby;
+        this.updateby = updateby;
     }
 
     public ShiftSchedule(Integer shiftScheduleId, String startDate, int status, Date createDate) {
@@ -129,28 +145,28 @@ public class ShiftSchedule implements Serializable {
         this.updateDate = updateDate;
     }
 
-    public Department getDepartment() {
-        return department;
+    public Integer getDepartmentId() {
+        return departmentId;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getCreateby() {
+        return createby;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCreateby(Integer createby) {
+        this.createby = createby;
     }
 
-    public User getUser1() {
-        return user1;
+    public Integer getUpdateby() {
+        return updateby;
     }
 
-    public void setUser1(User user1) {
-        this.user1 = user1;
+    public void setUpdateby(Integer updateby) {
+        this.updateby = updateby;
     }
 
     public List<ShiftDay> getShiftDayList() {

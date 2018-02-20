@@ -50,12 +50,14 @@ public class Notification implements Serializable {
     @Basic(optional = false)
     @Column(name = "Status")
     private int status;
-    @JoinColumn(name = "CreateBy", referencedColumnName = "UserId")
-    @ManyToOne(optional = false)
-    private User user;
-    @JoinColumn(name = "UpdateBy", referencedColumnName = "UserId")
-    @ManyToOne
-    private User user1;
+
+    @Basic(optional = false)
+    @Column(name = "CreateBy")
+    private int createBy;
+
+    @Basic(optional = false)
+    @Column(name = "UpdateBy")
+    private int updateBy;
 
     public Notification() {
     }
@@ -64,6 +66,17 @@ public class Notification implements Serializable {
         this.notificationId = notificationId;
     }
 
+    public Notification(Integer notificationId, String notificationName, String content, Date createDate, Date updateDate, int status, int createBy, int updateBy) {
+        this.notificationId = notificationId;
+        this.notificationName = notificationName;
+        this.content = content;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
+        this.status = status;
+        this.createBy = createBy;
+        this.updateBy = updateBy;
+    }
+    
     public Notification(Integer notificationId, String notificationName, String content, Date createDate, int status) {
         this.notificationId = notificationId;
         this.notificationName = notificationName;
@@ -120,20 +133,20 @@ public class Notification implements Serializable {
         this.status = status;
     }
 
-    public User getUser() {
-        return user;
+    public int getCreateBy() {
+        return createBy;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCreateBy(int createBy) {
+        this.createBy = createBy;
     }
 
-    public User getUser1() {
-        return user1;
+    public int getUpdateBy() {
+        return updateBy;
     }
 
-    public void setUser1(User user1) {
-        this.user1 = user1;
+    public void setUpdateBy(int updateBy) {
+        this.updateBy = updateBy;
     }
 
     @Override
@@ -160,5 +173,5 @@ public class Notification implements Serializable {
     public String toString() {
         return "models.Notification[ notificationId=" + notificationId + " ]";
     }
-    
+
 }

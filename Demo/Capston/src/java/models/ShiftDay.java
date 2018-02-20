@@ -43,11 +43,13 @@ public class ShiftDay implements Serializable {
     @Basic(optional = false)
     @Column(name = "DayInWeek")
     private String dayInWeek;
+    
+    @Basic(optional = false)
+    @Column(name = "ShiftScheduleId")
+    private Integer shiftScheduleId;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shiftDay")
     private List<Shift> shiftList;
-    @JoinColumn(name = "ShiftScheduleId", referencedColumnName = "ShiftScheduleId")
-    @ManyToOne(optional = false)
-    private ShiftSchedule shiftSchedule;
 
     public ShiftDay() {
     }
@@ -56,10 +58,11 @@ public class ShiftDay implements Serializable {
         this.shiftDayID = shiftDayID;
     }
 
-    public ShiftDay(Integer shiftDayID, String shiftDay, String dayInWeek) {
+    public ShiftDay(Integer shiftDayID, String shiftDay, String dayInWeek, Integer shiftScheduleId) {
         this.shiftDayID = shiftDayID;
         this.shiftDay = shiftDay;
         this.dayInWeek = dayInWeek;
+        this.shiftScheduleId = shiftScheduleId;
     }
 
     public Integer getShiftDayID() {
@@ -94,12 +97,12 @@ public class ShiftDay implements Serializable {
         this.shiftList = shiftList;
     }
 
-    public ShiftSchedule getShiftSchedule() {
-        return shiftSchedule;
+    public Integer getShiftScheduleId() {
+        return shiftScheduleId;
     }
 
-    public void setShiftSchedule(ShiftSchedule shiftSchedule) {
-        this.shiftSchedule = shiftSchedule;
+    public void setShiftScheduleId(Integer shiftScheduleId) {
+        this.shiftScheduleId = shiftScheduleId;
     }
 
     @Override

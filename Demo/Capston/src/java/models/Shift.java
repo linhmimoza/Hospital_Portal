@@ -48,10 +48,11 @@ public class Shift implements Serializable {
     private String endTime;
     @Column(name = "Other")
     private String other;
-    @JoinColumn(name = "ShiftDayID", referencedColumnName = "ShiftDayID")
-    @ManyToOne(optional = false)
-    private ShiftDay shiftDay;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shift")
+    
+    @Basic(optional = false)
+    @Column(name = "ShiftDayID")
+    private Integer shiftDayID;
+    
     private List<ShiftWorker> shiftWorkerList;
 
     public Shift() {
@@ -61,11 +62,13 @@ public class Shift implements Serializable {
         this.shiftId = shiftId;
     }
 
-    public Shift(Integer shiftId, int shiftNO, String startTime, String endTime) {
+    public Shift(Integer shiftId, int shiftNO, String startTime, String endTime, Integer shiftDayID, String other) {
         this.shiftId = shiftId;
         this.shiftNO = shiftNO;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.shiftDayID = shiftDayID;
+        this.other = other;
     }
 
     public Integer getShiftId() {
@@ -108,12 +111,12 @@ public class Shift implements Serializable {
         this.other = other;
     }
 
-    public ShiftDay getShiftDay() {
-        return shiftDay;
+    public Integer getShiftDayID() {
+        return shiftDayID;
     }
 
-    public void setShiftDay(ShiftDay shiftDay) {
-        this.shiftDay = shiftDay;
+    public void setShiftDayID(Integer shiftDayID) {
+        this.shiftDayID = shiftDayID;
     }
 
     public List<ShiftWorker> getShiftWorkerList() {

@@ -34,14 +34,22 @@ public class ShiftWorker implements Serializable {
     @Basic(optional = false)
     @Column(name = "ShiftWorkerId")
     private Integer shiftWorkerId;
-    @JoinColumn(name = "ShiftId", referencedColumnName = "ShiftId")
-    @ManyToOne(optional = false)
-    private Shift shift;
-    @JoinColumn(name = "UserId", referencedColumnName = "UserId")
-    @ManyToOne(optional = false)
-    private User user;
+    
+    @Basic(optional = false)
+    @Column(name = "ShiftId")
+    private Integer shiftId;
+    
+    @Basic(optional = false)
+    @Column(name = "UserId")
+    private Integer userId;
 
     public ShiftWorker() {
+    }
+
+    public ShiftWorker(Integer shiftWorkerId, Integer shiftId, Integer userId) {
+        this.shiftWorkerId = shiftWorkerId;
+        this.shiftId = shiftId;
+        this.userId = userId;
     }
 
     public ShiftWorker(Integer shiftWorkerId) {
@@ -56,20 +64,20 @@ public class ShiftWorker implements Serializable {
         this.shiftWorkerId = shiftWorkerId;
     }
 
-    public Shift getShift() {
-        return shift;
+    public Integer getShiftId() {
+        return shiftId;
     }
 
-    public void setShift(Shift shift) {
-        this.shift = shift;
+    public void setShiftId(Integer shiftId) {
+        this.shiftId = shiftId;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     @Override

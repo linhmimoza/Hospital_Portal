@@ -76,9 +76,11 @@ public class User implements Serializable {
     private List<ShiftSchedule> shiftScheduleList1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<MissionWorker> missionWorkerList;
-    @JoinColumn(name = "DepartmentId", referencedColumnName = "DepartmentId")
-    @ManyToOne(optional = false)
-    private Department department;
+    
+    @Basic(optional = false)
+    @Column(name = "DepartmentId")
+    private Integer departmentId;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Meeting> meetingList;
     @OneToMany(mappedBy = "user1")
@@ -107,7 +109,7 @@ public class User implements Serializable {
         this.userId = userId;
     }
 
-    public User(Integer userId, String userName, String password, String email, String fullName, int sex, String dayOfBirth, String phone, String position, int status) {
+    public User(Integer userId, String userName, String password, String email, String fullName, int sex, String dayOfBirth, Integer departmentId, String phone, String position, String address, String certificate, int status) {
         this.userId = userId;
         this.userName = userName;
         this.password = password;
@@ -115,8 +117,11 @@ public class User implements Serializable {
         this.fullName = fullName;
         this.sex = sex;
         this.dayOfBirth = dayOfBirth;
+        this.departmentId = departmentId;
         this.phone = phone;
         this.position = position;
+        this.address = address;
+        this.certificate = certificate;
         this.status = status;
     }
 
@@ -248,12 +253,12 @@ public class User implements Serializable {
         this.missionWorkerList = missionWorkerList;
     }
 
-    public Department getDepartment() {
-        return department;
+    public Integer getDepartment() {
+        return departmentId;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setDepartment(Integer departmentId) {
+        this.departmentId = departmentId;
     }
 
     public List<Meeting> getMeetingList() {

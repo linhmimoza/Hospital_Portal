@@ -50,16 +50,19 @@ public class Article implements Serializable {
     @Basic(optional = false)
     @Column(name = "Link")
     private String link;
-    @JoinColumn(name = "CategoryId", referencedColumnName = "CategoryId")
-    @ManyToOne
-    private Category category;
-    @JoinColumn(name = "UploadBy", referencedColumnName = "UserId")
-    @ManyToOne(optional = false)
-    private User user;
-    @JoinColumn(name = "UpdateBy", referencedColumnName = "UserId")
-    @ManyToOne
-    private User user1;
-
+    
+    @Basic(optional = false)
+    @Column(name = "CategoryId")
+    private Integer categoryId;
+    
+    @Basic(optional = false)
+    @Column(name = "UploadBy")
+    private Integer uploadBy;
+    
+    @Basic(optional = false)
+    @Column(name = "UpdateBy")
+    private Integer updateBy;
+    
     public Article() {
     }
 
@@ -73,6 +76,18 @@ public class Article implements Serializable {
         this.uploadDate = uploadDate;
         this.status = status;
         this.link = link;
+    }
+
+    public Article(Integer articleId, String title, Date uploadDate, Date updateDate, int status, String link, Integer categoryId, Integer uploadBy, Integer updateBy) {
+        this.articleId = articleId;
+        this.title = title;
+        this.uploadDate = uploadDate;
+        this.updateDate = updateDate;
+        this.status = status;
+        this.link = link;
+        this.categoryId = categoryId;
+        this.uploadBy = uploadBy;
+        this.updateBy = updateBy;
     }
 
     public Integer getArticleId() {
@@ -123,28 +138,28 @@ public class Article implements Serializable {
         this.link = link;
     }
 
-    public Category getCategory() {
-        return category;
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getUploadBy() {
+        return uploadBy;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUploadBy(Integer uploadBy) {
+        this.uploadBy = uploadBy;
     }
 
-    public User getUser1() {
-        return user1;
+    public Integer getUpdateBy() {
+        return updateBy;
     }
 
-    public void setUser1(User user1) {
-        this.user1 = user1;
+    public void setUpdateBy(Integer updateBy) {
+        this.updateBy = updateBy;
     }
 
     @Override

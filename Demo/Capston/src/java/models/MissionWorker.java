@@ -34,18 +34,26 @@ public class MissionWorker implements Serializable {
     @Basic(optional = false)
     @Column(name = "MissionWorkerId")
     private Integer missionWorkerId;
-    @JoinColumn(name = "MissionId", referencedColumnName = "MissionId")
-    @ManyToOne(optional = false)
-    private Mission mission;
-    @JoinColumn(name = "UserId", referencedColumnName = "UserId")
-    @ManyToOne(optional = false)
-    private User user;
-
+    
+    @Basic(optional = false)
+    @Column(name = "MissionId")
+    private Integer missionId;
+    
+    @Basic(optional = false)
+    @Column(name = "UserId")
+    private Integer userId;
+   
     public MissionWorker() {
     }
 
     public MissionWorker(Integer missionWorkerId) {
         this.missionWorkerId = missionWorkerId;
+    }
+
+    public MissionWorker(Integer missionWorkerId, Integer missionId, Integer userId) {
+        this.missionWorkerId = missionWorkerId;
+        this.missionId = missionId;
+        this.userId = userId;
     }
 
     public Integer getMissionWorkerId() {
@@ -56,21 +64,21 @@ public class MissionWorker implements Serializable {
         this.missionWorkerId = missionWorkerId;
     }
 
-    public Mission getMission() {
-        return mission;
+    public Integer getMissionId() {
+        return missionId;
     }
 
-    public void setMission(Mission mission) {
-        this.mission = mission;
+    public void setMissionId(Integer missionId) {
+        this.missionId = missionId;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }   
 
     @Override
     public int hashCode() {

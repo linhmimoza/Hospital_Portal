@@ -52,9 +52,10 @@ public class Category implements Serializable {
         this.categoryId = categoryId;
     }
 
-    public Category(Integer categoryId, String categoryName, int status) {
+    public Category(Integer categoryId, String categoryName, String description, int status) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
+        this.description = description;
         this.status = status;
     }
 
@@ -122,5 +123,5 @@ public class Category implements Serializable {
     public String toString() {
         return "models.Category[ categoryId=" + categoryId + " ]";
     }
-    
+
 }
