@@ -23,10 +23,12 @@ public class UserDAO implements Serializable {
 
         List<User> listUsers = new ArrayList<>();
         try {
+              System.out.println("test");
             con = DBUtils.DBUtils.makeConnection();
+                          
             if (con != null) {
                 String sql = "Select UserId, UserName, Password, Avatar, Email, FullName, Sex, DayOfBirth, "
-                        + "DepartmentId, Phone, Position, Address, Certificate, Status from User";
+                        + "DepartmentId, Phone, Position, Address, Certificate, Status from [User]";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {

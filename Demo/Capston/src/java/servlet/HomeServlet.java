@@ -5,12 +5,19 @@
  */
 package servlet;
 
+import dao.UserDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.User;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
+
+
 
 /**
  *
@@ -30,17 +37,21 @@ public class HomeServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try{
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet HomeServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet HomeServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+ 
+            UserDAO dao = new UserDAO();
+                            System.out.println("aaaaa");
+            List<User> listUsers = dao.getUsers();
+            JSONArray arrayObj= new JSONArray();
+            for (User user:listUsers){
+                JSONObject userObj= JSONObject.fromObject(user);
+                arrayObj.add(userObj);
+            }
+           System.out.println(arrayObj.toString());
+        }
+        catch(Exception e){
+            
         }
     }
 
