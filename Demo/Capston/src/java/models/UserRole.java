@@ -39,12 +39,19 @@ public class UserRole implements Serializable {
     @Basic(optional = false)
     @Column(name = "UserId")
     private Integer userId;
-
+    private  String roleName;
     public UserRole() {
     }
 
     public UserRole(UserRolePK userRolePK) {
         this.userRolePK = userRolePK;
+    }
+
+    public UserRole(Boolean status, Integer roleId, Integer userId, String roleName) {
+        this.status = status;
+        this.roleId = roleId;
+        this.userId = userId;
+        this.roleName = roleName;
     }
 
     public UserRole(Boolean status, Integer roleId, Integer userId) {
@@ -63,6 +70,14 @@ public class UserRole implements Serializable {
 
     public void setUserRolePK(UserRolePK userRolePK) {
         this.userRolePK = userRolePK;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public Boolean getStatus() {

@@ -109,21 +109,25 @@ public class User implements Serializable {
         this.userId = userId;
     }
 
-    public User(Integer userId, String userName, String password, String email, String fullName, int sex, String dayOfBirth, Integer departmentId, String phone, String position, String address, String certificate, int status) {
+    public User(Integer userId, String userName, String avatar, String email, String fullName, int sex, String dayOfBirth, String phone, String position, String address, String certificate, int status, Integer departmentId) {
         this.userId = userId;
         this.userName = userName;
-        this.password = password;
+        this.avatar = avatar;
         this.email = email;
         this.fullName = fullName;
         this.sex = sex;
         this.dayOfBirth = dayOfBirth;
-        this.departmentId = departmentId;
         this.phone = phone;
         this.position = position;
         this.address = address;
         this.certificate = certificate;
         this.status = status;
+        this.departmentId = departmentId;
     }
+
+
+
+ 
 
     public Integer getUserId() {
         return userId;

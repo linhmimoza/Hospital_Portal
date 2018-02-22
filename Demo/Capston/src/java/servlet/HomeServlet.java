@@ -46,6 +46,7 @@ public class HomeServlet extends HttpServlet {
             JSONArray arrayObj= new JSONArray();
             for (User user:listUsers){
                 JSONObject userObj= JSONObject.fromObject(user);
+                     System.out.println(userObj.toString());
                 arrayObj.add(userObj);
             }
            System.out.println(arrayObj.toString());
