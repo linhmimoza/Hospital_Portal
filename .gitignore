@@ -5,4 +5,14 @@
 /Trunk/Source Code/Hospital/build/
 /Demo/Capston/dist/
 /Trunk/Source Code/HP/target/
+<<<<<<< HEAD
 /Front-end template/nbproject/private/
+=======
+/TestRestful/nbproject/private/
+/TestRestful/build/
+/TestRestful/dist/
+/Demo/test/nbproject/private/
+/Demo/Test/nbproject/private/
+/Demo/Test/build/
+/Demo/Test/dist/
+>>>>>>> c2682eb5cec9c3dd63bc411d7e795036cf33ed4c

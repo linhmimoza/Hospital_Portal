@@ -18,7 +18,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+<<<<<<< HEAD
 
+=======
+//import net.sf.json.JSONArray;
+//import net.sf.json.JSONObject;
+>>>>>>> c2682eb5cec9c3dd63bc411d7e795036cf33ed4c
 
 /**
  * REST Web Service
@@ -47,7 +52,16 @@ public class UserResource {
     public List<User> getAllUser() throws SQLException, ClassNotFoundException {
     UserDAO dao = new UserDAO();
             List<User> listUsers = dao.getUsers();
+<<<<<<< HEAD
           
+=======
+//            JSONArray arrayObj= new JSONArray();
+//            for (User user:listUsers){
+//                JSONObject userObj= JSONObject.fromObject(user);
+//                     System.out.println(userObj.toString());
+//                arrayObj.add(userObj);
+//            }
+>>>>>>> c2682eb5cec9c3dd63bc411d7e795036cf33ed4c
             return listUsers;
     }
 @Path("/checkLogin")
