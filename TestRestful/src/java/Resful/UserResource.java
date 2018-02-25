@@ -16,6 +16,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 
@@ -43,14 +44,26 @@ public class UserResource {
      @Path("/checkLogin")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<User> checkLogin() throws SQLException, ClassNotFoundException {
+    public User checkLogin(
+    @QueryParam("username") String username ,
+    @QueryParam("password") String password) throws SQLException, ClassNotFoundException {
+    UserDAO dao = new UserDAO();
+                            System.out.println("aaaaa");
+          User user = dao.getLoginUsers(username, password);
+          
+            return user;
+    }
+
+     @Path("/getListUser")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<User> getListUser() throws SQLException, ClassNotFoundException {
     UserDAO dao = new UserDAO();
                             System.out.println("aaaaa");
             List<User> listUsers = dao.getUsers();
           
             return listUsers;
     }
-
     /**
      * PUT method for updating or creating an instance of UserResource
      * @param content representation for the resource
