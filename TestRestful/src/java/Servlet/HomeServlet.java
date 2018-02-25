@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Models.User;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+//import net.sf.json.JSONArray;
+//import net.sf.json.JSONObject;
 
 
 
@@ -43,13 +43,13 @@ public class HomeServlet extends HttpServlet {
             UserDAO dao = new UserDAO();
                             System.out.println("aaaaa");
             List<User> listUsers = dao.getUsers();
-            JSONArray arrayObj= new JSONArray();
-            for (User user:listUsers){
-                JSONObject userObj= JSONObject.fromObject(user);
-                     System.out.println(userObj.toString());
-                arrayObj.add(userObj);
-            }
-           System.out.println(arrayObj.toString());
+//            JSONArray arrayObj= new JSONArray();
+//            for (User user:listUsers){
+//                JSONObject userObj= JSONObject.fromObject(user);
+//                     System.out.println(userObj.toString());
+//                arrayObj.add(userObj);
+//            }
+//           System.out.println(arrayObj.toString());
         }
         catch(Exception e){
             

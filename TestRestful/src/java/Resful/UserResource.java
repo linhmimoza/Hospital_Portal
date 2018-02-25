@@ -17,8 +17,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+//import net.sf.json.JSONArray;
+//import net.sf.json.JSONObject;
 
 /**
  * REST Web Service
@@ -48,12 +48,12 @@ public class UserResource {
     UserDAO dao = new UserDAO();
                             System.out.println("aaaaa");
             List<User> listUsers = dao.getUsers();
-            JSONArray arrayObj= new JSONArray();
-            for (User user:listUsers){
-                JSONObject userObj= JSONObject.fromObject(user);
-                     System.out.println(userObj.toString());
-                arrayObj.add(userObj);
-            }
+//            JSONArray arrayObj= new JSONArray();
+//            for (User user:listUsers){
+//                JSONObject userObj= JSONObject.fromObject(user);
+//                     System.out.println(userObj.toString());
+//                arrayObj.add(userObj);
+//            }
             return listUsers;
     }
 
