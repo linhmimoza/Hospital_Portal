@@ -10,6 +10,14 @@
 <project name="TestRestful" default="default" basedir=".">
     <description>Builds, tests, and runs the project TestRestful.</description>
     <import file="nbproject/build-impl.xml"/>
+<target name="-post-jar">
+    <echo>Copying over extra jars into PROJECTNAME</echo>
+    <copy todir="./dist/lib">
+        <!-- put in order from least important to most important to prevent file overwrites -->
+        <fileset dir="path-to-other-nb-project/dist/lib"></fileset>
+        <fileset dir="path-to-second-nb-project/dist/lib"></fileset>
+    </copy>
+</target>
     <!--
 
     There exist several targets which are by default empty and which can be 

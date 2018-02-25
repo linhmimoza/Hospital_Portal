@@ -16,9 +16,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+
 
 /**
  * REST Web Service
@@ -41,22 +41,26 @@ public class UserResource {
      * Retrieves representation of an instance of Resful.UserResource
      * @return an instance of java.lang.String
      */
-     @Path("/checkLogin")
+     @Path("/getAllUser")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<User> checkLogin() throws SQLException, ClassNotFoundException {
+    public List<User> getAllUser() throws SQLException, ClassNotFoundException {
     UserDAO dao = new UserDAO();
-                            System.out.println("aaaaa");
             List<User> listUsers = dao.getUsers();
-            JSONArray arrayObj= new JSONArray();
-            for (User user:listUsers){
-                JSONObject userObj= JSONObject.fromObject(user);
-                     System.out.println(userObj.toString());
-                arrayObj.add(userObj);
-            }
+          
             return listUsers;
     }
-
+@Path("/checkLogin")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public User checkLogin(
+    @QueryParam("username") String username,
+    @QueryParam("password") String password)
+    throws SQLException, ClassNotFoundException {
+    UserDAO dao = new UserDAO();                  
+            User user = dao.getLoginUsers(username, password);   
+            return user;
+    }
     /**
      * PUT method for updating or creating an instance of UserResource
      * @param content representation for the resource
