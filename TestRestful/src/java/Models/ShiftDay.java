@@ -65,6 +65,14 @@ public class ShiftDay implements Serializable {
         this.shiftScheduleId = shiftScheduleId;
     }
 
+    public ShiftDay(Integer shiftDayID, String shiftDay, String dayInWeek, Integer shiftScheduleId, List<Shift> shiftList) {
+        this.shiftDayID = shiftDayID;
+        this.shiftDay = shiftDay;
+        this.dayInWeek = dayInWeek;
+        this.shiftScheduleId = shiftScheduleId;
+        this.shiftList = shiftList;
+    }
+
     public Integer getShiftDayID() {
         return shiftDayID;
     }

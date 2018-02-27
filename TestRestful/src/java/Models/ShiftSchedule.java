@@ -90,6 +90,19 @@ public class ShiftSchedule implements Serializable {
         this.updateby = updateby;
     }
 
+    public ShiftSchedule(Integer shiftScheduleId, String startDate, String endDate, int status, Date createDate, Date updateDate, Integer departmentId, Integer createby, Integer updateby, List<ShiftDay> shiftDayList) {
+        this.shiftScheduleId = shiftScheduleId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.status = status;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
+        this.departmentId = departmentId;
+        this.createby = createby;
+        this.updateby = updateby;
+        this.shiftDayList = shiftDayList;
+    }
+
     public ShiftSchedule(Integer shiftScheduleId, String startDate, int status, Date createDate) {
         this.shiftScheduleId = shiftScheduleId;
         this.startDate = startDate;

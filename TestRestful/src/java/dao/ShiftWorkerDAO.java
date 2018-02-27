@@ -56,9 +56,7 @@ public class ShiftWorkerDAO implements Serializable {
                     listShiftWorkers.add(shiftWorker);
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ShiftWorkerDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(ShiftWorkerDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
          closeConnection();
@@ -81,9 +79,7 @@ public List<ShiftWorker> getWorkersByShiftId(int shiftId)  {
                     listShiftWorkers.add(shiftWorker);
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ShiftWorkerDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(ShiftWorkerDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
          closeConnection();

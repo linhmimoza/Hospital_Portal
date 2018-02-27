@@ -14,16 +14,36 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import Models.Category;
+import Models.Shift;
 import Models.ShiftDay;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class ShiftDayDAO implements Serializable {
+ Connection con = null;
+    PreparedStatement stm = null;
+    ResultSet rs = null;
 
-    public List<ShiftDay> getShiftDays() throws SQLException, ClassNotFoundException {
-        Connection con = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
+    public void closeConnection() {
 
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    public List<ShiftDay> getShiftDays()  {
+ 
         List<ShiftDay> listShiftDays = new ArrayList<>();
         try {
             con = DBUtils.DBUtils.makeConnection();
@@ -35,23 +55,45 @@ public class ShiftDayDAO implements Serializable {
                     Integer id = rs.getInt("ShiftDayId");
                     String shiftDay = rs.getString("ShiftDay");
                     String dayInWeek = rs.getString("DayInWeek");
-                    Integer shiftScheduleId = rs.getInt("ShiftScheduleId");                  
-                    ShiftDay shiftDayTable = new ShiftDay(id, shiftDay, dayInWeek, shiftScheduleId);
+                    Integer shiftScheduleId = rs.getInt("ShiftScheduleId"); 
+                    ShiftDAO dao=new ShiftDAO();
+                    List<Shift> listShifts=dao.getShiftByDateId(id);
+                    ShiftDay shiftDayTable = new ShiftDay(id, shiftDay, dayInWeek, shiftScheduleId,listShifts);
                     listShiftDays.add(shiftDayTable);
                 }
             }
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (con != null) {
-                con.close();
-            }
+        } catch (ClassNotFoundException | SQLException ex) {
+         Logger.getLogger(ShiftDayDAO.class.getName()).log(Level.SEVERE, null, ex);
+     } finally {
+     closeConnection();
         }
         return listShiftDays;
     }
-    
+    public List<ShiftDay> getShiftDaysBySchedulerId(int SchedulerId)  {
+ 
+        List<ShiftDay> listShiftDays = new ArrayList<>();
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "Select ShiftDayId, ShiftDay, DayInWeek, ShiftScheduleId from ShiftDay where ShiftScheduleId="+SchedulerId;
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    Integer id = rs.getInt("ShiftDayId");
+                    String shiftDay = rs.getString("ShiftDay");
+                    String dayInWeek = rs.getString("DayInWeek");
+                    Integer shiftScheduleId = rs.getInt("ShiftScheduleId"); 
+                    ShiftDAO dao=new ShiftDAO();
+                    List<Shift> listShifts=dao.getShiftByDateId(id);
+                    ShiftDay shiftDayTable = new ShiftDay(id, shiftDay, dayInWeek, shiftScheduleId,listShifts);
+                    listShiftDays.add(shiftDayTable);
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+         Logger.getLogger(ShiftDayDAO.class.getName()).log(Level.SEVERE, null, ex);
+     } finally {
+     closeConnection();
+        }
+        return listShiftDays;
+    }
 }

@@ -13,15 +13,35 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import Models.Category;
+import Models.ShiftDay;
 import Models.ShiftSchedule;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ShiftScheduleDAO implements Serializable {
+ Connection con = null;
+    PreparedStatement stm = null;
+    ResultSet rs = null;
 
-    public List<ShiftSchedule> getShiftSchedules() throws SQLException, ClassNotFoundException {
-        Connection con = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
+    public void closeConnection() {
+
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    public List<ShiftSchedule> getShiftSchedules()  {
+   
 
         List<ShiftSchedule> listShiftSchedules = new ArrayList<>();
         try {
@@ -41,20 +61,16 @@ public class ShiftScheduleDAO implements Serializable {
                     Integer status = rs.getInt("Status");
                     Integer createby = rs.getInt("Createby");
                     Integer updateby = rs.getInt("Updateby");
-                    ShiftSchedule shiftSchedule = new ShiftSchedule(id, startDate, endDate, status, createDate, updateDate, departmentId, createby, updateby);
+                    ShiftDayDAO dao= new ShiftDayDAO();
+                    List<ShiftDay> listShiftDays=dao.getShiftDaysBySchedulerId(id);
+                    ShiftSchedule shiftSchedule = new ShiftSchedule(id, startDate, endDate, status, createDate, updateDate, departmentId, createby, updateby,listShiftDays);
                     listShiftSchedules.add(shiftSchedule);
                 }
             }
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (con != null) {
-                con.close();
-            }
+        } catch (ClassNotFoundException | SQLException ex) {
+         Logger.getLogger(ShiftScheduleDAO.class.getName()).log(Level.SEVERE, null, ex);
+     } finally {
+      closeConnection();
         }
         return listShiftSchedules;
     }
