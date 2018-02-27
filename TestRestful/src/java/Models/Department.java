@@ -43,10 +43,10 @@ public class Department implements Serializable {
     @Basic(optional = false)
     @Column(name = "Status")
     private int status;
+    private int quantity;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
     private List<ShiftSchedule> shiftScheduleList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
-    private List<User> userList;
+  
 
     public Department() {
     }
@@ -66,6 +66,22 @@ public class Department implements Serializable {
         this.departmentName = departmentName;
         this.description = description;
         this.status = status;
+    }
+
+    public Department(Integer departmentId, String departmentName, String description, int status, int quantity) {
+        this.departmentId = departmentId;
+        this.departmentName = departmentName;
+        this.description = description;
+        this.status = status;
+        this.quantity = quantity;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public Integer getDepartmentId() {
@@ -108,13 +124,7 @@ public class Department implements Serializable {
         this.shiftScheduleList = shiftScheduleList;
     }
 
-    public List<User> getUserList() {
-        return userList;
-    }
-
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
-    }
+  
 
     @Override
     public int hashCode() {

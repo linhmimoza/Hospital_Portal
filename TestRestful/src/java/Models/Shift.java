@@ -54,7 +54,7 @@ public class Shift implements Serializable {
     private Integer shiftDayID;
     
     private List<ShiftWorker> shiftWorkerList;
-
+    
     public Shift() {
     }
 
@@ -69,6 +69,16 @@ public class Shift implements Serializable {
         this.endTime = endTime;
         this.shiftDayID = shiftDayID;
         this.other = other;
+    }
+
+    public Shift(Integer shiftId, int shiftNO, String startTime, String endTime, Integer shiftDayID, String other, List<ShiftWorker> shiftWorkerList) {
+        this.shiftId = shiftId;
+        this.shiftNO = shiftNO;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.other = other;
+        this.shiftDayID = shiftDayID;
+        this.shiftWorkerList = shiftWorkerList;
     }
 
     public Integer getShiftId() {
