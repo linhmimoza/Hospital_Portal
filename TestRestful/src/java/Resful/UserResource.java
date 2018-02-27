@@ -14,6 +14,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
@@ -47,8 +48,7 @@ public class UserResource {
     public User checkLogin(
     @QueryParam("username") String username ,
     @QueryParam("password") String password) throws SQLException, ClassNotFoundException {
-    UserDAO dao = new UserDAO();
-                            System.out.println("aaaaa");
+    UserDAO dao = new UserDAO();                    
           User user = dao.getLoginUsers(username, password);
           
             return user;
@@ -59,17 +59,22 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<User> getListUser() throws SQLException, ClassNotFoundException {
     UserDAO dao = new UserDAO();
-                            System.out.println("aaaaa");
             List<User> listUsers = dao.getUsers();
           
             return listUsers;
     }
-    /**
-     * PUT method for updating or creating an instance of UserResource
-     * @param content representation for the resource
-     */
-    @PUT
-    @Consumes(javax.ws.rs.core.MediaType.TEXT_PLAIN)
-    public void putText(String content) {
-    }
+   @Path("/createUser")
+   @POST
+   @Produces()
+   public boolean createUser(User user){
+     UserDAO dao=new UserDAO();   
+     return dao.createUser(user);
+   }
+   @Path("/updateUser")
+   @PUT
+   @Produces()
+   public boolean updateUser(User user){
+     UserDAO dao=new UserDAO();   
+     return dao.createUser(user);
+   }
 }

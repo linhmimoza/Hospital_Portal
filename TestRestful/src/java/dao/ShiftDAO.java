@@ -14,14 +14,36 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import Models.Shift;
+import Models.ShiftWorker;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class ShiftDAO implements Serializable {
 
-    public List<Shift> getShifts() throws SQLException, ClassNotFoundException {
-        Connection con = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
+    Connection con = null;
+    PreparedStatement stm = null;
+    ResultSet rs = null;
+
+    public void closeConnection() {
+
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    public List<Shift> getShifts() {
+      
 
         List<Shift> listShifts = new ArrayList<>();
         try {
@@ -36,21 +58,19 @@ public class ShiftDAO implements Serializable {
                     String startTime = rs.getString("StartTime");
                     String endTime = rs.getString("EndTime");
                     Integer shiftDayID = rs.getInt("ShiftDayID");
-                    String other = rs.getString("Other");                 
-                    Shift shift = new Shift(id, shiftNO, startTime, endTime, shiftDayID, other);
+                    String other = rs.getString("Other");       
+                    ShiftWorkerDAO dao=new ShiftWorkerDAO();
+                    List<ShiftWorker> listShiftWorkers=dao.getWorkersByShiftId(id);
+                    Shift shift = new Shift(id, shiftNO, startTime, endTime, shiftDayID, other,listShiftWorkers);
                     listShifts.add(shift);
                 }
             }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ShiftDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ShiftDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (con != null) {
-                con.close();
-            }
+   closeConnection();
         }
         return listShifts;
     }

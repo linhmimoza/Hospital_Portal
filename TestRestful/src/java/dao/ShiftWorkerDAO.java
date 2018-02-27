@@ -12,16 +12,35 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import Models.Category;
 import Models.ShiftWorker;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ShiftWorkerDAO implements Serializable {
 
-    public List<ShiftWorker> getShiftWorkers() throws SQLException, ClassNotFoundException {
-        Connection con = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
+    Connection con = null;
+    PreparedStatement stm = null;
+    ResultSet rs = null;
 
+    public void closeConnection() {
+
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    public List<ShiftWorker> getShiftWorkers()  {
+     
         List<ShiftWorker> listShiftWorkers = new ArrayList<>();
         try {
             con = DBUtils.DBUtils.makeConnection();
@@ -37,18 +56,38 @@ public class ShiftWorkerDAO implements Serializable {
                     listShiftWorkers.add(shiftWorker);
                 }
             }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ShiftWorkerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ShiftWorkerDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (con != null) {
-                con.close();
-            }
+         closeConnection();
         }
         return listShiftWorkers;
     }
-
+public List<ShiftWorker> getWorkersByShiftId(int shiftId)  {
+     
+        List<ShiftWorker> listShiftWorkers = new ArrayList<>();
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "Select ShiftWorkerId, UserId from ShiftWorker Where ShiftId="+shiftId;
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    Integer id = rs.getInt("ShiftWorkerId");
+                    Integer userId = rs.getInt("UserId");
+                    ShiftWorker shiftWorker = new ShiftWorker(id, shiftId,userId);
+                    listShiftWorkers.add(shiftWorker);
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ShiftWorkerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ShiftWorkerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+         closeConnection();
+        }
+        return listShiftWorkers;
+    }
 }

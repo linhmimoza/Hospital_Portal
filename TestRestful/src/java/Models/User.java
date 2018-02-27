@@ -126,6 +126,24 @@ public class User implements Serializable {
         this.role=role;
     }
 
+    public User(String userName, String password, String avatar, String email, String fullName, int sex, String dayOfBirth, String phone, String position, String address, String certificate, int status, int role, Integer departmentId) {
+        this.userName = userName;
+        this.password = password;
+        this.avatar = avatar;
+        this.email = email;
+        this.fullName = fullName;
+        this.sex = sex;
+        this.dayOfBirth = dayOfBirth;
+        this.phone = phone;
+        this.position = position;
+        this.address = address;
+        this.certificate = certificate;
+        this.status = status;
+        this.role = role;
+        this.departmentId = departmentId;
+    }
+
+    
     public int getRole() {
         return role;
     }
