@@ -30,6 +30,8 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(Resful.DepartmentResource.class);
+        resources.add(Resful.NotificationResource.class);
+        resources.add(Resful.RoomResource.class);
         resources.add(Resful.ShiftSchedulerResource.class);
         resources.add(Resful.UserResource.class);
     }

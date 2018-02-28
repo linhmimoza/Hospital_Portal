@@ -48,9 +48,9 @@ public class UserDAO implements Serializable {
             con = DBUtils.DBUtils.makeConnection();
 
             if (con != null) {
-                String sql = "Select UserId, UserName, Avatar, Email, FullName, Sex, DayOfBirth,RoleId, "
-                        + "DepartmentId, Phone, Position, Address, Certificate, Status from [User] u"
-                        + " where u.Status=1";
+                String sql = "Select UserId, UserName, Avatar, Email, FullName, Sex, DayOfBirth,u.RoleId, r.RoleName"
+                        + ",DepartmentId, Phone, Position, Address, Certificate, Status from [User] u, Role r\n"
+                        + "where u.Status<2 and r.RoleId=u.RoleId";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -66,15 +66,14 @@ public class UserDAO implements Serializable {
                     String position = rs.getString("Position");
                     String address = rs.getString("Address");
                     String certificate = rs.getString("Certificate");
+                    String roleName = rs.getString("RoleName");
                     Integer status = rs.getInt("Status");
                     Integer roleId = rs.getInt("RoleId");
-                    User user = new User(id, roleId, userName, avatar, email, fullName, sex, dayOfBirth, phone, position, address, certificate, status, departmentId);
-                    listUsers.add(user);
+                    User user = new User(id, userName, avatar, email, fullName, sex, dayOfBirth, phone, position, address, certificate, status, roleId, roleName, departmentId);
+                            listUsers.add(user);
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             closeConnection();
@@ -94,9 +93,7 @@ public class UserDAO implements Serializable {
                     result = rs.getInt(1);
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             closeConnection();
@@ -112,9 +109,9 @@ public class UserDAO implements Serializable {
             con = DBUtils.DBUtils.makeConnection();
 
             if (con != null) {
-                String sql = "Select UserId, UserName, Avatar, Email, FullName, Sex, DayOfBirth,RoleId,DepartmentId, \n"
-                        + "Phone, Position, Address, Certificate, Status from [User] u\n"
-                        + "where u.UserName='" + name + "' and u.Password='" + pass + "' and u.Status=1";
+                String sql = "Select UserId, UserName, Avatar, Email, FullName, Sex, DayOfBirth,u.RoleId, r.RoleName,DepartmentId, \n"
+                        + "Phone, Position, Address, Certificate, Status from [User] u,Role r\n"
+                        + "where u.UserName='" + name + "' and u.Password='" + pass + "' and u.Status=1 and r.RoleId=u.RoleId";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 if (rs.next()) {
@@ -132,14 +129,12 @@ public class UserDAO implements Serializable {
                     String certificate = rs.getString("Certificate");
                     Integer status = rs.getInt("Status");
                     Integer roleId = rs.getInt("RoleId");
-
-                    user = new User(id, roleId, userName, avatar, email, fullName, sex, dayOfBirth, phone, position, address, certificate, status, departmentId);
-
+ String roleName = rs.getString("RoleName");
+                     user = new User(id, userName, avatar, email, fullName, sex, dayOfBirth, phone, position, address, certificate, status, roleId, roleName, departmentId);
+                   
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             closeConnection();
@@ -157,7 +152,7 @@ public class UserDAO implements Serializable {
                         + "values('" + user.getAddress() + "','" + user.getAvatar() + "','" + user.getCertificate() + "',"
                         + "'" + user.getDayOfBirth() + "'," + user.getDepartmentId() + ","
                         + "'" + user.getEmail() + "','" + user.getFullName() + "','" + user.getPassword() + "',"
-                        + "'" + user.getPhone() + "','" + user.getPosition() + "'," + user.getRole() + "," + user.getSex() + ","
+                        + "'" + user.getPhone() + "','" + user.getPosition() + "'," + user.getRoleId() + "," + user.getSex() + ","
                         + "" + user.getStatus() + ",'" + user.getUserName() + "')";
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
@@ -178,10 +173,10 @@ public class UserDAO implements Serializable {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
                 String sql = "UPDATE [User]\n"
-                        + "SET Address = '"+user.getAddress()+"', Avatar='"+user.getAvatar()+"', Certificate='"+user.getCertificate()+"', \n"
-                        + "DayOfBirth='"+user.getDayOfBirth()+"',DepartmentId="+user.getDepartmentId()+",Email='"+user.getEmail()+"',FullName='"+user.getFullName()+"',\n"
-                        + "Password='"+user.getPassword()+"',Phone='"+user.getPhone()+"',Position='"+user.getPosition()+"',RoleId="+user.getRole()+",Sex="+user.getSex()+",Status="+user.getStatus()+"\n"
-                        + "WHERE UserId="+user.getUserId();
+                        + "SET Address = '" + user.getAddress() + "', Avatar='" + user.getAvatar() + "', Certificate='" + user.getCertificate() + "', \n"
+                        + "DayOfBirth='" + user.getDayOfBirth() + "',DepartmentId=" + user.getDepartmentId() + ",Email='" + user.getEmail() + "',FullName='" + user.getFullName() + "',\n"
+                        + "Password='" + user.getPassword() + "',Phone='" + user.getPhone() + "',Position='" + user.getPosition() + "',RoleId=" + user.getRoleId() + ",Sex=" + user.getSex() + ",Status=" + user.getStatus() + "\n"
+                        + "WHERE UserId=" + user.getUserId();
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
 

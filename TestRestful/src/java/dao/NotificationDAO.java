@@ -15,20 +15,41 @@ import java.util.ArrayList;
 import java.util.List;
 import Models.Category;
 import Models.Notification;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class NotificationDAO implements Serializable {
 
-    public List<Notification> getNotifications() throws SQLException, ClassNotFoundException {
-        Connection con = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
+    Connection con = null;
+    PreparedStatement stm = null;
+    ResultSet rs = null;
+
+    public void closeConnection() {
+
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public List<Notification> getNotifications() {
 
         List<Notification> listNotifications = new ArrayList<>();
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                String sql = "Select NotificationId, NotificationName, Content, CreateDate, CreateBy, "
-                        + "UpdateDate, UpdateBy, Status from Notification";
+                String sql = "Select NotificationId, NotificationName, Content, CreateDate, CreateBy,UpdateDate,"
+                        + "UpdateBy, Status from Notification where Status=2";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -39,24 +60,19 @@ public class NotificationDAO implements Serializable {
                     Integer createBy = rs.getInt("CreateBy");
                     Integer updateBy = rs.getInt("UpdateBy");
                     Date updateDate = rs.getDate("UpdateDate");
-                    Integer status = rs.getInt("Status");                  
+                    Integer status = rs.getInt("Status");
                     Notification notification = new Notification(id, notificationName, content, createDate, updateDate, createBy, updateBy, status);
                     listNotifications.add(notification);
                 }
             }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(NotificationDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(NotificationDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (con != null) {
-                con.close();
-            }
+            closeConnection();
         }
         return listNotifications;
     }
 
-    
 }

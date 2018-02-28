@@ -70,7 +70,8 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "Status")
     private int status;
-    private int role;
+    private int roleId;
+    private String roleName;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<ShiftSchedule> shiftScheduleList;
@@ -109,7 +110,7 @@ public class User implements Serializable {
         this.userId = userId;
     }
 
-    public User(Integer userId,int role, String userName, String avatar, String email, String fullName, int sex, String dayOfBirth, String phone, String position, String address, String certificate, int status, Integer departmentId) {
+    public User(Integer userId,int roleId, String userName, String avatar, String email, String fullName, int sex, String dayOfBirth, String phone, String position, String address, String certificate, int status, Integer departmentId) {
         this.userId = userId;
         this.userName = userName;
         this.avatar = avatar;
@@ -123,10 +124,28 @@ public class User implements Serializable {
         this.certificate = certificate;
         this.status = status;
         this.departmentId = departmentId;
-        this.role=role;
+        this.roleId=roleId;
     }
 
-    public User(String userName, String password, String avatar, String email, String fullName, int sex, String dayOfBirth, String phone, String position, String address, String certificate, int status, int role, Integer departmentId) {
+    public User(Integer userId, String userName, String avatar, String email, String fullName, int sex, String dayOfBirth, String phone, String position, String address, String certificate, int status, int roleId, String roleName, Integer departmentId) {
+        this.userId = userId;
+        this.userName = userName;
+        this.avatar = avatar;
+        this.email = email;
+        this.fullName = fullName;
+        this.sex = sex;
+        this.dayOfBirth = dayOfBirth;
+        this.phone = phone;
+        this.position = position;
+        this.address = address;
+        this.certificate = certificate;
+        this.status = status;
+        this.roleId = roleId;
+        this.roleName = roleName;
+        this.departmentId = departmentId;
+    }
+
+    public User(String userName, String password, String avatar, String email, String fullName, int sex, String dayOfBirth, String phone, String position, String address, String certificate, int status, int roleId, Integer departmentId) {
         this.userName = userName;
         this.password = password;
         this.avatar = avatar;
@@ -139,17 +158,25 @@ public class User implements Serializable {
         this.address = address;
         this.certificate = certificate;
         this.status = status;
-        this.role = role;
+        this.roleId = roleId;
         this.departmentId = departmentId;
     }
 
-    
-    public int getRole() {
-        return role;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRole(int role) {
-        this.role = role;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 
     public Integer getDepartmentId() {

@@ -5,8 +5,8 @@
  */
 package Resful;
 
-import Models.ShiftSchedule;
-import dao.ShiftScheduleDAO;
+import Models.Notification;
+import dao.NotificationDAO;
 import java.sql.SQLException;
 import java.util.List;
 import javax.ws.rs.core.Context;
@@ -24,28 +24,29 @@ import javax.ws.rs.core.MediaType;
  * @author Admin
  */
 @Path("generic")
-public class ShiftSchedulerResource {
+public class NotificationResource {
 
     @Context
     private UriInfo context;
 
     /**
-     * Creates a new instance of ShiftSchedulerResource
+     * Creates a new instance of NotificationResource
      */
-    public ShiftSchedulerResource() {
+    public NotificationResource() {
     }
 
     /**
-     * Retrieves representation of an instance of Resful.ShiftSchedulerResource
+     * Retrieves representation of an instance of Resful.NotificationResource
      * @return an instance of java.lang.String
      */
-   @Path("/getListShiftScheduler")
+     @Path("/getListNotification")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<ShiftSchedule> getListShiftScheduler() throws SQLException, ClassNotFoundException {
-       ShiftScheduleDAO dao = new ShiftScheduleDAO();
-            List<ShiftSchedule> listShiftSchedule = dao.getShiftSchedules();         
+    public List<Notification> getListNotification() throws SQLException, ClassNotFoundException {
+         NotificationDAO dao = new NotificationDAO();
+            List<Notification> listShiftSchedule = dao.getNotifications();         
             return listShiftSchedule;
     }
 
+    
 }
