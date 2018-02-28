@@ -7,17 +7,31 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
+import { LoginComponent } from './authorize/login.component';
+import { LoginService } from './authorize/service/login.service';
+import { ApiService } from './api.service';
+import { UserListComponent } from './main/user/user-list.component';
+import { UserService } from './main/user/service/user.service';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'main', pathMatch: 'full'},
-    { path: 'main', component: MainComponent, pathMatch: 'full'},
-    { path: 'login', component: LoginComponent, pathMatch: 'full'}
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  {
+    path: 'main', component: MainComponent,
+    children: [
+      { path: '', redirectTo: 'user-list', pathMatch: 'full' },
+      { path: 'user-list', component: UserListComponent }
+    ]
+  },
+  { path: 'login', component: LoginComponent, pathMatch: 'full' }
 ];
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent
+    MainComponent,
+    LoginComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +39,7 @@ const routes: Routes = [
     FormsModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [LoginService, ApiService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
