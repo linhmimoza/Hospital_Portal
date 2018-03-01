@@ -89,7 +89,7 @@ public class UserDAO implements Serializable {
                 String sql = "select COUNT(u.UserId) from [User] u where u.DepartmentId=" + id;
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
-                while (rs.next()) {
+                if (rs.next()) {
                     result = rs.getInt(1);
                 }
             }
@@ -141,9 +141,84 @@ public class UserDAO implements Serializable {
         }
         return user;
     }
+    public boolean isUsernameExited(String userName){
+        boolean result=false;
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "select UserId from [User] where UserName='"+userName+"' and Status<2";
+                stm = con.prepareStatement(sql);
+     
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    result = true;
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+         
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
+public boolean isEmailExited(String email){
+        boolean result=false;
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "select UserId from [User] where Email='"+email+"' and Status<2";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    result = true;
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+         
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
+    public String updateUser(User user) {
+        String result = "Susscess";
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "UPDATE [User]\n"
+                        + "SET Address = '" + user.getAddress() + "', Avatar='" + user.getAvatar() + "', Certificate='" + user.getCertificate() + "', \n"
+                        + "DayOfBirth='" + user.getDayOfBirth() + "',DepartmentId=" + user.getDepartmentId() +  ",FullName='" + user.getFullName() + "',\n"
+                        +  "Phone='" + user.getPhone() + "',Position='" + user.getPosition() + "',RoleId=" + user.getRoleId() + ",Sex=" + user.getSex() + ",Status=" + user.getStatus() + "\n"
+                        + "WHERE UserId=" + user.getUserId();
+               
+                stm = con.prepareStatement(sql);
+                stm.executeUpdate();
 
-    public boolean createUser(User user) {
-        boolean result = true;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+            result = "Failed";
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
+    public String createUser(User user) {
+        String result = "Success";
+        if (isEmailExited(user.getEmail())){
+            if (isUsernameExited(user.getUserName())){
+                result="Username and email exited";
+            }
+            else result="Email exited";
+        }else{
+            if (isUsernameExited(user.getUserName())){
+                result="Username exited";
+            }
+            else{
+                
+     
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
@@ -160,33 +235,14 @@ public class UserDAO implements Serializable {
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
-            result = false;
+            result = "Failed";
         } finally {
             closeConnection();
+        }
+               }
         }
         return result;
     }
 
-    public boolean updateUser(User user) {
-        boolean result = true;
-        try {
-            con = DBUtils.DBUtils.makeConnection();
-            if (con != null) {
-                String sql = "UPDATE [User]\n"
-                        + "SET Address = '" + user.getAddress() + "', Avatar='" + user.getAvatar() + "', Certificate='" + user.getCertificate() + "', \n"
-                        + "DayOfBirth='" + user.getDayOfBirth() + "',DepartmentId=" + user.getDepartmentId() + ",Email='" + user.getEmail() + "',FullName='" + user.getFullName() + "',\n"
-                        + "Password='" + user.getPassword() + "',Phone='" + user.getPhone() + "',Position='" + user.getPosition() + "',RoleId=" + user.getRoleId() + ",Sex=" + user.getSex() + ",Status=" + user.getStatus() + "\n"
-                        + "WHERE UserId=" + user.getUserId();
-                stm = con.prepareStatement(sql);
-                stm.executeUpdate();
-
-            }
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
-            result = false;
-        } finally {
-            closeConnection();
-        }
-        return result;
-    }
+   
 }

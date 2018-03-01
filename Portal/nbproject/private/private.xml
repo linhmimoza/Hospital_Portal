@@ -3,25 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Admin/Documents/GitHub/Hospital_Portal/TestRestful/src/java/Models/Shift.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/Hospital_Portal/TestRestful/src/java/Models/ShiftSchedule.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/Hospital_Portal/TestRestful/src/java/Resful/ShiftSchedulerResource.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/Hospital_Portal/TestRestful/src/java/Models/ShiftDay.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/Hospital_Portal/TestRestful/src/java/dao/ShiftScheduleDAO.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/Hospital_Portal/TestRestful/src/java/dao/ShiftDAO.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/Hospital_Portal/TestRestful/src/java/dao/DepartmentDAO.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/Hospital_Portal/TestRestful/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/Hospital_Portal/TestRestful/src/java/DBUtils/DBUtils.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/Hospital_Portal/TestRestful/src/java/Models/Room.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/Hospital_Portal/TestRestful/src/java/dao/ShiftWorkerDAO.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/Hospital_Portal/TestRestful/src/java/dao/ShiftDayDAO.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/Hospital_Portal/TestRestful/src/java/Models/User.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/Hospital_Portal/TestRestful/src/java/Resful/ApplicationConfig.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/Hospital_Portal/TestRestful/src/java/Resful/DepartmentResource.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/Hospital_Portal/TestRestful/src/java/Models/ShiftWorker.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/Hospital_Portal/TestRestful/src/java/Models/Department.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/Hospital_Portal/TestRestful/nbproject/build-impl.xml</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/Hospital_Portal/TestRestful/src/java/dao/UserDAO.java</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/Hospital_Portal/Portal/src/java/Resful/UserResource.java</file>
         </group>
     </open-files>
 </project-private>

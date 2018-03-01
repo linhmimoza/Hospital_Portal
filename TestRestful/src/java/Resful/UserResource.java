@@ -66,15 +66,18 @@ public class UserResource {
    @Path("/createUser")
    @POST
    @Produces()
-   public boolean createUser(User user){
+   public String createUser(User user){
      UserDAO dao=new UserDAO();   
-     return dao.createUser(user);
+    return dao.createUser(user);
+
    }
-   @Path("/updateUser")
-   @PUT
+  
+   @POST
+    @Path("/updateUser")
    @Produces()
-   public boolean updateUser(User user){
+   public String updateUser(User user){
      UserDAO dao=new UserDAO();   
-     return dao.createUser(user);
+     return dao.updateUser(user);
+
    }
 }
