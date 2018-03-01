@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -73,11 +74,19 @@ public class UserResource {
    }
   
    @POST
-    @Path("/updateUser")
+   @Path("/updateUser")
    @Produces()
    public String updateUser(User user){
      UserDAO dao=new UserDAO();   
      return dao.updateUser(user);
+
+   }
+   @POST
+   @Path("/deleteUser")
+   @Produces()
+   public String deleteUser(String userId){
+     UserDAO dao=new UserDAO();   
+     return dao.deleteUser(Integer.parseInt(userId));
 
    }
 }

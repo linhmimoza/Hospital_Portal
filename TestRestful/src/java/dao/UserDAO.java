@@ -205,6 +205,7 @@ public boolean isEmailExited(String email){
         }
         return result;
     }
+    
     public String createUser(User user) {
         String result = "Success";
         if (isEmailExited(user.getEmail())){
@@ -244,5 +245,25 @@ public boolean isEmailExited(String email){
         return result;
     }
 
+    public String deleteUser(int userId) {
+        String result = "Susscess";
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "UPDATE [User]\n"
+                        + "SET Status=" + 3 + "\n"
+                        + "WHERE UserId=" + userId;             
+                stm = con.prepareStatement(sql);
+                stm.executeUpdate();
+
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+            result = "Failed";
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
    
 }
