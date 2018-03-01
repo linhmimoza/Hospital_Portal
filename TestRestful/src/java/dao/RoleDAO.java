@@ -13,14 +13,33 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import Models.Role;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RoleDAO implements Serializable {
+Connection con = null;
+    PreparedStatement stm = null;
+    ResultSet rs = null;
 
-    public List<Role> getRoles() throws SQLException, ClassNotFoundException {
-        Connection con = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
+    public void closeConnection() {
 
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    public List<Role> getRoles() {
+     
         List<Role> listRoles = new ArrayList<>();
         try {
             con = DBUtils.DBUtils.makeConnection();
@@ -35,16 +54,12 @@ public class RoleDAO implements Serializable {
                     listRoles.add(role);
                 }
             }
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (con != null) {
-                con.close();
-            }
+        } catch (ClassNotFoundException ex) {
+        Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (SQLException ex) {
+        Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+          closeConnection();
         }
         return listRoles;
     }
