@@ -49,8 +49,8 @@ public class UserDAO implements Serializable {
 
             if (con != null) {
                 String sql = "Select UserId, UserName, Avatar, Email, FullName, Sex, DayOfBirth,u.RoleId, r.RoleName"
-                        + ",DepartmentId, Phone, Position, Address, Certificate, Status from [User] u, Role r\n"
-                        + "where u.Status<2 and r.RoleId=u.RoleId";
+                        + ",u.DepartmentId,d.DepartmentName, Phone, Position, Address, Certificate, u.Status from [User] u, Role r,Department d\n"
+                        + "where u.Status<2 and r.RoleId=u.RoleId and u.DepartmentId=d.DepartmentId";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -67,10 +67,13 @@ public class UserDAO implements Serializable {
                     String address = rs.getString("Address");
                     String certificate = rs.getString("Certificate");
                     String roleName = rs.getString("RoleName");
+                    String departmentName = rs.getString("DepartmentName");
                     Integer status = rs.getInt("Status");
                     Integer roleId = rs.getInt("RoleId");
-                    User user = new User(id, userName, avatar, email, fullName, sex, dayOfBirth, phone, position, address, certificate, status, roleId, roleName, departmentId);
+                    User user = new User(id, userName, avatar, email, fullName, sex, dayOfBirth, phone, position, address, certificate, status, 
+                            roleId, roleName, departmentId,departmentName);
                             listUsers.add(user);
+                     
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -109,9 +112,9 @@ public class UserDAO implements Serializable {
             con = DBUtils.DBUtils.makeConnection();
 
             if (con != null) {
-                String sql = "Select UserId, UserName, Avatar, Email, FullName, Sex, DayOfBirth,u.RoleId, r.RoleName,DepartmentId, \n"
-                        + "Phone, Position, Address, Certificate, Status from [User] u,Role r\n"
-                        + "where u.UserName='" + name + "' and u.Password='" + pass + "' and u.Status=1 and r.RoleId=u.RoleId";
+                String sql = "Select UserId, UserName, Avatar, Email, FullName, Sex, DayOfBirth,u.RoleId, r.RoleName"
+                        + ",u.DepartmentId,d.DepartmentName, Phone, Position, Address, Certificate, u.Status from [User] u, Role r,Department d\n"
+                        + "where u.UserName='" + name + "' and u.Password='" + pass + "' and u.Status=1 and r.RoleId=u.RoleId and u.DepartmentId=d.DepartmentId";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 if (rs.next()) {
@@ -129,8 +132,9 @@ public class UserDAO implements Serializable {
                     String certificate = rs.getString("Certificate");
                     Integer status = rs.getInt("Status");
                     Integer roleId = rs.getInt("RoleId");
+                     String departmentName = rs.getString("DepartmentName");
  String roleName = rs.getString("RoleName");
-                     user = new User(id, userName, avatar, email, fullName, sex, dayOfBirth, phone, position, address, certificate, status, roleId, roleName, departmentId);
+                     user = new User(id, userName, avatar, email, fullName, sex, dayOfBirth, phone, position, address, certificate, status, roleId, roleName, departmentId,departmentName);
                    
                 }
             }

@@ -14,8 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -72,6 +70,7 @@ public class User implements Serializable {
     private int status;
     private int roleId;
     private String roleName;
+    private String departmentName;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<ShiftSchedule> shiftScheduleList;
@@ -110,24 +109,12 @@ public class User implements Serializable {
         this.userId = userId;
     }
 
-    public User(Integer userId,int roleId, String userName, String avatar, String email, String fullName, int sex, String dayOfBirth, String phone, String position, String address, String certificate, int status, Integer departmentId) {
-        this.userId = userId;
-        this.userName = userName;
-        this.avatar = avatar;
-        this.email = email;
-        this.fullName = fullName;
-        this.sex = sex;
-        this.dayOfBirth = dayOfBirth;
-        this.phone = phone;
-        this.position = position;
-        this.address = address;
-        this.certificate = certificate;
-        this.status = status;
-        this.departmentId = departmentId;
-        this.roleId=roleId;
-    }
+    
 
-    public User(Integer userId, String userName, String avatar, String email, String fullName, int sex, String dayOfBirth, String phone, String position, String address, String certificate, int status, int roleId, String roleName, Integer departmentId) {
+    public User(Integer userId, String userName, String avatar, String email, 
+            String fullName, int sex, String dayOfBirth, String phone, String position, 
+            String address, String certificate, int status, int roleId, String roleName, 
+            Integer departmentId,String departmentName) {
         this.userId = userId;
         this.userName = userName;
         this.avatar = avatar;
@@ -143,6 +130,7 @@ public class User implements Serializable {
         this.roleId = roleId;
         this.roleName = roleName;
         this.departmentId = departmentId;
+         this.departmentName = departmentName;
     }
 
     public User(String userName, String password, String avatar, String email, String fullName, int sex, String dayOfBirth, String phone, String position, String address, String certificate, int status, int roleId, Integer departmentId) {
@@ -185,6 +173,14 @@ public class User implements Serializable {
 
     public void setDepartmentId(Integer departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
 
@@ -319,13 +315,7 @@ public class User implements Serializable {
         this.missionWorkerList = missionWorkerList;
     }
 
-    public Integer getDepartment() {
-        return departmentId;
-    }
-
-    public void setDepartment(Integer departmentId) {
-        this.departmentId = departmentId;
-    }
+ 
 
     public List<Meeting> getMeetingList() {
         return meetingList;
