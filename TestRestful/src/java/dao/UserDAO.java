@@ -103,6 +103,48 @@ public class UserDAO implements Serializable {
         }
         return result;
     }
+    
+    public User getUserById(int Id) {
+
+        User user = new User();
+        try {
+            System.out.println("test");
+            con = DBUtils.DBUtils.makeConnection();
+
+            if (con != null) {
+                String sql = "Select UserId, UserName, Avatar, Email, FullName, Sex, DayOfBirth,u.RoleId, r.RoleName"
+                        + ",u.DepartmentId,d.DepartmentName, Phone, Position, Address, Certificate, u.Status from [User] u, Role r,Department d\n"
+                        + "where u.UserId='" + Id +  "' and u.Status<2 and r.RoleId=u.RoleId and u.DepartmentId=d.DepartmentId";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    Integer id = rs.getInt("UserId");
+                    String userName = rs.getString("UserName");
+                    String avatar = rs.getString("Avatar");
+                    String email = rs.getString("Email");
+                    String fullName = rs.getString("FullName");
+                    int sex = rs.getInt("Sex");
+                    String dayOfBirth = rs.getString("DayOfBirth");
+                    Integer departmentId = rs.getInt("DepartmentId");
+                    String phone = rs.getString("Phone");
+                    String position = rs.getString("Position");
+                    String address = rs.getString("Address");
+                    String certificate = rs.getString("Certificate");
+                    Integer status = rs.getInt("Status");
+                    Integer roleId = rs.getInt("RoleId");
+                     String departmentName = rs.getString("DepartmentName");
+ String roleName = rs.getString("RoleName");
+                     user = new User(id, userName, avatar, email, fullName, sex, dayOfBirth, phone, position, address, certificate, status, roleId, roleName, departmentId,departmentName);
+                   
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeConnection();
+        }
+        return user;
+    }
 
     public User getLoginUsers(String name, String pass) {
 

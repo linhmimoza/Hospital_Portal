@@ -54,6 +54,16 @@ public class UserResource {
           
             return user;
     }
+     @Path("/getUserById")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public User getUserById(
+    @QueryParam("userId") int userId) throws SQLException, ClassNotFoundException {
+    UserDAO dao = new UserDAO();                    
+          User user = dao.getUserById(userId);
+          
+            return user;
+    }
 
      @Path("/getListUser")
     @GET
