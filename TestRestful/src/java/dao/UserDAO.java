@@ -273,9 +273,9 @@ public boolean isEmailExited(String email){
                         + "Email,FullName,Password,Phone,Position,RoleId,Sex,Status,UserName)\n"
                         + "values('" + user.getAddress() + "','" + user.getAvatar() + "','" + user.getCertificate() + "',"
                         + "'" + user.getDayOfBirth() + "'," + user.getDepartmentId() + ","
-                        + "'" + user.getEmail() + "','" + user.getFullName() + "','" + user.getPassword() + "',"
+                        + "'" + user.getEmail() + "','" + user.getFullName() + "','123',"
                         + "'" + user.getPhone() + "','" + user.getPosition() + "'," + user.getRoleId() + "," + user.getSex() + ","
-                        + "" + user.getStatus() + ",'" + user.getUserName() + "')";
+                        + "1,'" + user.getUserName() + "')";
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
 
