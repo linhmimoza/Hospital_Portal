@@ -18,6 +18,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
@@ -54,11 +55,10 @@ public class UserResource {
           
             return user;
     }
-     @Path("/getUserById")
+     @Path("/getUserById/{userId}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public User getUserById(
-    @QueryParam("userId") int userId) throws SQLException, ClassNotFoundException {
+    public User getUserById(@PathParam("userId") int userId) throws SQLException, ClassNotFoundException {
     UserDAO dao = new UserDAO();                    
           User user = dao.getUserById(userId);
           
@@ -92,11 +92,11 @@ public class UserResource {
 
    }
    @POST
-   @Path("/deleteUser")
+   @Path("/deleteUser/{userId}")
    @Produces()
-   public String deleteUser(String userId){
+   public String deleteUser(@PathParam("userId") int userId){
      UserDAO dao=new UserDAO();   
-     return dao.deleteUser(Integer.parseInt(userId));
+     return dao.deleteUser(userId);
 
    }
 }
