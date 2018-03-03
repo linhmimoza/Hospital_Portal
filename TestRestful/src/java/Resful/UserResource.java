@@ -70,8 +70,7 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<User> getListUser() throws SQLException, ClassNotFoundException {
     UserDAO dao = new UserDAO();
-            List<User> listUsers = dao.getUsers();
-          
+            List<User> listUsers = dao.getUsers();         
             return listUsers;
     }
    @Path("/createUser")

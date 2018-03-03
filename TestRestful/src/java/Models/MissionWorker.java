@@ -12,8 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -42,18 +41,35 @@ public class MissionWorker implements Serializable {
     @Basic(optional = false)
     @Column(name = "UserId")
     private Integer userId;
-   
+   private String userName;
     public MissionWorker() {
+    }
+
+    public MissionWorker(Integer missionWorkerId, Integer missionId, Integer userId, String userName) {
+        this.missionWorkerId = missionWorkerId;
+        this.missionId = missionId;
+        this.userId = userId;
+        this.userName = userName;
     }
 
     public MissionWorker(Integer missionWorkerId) {
         this.missionWorkerId = missionWorkerId;
     }
 
-    public MissionWorker(Integer missionWorkerId, Integer missionId, Integer userId) {
-        this.missionWorkerId = missionWorkerId;
+    public MissionWorker(Integer missionId, Integer userId, String userName) {
         this.missionId = missionId;
         this.userId = userId;
+        this.userName = userName;
+    }
+
+
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Integer getMissionWorkerId() {

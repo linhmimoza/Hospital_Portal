@@ -15,8 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -96,16 +94,23 @@ public class Mission implements Serializable {
         this.updateby = updateby;
     }
 
-    
-    public Mission(Integer missionId, String startDate, String endDate, String place, String content, int status, Date createDate) {
+    public Mission(Integer missionId, String startDate, String endDate, String place, String content, String note, int status, Date createDate, Date updateDate, List<MissionWorker> missionWorkerList, Integer createby, Integer updateby) {
         this.missionId = missionId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.place = place;
         this.content = content;
+        this.note = note;
         this.status = status;
         this.createDate = createDate;
+        this.updateDate = updateDate;
+        this.missionWorkerList = missionWorkerList;
+        this.createby = createby;
+        this.updateby = updateby;
     }
+
+    
+
 
     public Integer getMissionId() {
         return missionId;
