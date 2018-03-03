@@ -263,9 +263,7 @@ public boolean isEmailExited(String email){
             if (isUsernameExited(user.getUserName())){
                 result="Username exited";
             }
-            else{
-                
-     
+            else{     
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {

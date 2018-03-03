@@ -14,8 +14,10 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -45,4 +47,28 @@ public class RoomResource {
           
             return listRooms;
     }
+     @Path("/getRoomById/{roomId}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Room getUserById(@PathParam("roomId") int roomId) throws SQLException, ClassNotFoundException {
+    RoomDAO dao = new RoomDAO();                    
+          Room room = dao.getRoomById(roomId);
+            return room;
+    }
+    
+   @POST
+   @Path("/updateRoom")
+   @Produces()
+   public String updateRoom(Room room){
+     RoomDAO dao=new RoomDAO();   
+     return dao.updateRoom(room);
+   }
+   
+   @POST
+   @Path("/createRoom")
+   @Produces()
+   public String createRoom(Room room){
+     RoomDAO dao=new RoomDAO();   
+     return dao.createRoom(room);
+   }
 }

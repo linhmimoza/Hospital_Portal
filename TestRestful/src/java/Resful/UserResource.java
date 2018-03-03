@@ -89,7 +89,6 @@ public class UserResource {
    public String updateUser(User user){
      UserDAO dao=new UserDAO();   
      return dao.updateUser(user);
-
    }
    @GET
    @Path("/deleteUser/{userId}")
