@@ -14,13 +14,32 @@ import java.util.ArrayList;
 import java.util.List;
 import Models.Category;
 import Models.Room;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RoomDAO implements Serializable {
+Connection con = null;
+    PreparedStatement stm = null;
+    ResultSet rs = null;
 
-    public List<Room> getRooms() throws SQLException, ClassNotFoundException {
-        Connection con = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
+    public void closeConnection() {
+
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    public List<Room> getRooms()  {
 
         List<Room> listRooms = new ArrayList<>();
         try {
@@ -38,16 +57,12 @@ public class RoomDAO implements Serializable {
                     listRooms.add(room);
                 }
             }
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (con != null) {
-                con.close();
-            }
+        } catch (ClassNotFoundException ex) {
+        Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (SQLException ex) {
+        Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+       closeConnection();
         }
         return listRooms;
     }

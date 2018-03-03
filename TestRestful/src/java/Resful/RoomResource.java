@@ -5,6 +5,10 @@
  */
 package Resful;
 
+import Models.Room;
+import dao.RoomDAO;
+import java.sql.SQLException;
+import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
@@ -32,5 +36,13 @@ public class RoomResource {
     }
 
   
-
+@Path("/getListRoom")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Room> getListRoom() throws SQLException, ClassNotFoundException {
+     RoomDAO dao = new RoomDAO();
+            List<Room> listRooms = dao.getRooms();
+          
+            return listRooms;
+    }
 }

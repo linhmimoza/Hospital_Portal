@@ -89,7 +89,7 @@ public class UserDAO implements Serializable {
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                String sql = "select COUNT(u.UserId) from [User] u where u.DepartmentId=" + id;
+                String sql = "select COUNT(u.UserId) from [User] u where u.DepartmentId=" + id+"and u.Status=1";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 if (rs.next()) {

@@ -15,8 +15,10 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
@@ -49,14 +51,36 @@ public class DepartmentResource {
             List<Department> listDepartment = dao.getDepartments();        
             return listDepartment;
     }
-    @Path("/getDepartmentQuantity")
+   @Path("/getDepartmentById/{departmentId}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getDepartmentQuantity( @QueryParam("id") int id) throws SQLException, ClassNotFoundException {
-        UserDAO dao = new UserDAO();
-          int result = dao.getDepartmentQuantity(id);        
-            return "a"+result;
+    public Department getDepartmentById(@PathParam("departmentId") int departmentId) throws SQLException, ClassNotFoundException {
+    DepartmentDAO dao = new DepartmentDAO();                    
+          Department department = dao.getDepartmentById(departmentId);    
+            return department;
     }
+   @POST
+   @Path("/updateDepartment")
+   @Produces()
+   public String updateDepartment(Department department){
+     DepartmentDAO dao=new DepartmentDAO();   
+     return dao.updateDepartment(department);
+   }
+   @POST
+   @Path("/createDepartment")
+   @Produces()
+   public String createDepartment(Department department){
+     DepartmentDAO dao=new DepartmentDAO();   
+     return dao.createDepartment(department);
+   }
+   @GET
+   @Path("/deleteDepartment/{departmentId}")
+   @Produces()
+   public String deleteDepartment(@PathParam("departmentId") int departmentId){
+     DepartmentDAO dao=new DepartmentDAO();   
+     return dao.deleteDepartment(departmentId);
+
+   }
     /**
      * PUT method for updating or creating an instance of DepartmentResource
      * @param content representation for the resource

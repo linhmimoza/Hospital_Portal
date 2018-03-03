@@ -64,9 +64,7 @@ public class DepartmentDAO implements Serializable {
                     listDepartments.add(department);
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
        closeConnection();
@@ -74,5 +72,97 @@ public class DepartmentDAO implements Serializable {
         return listDepartments;
     }
     
+    public Department getDepartmentById(int departmentId)  {
+     
+       Department department = new Department();
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "Select DepartmentId, DepartmentName, Description,"
+                        + " Status from Department where DepartmentId="+departmentId;
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    Integer id = rs.getInt("DepartmentId");
+                    String departmentName = rs.getString("DepartmentName");
+                    String description = rs.getString("Description");
+                    Integer status = rs.getInt("Status");
+                    UserDAO dao=new UserDAO();
+                    int quantity=dao.getDepartmentQuantity(id);
+                  department = new Department(id, departmentName, description, status, quantity);           
+
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+       closeConnection();
+        }
+        return department;
+    }
+    public String updateDepartment(Department department) {
+        String result = "Susscess";
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "update Department set DepartmentName='"+department.getDepartmentName()+"'"
+                        + ",Description='"+department.getDescription()+"' ,Status="+department.getStatus()+
+                        " where DepartmentId="+department.getDepartmentId();           
+                stm = con.prepareStatement(sql);
+                stm.executeUpdate();
+
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+            result = "Failed";
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
     
+    public String deleteDepartment(int departmentId) {
+        String result = "Susscess";
+            UserDAO dao=new UserDAO();
+                    int quantity=dao.getDepartmentQuantity(departmentId);
+                    System.out.println("quantity: "+quantity);
+                    if (quantity>0){
+                        result="There are some actvate user in this department";
+                    }
+                    else{
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "update Department set Status=2 where DepartmentId="+departmentId;           
+                stm = con.prepareStatement(sql);
+                stm.executeUpdate();
+
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+            result = "Failed";
+        } finally {
+            closeConnection();
+        }}
+        return result;
+    }
+      public String createDepartment(Department department) {
+        String result = "Susscess";
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "insert into Department(DepartmentName,Description,Status)"
+                        + " values('"+department.getDepartmentName()+"','"+department.getDescription()+"',1)";           
+                stm = con.prepareStatement(sql);
+                stm.executeUpdate();
+
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+            result = "Failed";
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
 }
