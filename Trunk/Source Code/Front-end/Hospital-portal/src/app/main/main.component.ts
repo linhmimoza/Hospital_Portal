@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { User } from './user/shared/user.model';
 import { LoginService } from '../authorize/service/login.service';
-import { ActivatedRoute, Router } from '@angular/router'; 
+import { ActivatedRoute, Router } from '@angular/router';
 declare var $: any;
 
 @Component({
@@ -10,11 +10,11 @@ declare var $: any;
 })
 export class MainComponent {
     currentUser: User = new User();
-    menu: string [];
+    menu: string[];
     private routerSubcription: any;
     title: string;
     constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService) {
-       
+
     }
 
     ngOnInit() {
@@ -31,7 +31,9 @@ export class MainComponent {
         $.getScript("assets/porto/javascripts/theme.js", function () {
             $.getScript("assets/porto/javascripts/theme.custom.js", function () {
                 $.getScript("assets/porto/javascripts/theme.init.js", function () {
+                    // $.getScript("assets/porto/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js", function () {
 
+                    // });
                 });
             });
         });

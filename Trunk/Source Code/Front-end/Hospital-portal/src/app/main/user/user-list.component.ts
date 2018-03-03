@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from './shared/user.model';
 import { UserService } from './service/user.service';
+import { debug } from 'util';
 
 @Component({
     selector: 'user-list',
@@ -12,13 +13,13 @@ export class UserListComponent {
 
     users: User[] = [];
 
-    constructor(private router: Router, 
-        private userService: UserService) {  }
+    constructor(private router: Router,
+        private userService: UserService) { }
 
     ngOnInit() {
         // this.loadingService.start();
         this.userService.getList().then((res: User[]) => {
-            this.users = res;         
+            this.users = res;
             // console.log(this.users);
         }).catch(err => {
             alert(err);
@@ -31,12 +32,15 @@ export class UserListComponent {
 
     }
 
-    // detail(user: User) {
-    //     this.router.navigate(['/main/user-detail', user.Id]);
-    // }
-    // delete(user: User) {
-    //     this.userService.deleteUser(user.Id).then(() => {
-    //         this.router.navigate(['./main/user-list']);
-    //     });
-    // }
+    detail(user: User) {
+        this.router.navigate(['/main/user-detail', user.userId]);
+    }
+
+    delete(user: User) {
+        this.userService.deleteUser(user.userId).then(() => {
+            // window.location.reload();
+            this.router.navigateByUrl('/main/user-list');
+        });
+
+    }
 }

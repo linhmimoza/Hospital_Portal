@@ -1,8 +1,9 @@
 export class User{
     userId: number;
-    role: number; 
+    roleId: number; 
+    roleName: string;
     departmentId: number;  
-    department: number;  
+    departmentName: string;  
     userName: string;
     password: string;
     avatar: string;

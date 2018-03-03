@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class ApiService {
-    host: string = 'http://localhost:8084/TestRestful/webresources/generic/';
+    host: string = 'http://localhost:8080/TestRestful/webresources/generic/';
 
     constructor(private router: Router, private http: Http) {
 

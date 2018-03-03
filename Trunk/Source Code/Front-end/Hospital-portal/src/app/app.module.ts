@@ -12,6 +12,9 @@ import { LoginService } from './authorize/service/login.service';
 import { ApiService } from './api.service';
 import { UserListComponent } from './main/user/user-list.component';
 import { UserService } from './main/user/service/user.service';
+import { DepartmentService } from './main/department/service/department.service';
+import { UserDetailComponent } from './main/user/user-detail.component';
+import { RoleService } from './main/role/service/role.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -19,7 +22,8 @@ const routes: Routes = [
     path: 'main', component: MainComponent,
     children: [
       { path: '', redirectTo: 'user-list', pathMatch: 'full' },
-      { path: 'user-list', component: UserListComponent }
+      { path: 'user-list', component: UserListComponent },
+      { path: 'user-detail/:id', component: UserDetailComponent }
     ]
   },
   { path: 'login', component: LoginComponent, pathMatch: 'full' }
@@ -31,7 +35,8 @@ const routes: Routes = [
     AppComponent,
     MainComponent,
     LoginComponent,
-    UserListComponent
+    UserListComponent,
+    UserDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +44,7 @@ const routes: Routes = [
     FormsModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [LoginService, ApiService, UserService],
+  providers: [LoginService, ApiService, UserService, DepartmentService, RoleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

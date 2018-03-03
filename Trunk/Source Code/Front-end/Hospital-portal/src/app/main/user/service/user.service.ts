@@ -16,4 +16,47 @@ export class UserService {
             });
         });
     }
+
+    getUser(id) {
+        return new Promise((resolve, reject) => {
+            this.apiService.get(`getUserById/${id}`).then(res => {
+                resolve(res.json());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
+
+    updateUser(user: User) {
+        return new Promise((resolve, reject) => {
+            this.apiService.post('updateUser', user).then(res => {
+                resolve();
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
+
+    createUser(user: User) {
+        return new Promise((resolve, reject) => {
+            this.apiService.post('createUser', user).then(res => {
+                resolve();
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
+
+    deleteUser(id) {
+        return new Promise<User>((resolve, reject) => {
+            this.apiService.get(`deleteUser/${id}`).then(() => {
+            // this.apiService.post('deleteUser', id).then(() => {
+                resolve();
+                alert("Success");
+            }).catch(err => {
+                reject(err);
+                alert("Success");
+            });
+        });
+    }
 }

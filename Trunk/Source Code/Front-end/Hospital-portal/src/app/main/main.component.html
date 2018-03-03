@@ -76,7 +76,13 @@
             <div class="nano">
                 <div class="nano-content">
                     <nav id="menu" class="nav-main" role="navigation">
-                        <ul class="nav nav-main" *ngIf="loginService.user.role == 1">
+                        <ul class="nav nav-main" *ngIf="loginService.user.roleId == 1">
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Home page</span>
+                                </a>
+                            </li>
                             <li class="nav-active">
                                 <a [routerLink]="['/main/dashboard']">
                                     <i class="fa fa-home" aria-hidden="true"></i>
@@ -144,7 +150,13 @@
                             </li>
                         </ul>
 
-                        <ul class="nav nav-main" *ngIf="loginService.user.role == 2">
+                        <ul class="nav nav-main" *ngIf="loginService.user.roleId == 2">
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Home page</span>
+                                </a>
+                            </li>
                             <li class="nav-active">
                                 <a [routerLink]="['/main/dashboard']">
                                     <i class="fa fa-home" aria-hidden="true"></i>
@@ -154,40 +166,79 @@
                             <li class="nav-active">
                                 <a [routerLink]="['/main/user-list']">
                                     <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage user</span>
+                                    <span>Manage article</span>
                                 </a>
                             </li>
 
                             <li class="nav-active">
                                 <a [routerLink]="['/main/dashboard']">
                                     <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage department</span>
+                                    <span>Manage schedule</span>
                                 </a>
                             </li>
 
                             <li class="nav-active">
                                 <a [routerLink]="['/main/dashboard']">
                                     <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage room resource</span>
+                                    <span>Manage notification</span>
                                 </a>
                             </li>
 
                             <li class="nav-active">
                                 <a [routerLink]="['/main/dashboard']">
                                     <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage article category</span>
+                                    <span>Log out</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="nav nav-main" *ngIf="loginService.user.roleId == 3">
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Home page</span>
                                 </a>
                             </li>
                             <li class="nav-active">
                                 <a [routerLink]="['/main/dashboard']">
                                     <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage service</span>
+                                    <span>Hospital portal</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/user-list']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Manage schedule</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Log out</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="nav nav-main" *ngIf="loginService.user.roleId == 4">
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Home page</span>
                                 </a>
                             </li>
                             <li class="nav-active">
                                 <a [routerLink]="['/main/dashboard']">
                                     <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage clinic</span>
+                                    <span>Hospital portal</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/user-list']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Manage article</span>
                                 </a>
                             </li>
                             <li class="nav-active">
@@ -198,7 +249,13 @@
                             </li>
                         </ul>
 
-                        <ul class="nav nav-main" *ngIf="loginService.user.role == 3">
+                        <ul class="nav nav-main" *ngIf="loginService.user.roleId == 5">
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Home page</span>
+                                </a>
+                            </li>
                             <li class="nav-active">
                                 <a [routerLink]="['/main/dashboard']">
                                     <i class="fa fa-home" aria-hidden="true"></i>
@@ -209,40 +266,14 @@
                             <li class="nav-active">
                                 <a [routerLink]="['/main/user-list']">
                                     <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage user</span>
+                                    <span>Manage schedule</span>
                                 </a>
                             </li>
 
                             <li class="nav-active">
                                 <a [routerLink]="['/main/dashboard']">
                                     <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage department</span>
-                                </a>
-                            </li>
-
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/dashboard']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage room resource</span>
-                                </a>
-                            </li>
-
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/dashboard']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage article category</span>
-                                </a>
-                            </li>
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/dashboard']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage service</span>
-                                </a>
-                            </li>
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/dashboard']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage clinic</span>
+                                    <span>Manage article</span>
                                 </a>
                             </li>
                             <li class="nav-active">
@@ -253,7 +284,13 @@
                             </li>
                         </ul>
 
-                        <ul class="nav nav-main" *ngIf="loginService.user.role == 4">
+                        <ul class="nav nav-main" *ngIf="loginService.user.roleId == 6">
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Home page</span>
+                                </a>
+                            </li>
                             <li class="nav-active">
                                 <a [routerLink]="['/main/dashboard']">
                                     <i class="fa fa-home" aria-hidden="true"></i>
@@ -261,155 +298,6 @@
                                 </a>
                             </li>
 
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/user-list']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage user</span>
-                                </a>
-                            </li>
-
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/dashboard']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage department</span>
-                                </a>
-                            </li>
-
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/dashboard']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage room resource</span>
-                                </a>
-                            </li>
-
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/dashboard']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage article category</span>
-                                </a>
-                            </li>
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/dashboard']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage service</span>
-                                </a>
-                            </li>
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/dashboard']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage clinic</span>
-                                </a>
-                            </li>
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/dashboard']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Log out</span>
-                                </a>
-                            </li>
-                        </ul>
-
-                        <ul class="nav nav-main" *ngIf="loginService.user.role == 5">
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/dashboard']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Hospital portal</span>
-                                </a>
-                            </li>
-
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/user-list']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage user</span>
-                                </a>
-                            </li>
-
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/dashboard']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage department</span>
-                                </a>
-                            </li>
-
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/dashboard']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage room resource</span>
-                                </a>
-                            </li>
-
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/dashboard']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage article category</span>
-                                </a>
-                            </li>
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/dashboard']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage service</span>
-                                </a>
-                            </li>
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/dashboard']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage clinic</span>
-                                </a>
-                            </li>
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/dashboard']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Log out</span>
-                                </a>
-                            </li>
-                        </ul>
-
-                        <ul class="nav nav-main" *ngIf="loginService.user.role == 6">
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/dashboard']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Hospital portal</span>
-                                </a>
-                            </li>
-
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/user-list']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage user</span>
-                                </a>
-                            </li>
-
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/dashboard']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage department</span>
-                                </a>
-                            </li>
-
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/dashboard']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage room resource</span>
-                                </a>
-                            </li>
-
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/dashboard']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage article category</span>
-                                </a>
-                            </li>
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/dashboard']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage service</span>
-                                </a>
-                            </li>
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/dashboard']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage clinic</span>
-                                </a>
-                            </li>
                             <li class="nav-active">
                                 <a [routerLink]="['/main/dashboard']">
                                     <i class="fa fa-home" aria-hidden="true"></i>

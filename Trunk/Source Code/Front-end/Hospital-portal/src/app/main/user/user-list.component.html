@@ -24,16 +24,19 @@
                     <col width="150px" />
                     <col width="150px" />
                     <col />
-                    <col width="150px" />
+                    <!-- <col width="150px" /> -->
                     <col width="50px" />
                     <col width="50px" />
                 </colgroup>
                 <thead>
                     <tr>
-                        <th>Tên tài khoản</th>
-                        <th>Họ và tên</th>
-                        <th>Vai trò</th>
-                        <!-- <th class="hidden-phone">Tình trạng</th> -->
+                        <th>Username</th>
+                        <th>Full name</th>
+                        <th>Department</th>
+                        <th>Position</th>
+                        <th>Role</th>
+                        <th>Phone</th>
+                        <!-- <th class="hidden-phone">Status</th> -->
                         <th class="hidden-phone"></th>
                         <th class="hidden-phone"></th>
                     </tr>
@@ -42,7 +45,10 @@
                     <tr *ngFor="let user of users" class="gradeX">
                         <td>{{user.userName}}</td>
                         <td>{{user.fullName}}</td>
-                        <td>{{user.role}}</td>
+                        <td>{{user.departmentName}}</td>
+                        <td>{{user.position}}</td>
+                        <td>{{user.roleName}}</td>
+                        <td>{{user.phone}}</td>
                         <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
                         <!-- <td class="text-center">
                             <span [ngClass]="{'bg-primary':user.IsActived,'bg-danger':!user.IsActived}"> 

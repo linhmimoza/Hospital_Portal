@@ -1,0 +1,207 @@
+<!-- This is User Detail Page
+<test-selector></test-selector> -->
+<div class="row">
+    <div class="col-lg-12">
+        <div action="forms-validation.html" class="form-horizontal">
+            <section class="panel">
+                <header class="panel-heading">
+                    <div class="panel-actions">
+                        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+                    </div>
+
+                    <h2 class="panel-title">{{title}}</h2>
+                    <!-- <p class="panel-subtitle">
+                        Basic validation will display a label with the error after the form control.
+                    </p> -->
+                </header>
+                <div class="panel-body" style="padding-right:350px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Username
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" [(ngModel)]="user.userName" class="form-control" placeholder="Eg.: John Doe" required/>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label class="col-sm-3 control-label">Password
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="password" [(ngModel)]="user.password" class="form-control" required/>
+                        </div>
+                    </div> -->
+                    <!-- <div class="form-group">
+                        <label class="col-sm-3 control-label">Nhập lại mật khẩu
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="password" [(ngModel)]="user.Password" class="form-control" required/>
+                        </div>
+                    </div> -->
+                    <!-- <div class="form-group">
+                        <label class="col-md-3 control-label">Avatar</label>
+                        <div class="col-md-6">
+                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                <div class="input-append">
+                                    <div class="uneditable-input">
+                                        <i class="fa fa-file fileupload-exists"></i>
+                                        <span [(ngModel)]="user.avatar" class="fileupload-preview"></span>
+                                    </div>
+                                    <span class="btn btn-default btn-file">
+                                        <span class="fileupload-exists">Change</span>
+                                        <span class="fileupload-new">Select file</span>
+                                        <input type="file" />
+                                    </span>
+                                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Email
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" [(ngModel)]="user.email" class="form-control" placeholder="Eg.: John Doe" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Full name
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" [(ngModel)]="user.fullName" class="form-control" placeholder="Eg.: John" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Sex
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <div class="radio-custom">
+                                <input type="radio" [(ngModel)]="user.sex" checked value="1" name="radioExample">
+                                <label>Male</label>
+                            </div>
+
+                            <div class="radio-custom">
+                                <input type="radio" [(ngModel)]="user.sex" value="2" name="radioExample">
+                                <label>Female</label>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label class="col-sm-3 control-label">Email
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+                                <input type="email" [(ngModel)]="user.Email" class="form-control" placeholder="eg.: email@email.com" required/>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+
+                        </div>
+                    </div> -->
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Day of birth</label>
+                        <div class="col-md-9">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                                <input [(ngModel)]="user.dayOfBirth" type="text" data-plugin-datepicker class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Department
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <select [(ngModel)]="user.departmentId" class="form-control">
+                                <option *ngFor="let department of departments" [ngValue]="department.departmentId">{{department.departmentName}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Phone
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" [(ngModel)]="user.phone" class="form-control" placeholder="Eg.: John Doe" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Position
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <select [(ngModel)]="user.position" class="form-control">
+                                <option value="Doctor" selected>Doctor</option>
+                                <option value="Nurse">Nurse</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Address
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" [(ngModel)]="user.address" class="form-control" placeholder="Eg.: John Doe" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Certificate
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" [(ngModel)]="user.certificate" class="form-control" placeholder="Eg.: John Doe" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Role
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <select [(ngModel)]="user.roleId" class="form-control">
+                                <option *ngFor="let role of roles" [ngValue]="role.roleId">{{role.roleName}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-group">
+                        <label class="col-sm-3 control-label">Status
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <div class="checkbox-custom checkbox-default">
+                                <input [(ngModel)]="user.IsActived" type="checkbox" checked="">
+                                <label>Active</label>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-9 col-sm-offset-3">
+                            <button class="btn btn-primary" (click)="save()">
+                                <i class="fa fa-floppy-o"></i>
+                                Save</button>
+                            <button class="btn btn-default" (click)="back()">
+                                <i class="fa fa-undo"></i>
+                                Back</button>
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        </div>
+    </div>
+</div>
