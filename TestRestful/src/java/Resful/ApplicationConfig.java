@@ -29,6 +29,7 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(Resful.CategoryResource.class);
         resources.add(Resful.DepartmentResource.class);
         resources.add(Resful.NotificationResource.class);
         resources.add(Resful.RoleResource.class);

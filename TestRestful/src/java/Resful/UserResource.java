@@ -91,7 +91,7 @@ public class UserResource {
      return dao.updateUser(user);
 
    }
-   @POST
+   @GET
    @Path("/deleteUser/{userId}")
    @Produces()
    public String deleteUser(@PathParam("userId") int userId){
