@@ -43,7 +43,7 @@ public class ShiftScheduleDAO implements Serializable {
     public List<ShiftSchedule> getShiftSchedules()  {
    
 
-        List<ShiftSchedule> listShiftSchedules = null;
+        List<ShiftSchedule> listShiftSchedules = new ArrayList<>();
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {

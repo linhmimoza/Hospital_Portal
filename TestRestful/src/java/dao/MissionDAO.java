@@ -42,7 +42,7 @@ Connection con = null;
 
     }
     public List<Mission> getMissions() {
-        List<Mission> listMissions = null;
+        List<Mission> listMissions = new ArrayList<>();
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {

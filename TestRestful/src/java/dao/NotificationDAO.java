@@ -44,7 +44,7 @@ public class NotificationDAO implements Serializable {
 
     public List<Notification> getNotifications() {
 
-        List<Notification> listNotifications = null;
+        List<Notification> listNotifications = new ArrayList<>();
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
