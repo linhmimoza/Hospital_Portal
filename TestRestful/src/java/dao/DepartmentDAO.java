@@ -46,7 +46,7 @@ public class DepartmentDAO implements Serializable {
     
     public List<Department> getDepartments()  {
      
-        List<Department> listDepartments = new ArrayList<>();
+        List<Department> listDepartments = null;
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
@@ -74,7 +74,7 @@ public class DepartmentDAO implements Serializable {
     
     public Department getDepartmentById(int departmentId)  {
      
-       Department department = new Department();
+       Department department = null;
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {

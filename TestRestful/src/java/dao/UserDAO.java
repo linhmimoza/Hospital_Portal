@@ -42,7 +42,7 @@ public class UserDAO implements Serializable {
 
     public List<User> getUsers() {
 
-        List<User> listUsers = new ArrayList<>();
+        List<User> listUsers = null;
         try {
             System.out.println("test");
             con = DBUtils.DBUtils.makeConnection();
@@ -106,7 +106,7 @@ public class UserDAO implements Serializable {
     
     public User getUserById(int Id) {
 
-        User user = new User();
+        User user = null;
         try {
             System.out.println("test");
             con = DBUtils.DBUtils.makeConnection();
@@ -148,7 +148,7 @@ public class UserDAO implements Serializable {
 
     public User getLoginUsers(String name, String pass) {
 
-        User user = new User();
+        User user = null;
         try {
             System.out.println("test");
             con = DBUtils.DBUtils.makeConnection();
