@@ -116,7 +116,7 @@ public class MissionDAO implements Serializable {
 
     public String createMission(Mission mission) {
         String result = "Susscess";
-  
+
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
@@ -128,10 +128,38 @@ public class MissionDAO implements Serializable {
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 if (rs.next()) {
-                   int missionId=rs.getInt("MissionId");
-                    MissionWorkerDAO dao= new MissionWorkerDAO();
+                    int missionId = rs.getInt("MissionId");
+                    MissionWorkerDAO dao = new MissionWorkerDAO();
                     dao.createMissionWorker(mission.getMissionWorkerList(), missionId);
                 }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+            result = "Failed";
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
+
+    public String updateMission(Mission mission) {
+        String result = "Susscess";
+
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "update Mission set Content='"+mission.getContent()+"',Createby="+mission.getCreateby()+","
+                        + "CreateDate='"+mission.getCreateDate()+"'"
+                        + ",EndDate='"+mission.getEndDate()+"',Note='"+mission.getNote()+"'\n"
+                        + ",Place='"+mission.getPlace()+"',StartDate='"+mission.getStartDate()+"',"
+                        + "Status="+mission.getStatus()+",Updateby="+mission.getUpdateby()+","
+                        + "UpdateDate='"+mission.getUpdateDate()+"' where MissionId="+mission.getMissionId();
+                System.out.println(sql);
+                stm = con.prepareStatement(sql);
+                stm.executeUpdate();
+                MissionWorkerDAO dao = new MissionWorkerDAO();
+                dao.createMissionWorker(mission.getMissionWorkerList(), mission.getMissionId());
+
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);

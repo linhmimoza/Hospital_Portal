@@ -59,6 +59,12 @@ public class MissionResource {
    public String createMission(Mission mission){
      MissionDAO dao=new MissionDAO();   
     return dao.createMission(mission);
-
+   }
+   @Path("/updateMission")
+   @POST
+   @Produces()
+   public String updateMission(Mission mission){
+     MissionDAO dao=new MissionDAO();   
+    return dao.updateMission(mission);
    }
 }
