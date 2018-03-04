@@ -67,16 +67,16 @@ Connection con = null;
     }
     
 
- public boolean createMissionWorker(List<MissionWorker> listWorker) {
+ public boolean createMissionWorker(List<MissionWorker> listWorker, int missionId) {
         boolean result = true;
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                String sql = "delete MissionWorker where MissionId="+listWorker.get(0).getMissionId();           
+                String sql = "delete MissionWorker where MissionId="+missionId;           
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
                 for(MissionWorker worker:listWorker){
-                    sql="insert into MissionWorker(MissionId,UserId) values("+worker.getMissionId()+","+worker.getUserId()+")";
+                    sql="insert into MissionWorker(MissionId,UserId) values("+missionId+","+worker.getUserId()+")";
                     stm = con.prepareStatement(sql);
                 stm.executeUpdate();
                 }

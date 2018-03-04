@@ -129,7 +129,8 @@ public class MissionDAO implements Serializable {
                 rs = stm.executeQuery();
                 if (rs.next()) {
                    int missionId=rs.getInt("MissionId");
-                    result="  "+missionId;
+                    MissionWorkerDAO dao= new MissionWorkerDAO();
+                    dao.createMissionWorker(mission.getMissionWorkerList(), missionId);
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {

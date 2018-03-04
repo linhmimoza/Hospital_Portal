@@ -114,7 +114,7 @@ public class UserDAO implements Serializable {
             if (con != null) {
                 String sql = "Select UserId, UserName, Avatar, Email, FullName, Sex, DayOfBirth,u.RoleId, r.RoleName"
                         + ",u.DepartmentId,d.DepartmentName, Phone, Position, Address, Certificate, u.Status from [User] u, Role r,Department d\n"
-                        + "where u.UserId='" + Id +  "' and u.Status<2 and r.RoleId=u.RoleId and u.DepartmentId=d.DepartmentId";
+                        + "where u.UserId='" + Id +  "'  and r.RoleId=u.RoleId and u.DepartmentId=d.DepartmentId";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 if (rs.next()) {
