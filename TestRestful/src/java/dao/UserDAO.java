@@ -42,7 +42,7 @@ public class UserDAO implements Serializable {
 
     public List<User> getUsers() {
 
-        List<User> listUsers = null;
+        List<User> listUsers = new ArrayList<>();
         try {
             System.out.println("test");
             con = DBUtils.DBUtils.makeConnection();

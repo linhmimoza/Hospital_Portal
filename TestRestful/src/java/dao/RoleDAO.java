@@ -40,7 +40,7 @@ Connection con = null;
     }
     public List<Role> getRoles() {
      
-        List<Role> listRoles = null;
+        List<Role> listRoles = new ArrayList<>();
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {

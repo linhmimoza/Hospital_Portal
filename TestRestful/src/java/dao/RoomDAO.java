@@ -40,7 +40,7 @@ Connection con = null;
     }
     public List<Room> getRooms()  {
 
-        List<Room> listRooms = null;
+        List<Room> listRooms = new ArrayList<>();
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {

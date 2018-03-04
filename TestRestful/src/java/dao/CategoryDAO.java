@@ -42,7 +42,7 @@ Connection con = null;
 
     public List<Category> getCategories() {
       
-        List<Category> listCategories = null;
+        List<Category> listCategories = new ArrayList<>();
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
