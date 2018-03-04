@@ -58,10 +58,10 @@ public class Mission implements Serializable {
     @Basic(optional = false)
     @Column(name = "CreateDate")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
+    private String createDate;
     @Column(name = "UpdateDate")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updateDate;
+    private String updateDate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "mission")
     private List<MissionWorker> missionWorkerList;
     
@@ -80,7 +80,7 @@ public class Mission implements Serializable {
         this.missionId = missionId;
     }
 
-    public Mission(Integer missionId, String startDate, String endDate, String place, String content, String note, int status, Date createDate, Date updateDate, Integer createby, Integer updateby) {
+    public Mission(Integer missionId, String startDate, String endDate, String place, String content, String note, int status, String createDate, String updateDate, Integer createby, Integer updateby) {
         this.missionId = missionId;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -94,7 +94,7 @@ public class Mission implements Serializable {
         this.updateby = updateby;
     }
 
-    public Mission(Integer missionId, String startDate, String endDate, String place, String content, String note, int status, Date createDate, Date updateDate, List<MissionWorker> missionWorkerList, Integer createby, Integer updateby) {
+    public Mission(Integer missionId, String startDate, String endDate, String place, String content, String note, int status, String createDate, String updateDate, List<MissionWorker> missionWorkerList, Integer createby, Integer updateby) {
         this.missionId = missionId;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -168,19 +168,19 @@ public class Mission implements Serializable {
         this.status = status;
     }
 
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
-    public Date getUpdateDate() {
+    public String getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
     }
 
