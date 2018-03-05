@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './../../../api.service';
-import { Department } from '../shared/department.model';
+import { Meeting } from '../shared/meeting.model';
 
 
 @Injectable()// dùng để chưa sẽ tài nguyên
 
-export class DepartmentService {
+export class MeetingService {
     constructor(private apiService: ApiService) { }
     getList() {
         return new Promise((resolve, reject) => {
-            this.apiService.get('getListDepartment').then(res => {
+            this.apiService.get('getListMeeting').then(res => {
                 resolve(res.json());
             }).catch(err => {
                 reject(err);
             });
         });
     }
-    getDepartment(id) {
+    getMeeting(id) {
         return new Promise((resolve, reject) => {
-            this.apiService.get(`getDepartmentById/${id}`).then(res => {
+            this.apiService.get(`getMeetingById/${id}`).then(res => {
                 resolve(res.json());
             }).catch(err => {
                 reject(err);
@@ -26,9 +26,9 @@ export class DepartmentService {
         });
     }
 
-    updateDepartment(department: Department){
+    updateMeeting(meeting: Meeting){
         return new Promise((resolve, reject) => {
-            this.apiService.post('updateDepartment', department).then(res => {
+            this.apiService.post('updateMeeting', meeting).then(res => {
                 resolve();
             }).catch(err => {
                 reject(err);
@@ -36,9 +36,9 @@ export class DepartmentService {
         });
     }
 
-    createDepartment(department: Department){
+    createMeeting(meeting: Meeting){
         return new Promise((resolve, reject) => {
-            this.apiService.post('createDepartment', department).then(res => {
+            this.apiService.post('createMeeting', meeting).then(res => {
                 resolve();
             }).catch(err => {
                 reject(err);
@@ -46,9 +46,9 @@ export class DepartmentService {
         });
     }
 
-    deleteDepartment(id){
+    deleteMeeting(id){
         return new Promise((resolve, reject) => {
-            this.apiService.get(`deleteDepartment/${id}`).then(res => {
+            this.apiService.get(`deleteMeeting/${id}`).then(res => {
                 resolve();
             }).catch(err => {
                 reject(err);
