@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './../../../api.service';
-import { Department } from '../shared/department.model';
+import { Mission } from '../shared/mission.model';
 
 
 @Injectable()// dùng để chưa sẽ tài nguyên
 
-export class DepartmentService {
+export class MissionService {
     constructor(private apiService: ApiService) { }
     getList() {
         return new Promise((resolve, reject) => {
-            this.apiService.get('getListDepartment').then(res => {
+            this.apiService.get('getListMission').then(res => {
                 resolve(res.json());
             }).catch(err => {
                 reject(err);
             });
         });
     }
-    getDepartment(id) {
+    getMission(id) {
         return new Promise((resolve, reject) => {
-            this.apiService.get(`getDepartmentById/${id}`).then(res => {
+            this.apiService.get(`getMissionById/${id}`).then(res => {
                 resolve(res.json());
             }).catch(err => {
                 reject(err);
@@ -26,9 +26,9 @@ export class DepartmentService {
         });
     }
 
-    updateDepartment(department: Department){
+    updateMission(mission: Mission){
         return new Promise((resolve, reject) => {
-            this.apiService.post('updateDepartment', department).then(res => {
+            this.apiService.post('updateMission', mission).then(res => {
                 resolve();
             }).catch(err => {
                 reject(err);
@@ -36,9 +36,9 @@ export class DepartmentService {
         });
     }
 
-    createDepartment(department: Department){
+    createMission(mission: Mission){
         return new Promise((resolve, reject) => {
-            this.apiService.post('createDepartment', department).then(res => {
+            this.apiService.post('createMission', mission).then(res => {
                 resolve();
             }).catch(err => {
                 reject(err);
@@ -46,13 +46,13 @@ export class DepartmentService {
         });
     }
 
-    deleteDepartment(id){
-        return new Promise((resolve, reject) => {
-            this.apiService.get(`deleteDepartment/${id}`).then(res => {
-                resolve();
-            }).catch(err => {
-                reject(err);
-            });
-        });
-    }
+    // deleteDepartment(id){
+    //     return new Promise((resolve, reject) => {
+    //         this.apiService.get(`deleteDepartment/${id}`).then(res => {
+    //             resolve();
+    //         }).catch(err => {
+    //             reject(err);
+    //         });
+    //     });
+    // }
 }
