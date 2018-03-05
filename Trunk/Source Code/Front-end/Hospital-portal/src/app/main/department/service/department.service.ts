@@ -16,43 +16,4 @@ export class DepartmentService {
             });
         });
     }
-    getDepartment(id) {
-        return new Promise((resolve, reject) => {
-            this.apiService.get(`getDepartmentById/${id}`).then(res => {
-                resolve(res.json());
-            }).catch(err => {
-                reject(err);
-            });
-        });
-    }
-
-    updateDepartment(department: Department){
-        return new Promise((resolve, reject) => {
-            this.apiService.post('updateDepartment', department).then(res => {
-                resolve();
-            }).catch(err => {
-                reject(err);
-            });
-        });
-    }
-
-    createDepartment(department: Department){
-        return new Promise((resolve, reject) => {
-            this.apiService.post('createDepartment', department).then(res => {
-                resolve();
-            }).catch(err => {
-                reject(err);
-            });
-        });
-    }
-
-    deleteDepartment(id){
-        return new Promise((resolve, reject) => {
-            this.apiService.get(`deleteDepartment/${id}`).then(res => {
-                resolve();
-            }).catch(err => {
-                reject(err);
-            });
-        });
-    }
 }

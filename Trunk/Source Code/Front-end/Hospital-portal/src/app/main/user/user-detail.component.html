@@ -145,7 +145,7 @@
                         </label>
                         <div class="col-sm-9">
                             <select [(ngModel)]="user.position" class="form-control">
-                                <option value="Doctor">Doctor</option>
+                                <option value="Doctor" selected>Doctor</option>
                                 <option value="Nurse">Nurse</option>
                             </select>
                         </div>
@@ -177,17 +177,17 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label class="col-sm-3 control-label">Status
                             <span class="required">*</span>
                         </label>
                         <div class="col-sm-9">
                             <div class="checkbox-custom checkbox-default">
-                                <input [(ngModel)]="user.status" type="checkbox" *ngIf="user.status == 1 checked">
+                                <input [(ngModel)]="user.IsActived" type="checkbox" checked="">
                                 <label>Active</label>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <footer class="panel-footer">
                     <div class="row">
