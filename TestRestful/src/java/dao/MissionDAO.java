@@ -155,8 +155,7 @@ public class MissionDAO implements Serializable {
                         + ",EndDate='"+mission.getEndDate()+"',Note='"+mission.getNote()+"'\n"
                         + ",Place='"+mission.getPlace()+"',StartDate='"+mission.getStartDate()+"',"
                         + "Status="+mission.getStatus()+",Updateby="+mission.getUpdateby()+","
-                        + "UpdateDate='"+time.getTime()+"' where MissionId="+mission.getMissionId();
-          
+                        + "UpdateDate='"+time.getTime()+"' where MissionId="+mission.getMissionId();        
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
                 MissionWorkerDAO dao = new MissionWorkerDAO();
