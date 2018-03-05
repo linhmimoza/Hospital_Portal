@@ -65,9 +65,7 @@ public class NotificationDAO implements Serializable {
                     listNotifications.add(notification);
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(NotificationDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(NotificationDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             closeConnection();

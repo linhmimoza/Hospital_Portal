@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Models.User;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 
 
@@ -37,17 +40,9 @@ public class HomeServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try{
             /* TODO output your page here. You may use following sample code. */
- 
-            UserDAO dao = new UserDAO();
-                            System.out.println("aaaaa");
-           List<User> listUsers = dao.getUsers();
-//            JSONArray arrayObj= new JSONArray();
-//            for (User user:listUsers){
-//                JSONObject userObj= JSONObject.fromObject(user);
-//                     System.out.println(userObj.toString());
-//                arrayObj.add(userObj);
-//            }
-//           System.out.println(arrayObj.toString());
+ DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+Calendar cal = Calendar.getInstance();
+System.out.println(dateFormat.format(cal.getTime()));
         }
         catch(Exception e){
             

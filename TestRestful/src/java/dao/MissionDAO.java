@@ -5,6 +5,7 @@
  */
 package dao;
 
+import Function.Time;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.Date;
@@ -52,7 +53,7 @@ public class MissionDAO implements Serializable {
                         + "Updateby, UpdateDate from Mission";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
-                System.out.println(sql);
+            
                 while (rs.next()) {
                     Integer id = rs.getInt("MissionId");
                     String startDate = rs.getString("StartDate");
@@ -120,10 +121,11 @@ public class MissionDAO implements Serializable {
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
+                Time time= new Time();
                 String sql = "insert into Mission(Content,Createby,CreateDate,EndDate,Note,Place,StartDate,Status,Updateby,UpdateDate) OUTPUT INSERTED.MissionId\n"
-                        + "values('" + mission.getContent() + "'," + mission.getCreateby() + ",'" + mission.getCreateDate() + "','" + mission.getEndDate() + "',"
+                        + "values('" + mission.getContent() + "'," + mission.getCreateby() + ",'" + time.getTime() + "','" + mission.getEndDate() + "',"
                         + "'" + mission.getNote() + "','" + mission.getPlace() + "','" + mission.getStartDate() + "'"
-                        + ",1," + mission.getUpdateby() + ",'" + mission.getUpdateDate() + "')";
+                        + ",1," + mission.getCreateby()+ ",'" + time.getTime()+ "')";
                 System.out.println(sql);
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
@@ -148,13 +150,13 @@ public class MissionDAO implements Serializable {
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                String sql = "update Mission set Content='"+mission.getContent()+"',Createby="+mission.getCreateby()+","
-                        + "CreateDate='"+mission.getCreateDate()+"'"
+                     Time time= new Time();
+                String sql = "update Mission set Content='"+mission.getContent()
                         + ",EndDate='"+mission.getEndDate()+"',Note='"+mission.getNote()+"'\n"
                         + ",Place='"+mission.getPlace()+"',StartDate='"+mission.getStartDate()+"',"
                         + "Status="+mission.getStatus()+",Updateby="+mission.getUpdateby()+","
-                        + "UpdateDate='"+mission.getUpdateDate()+"' where MissionId="+mission.getMissionId();
-                System.out.println(sql);
+                        + "UpdateDate='"+time.getTime()+"' where MissionId="+mission.getMissionId();
+          
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
                 MissionWorkerDAO dao = new MissionWorkerDAO();

@@ -125,7 +125,6 @@ public class DepartmentDAO implements Serializable {
         String result = "Susscess";
             UserDAO dao=new UserDAO();
                     int quantity=dao.getDepartmentQuantity(departmentId);
-                    System.out.println("quantity: "+quantity);
                     if (quantity>0){
                         result="There are some actvate user in this department";
                     }

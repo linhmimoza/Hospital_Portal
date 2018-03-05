@@ -44,7 +44,7 @@ public class UserDAO implements Serializable {
 
         List<User> listUsers = new ArrayList<>();
         try {
-            System.out.println("test");
+          
             con = DBUtils.DBUtils.makeConnection();
 
             if (con != null) {
@@ -108,7 +108,7 @@ public class UserDAO implements Serializable {
 
         User user = null;
         try {
-            System.out.println("test");
+     
             con = DBUtils.DBUtils.makeConnection();
 
             if (con != null) {
@@ -150,7 +150,7 @@ public class UserDAO implements Serializable {
 
         User user = null;
         try {
-            System.out.println("test");
+      
             con = DBUtils.DBUtils.makeConnection();
 
             if (con != null) {
