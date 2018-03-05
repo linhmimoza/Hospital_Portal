@@ -7,7 +7,6 @@ import { RoleService } from '../role/service/role.service';
 import { Role } from '../role/shared/role.model';
 import { DepartmentService } from '../department/service/department.service';
 import { Department } from '../department/shared/department.model';
-import { debug } from 'util';
 
 @Component({
     selector: 'user-detail',

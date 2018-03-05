@@ -1,24 +1,24 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Http } from '@angular/http';
-import { DepartmentService } from './service/department.service';
-import { Department } from './shared/department.model';
+import { MissionService } from './service/mission.service';
+import { Mission } from './shared/mission.model';
 
 @Component({
-    selector: 'department-detail',
-    templateUrl: './department-detail.component.html'
+    selector: 'mission-detail',
+    templateUrl: './mission-detail.component.html'
 })
-export class DepartmentDetailComponent {
-    department = new Department();
+export class MissionDetailComponent {
+    mission = new Mission();
     routerSubcription: any;
     id: number = 0;
     title: string;
-    departments: Department[] = [];
-    constructor(private route: ActivatedRoute, private router: Router, private departmentService: DepartmentService) {
+    missions: Mission[] = [];
+    constructor(private route: ActivatedRoute, private router: Router, private missionService: MissionService) {
 
     }
     back() {
-        this.router.navigate(['/main/department-list']);
+        this.router.navigate(['/main/mission-list']);
     }
 
     ngOnInit() {
@@ -31,19 +31,19 @@ export class DepartmentDetailComponent {
         // });
         this.routerSubcription = this.route.params.subscribe(params => {
             this.id = +params['id']; // (+) converts string 'id' to a number        
-            this.departmentService.getList().then((departments: Department[]) => {
-                this.departments = departments;
-                if (this.id == 0) this.department.departmentId = departments[0].departmentId;
+            this.missionService.getList().then((missions: Mission[]) => {
+                this.missions = missions;
+                if (this.id == 0) this.mission.missionId = missions[0].missionId;
             });
             if (this.id > 0) {
-                this.title = "You are updating department";
-                this.departmentService.getDepartment(this.id).then((res: Department) => {
-                    this.department = res;
+                this.title = "You are updating mission";
+                this.missionService.getMission(this.id).then((res: Mission) => {
+                    this.mission = res;
                 }).catch(err => {
                     console.log(err);
                 });
             } else {
-                this.title = "You are creating new department";
+                this.title = "You are creating new mission";
             }
         });
     }
@@ -51,19 +51,19 @@ export class DepartmentDetailComponent {
         this.routerSubcription = this.route.params.subscribe(params => {
             this.id = +params['id']; // (+) converts string 'id' to a number
             if (this.id > 0) {
-                this.departmentService.updateDepartment(this.department).then(() => {
+                this.missionService.updateMission(this.mission).then(() => {
                     alert("Save success");
-                    this.router.navigate(['/main/department-list']);
+                    this.router.navigate(['/main/mission-list']);
                 }).catch(err => {
                     debugger
                     alert(err);
                 });
             } else {
-                this.departmentService.createDepartment(this.department).then(() => {
+                this.missionService.createMission(this.mission).then(() => {
                     //Server trả về role sau khi save
                     //Nếu là tạo role mới thì res sẽ có giá trị id mới thay vì 0
                     alert("Save success");
-                    this.router.navigate(['/main/department-list']);
+                    this.router.navigate(['/main/mission-list']);
                 }).catch(err => {
                     debugger
                     alert(err);

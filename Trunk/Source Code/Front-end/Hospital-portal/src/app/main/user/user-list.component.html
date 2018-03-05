@@ -2,7 +2,6 @@
         <header class="panel-heading">
             <div class="panel-actions">
                 <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-                <!-- <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a> -->
             </div>
             <h2 class="panel-title">User list</h2>
         </header>
@@ -24,7 +23,7 @@
                     <col width="150px" />
                     <col width="150px" />
                     <col />
-                    <!-- <col width="150px" /> -->
+                    <col width="150px" />
                     <col width="50px" />
                     <col width="50px" />
                 </colgroup>
@@ -36,6 +35,7 @@
                         <th>Position</th>
                         <th>Role</th>
                         <th>Phone</th>
+                        <th>Status</th>
                         <!-- <th class="hidden-phone">Status</th> -->
                         <th class="hidden-phone"></th>
                         <th class="hidden-phone"></th>
@@ -50,14 +50,14 @@
                         <td>{{user.roleName}}</td>
                         <td>{{user.phone}}</td>
                         <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
-                        <!-- <td class="text-center">
-                            <span [ngClass]="{'bg-primary':user.IsActived,'bg-danger':!user.IsActived}"> 
+                        <td class="text-center">
+                            <!-- <span [ngClass]="{'bg-primary':user.IsActived,'bg-danger':!user.IsActived}">  -->
     
-                            <div class="grid-status" [ngClass]="{'bg-primary':user.IsActived,'bg-danger':!user.IsActived}">
+                            <div class="grid-status" [ngClass]="{'bg-primary': user.status == 1, 'bg-danger': user.status == 2 }">
     
-                                {{user.IsActived?'Hoạt động':'Khóa'}}
+                                {{user.status == 1? 'Active':'Disable'}}
                             </div>
-                        </td> -->
+                        </td>
                         <td align="center">
                             <a>
                                 <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(user)"></i>

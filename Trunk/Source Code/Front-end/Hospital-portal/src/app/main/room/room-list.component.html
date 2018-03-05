@@ -4,13 +4,13 @@
             <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
             <!-- <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a> -->
         </div>
-        <h2 class="panel-title">Department list</h2>
+        <h2 class="panel-title">Room list</h2>
     </header>
     <div class="panel-body">
         <div class="row">
             <div class="col-sm-6">
                 <div class="mb-md">
-                    <button class="btn btn-primary" [routerLink]="['/main/department-detail',0]">Add
+                    <button class="btn btn-primary" [routerLink]="['/main/room-detail',0]">Add
                         <i class="fa fa-plus"></i>
                     </button>
                 </div>
@@ -21,26 +21,23 @@
                 <col width="150px" />
                 <col />
                 <col width="150px" />
-                <col width="150px"/>
                 <col width="50px" />
                 <col width="50px" />
             </colgroup>
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Description</th>
-                    <th>Quantity</th>
+                    <th>Room size</th>
                     <th>Status</th>
                     <th class="hidden-phone"></th>
                     <th class="hidden-phone"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let department of departments" class="gradeX">
-                    <td>{{department.departmentName}}</td>
-                    <td>{{department.description}}</td>
-                    <td>{{department.quantity}}</td>
-                    <td>{{department.status}}</td>
+                <tr *ngFor="let room of rooms" class="gradeX">
+                    <td>{{room.roomName}}</td>
+                    <td>{{room.roomSize}}</td>
+                    <td>{{room.status}}</td>
                     <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
                     <!-- <td class="text-center">
                         <span [ngClass]="{'bg-primary':user.IsActived,'bg-danger':!user.IsActived}"> 
@@ -52,12 +49,12 @@
                     </td> -->
                     <td align="center">
                         <a>
-                            <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(department)"></i>
+                            <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(room)"></i>
                         </a>
                     </td>
                     <td align="center">
                         <a class="text-danger remove-row" >
-                            <i style="cursor:pointer" class="fa fa-trash-o text-danger" (click)="delete(department)"></i>
+                            <i style="cursor:pointer" class="fa fa-trash-o text-danger" (click)="delete(room)"></i>
                         </a>
                     </td>
                 </tr>
