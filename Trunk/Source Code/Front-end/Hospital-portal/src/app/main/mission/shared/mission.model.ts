@@ -1,4 +1,6 @@
-export class Mission{
+import { MissionWorker } from './missionWorker.model';
+
+export class Mission {
     missionId: number;
     startDate: Date;
     endDate: Date;
@@ -10,8 +12,8 @@ export class Mission{
     createDate: Date;
     updateBy: number;
     updateDate: Date;
+    missionWorkerList: MissionWorker[];
+    constructor() {
 
-    constructor(){
-        
     }
 }

@@ -56,8 +56,8 @@ public class ShiftScheduleDAO implements Serializable {
                     Integer departmentId = rs.getInt("DepartmentId");
                     String startDate = rs.getString("StartDate");
                     String endDate = rs.getString("EndDate");                    
-                    Date createDate = rs.getDate("CreateDate");
-                    Date updateDate = rs.getDate("UpdateDate");
+                    String createDate = rs.getString("CreateDate");
+                    String updateDate = rs.getString("UpdateDate");
                     Integer status = rs.getInt("Status");
                     Integer createby = rs.getInt("Createby");
                     Integer updateby = rs.getInt("Updateby");

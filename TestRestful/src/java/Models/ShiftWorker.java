@@ -33,7 +33,7 @@ public class ShiftWorker implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ShiftWorkerId")
-    private Integer shiftWorkerId;
+        private Integer shiftWorkerId;
     
     @Basic(optional = false)
     @Column(name = "ShiftId")
@@ -42,7 +42,7 @@ public class ShiftWorker implements Serializable {
     @Basic(optional = false)
     @Column(name = "UserId")
     private Integer userId;
-
+    private String userName;
     public ShiftWorker() {
     }
 
@@ -52,9 +52,22 @@ public class ShiftWorker implements Serializable {
         this.userId = userId;
     }
 
-    public ShiftWorker(Integer shiftWorkerId) {
+    public ShiftWorker(Integer shiftWorkerId, Integer shiftId, Integer userId, String userName) {
         this.shiftWorkerId = shiftWorkerId;
+        this.shiftId = shiftId;
+        this.userId = userId;
+        this.userName = userName;
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+
 
     public Integer getShiftWorkerId() {
         return shiftWorkerId;

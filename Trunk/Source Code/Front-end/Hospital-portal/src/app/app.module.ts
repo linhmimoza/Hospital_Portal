@@ -31,6 +31,8 @@ import { MeetingService } from './main/meetting/service/meeting.service';
 import { ArticleListComponent } from './main/article/article-list.component';
 import { ArticleDetailComponent } from './main/article/article-detail.component';
 import { ArticleService } from './main/article/service/article.service';
+import { ShiftSchedulerService } from './main/shiftScheduler/service/shiftScheduler.service';
+import { ShiftSchedulerListComponent } from './main/shiftScheduler/shiftScheduler-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -47,6 +49,7 @@ const routes: Routes = [
       { path: 'room-detail/:id', component: RoomDetailComponent },
       { path: 'mission-list', component: MissionListComponent },
       { path: 'mission-detail/:id', component: MissionDetailComponent },
+      { path: 'shiftScheduler-list', component: ShiftSchedulerListComponent},
       { path: 'meeting-list', component: MeetingListComponent },
       { path: 'meeting-detail/:id', component: MeetingDetailComponent },
       { path: 'article-list', component: ArticleListComponent },
@@ -71,6 +74,7 @@ const routes: Routes = [
     RoomDetailComponent,
     MissionListComponent,
     MissionDetailComponent,
+    ShiftSchedulerListComponent,
     MeetingListComponent,
     MeetingDetailComponent,
     ArticleListComponent,
@@ -83,7 +87,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   providers: [LoginService, ApiService, UserService, DepartmentService, RoleService, CategoryService, RoomService, MissionService,
-    MeetingService, ArticleService],
+   ShiftSchedulerService, MeetingService, ArticleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -51,10 +51,10 @@ public class ShiftSchedule implements Serializable {
     @Basic(optional = false)
     @Column(name = "CreateDate")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
+    private String createDate;
     @Column(name = "UpdateDate")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updateDate;
+    private String updateDate;
     
     @Basic(optional = false)
     @Column(name = "DepartmentId")
@@ -78,7 +78,7 @@ public class ShiftSchedule implements Serializable {
         this.shiftScheduleId = shiftScheduleId;
     }
 
-    public ShiftSchedule(Integer shiftScheduleId, String startDate, String endDate, int status, Date createDate, Date updateDate, Integer departmentId, Integer createby, Integer updateby) {
+    public ShiftSchedule(Integer shiftScheduleId, String startDate, String endDate, int status, String createDate, String updateDate, Integer departmentId, Integer createby, Integer updateby) {
         this.shiftScheduleId = shiftScheduleId;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -90,7 +90,7 @@ public class ShiftSchedule implements Serializable {
         this.updateby = updateby;
     }
 
-    public ShiftSchedule(Integer shiftScheduleId, String startDate, String endDate, int status, Date createDate, Date updateDate, Integer departmentId, Integer createby, Integer updateby, List<ShiftDay> shiftDayList) {
+    public ShiftSchedule(Integer shiftScheduleId, String startDate, String endDate, int status, String createDate, String updateDate, Integer departmentId, Integer createby, Integer updateby, List<ShiftDay> shiftDayList) {
         this.shiftScheduleId = shiftScheduleId;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -103,7 +103,7 @@ public class ShiftSchedule implements Serializable {
         this.shiftDayList = shiftDayList;
     }
 
-    public ShiftSchedule(Integer shiftScheduleId, String startDate, int status, Date createDate) {
+    public ShiftSchedule(Integer shiftScheduleId, String startDate, int status, String createDate) {
         this.shiftScheduleId = shiftScheduleId;
         this.startDate = startDate;
         this.status = status;
@@ -142,19 +142,19 @@ public class ShiftSchedule implements Serializable {
         this.status = status;
     }
 
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
-    public Date getUpdateDate() {
+    public String getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
     }
 

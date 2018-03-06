@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Mission } from './shared/mission.model';
 import { MissionService } from './service/mission.service';
-
 @Component({
     selector: 'mission-list',
     templateUrl: './mission-list.component.html'
