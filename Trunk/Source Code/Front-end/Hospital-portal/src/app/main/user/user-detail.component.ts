@@ -7,13 +7,14 @@ import { RoleService } from '../role/service/role.service';
 import { Role } from '../role/shared/role.model';
 import { DepartmentService } from '../department/service/department.service';
 import { Department } from '../department/shared/department.model';
+declare var $: any;
 
 @Component({
     selector: 'user-detail',
     templateUrl: './user-detail.component.html'
 })
 export class UserDetailComponent {
-    user = new User();
+    user: any;
     routerSubcription: any;
     id: number = 0;
     title: string;
@@ -51,6 +52,7 @@ export class UserDetailComponent {
                 this.title = "You are updating account";
                 this.userService.getUser(this.id).then((res: User) => {
                     this.user = res;
+                    this.user.sex = this.user.sex.toString();
                 }).catch(err => {
                     console.log(err);
                 });
@@ -82,5 +84,24 @@ export class UserDetailComponent {
                 });
             }
         });
+    }
+
+    ngAfterViewInit() {
+        //Lazy load js
+        $('[data-plugin-datepicker]').each(function() {
+            var $this = $( this ),
+                opts = {};
+
+            var pluginOptions = $this.data('plugin-options');
+            if (pluginOptions)
+                opts = pluginOptions;
+
+            $this.themePluginDatePicker(opts);
+        });
+                        // $.getScript("assets/porto/javascripts/theme.init.js", function () {
+                        //     // $.getScript("assets/porto/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js", function () {
+        
+                        //     // });
+                        // });
     }
 }
