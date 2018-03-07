@@ -1,74 +1,85 @@
-<section  role="main" class="content-body">
-    <!-- <section role="main" class="content-body"> -->
-    <header class="panel-heading">
-      <div class="panel-actions">
-        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-        <!-- <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a> -->
-      </div>
-      <h2 class="panel-title">ShiftScheduler list</h2>
-    </header>
-    <div class="panel-body">
-
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="mb-md">
-            <button class="btn btn-primary" [routerLink]="['/main/mission-detail',0]">Add
-              <i class="fa fa-plus"></i>
-            </button>
-          </div>
+<section role="main" class="content-body">
+  <!-- <section role="main" class="content-body"> -->
+  <header class="panel-heading">
+    <div class="panel-actions">
+      <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+      <!-- <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a> -->
+    </div>
+    <h2 class="panel-title">ShiftScheduler list</h2>
+  </header>
+  <div class="panel-body">
+    <div id="TEST" style="height:50px;width:100px">TEST</div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="mb-md">
+          <button class="btn btn-primary" [routerLink]="['/main/mission-detail',0]">Add
+            <i class="fa fa-plus"></i>
+          </button>
         </div>
       </div>
-      <table  *ngFor="let scheduler of listShiftScheduler" class="table table-bordered table-striped mb-none panel-body">
-        <colgroup>
-          <col width="150px" />
-          <col width="150px" />
-          <col width="150px" />
-          <col width="150px" />
-          <col width="150px" />
-          <col width="150px" />
-          <col width="150px" />
-        </colgroup>
-        <thead>
-          <tr>
-            <th *ngFor="let Day of scheduler.shiftDayList">{{Day.dayInWeek}}</th>    
-
-          </tr>
-        </thead>
-        <tbody>
-         
-          <tr  class="gradeX">
-            <td *ngFor="let shiftDay of scheduler.shiftDayList" >
-               
-              <div *ngFor="let shift of shiftDay.shiftList" class="form-group">
-               
-                    <div class="col-md-6">
-                        <select multiple="" data-plugin-selecttwo="" class="form-control populate select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-                          <optgroup label="Alaskan/Hawaiian Time Zone">
-                            <option value="AK">Alaska</option>
-                            <option value="HI">Hawaii</option>
-                
-                          </optgroup>
-                         
-                        </select>
-                        <span class="select2 select2-container select2-container--bootstrap select2-container--below select2-container--focus" dir="ltr" style="width: 120px">
-                          <span class="selection">
-                            <span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1">
-                              <ul class="select2-selection__rendered">
-                                <li *ngFor="let worker of shift.shiftWorkerList"  class="select2-selection__choice" title="California">
-                                  <span class="select2-selection__choice__remove" role="presentation">×</span>{{worker.userName}}</li>
-                                <li class="select2-search select2-search--inline">
-                                  <input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="" style="width: 0.75em;">
-                                </li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-                      </div>
-              </div>
-
-             
-             </td>
-          </tr>
-        </tbody>
-      </table>
-   
     </div>
+    <table *ngFor="let scheduler of listShiftScheduler" class="table table-bordered table-striped mb-none panel-body">
+      <colgroup>
+        <col width="150px" />
+        <col width="150px" />
+        <col width="150px" />
+        <col width="150px" />
+        <col width="150px" />
+        <col width="150px" />
+        <col width="150px" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th *ngFor="let Day of scheduler.shiftDayList">{{Day.dayInWeek}}</th>
 
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr class="gradeX">
+          <td *ngFor="let shiftDay of scheduler.shiftDayList">
+
+            <div *ngFor="let shift of shiftDay.shiftList" class="form-group">
+
+              <div class="col-md-6">
+                <select multiple="" data-plugin-selecttwo="" class="form-control populate select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                  <optgroup label="Alaskan/Hawaiian Time Zone">
+                    <option value="AK">Alaska</option>
+                    <option value="HI">Hawaii</option>
+
+                  </optgroup>
+
+                </select>
+                <span class="select2 select2-container select2-container--bootstrap select2-container--below select2-container--focus" dir="ltr"
+                  style="width: 120px">
+                  <span class="selection">
+                    <span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1">
+                      <ul class="select2-selection__rendered">
+                        <li *ngFor="let worker of shift.shiftWorkerList" class="select2-selection__choice" title="California">
+                          <span class="select2-selection__choice__remove" role="presentation">×</span>{{worker.userName}}</li>
+                        <li class="select2-search select2-search--inline">
+                          <input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off"
+                            spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="" style="width: 0.75em;">
+                        </li>
+                      </ul>
+                    </span>
+                  </span>
+                  <span class="dropdown-wrapper" aria-hidden="true"></span>
+                </span>
+              </div>
+            </div>
+
+
+<<<<<<< HEAD
  
   
+=======
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</section>
+>>>>>>> 06fcad47b0e6f3f66f996504852e51a4269d205b
