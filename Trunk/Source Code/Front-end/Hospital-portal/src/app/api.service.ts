@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
 export class ApiService {
     host: string = 'http://localhost:8080/TestRestful/webresources/generic/';
-
-    constructor(private router: Router, private http: Http) {
+    token: string = "none";
+    constructor(private router: Router, private http: Http, private cookieService: CookieService) {
 
     }
 

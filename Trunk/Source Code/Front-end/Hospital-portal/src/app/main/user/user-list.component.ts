@@ -34,6 +34,7 @@ export class UserListComponent {
 
     detail(user: User) {
         this.router.navigate(['/main/user-detail', user.userId]);
+     
     }
 
     delete(user: User) {

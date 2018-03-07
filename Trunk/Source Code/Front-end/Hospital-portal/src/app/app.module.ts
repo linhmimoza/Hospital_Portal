@@ -34,6 +34,7 @@ import { ArticleDetailComponent } from './main/article/article-detail.component'
 import { ArticleService } from './main/article/service/article.service';
 import { ShiftSchedulerService } from './main/shiftScheduler/service/shiftScheduler.service';
 import { ShiftSchedulerListComponent } from './main/shiftScheduler/shiftScheduler-list.component';
+import { CookieService } from 'ngx-cookie-service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -90,7 +91,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   providers: [LoginService, ApiService, UserService, DepartmentService, RoleService, CategoryService, RoomService, MissionService,
-   ShiftSchedulerService, MeetingService, ArticleService],
+   ShiftSchedulerService, MeetingService, ArticleService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
