@@ -39,7 +39,13 @@ export class UserListComponent {
     delete(user: User) {
         this.userService.deleteUser(user.userId).then(() => {
             // window.location.reload();
-            this.router.navigateByUrl('/main/user-list');
+            this.userService.getList().then((res: User[]) => {
+                this.users = res;
+                // console.log(this.users);
+            }).catch(err => {
+                alert(err);
+                // this.loadingService.stop();
+            });
         });
 
     }

@@ -15,12 +15,12 @@
                         Basic validation will display a label with the error after the form control.
                     </p> -->
                 </header>
-                <div class="panel-body" style="padding-right:350px;">
+                <div class="panel-body">
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Username
                             <span class="required">*</span>
                         </label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-7">
                             <input type="text" [(ngModel)]="user.userName" class="form-control" placeholder="Eg.: John Doe" required/>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                         <label class="col-sm-3 control-label">Email
                             <span class="required">*</span>
                         </label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-7">
                             <input type="text" [(ngModel)]="user.email" class="form-control" placeholder="Eg.: John Doe" required/>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                         <label class="col-sm-3 control-label">Full name
                             <span class="required">*</span>
                         </label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-7">
                             <input type="text" [(ngModel)]="user.fullName" class="form-control" placeholder="Eg.: John" required/>
                         </div>
                     </div>
@@ -79,7 +79,7 @@
                         <label class="col-sm-3 control-label">Sex
                             <span class="required">*</span>
                         </label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-7">
                             <div class="radio-custom">
                                 <input type="radio" [(ngModel)]="user.sex" checked value="1" name="radioExample">
                                 <label>Male</label>
@@ -110,7 +110,7 @@
                     </div> -->
                     <div class="form-group">
                         <label class="col-md-3 control-label">Day of birth</label>
-                        <div class="col-md-9">
+                        <div class="col-md-7">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
@@ -124,7 +124,7 @@
                         <label class="col-sm-3 control-label">Department
                             <span class="required">*</span>
                         </label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-7">
                             <select [(ngModel)]="user.departmentId" class="form-control">
                                 <option *ngFor="let department of departments" [ngValue]="department.departmentId">{{department.departmentName}}</option>
                             </select>
@@ -135,7 +135,7 @@
                         <label class="col-sm-3 control-label">Phone
                             <span class="required">*</span>
                         </label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-7">
                             <input type="text" [(ngModel)]="user.phone" class="form-control" placeholder="Eg.: John Doe" required/>
                         </div>
                     </div>
@@ -143,7 +143,7 @@
                         <label class="col-sm-3 control-label">Position
                             <span class="required">*</span>
                         </label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-7">
                             <select [(ngModel)]="user.position" class="form-control">
                                 <option value="Doctor">Doctor</option>
                                 <option value="Nurse">Nurse</option>
@@ -154,7 +154,7 @@
                         <label class="col-sm-3 control-label">Address
                             <span class="required">*</span>
                         </label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-7">
                             <input type="text" [(ngModel)]="user.address" class="form-control" placeholder="Eg.: John Doe" required/>
                         </div>
                     </div>
@@ -162,15 +162,16 @@
                         <label class="col-sm-3 control-label">Certificate
                             <span class="required">*</span>
                         </label>
-                        <div class="col-sm-9">
-                            <input type="text" [(ngModel)]="user.certificate" class="form-control" placeholder="Eg.: John Doe" required/>
+                        <div class="col-sm-7">
+                            <textarea class="form-control" [(ngModel)]="user.certificate" rows="3" id="textareaDefault"></textarea>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Role
                             <span class="required">*</span>
                         </label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-7">
                             <select [(ngModel)]="user.roleId" class="form-control">
                                 <option *ngFor="let role of roles" [ngValue]="role.roleId">{{role.roleName}}</option>
                             </select>
@@ -181,7 +182,7 @@
                         <label class="col-sm-3 control-label">Status
                             <span class="required">*</span>
                         </label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-7">
                             <div class="checkbox-custom checkbox-default">
                                 <input [(ngModel)]="user.status" type="checkbox" *ngIf="user.status == 1 checked">
                                 <label>Active</label>
