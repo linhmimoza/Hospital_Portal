@@ -1,4 +1,4 @@
-export class Meeting{
+export class Meeting {
     meetingId: number;
     roomId: number;
     roomName: string;
@@ -12,8 +12,10 @@ export class Meeting{
     updateBy: number;
     updateDate: Date;
     status: number;
+ 
 
-    constructor(){
-        
+    
+    constructor() {
+    
     }
 }

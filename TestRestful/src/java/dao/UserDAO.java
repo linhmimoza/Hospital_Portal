@@ -295,7 +295,7 @@ public boolean isEmailExited(String email){
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
                 String sql = "UPDATE [User]\n"
-                        + "SET Status=" + 3 + "\n"
+                        + "SET Status=" + 2 + "\n"
                         + "WHERE UserId=" + userId;             
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();

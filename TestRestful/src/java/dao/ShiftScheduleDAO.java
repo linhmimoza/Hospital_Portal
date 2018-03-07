@@ -74,4 +74,5 @@ public class ShiftScheduleDAO implements Serializable {
         }
         return listShiftSchedules;
     }
+    
 }

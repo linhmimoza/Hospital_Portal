@@ -66,7 +66,7 @@ public class Meeting implements Serializable {
     @Basic(optional = false)
     @Column(name = "RoomId")
     private Integer roomId;
-    
+     private String roomName;
     @Basic(optional = false)
     @Column(name = "CreateBy")
     private Integer createBy;
@@ -96,15 +96,32 @@ public class Meeting implements Serializable {
         this.createBy = createBy;
         this.updateBy = updateBy;
     }
-    
-    public Meeting(Integer meetingId, String meetingName, Date startTime, Date endTime, Date createDate, int status) {
+
+    public Meeting(Integer meetingId, String meetingName, Date startTime, Date endTime, String content, String note, Date createDate, Date updateDate, int status, Integer roomId, String roomName, Integer createBy, Integer updateBy) {
         this.meetingId = meetingId;
         this.meetingName = meetingName;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.content = content;
+        this.note = note;
         this.createDate = createDate;
+        this.updateDate = updateDate;
         this.status = status;
+        this.roomId = roomId;
+        this.roomName = roomName;
+        this.createBy = createBy;
+        this.updateBy = updateBy;
     }
+
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+    
+
 
     public Integer getMeetingId() {
         return meetingId;
