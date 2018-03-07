@@ -4,11 +4,11 @@ import { Meeting } from './shared/meeting.model';
 import { MeetingService } from './service/meeting.service';
 
 @Component({
-    selector: 'meeting-list',
-    templateUrl: './meeting-list.component.html'
+    selector: 'meeting-forUser',
+    templateUrl: './meeting-forUser.component.html'
     // styleUrls:['user-list.component.css']
 })
-export class MeetingListComponent {
+export class MeetingForUserComponent {
 
     meetings: Meeting[] = [];
     

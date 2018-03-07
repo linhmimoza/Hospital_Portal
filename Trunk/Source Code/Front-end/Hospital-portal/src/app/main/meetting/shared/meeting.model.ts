@@ -1,10 +1,13 @@
+import { Time } from "@angular/common";
+
 export class Meeting {
     meetingId: number;
     roomId: number;
     roomName: string;
     meetingName: string;
-    startTime: Date;
-    endTime: Date;
+    startTime: Time;
+    date: Date;
+    duration: Time;
     content: string;
     note: string;
     createBy: number;

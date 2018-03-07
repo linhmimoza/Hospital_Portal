@@ -6,6 +6,7 @@
 package Models;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -43,11 +44,9 @@ public class Meeting implements Serializable {
     @Basic(optional = false)
     @Column(name = "StartTime")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date startTime;
-    @Basic(optional = false)
-    @Column(name = "EndTime")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date endTime;
+    private String startTime;
+    private String duration;
+    private String date;
     @Column(name = "Content")
     private String content;
     @Column(name = "Note")
@@ -82,11 +81,12 @@ public class Meeting implements Serializable {
         this.meetingId = meetingId;
     }
 
-    public Meeting(Integer meetingId, String meetingName, Date startTime, Date endTime, String content, String note, Date createDate, Date updateDate, int status, Integer roomId, Integer createBy, Integer updateBy) {
+    public Meeting(Integer meetingId, String meetingName, String startTime, String duration, String date, String content, String note, Date createDate, Date updateDate, int status, Integer roomId, Integer createBy, Integer updateBy) {
         this.meetingId = meetingId;
         this.meetingName = meetingName;
         this.startTime = startTime;
-        this.endTime = endTime;
+        this.duration = duration;
+        this.date = date;
         this.content = content;
         this.note = note;
         this.createDate = createDate;
@@ -97,30 +97,25 @@ public class Meeting implements Serializable {
         this.updateBy = updateBy;
     }
 
-    public Meeting(Integer meetingId, String meetingName, Date startTime, Date endTime, String content, String note, Date createDate, Date updateDate, int status, Integer roomId, String roomName, Integer createBy, Integer updateBy) {
-        this.meetingId = meetingId;
-        this.meetingName = meetingName;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.content = content;
-        this.note = note;
-        this.createDate = createDate;
-        this.updateDate = updateDate;
-        this.status = status;
-        this.roomId = roomId;
-        this.roomName = roomName;
-        this.createBy = createBy;
-        this.updateBy = updateBy;
-    }
-
-    public String getRoomName() {
-        return roomName;
-    }
-
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
-    }
     
+
+    public Meeting(Integer meetingId, String meetingName, String startTime, String duration, String date, String content, String note, Date createDate, Date updateDate, int status, Integer roomId, String roomName, Integer createBy, Integer updateBy) {
+        this.meetingId = meetingId;
+        this.meetingName = meetingName;
+        this.startTime = startTime;
+        this.duration = duration;
+        this.date = date;
+        this.content = content;
+        this.note = note;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
+        this.status = status;
+        this.roomId = roomId;
+        this.roomName = roomName;
+        this.createBy = createBy;
+        this.updateBy = updateBy;
+    }
+
 
 
     public Integer getMeetingId() {
@@ -139,20 +134,28 @@ public class Meeting implements Serializable {
         this.meetingName = meetingName;
     }
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
-        return endTime;
+    public String getDuration() {
+        return duration;
     }
 
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getContent() {
@@ -203,6 +206,14 @@ public class Meeting implements Serializable {
         this.roomId = roomId;
     }
 
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+
     public Integer getCreateBy() {
         return createBy;
     }
@@ -219,6 +230,9 @@ public class Meeting implements Serializable {
         this.updateBy = updateBy;
     }
 
+
+
+    
     
 
     @Override

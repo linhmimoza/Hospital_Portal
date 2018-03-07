@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import Models.Meeting;
+import java.sql.Time;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -46,16 +47,17 @@ public class MeetingDAO implements Serializable {
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                String sql = "Select MeetingId, m.RoomId,r.RoomName, MeetingName, StartTime, EndTime, Content, Note, CreateBy,CreateDate,\n" +
-" UpdateBy, UpdateDate, m.Status from Meeting m, Room r where  m.RoomId=r.RoomId";
+                String sql = "Select MeetingId, m.RoomId,r.RoomName, MeetingName, StartTime, Date,Duration, Content, Note, CreateBy,CreateDate,\n" +
+" UpdateBy, UpdateDate, m.Status from Meeting m, Room r where  m.RoomId=r.RoomId ORDER BY Date,StartTime";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     Integer id = rs.getInt("MeetingId");
                     Integer roomId = rs.getInt("RoomId");
                     String meetingName = rs.getString("MeetingName");
-                    Date startTime = rs.getDate("StartTime");
-                    Date endTime = rs.getDate("EndTime");
+                    String startTime = rs.getString("StartTime");
+                    String date = rs.getString("Date");
+                    String duration=rs.getString("Duration");
                     String content = rs.getString("Content");
                     String note = rs.getString("Note");
                     Integer createBy = rs.getInt("CreateBy");
@@ -64,8 +66,8 @@ public class MeetingDAO implements Serializable {
                     Date updateDate = rs.getDate("UpdateDate");
                     Integer status = rs.getInt("Status");
                     String roomName= rs.getString("RoomName");
-                    Meeting meeting = new Meeting(id, meetingName, startTime, endTime, content, note, createDate, updateDate, status, roomId,roomName, createBy, updateBy);
-                    listMeetings.add(meeting);
+                    Meeting meeting = new Meeting(id, meetingName, startTime, duration, date, content, note, createDate, updateDate, status, roomId, roomName, createBy, updateBy);
+        listMeetings.add(meeting);
                 }
             }
         } catch (ClassNotFoundException ex) {
