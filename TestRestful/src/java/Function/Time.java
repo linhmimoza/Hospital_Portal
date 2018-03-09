@@ -19,4 +19,5 @@ public class Time {
 Calendar cal = Calendar.getInstance();
          return dateFormat.format(cal.getTime());
      }
+     
 }

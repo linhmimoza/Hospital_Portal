@@ -6,7 +6,7 @@ import { Meeting } from './shared/meeting.model';
 
 @Component({
     selector: 'meeting-detail',
-    templateUrl: './meeting-detail.component.html'
+     templateUrl: './meeting-detail.component.html'
 })
 export class MeetingDetailComponent {
     meeting = new Meeting();

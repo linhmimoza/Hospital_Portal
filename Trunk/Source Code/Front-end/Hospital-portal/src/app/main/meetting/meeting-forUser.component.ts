@@ -11,7 +11,7 @@ import { MeetingService } from './service/meeting.service';
 export class MeetingForUserComponent {
 
     meetings: Meeting[] = [];
-    
+
     constructor(private router: Router,
         private meetingService: MeetingService) { }
 

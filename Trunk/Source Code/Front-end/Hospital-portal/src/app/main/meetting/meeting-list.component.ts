@@ -11,7 +11,7 @@ import { MeetingService } from './service/meeting.service';
 export class MeetingListComponent {
 
     meetings: Meeting[] = [];
-    
+
     constructor(private router: Router,
         private meetingService: MeetingService) { }
 
@@ -40,5 +40,5 @@ export class MeetingListComponent {
             this.router.navigateByUrl('/main/meeting-list');
         // });
 
-    }
+}
 }

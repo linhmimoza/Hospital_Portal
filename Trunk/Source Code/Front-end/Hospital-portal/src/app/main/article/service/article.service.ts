@@ -26,7 +26,7 @@ export class ArticleService {
         });
     }
 
-    updateArticle(article: Article){
+    updateArticle(article: Article) {
         return new Promise((resolve, reject) => {
             this.apiService.post('updateArticle', article).then(res => {
                 resolve();
@@ -36,7 +36,7 @@ export class ArticleService {
         });
     }
 
-    createArticle(article: Article){
+    createArticle(article: Article) {
         return new Promise((resolve, reject) => {
             this.apiService.post('createArticle', article).then(res => {
                 resolve();
@@ -46,7 +46,7 @@ export class ArticleService {
         });
     }
 
-    deleteArticle(id){
+    deleteArticle(id) {
         return new Promise((resolve, reject) => {
             this.apiService.get(`deleteArticle/${id}`).then(res => {
                 resolve();
