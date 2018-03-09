@@ -51,7 +51,7 @@ public class User implements Serializable {
     private String fullName;
     @Basic(optional = false)
     @Column(name = "Sex")
-    private int sex;
+    private String sex;
     @Basic(optional = false)
     @Column(name = "DayOfBirth")
     private String dayOfBirth;
@@ -109,7 +109,7 @@ public class User implements Serializable {
         this.userId = userId;
     }
 
-    public User(String userName, String avatar, String email, String fullName, int sex, String dayOfBirth, String phone, String position, String address, String certificate, int roleId, Integer departmentId) {
+    public User(String userName, String avatar, String email, String fullName, String sex, String dayOfBirth, String phone, String position, String address, String certificate, int roleId, Integer departmentId) {
         this.userName = userName;
         this.avatar = avatar;
         this.email = email;
@@ -127,7 +127,7 @@ public class User implements Serializable {
     
 
     public User(Integer userId, String userName, String avatar, String email, 
-            String fullName, int sex, String dayOfBirth, String phone, String position, 
+            String fullName, String sex, String dayOfBirth, String phone, String position, 
             String address, String certificate, int status, int roleId, String roleName, 
             Integer departmentId,String departmentName) {
         this.userId = userId;
@@ -148,7 +148,7 @@ public class User implements Serializable {
          this.departmentName = departmentName;
     }
 
-    public User(String userName, String password, String avatar, String email, String fullName, int sex, String dayOfBirth, String phone, String position, String address, String certificate, int status, int roleId, Integer departmentId) {
+    public User(String userName, String password, String avatar, String email, String fullName, String sex, String dayOfBirth, String phone, String position, String address, String certificate, int status, int roleId, Integer departmentId) {
         this.userName = userName;
         this.password = password;
         this.avatar = avatar;
@@ -250,11 +250,11 @@ public class User implements Serializable {
         this.fullName = fullName;
     }
 
-    public int getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 

@@ -59,7 +59,7 @@ public class UserDAO implements Serializable {
                     String avatar = rs.getString("Avatar");
                     String email = rs.getString("Email");
                     String fullName = rs.getString("FullName");
-                    int sex = rs.getInt("Sex");
+                    String sex = rs.getString("Sex");
                     String dayOfBirth = rs.getString("DayOfBirth");
                     Integer departmentId = rs.getInt("DepartmentId");
                     String phone = rs.getString("Phone");
@@ -97,7 +97,7 @@ public class UserDAO implements Serializable {
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             closeConnection();
         }
@@ -123,7 +123,7 @@ public class UserDAO implements Serializable {
                     String avatar = rs.getString("Avatar");
                     String email = rs.getString("Email");
                     String fullName = rs.getString("FullName");
-                    int sex = rs.getInt("Sex");
+                    String sex = rs.getString("Sex");
                     String dayOfBirth = rs.getString("DayOfBirth");
                     Integer departmentId = rs.getInt("DepartmentId");
                     String phone = rs.getString("Phone");
@@ -165,7 +165,7 @@ public class UserDAO implements Serializable {
                     String avatar = rs.getString("Avatar");
                     String email = rs.getString("Email");
                     String fullName = rs.getString("FullName");
-                    int sex = rs.getInt("Sex");
+                    String sex = rs.getString("Sex");
                     String dayOfBirth = rs.getString("DayOfBirth");
                     Integer departmentId = rs.getInt("DepartmentId");
                     String phone = rs.getString("Phone");
@@ -201,7 +201,7 @@ public class UserDAO implements Serializable {
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
          
         } finally {
             closeConnection();
@@ -221,7 +221,7 @@ public boolean isEmailExited(String email){
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
          
         } finally {
             closeConnection();
@@ -236,7 +236,7 @@ public boolean isEmailExited(String email){
                 String sql = "UPDATE [User]\n"
                         + "SET Address = '" + user.getAddress() + "', Avatar='" + user.getAvatar() + "', Certificate='" + user.getCertificate() + "', \n"
                         + "DayOfBirth='" + user.getDayOfBirth() + "',DepartmentId=" + user.getDepartmentId() +  ",FullName='" + user.getFullName() + "',\n"
-                        +  "Phone='" + user.getPhone() + "',Position='" + user.getPosition() + "',RoleId=" + user.getRoleId() + ",Sex=" + user.getSex() + ",Status=" + user.getStatus() + "\n"
+                        +  "Phone='" + user.getPhone() + "',Position='" + user.getPosition() + "',RoleId=" + user.getRoleId() + ",Sex='" + user.getSex() + "',Status=" + user.getStatus() + "\n"
                         + "WHERE UserId=" + user.getUserId();
                
                 stm = con.prepareStatement(sql);
@@ -244,7 +244,7 @@ public boolean isEmailExited(String email){
 
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
             result = "Failed";
         } finally {
             closeConnection();
@@ -272,14 +272,14 @@ public boolean isEmailExited(String email){
                         + "values('" + user.getAddress() + "','" + user.getAvatar() + "','" + user.getCertificate() + "',"
                         + "'" + user.getDayOfBirth() + "'," + user.getDepartmentId() + ","
                         + "'" + user.getEmail() + "','" + user.getFullName() + "','123',"
-                        + "'" + user.getPhone() + "','" + user.getPosition() + "'," + user.getRoleId() + "," + user.getSex() + ","
+                        + "'" + user.getPhone() + "','" + user.getPosition() + "'," + user.getRoleId() + ",'" + user.getSex() + "',"
                         + "1,'" + user.getUserName() + "')";
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
 
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
             result = "Failed";
         } finally {
             closeConnection();
@@ -302,7 +302,7 @@ public boolean isEmailExited(String email){
 
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
             result = "Failed";
         } finally {
             closeConnection();
