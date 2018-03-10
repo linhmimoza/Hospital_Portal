@@ -1,0 +1,195 @@
+<section role="main" class="content-body">
+  <header class="panel-heading">
+    <div class="panel-actions">
+      <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+      <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+    </div>
+    <h2 class="panel-title">ShiftScheduler list</h2>
+  </header>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table mb-none">
+          <colgroup>
+            <col width="150px" />
+            <col width="150px" />
+            <col width="150px" />
+            <col width="150px" />
+            <col width="150px" />
+            <col width="150px" />
+            <col width="150px" />
+          </colgroup>
+        <thead>
+          <tr>
+              <th *ngFor="let Day of shiftScheduler.shiftDayList">{{Day.dayInWeek}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <select multiple data-plugin-selectTwo class="form-control populate">
+                <optgroup label="Alaskan/Hawaiian Time Zone">
+                  <option *ngFor="let user of users" value="user.userId">{{user.fullName}}</option>
+                  
+                </optgroup>
+              </select>
+            </td>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- <div class="panel-body">
+
+    <div class="form-group">
+      <label class="col-md-3 control-label">Multi-Value Select</label>
+      <div class="col-md-6">
+        <select multiple data-plugin-selectTwo class="form-control populate">
+          <optgroup label="Alaskan/Hawaiian Time Zone">
+            <option value="AK">Alaska</option>
+            <option value="HI">Hawaii</option>
+          </optgroup>
+
+        </select>
+      </div>
+    </div>
+    <div ng-app>
+      <div ng-repeat="scheduler in listShiftScheduler">
+        <h2 ng-bind="scheduler.createDate"></h2>
+      </div>
+    </div>
+
+    <table *ngFor="let scheduler of listShiftScheduler" class="table table-bordered table-striped mb-none panel-body">
+
+      <colgroup>
+        <col width="150px" />
+        <col width="150px" />
+        <col width="150px" />
+        <col width="150px" />
+        <col width="150px" />
+        <col width="150px" />
+        <col width="150px" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th *ngFor="let Day of scheduler.shiftDayList">{{Day.dayInWeek}}</th>
+
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr class="gradeX">
+          <td *ngFor="let shiftDay of scheduler.shiftDayList">
+
+            <div *ngFor="let shift of shiftDay.shiftList" class="form-group">
+
+
+              <div class="col-md-6">
+                <select multiple="" data-plugin-selecttwo="" class="form-control populate select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                  <optgroup label="Alaskan/Hawaiian Time Zone">
+                    <option value="AK">Alaska</option>
+                    <option value="HI">Hawaii</option>
+
+                  </optgroup>
+
+                </select>
+                <span class="select2 select2-container select2-container--bootstrap select2-container--below select2-container--focus" dir="ltr"
+                  style="width: 120px">
+                  <span class="selection">
+                    <span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1">
+                      <ul class="select2-selection__rendered">
+                        <li *ngFor="let worker of shift.shiftWorkerList" class="select2-selection__choice" title="California">
+                          <span class="select2-selection__choice__remove" role="presentation">×</span>{{worker.userName}}</li>
+                        <li class="select2-search select2-search--inline">
+                          <input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off"
+                            spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="" style="width: 0.75em;">
+                        </li>
+                      </ul>
+                    </span>
+                  </span>
+                  <span class="dropdown-wrapper" aria-hidden="true"></span>
+                </span> 
+              </div>
+            </div>
+
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div> -->
+</section>
+
+
+<!-- <section role="main" class="content-body">
+  <header class="page-header">
+    <h2>Calendar</h2>
+
+    <div class="right-wrapper pull-right">
+      <ol class="breadcrumbs">
+        <li>
+          <a href="index.html">
+            <i class="fa fa-home"></i>
+          </a>
+        </li>
+        <li>
+          <span>Pages</span>
+        </li>
+        <li>
+          <span>Calendar</span>
+        </li>
+      </ol>
+
+      <a class="sidebar-right-toggle" data-open="sidebar-right">
+        <i class="fa fa-chevron-left"></i>
+      </a>
+    </div>
+  </header>
+
+  <section class="panel">
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-9">
+          <div id="calendar"></div>
+        </div>
+        <div class="col-md-3">
+          <p class="h4 text-weight-light">Draggable Events</p>
+
+          <hr />
+
+          <div id='external-events'>
+            <div class="external-event label label-default" data-event-class="fc-event-default">Default Event</div>
+            <div class="external-event label label-primary" data-event-class="fc-event-primary">Primary Event</div>
+            <div class="external-event label label-success" data-event-class="fc-event-success">Success Event</div>
+            <div class="external-event label label-warning" data-event-class="fc-event-warning">Warning Event</div>
+            <div class="external-event label label-info" data-event-class="fc-event-info">Info Event</div>
+            <div class="external-event label label-danger" data-event-class="fc-event-danger">Danger Event</div>
+            <div class="external-event label label-dark" data-event-class="fc-event-dark">Dark Event</div>
+
+            <hr />
+            <div>
+              <div class="checkbox-custom checkbox-default ib">
+                <input id="RemoveAfterDrop" type="checkbox"/>
+                <label for="RemoveAfterDrop">remove after drop</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</section> -->
