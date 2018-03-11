@@ -7,11 +7,11 @@
         <div class="panel panel-sign">
             <div class="panel-title-sign mt-xl text-right">
                 <h2 class="title text-uppercase text-weight-bold m-none">
-                    <i class="fa fa-user mr-xs"></i>Đăng nhập</h2>
+                    <i class="fa fa-user mr-xs"></i>Login</h2>
             </div>
             <div class="panel-body">
                 <div class="form-group mb-lg">
-                    <label>Tên người dùng</label>
+                    <label>Username</label>
                     <div class="input-group input-group-icon">
                         <input name="username" type="text" class="form-control input-lg" [(ngModel)]="username" />
                         <span class="input-group-addon">
@@ -24,7 +24,7 @@
 
                 <div class="form-group mb-lg">
                     <div class="clearfix">
-                        <label class="pull-left">Mật khẩu</label>
+                        <label class="pull-left">Password</label>
                     </div>
                     <div class="input-group input-group-icon">
                         <input name="pwd" type="password" class="form-control input-lg" [(ngModel)]="password" />
@@ -40,11 +40,11 @@
                     <div class="col-sm-8">
                         <div class="checkbox-custom checkbox-default">
                             <input id="RememberMe" name="rememberme" type="checkbox" />
-                            <label for="RememberMe">Nhớ mật khẩu</label>
+                            <label for="RememberMe">Remember password</label>
                         </div>
                     </div>
                     <div class="col-sm-4 text-right">
-                        <button type="button" class="btn btn-primary hidden-xs" (click)="login()">Đăng nhập</button>
+                        <button type="button" class="btn btn-primary hidden-xs" (click)="login()">Login</button>
                     </div>
                 </div>
             </div>

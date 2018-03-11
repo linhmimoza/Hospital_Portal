@@ -8,18 +8,35 @@ import { CookieService } from 'ngx-cookie-service';
 export class LoginService {
 
     user: User = new User();
-    constructor(private apiService: ApiService) { }
+    constructor(private apiService: ApiService, private cookieService: CookieService) { }
     login(username, password) {
         return new Promise((resolve, reject) => {
             this.apiService.get('checkLogin?username=' + username + '&password=' + password)
                 .then((res: Response) => {
                     this.user = res.json();
-                    resolve(res.json());
-                    // alert(res.json());
-                }).catch(err => {                
+                    resolve(this.user);
+                    // this.apiService.token = res.json();
+                    // this.cookieService.set("Auth-Hospital", this.apiService.token);
+                    // this.getAuthorize().then(user => {
+                    //     resolve(user);
+                    // }).catch(err => {
+                    //     reject(err);
+                    // });
+                }).catch(err => {
                     alert("Invalid username or password");
                     reject(err);
                 });
+        });
+    }
+
+    getAuthorize() {
+        return new Promise<User>((resolve, reject) => {
+            this.apiService.get(`authenticateUser/${this.apiService.token}`).then(res => {
+                this.user = res.json();
+                resolve(this.user);
+            }).catch(err => {
+                reject(err);
+            });
         });
     }
 }

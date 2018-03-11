@@ -9,7 +9,7 @@ export class User{
     avatar: string;
     email: string;
     fullName: string;
-    sex: number;
+    sex: string;
     dayOfBirth: string;
     phone: string;
     position: string;

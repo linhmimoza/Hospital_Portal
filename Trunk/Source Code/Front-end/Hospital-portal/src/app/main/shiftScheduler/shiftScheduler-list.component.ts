@@ -1,25 +1,44 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import {BrowserModule} from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { ShiftScheduler } from './shared/shiftScheduler.model';
 import { ShiftSchedulerService } from './service/shiftScheduler.service';
+import { UserService } from '../user/service/user.service';
+import { User } from '../user/shared/user.model';
+import { ShiftDay } from './shared/shiftDay.model';
 declare var $: any;
 @Component({
     selector: 'shiftScheduler-list',
-     templateUrl: './shiftScheduler-list.component.html'
+    templateUrl: './shiftScheduler-list.component.html'
     //   styleUrls: ['./css/dropdown.css']
 })
 export class ShiftSchedulerListComponent {
 
     listShiftScheduler: ShiftScheduler[] = [];
+    shiftScheduler = new ShiftScheduler();
+    users: User[] = [];
+    days: ShiftDay[] = [];
+    numberOfDay: number[] = [];
 
     constructor(private router: Router,
-        private shiftSchedulerService: ShiftSchedulerService) { }
+        private shiftSchedulerService: ShiftSchedulerService, private userService: UserService) { }
 
     ngOnInit() {
+
         // this.loadingService.start();
+        this.userService.getList().then((users: User[]) => {
+            this.users = users;
+            // console.log(users);
+        });
         this.shiftSchedulerService.getList().then((res: ShiftScheduler[]) => {
             this.listShiftScheduler = res;
+            this.shiftScheduler = this.listShiftScheduler[0];
+            this.days = this.shiftScheduler.shiftDayList;
+            console.log(this.days);
+            for (let i = 0; i < this.days.length; i++) {
+                this.numberOfDay.push(i);
+            }
+            console.log(this.numberOfDay);
         }).catch(err => {
             alert(err);
             // this.loadingService.stop();
@@ -31,7 +50,7 @@ export class ShiftSchedulerListComponent {
     ngAfterViewInit() {
 
 
-}
+    }
 
 
 }

@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {Component, NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CalendarModule } from 'angular-calendar';
 
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
@@ -35,6 +35,8 @@ import { ArticleService } from './main/article/service/article.service';
 import { ShiftSchedulerService } from './main/shiftScheduler/service/shiftScheduler.service';
 import { ShiftSchedulerListComponent } from './main/shiftScheduler/shiftScheduler-list.component';
 import { CookieService } from 'ngx-cookie-service';
+import { NotificationService } from './main/extra/notification.service';
+import { LoadingService } from './main/extra/loading.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -51,7 +53,7 @@ const routes: Routes = [
       { path: 'room-detail/:id', component: RoomDetailComponent },
       { path: 'mission-list', component: MissionListComponent },
       { path: 'mission-detail/:id', component: MissionDetailComponent },
-      { path: 'shiftScheduler-list', component: ShiftSchedulerListComponent},
+      { path: 'shiftScheduler-list', component: ShiftSchedulerListComponent },
       { path: 'meeting-list', component: MeetingListComponent },
       { path: 'meeting-forUser', component: MeetingForUserComponent },
       { path: 'meeting-detail/:id', component: MeetingDetailComponent },
@@ -82,16 +84,18 @@ const routes: Routes = [
     MeetingDetailComponent,
     MeetingForUserComponent,
     ArticleListComponent,
-    ArticleDetailComponent
+    ArticleDetailComponent,
   ],
   imports: [
     BrowserModule,
     HttpModule,
     FormsModule,
-    RouterModule.forRoot(routes)
+    ReactiveFormsModule,  
+    RouterModule.forRoot(routes),
+    CalendarModule.forRoot()
   ],
-  providers: [LoginService, ApiService, UserService, DepartmentService, RoleService, CategoryService, RoomService, MissionService,
-   ShiftSchedulerService, MeetingService, ArticleService, CookieService],
+  providers: [NotificationService, LoadingService, LoginService, ApiService, UserService, DepartmentService, RoleService, CategoryService, RoomService, MissionService,
+    ShiftSchedulerService, MeetingService, ArticleService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
