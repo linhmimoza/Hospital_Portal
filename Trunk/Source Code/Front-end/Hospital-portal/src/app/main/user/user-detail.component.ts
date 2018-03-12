@@ -42,7 +42,7 @@ export class UserDetailComponent {
         //     dayOfBirth: ['', Validators.required],
         //     departmentName: ['', Validators.required],
         //     address: ['', Validators.required],
-        //     catetificate: ['', Validators.required],
+        //     certificate: ['', Validators.required],
         //     roleName: ['', Validators.required]
         // });
     }
@@ -52,10 +52,31 @@ export class UserDetailComponent {
 
     ngOnInit() {
         this.form = new FormGroup({
-            'userName': new FormControl(this.user.userName, [
+            userName: new FormControl('', [
                 Validators.required,
                 Validators.minLength(4),
-                forbiddenNameValidator(/bob/i)         
+                forbiddenNameValidator(/bob/i)
+            ]),
+            email: new FormControl('', [
+                Validators.required
+            ]),
+            fullName: new FormControl('', [
+                Validators.required
+            ]),
+            sex: new FormControl('', [
+                Validators.required
+            ]),
+            dayOfBirth: new FormControl('', [
+                Validators.required
+            ]),
+            phone: new FormControl('', [
+                Validators.required
+            ]),
+            address: new FormControl('', [
+                Validators.required
+            ]),
+            certificate: new FormControl('', [
+                Validators.required
             ])
         });
 
@@ -83,6 +104,18 @@ export class UserDetailComponent {
                 this.title = "You are updating account";
                 this.userService.getUser(this.id).then((res: User) => {
                     this.user = res;
+                    this.form.setValue(
+                        {
+                            userName: this.user.userName,
+                            email: this.user.email,
+                            fullName: this.user.fullName,
+                            sex: this.user.sex,
+                            dayOfBirth: this.user.dayOfBirth,
+                            address: this.user.address,
+                            phone: this.user.phone,
+                            certificate: this.user.certificate
+                        });
+                    console.log(this.form.fullName + "sfilhdkjfka");
                     // this.user.sex = this.user.sex.toString();
                 }).catch(err => {
                     console.log(err);
@@ -91,11 +124,40 @@ export class UserDetailComponent {
                 this.user.position = "Doctor";
                 this.title = "You are creating new account";
             }
+
         });
     }
 
-    get userName(){
+    get userName() {
         return this.form.get('userName');
+    }
+
+    get email() {
+        return this.form.get('email');
+    }
+
+    get fullName() {
+        return this.form.get('fullName');
+    }
+
+    get sex() {
+        return this.form.get('sex').value;
+    }
+
+    get dayOfBirth() {
+        return this.form.get('dayOfBirth');
+    }
+
+    get phone() {
+        return this.form.get('phone');
+    }
+
+    get address() {
+        return this.form.get('address');
+    }
+
+    get certificate() {
+        return this.form.get('certificate');
     }
 
     save() {
@@ -103,11 +165,9 @@ export class UserDetailComponent {
             this.id = +params['id']; // (+) converts string 'id' to a number
             if (this.id > 0) {
                 this.userService.updateUser(this.user).then(() => {
-                    this.notificationService.success("Success").then(()=>{
-
-                        
+                    this.notificationService.success("Success").then(() => {
+                        this.router.navigate(['/main/user-list']);
                     });
-                    this.router.navigate(['/main/user-list']);
                 }).catch(err => {
                     debugger
                     alert(err);

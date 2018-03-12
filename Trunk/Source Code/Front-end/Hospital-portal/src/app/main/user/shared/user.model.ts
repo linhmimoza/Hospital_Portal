@@ -13,7 +13,7 @@ export class User{
     dayOfBirth: string;
     phone: string;
     position: string;
-    Address: string;
+    address: string;
     certificate: string;
     status: number;
 

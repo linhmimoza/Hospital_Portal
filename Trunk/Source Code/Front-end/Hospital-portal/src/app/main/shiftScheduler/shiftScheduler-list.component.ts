@@ -33,12 +33,11 @@ export class ShiftSchedulerListComponent {
         this.shiftSchedulerService.getList().then((res: ShiftScheduler[]) => {
             this.listShiftScheduler = res;
             this.shiftScheduler = this.listShiftScheduler[0];
-            this.days = this.shiftScheduler.shiftDayList;
-            console.log(this.days);
-            for (let i = 0; i < this.days.length; i++) {
-                this.numberOfDay.push(i);
-            }
-            console.log(this.numberOfDay);
+            $.getScript("assets/porto/javascripts/theme.init.js", function () {
+                $.getScript("assets/porto/javascripts/theme.admin.extension.js", function () {
+
+                });
+            });
         }).catch(err => {
             alert(err);
             // this.loadingService.stop();
@@ -48,7 +47,6 @@ export class ShiftSchedulerListComponent {
 
 
     ngAfterViewInit() {
-
 
     }
 
