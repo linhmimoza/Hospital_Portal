@@ -37,6 +37,7 @@ import { ShiftSchedulerListComponent } from './main/shiftScheduler/shiftSchedule
 import { CookieService } from 'ngx-cookie-service';
 import { NotificationService } from './main/extra/notification.service';
 import { LoadingService } from './main/extra/loading.service';
+import { DemoPagingComponent } from './main/demoPaging/demoPaging.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -58,7 +59,8 @@ const routes: Routes = [
       { path: 'meeting-forUser', component: MeetingForUserComponent },
       { path: 'meeting-detail/:id', component: MeetingDetailComponent },
       { path: 'article-list', component: ArticleListComponent },
-      { path: 'article-detail/:id', component: ArticleDetailComponent }
+      { path: 'article-detail/:id', component: ArticleDetailComponent },
+      { path: 'demoPaging', component: DemoPagingComponent }
     ]
   },
   { path: 'login', component: LoginComponent, pathMatch: 'full' }
@@ -85,6 +87,7 @@ const routes: Routes = [
     MeetingForUserComponent,
     ArticleListComponent,
     ArticleDetailComponent,
+    DemoPagingComponent
   ],
   imports: [
     BrowserModule,
