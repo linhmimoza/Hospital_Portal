@@ -238,7 +238,7 @@ public boolean isEmailExited(String email){
                         + "DayOfBirth='" + user.getDayOfBirth() + "',DepartmentId=" + user.getDepartmentId() +  ",FullName='" + user.getFullName() + "',\n"
                         +  "Phone='" + user.getPhone() + "',Position='" + user.getPosition() + "',RoleId=" + user.getRoleId() + ",Sex='" + user.getSex() + "',Status=" + user.getStatus() + "\n"
                         + "WHERE UserId=" + user.getUserId();
-                System.out.println(sql);
+               
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
 
