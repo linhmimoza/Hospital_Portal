@@ -33,8 +33,8 @@ export class ShiftSchedulerListComponent {
         this.shiftSchedulerService.getList().then((res: ShiftScheduler[]) => {
             this.listShiftScheduler = res;
             this.shiftScheduler = this.listShiftScheduler[0];
-            $.getScript("assets/porto/javascripts/theme.init.js", function () {
-                $.getScript("assets/porto/javascripts/theme.admin.extension.js", function () {
+            $.getScript('assets/porto/javascripts/theme.init.js', function () {
+                $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
 
                 });
             });

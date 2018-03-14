@@ -56,9 +56,12 @@ public class MeetingDAO implements Serializable {
                     Integer id = rs.getInt("MeetingId");
                     Integer roomId = rs.getInt("RoomId");
                     String meetingName = rs.getString("MeetingName");
-                    String startTime = rs.getString("StartTime");
+                    String startTime = rs.getString("StartTime").substring(0, 5);
                     String date = rs.getString("Date");
                     String duration = rs.getString("Duration");
+                    if (duration!=null){
+                        duration=duration.substring(0, 5);
+                    }
                     String content = rs.getString("Content");
                     String note = rs.getString("Note");
                     Integer createBy = rs.getInt("CreateBy");
@@ -100,9 +103,12 @@ public class MeetingDAO implements Serializable {
                     Integer id = rs.getInt("MeetingId");
                     Integer roomId = rs.getInt("RoomId");
                     String meetingName = rs.getString("MeetingName");
-                    String startTime = rs.getString("StartTime");
+                    String startTime = rs.getString("StartTime").substring(0, 5);
                     String date = rs.getString("Date");
                     String duration = rs.getString("Duration");
+                    if (duration!=null){
+                        duration=duration.substring(0, 5);
+                    }
                     String content = rs.getString("Content");
                     String note = rs.getString("Note");
                     Integer createBy = rs.getInt("CreateBy");
@@ -144,9 +150,12 @@ public class MeetingDAO implements Serializable {
                     Integer id = rs.getInt("MeetingId");
                     Integer roomId = rs.getInt("RoomId");
                     String meetingName = rs.getString("MeetingName");
-                    String startTime = rs.getString("StartTime");
+                    String startTime = rs.getString("StartTime").substring(0, 5);
                     String date = rs.getString("Date");
                     String duration = rs.getString("Duration");
+                    if (duration!=null){
+                        duration=duration.substring(0, 5);
+                    }
                     String content = rs.getString("Content");
                     String note = rs.getString("Note");
                     Integer createBy = rs.getInt("CreateBy");

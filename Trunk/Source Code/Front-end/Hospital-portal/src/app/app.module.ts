@@ -28,6 +28,7 @@ import { MissionService } from './main/mission/service/mission.service';
 import { MeetingListComponent } from './main/meetting/meeting-list.component';
 import { MeetingForUserComponent } from './main/meetting/meeting-forUser.component';
 import { MeetingDetailComponent } from './main/meetting/meeting-detail.component';
+import { ManageMeetingComponent } from './main/meetting/manage-meeting.component';
 import { MeetingService } from './main/meetting/service/meeting.service';
 import { ArticleListComponent } from './main/article/article-list.component';
 import { ArticleDetailComponent } from './main/article/article-detail.component';
@@ -57,6 +58,7 @@ const routes: Routes = [
       { path: 'shiftScheduler-list', component: ShiftSchedulerListComponent },
       { path: 'createShiftScheduler', component: CreateShiftSchedulerComponent },
       { path: 'meeting-list', component: MeetingListComponent },
+      { path: 'manage-meeting', component: ManageMeetingComponent },
       { path: 'meeting-forUser', component: MeetingForUserComponent },
       { path: 'meeting-detail/:id', component: MeetingDetailComponent },
       { path: 'article-list', component: ArticleListComponent },
@@ -86,6 +88,7 @@ const routes: Routes = [
     MeetingListComponent,
     MeetingDetailComponent,
     MeetingForUserComponent,
+    ManageMeetingComponent,
     ArticleListComponent,
     ArticleDetailComponent,
   ],
