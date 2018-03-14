@@ -20,7 +20,7 @@ export class NotificationService {
                 setTimeout(() => {
                     resolve();
                 }, 1000);
-            }, 5000);
+            }, 1000);
         });
         
     }

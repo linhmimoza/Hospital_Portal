@@ -53,6 +53,5 @@ export class UserListComponent {
                 // this.loadingService.stop();
             });
         });
-
     }
 }

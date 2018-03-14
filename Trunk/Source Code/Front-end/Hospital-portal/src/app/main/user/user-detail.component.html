@@ -15,7 +15,7 @@
                         Basic validation will display a label with the error after the form control.
                     </p> -->
                 </header>
-                <form [formGroup]="form" (ngSubmit)="save()">
+                <form [formGroup]="form" (ngSubmit)="onFormSubmit(form.value)">
                     <div class="panel-body">
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Username
@@ -94,16 +94,16 @@
                             </div>
                         </div>
 
-                        <!-- <div class="form-group">
+                        <div class="form-group">
                             <label class="col-sm-3 control-label">Department
                                 <span class="required">*</span>
                             </label>
                             <div class="col-sm-7">
-                                <select [(ngModel)]="user.departmentId" class="form-control">
-                                    <option *ngFor="let department of departments" [ngValue]="department.departmentId">{{department.departmentName}}</option>
+                                <select formControlName="departmentId" class="form-control">
+                                    <option *ngFor="let dept of departments" [ngValue]="dept.departmentId">{{dept.departmentName}}</option>
                                 </select>
                             </div>
-                        </div> -->
+                        </div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Phone
@@ -117,17 +117,17 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="form-group">
+                        <div class="form-group">
                             <label class="col-sm-3 control-label">Position
                                 <span class="required">*</span>
                             </label>
                             <div class="col-sm-7">
-                                <select [(ngModel)]="user.position" class="form-control">
+                                <select formControlName="position" class="form-control">
                                     <option value="Doctor">Doctor</option>
                                     <option value="Nurse">Nurse</option>
                                 </select>
                             </div>
-                        </div> -->
+                        </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Address
                                 <span class="required">*</span>
@@ -145,34 +145,24 @@
                             </label>
                             <div class="col-sm-7">
                                 <textarea class="form-control" formControlName="certificate" rows="3" id="textareaDefault"></textarea>
-                                <div class="form-group" *ngIf="certificate.invalid && (certificate.dirty || certificate.touched)" class="alert alert-danger" style="margin-top: 10px">
+                                <div class="form-group" *ngIf="certificate.invalid && (certificate.dirty || certificate.touched)" class="alert alert-danger"
+                                    style="margin-top: 10px">
                                     <strong *ngIf="certificate.errors.required">Certificate is required.</strong>
                                 </div>
                             </div>
                         </div>
-<!-- 
+
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Role
                                 <span class="required">*</span>
                             </label>
                             <div class="col-sm-7">
-                                <select [(ngModel)]="user.roleId" class="form-control">
+                                <select formControlName="roleId" class="form-control">
                                     <option *ngFor="let role of roles" [ngValue]="role.roleId">{{role.roleName}}</option>
                                 </select>
                             </div>
-                        </div> -->
-
-                        <!-- <div class="form-group">
-                            <label class="col-sm-3 control-label">Status
-                                <span class="required">*</span>
-                            </label>
-                            <div class="col-sm-7">
-                                <div class="checkbox-custom checkbox-default">
-                                    <input [(ngModel)]="user.status" type="checkbox" *ngIf="user.status == 1 checked">
-                                    <label>Active</label>
-                                </div>
-                            </div>
-                        </div> -->
+                        </div>
+                        
                     </div>
                     <footer class="panel-footer">
                         <div class="row">

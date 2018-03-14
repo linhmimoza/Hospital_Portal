@@ -157,17 +157,33 @@
                                     <span>Home page</span>
                                 </a>
                             </li>
-                            <li class="nav-active">
+                        
+                          
+                            <li class="nav-parent">
                                 <a [routerLink]="['/main/dashboard']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <i class="fa fa-columns" aria-hidden="true"></i>
                                     <span>Hospital portal</span>
                                 </a>
-                            </li>
-                            <li class="nav-active">
-                                <a [routerLink]="['/main/user-list']">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Manage article</span>
-                                </a>
+                                <ul class="nav nav-children">
+                                    <li>
+                                        <a [routerLink]="['/main/mission-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Mission schedule</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/main/meeting-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Meeting schedule</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/main/shiftScheduler-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Shift schedule</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
 
                             <li class="nav-parent">
@@ -179,13 +195,13 @@
                                     <li>
                                         <a [routerLink]="['/main/mission-list']">
                                             <i class="fa fa-home" aria-hidden="true"></i>
-                                            <span>Manage meeting schedule</span>
+                                            <span>Manage mission schedule</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a [routerLink]="['/main/meeting-list']">
                                             <i class="fa fa-home" aria-hidden="true"></i>
-                                            <span>Manage mission schedule</span>
+                                            <span>Manage meeting schedule</span>
                                         </a>
                                     </li>
                                     <li>
@@ -197,6 +213,12 @@
                                 </ul>
                             </li>
 
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/user-list']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Manage article</span>
+                                </a>
+                            </li>
                             <li class="nav-active">
                                 <a [routerLink]="['/main/dashboard']">
                                     <i class="fa fa-home" aria-hidden="true"></i>
@@ -224,6 +246,26 @@
                                     <i class="fa fa-home" aria-hidden="true"></i>
                                     <span>Hospital portal</span>
                                 </a>
+                                <ul class="nav nav-children">
+                                    <li>
+                                        <a [routerLink]="['/main/mission-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Mission schedule</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/main/meeting-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Meeting schedule</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/main/shift-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Shift schedule</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
 
                             <li class="nav-parent">
@@ -235,13 +277,13 @@
                                     <li>
                                         <a [routerLink]="['/main/mission-list']">
                                             <i class="fa fa-home" aria-hidden="true"></i>
-                                            <span>Manage meeting schedule</span>
+                                            <span>Manage mission schedule</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a [routerLink]="['/main/meeting-list']">
                                             <i class="fa fa-home" aria-hidden="true"></i>
-                                            <span>Manage mission schedule</span>
+                                            <span>Manage meeting schedule</span>
                                         </a>
                                     </li>
                                     <li>
@@ -252,6 +294,7 @@
                                     </li>
                                 </ul>
                             </li>
+
 
 
                             <li class="nav-active">
@@ -269,7 +312,7 @@
                                     <span>Home page</span>
                                 </a>
                             </li>
-                            <li class="nav-active">
+                            <li class="nav-parent">
                                 <a [routerLink]="['/main/dashboard']">
                                     <i class="fa fa-home" aria-hidden="true"></i>
                                     <span>Hospital portal</span>
@@ -302,6 +345,26 @@
                                     <i class="fa fa-home" aria-hidden="true"></i>
                                     <span>Hospital portal</span>
                                 </a>
+                                <ul class="nav nav-children">
+                                    <li>
+                                        <a [routerLink]="['/main/mission-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Mission schedule</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/main/meeting-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Meeting schedule</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/main/shift-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Shift schedule</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
 
                             <li class="nav-parent">
@@ -313,13 +376,13 @@
                                     <li>
                                         <a [routerLink]="['/main/mission-list']">
                                             <i class="fa fa-home" aria-hidden="true"></i>
-                                            <span>Manage meeting schedule</span>
+                                            <span>Manage mission schedule</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a [routerLink]="['/main/meeting-list']">
                                             <i class="fa fa-home" aria-hidden="true"></i>
-                                            <span>Manage mission schedule</span>
+                                            <span>Manage meeting schedule</span>
                                         </a>
                                     </li>
                                     <li>

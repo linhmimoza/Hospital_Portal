@@ -33,6 +33,7 @@ export class ApiService {
     get(url: string) {
         return new Promise<Response>((resolve, reject) => {
             let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
+           
             this.http.get(this.host + url, { headers: headers })
                 .toPromise()
                 .then(res => {

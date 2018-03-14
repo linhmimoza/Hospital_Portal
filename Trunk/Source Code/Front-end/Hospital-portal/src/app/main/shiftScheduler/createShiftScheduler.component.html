@@ -1,0 +1,58 @@
+<section role="main" class="content-body">
+    <header class="panel-heading">
+      <div class="panel-actions">
+        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+      </div>
+      <h2 class="panel-title">ShiftScheduler list</h2>
+    </header>
+    <div >
+        <div class="input-group">
+          <span class="input-group-addon">
+            <i class="fa fa-clock-o"></i>
+          </span>
+          <input type="text" data-plugin-timepicker class="form-control" data-plugin-options>
+        </div>
+      </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table mb-none">
+          <colgroup>
+
+            <col width="150px" />
+            <col width="150px" />
+            <col width="150px" />
+            <col width="150px" />
+            <col width="150px" />
+            <col width="150px" />
+            <col width="150px" />
+          </colgroup>
+          <thead>
+            <tr>
+             
+              <th *ngFor="let Day of shiftScheduler.shiftDayList">{{Day.dayInWeek}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>          
+              <td *ngFor="let Day of shiftScheduler.shiftDayList">
+                <div *ngFor="let shift of Day.shiftList">                
+                <div>
+                  <select multiple data-plugin-selectTwo class="form-control populate" style="width: 100%" >
+                    <optgroup label="Employee name">
+                      <option *ngFor="let user of users" value="user.userId">{{user.fullName}}</option>
+                    </optgroup>
+                  </select></div></div>
+                  <button type="button" class="btn btn-default form-control" (click)="addShift(Day)"><i class="glyphicon glyphicon-plus"></i></button>
+              </td>
+            </tr>
+         
+          </tbody>
+        </table>
+        
+      </div>
+     </div>
+     
+  </section>
+  
+  

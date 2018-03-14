@@ -25,27 +25,13 @@ export class UserDetailComponent {
     title: string;
     roles: Role[] = [];
     departments: Department[] = [];
+    formSubmitted = false;
+
     constructor(private route: ActivatedRoute, private router: Router, private userService: UserService,
         private roleService: RoleService, private departmentService: DepartmentService, private loadingService: LoadingService,
-        private notificationService: NotificationService,
-        // private formBuilder: FormBuilder
-    ) {
-
-        // this.form = formBuilder.group({
-        //     userName: ['fdsafa', Validators.required],
-        //     fullName: ['', Validators.required],
-        //     phone: ['', Validators.required],
-        //     email: ['', Validators.required],
-        //     sex: ['', Validators.required],
-        //     position: ['', Validators.required],
-        //     status: ['', Validators.required],
-        //     dayOfBirth: ['', Validators.required],
-        //     departmentName: ['', Validators.required],
-        //     address: ['', Validators.required],
-        //     certificate: ['', Validators.required],
-        //     roleName: ['', Validators.required]
-        // });
+        private notificationService: NotificationService) {
     }
+
     back() {
         this.router.navigate(['/main/user-list']);
     }
@@ -63,9 +49,7 @@ export class UserDetailComponent {
             fullName: new FormControl('', [
                 Validators.required
             ]),
-            sex: new FormControl('', [
-                Validators.required
-            ]),
+            sex: new FormControl('Male'),
             dayOfBirth: new FormControl('', [
                 Validators.required
             ]),
@@ -77,7 +61,12 @@ export class UserDetailComponent {
             ]),
             certificate: new FormControl('', [
                 Validators.required
-            ])
+            ]),
+            departmentId: new FormControl(''),
+            roleId: new FormControl(''),
+            status: new FormControl(''),
+            position: new FormControl(''),
+            userId: new FormControl('')
         });
 
         this.loadingService.start();
@@ -92,19 +81,26 @@ export class UserDetailComponent {
             this.roleService.getList().then((roles: Role[]) => {
                 this.roles = roles;
                 // this.loadingService.stop();
-                console.log(roles);
-                if (this.id == 0) this.user.roleId = roles[0].roleId;
+                if (this.id == 0) {
+                    this.form.patchValue({
+                        roleId: roles[0].roleId
+                    });
+                }
             });
             this.departmentService.getList().then((departments: Department[]) => {
                 this.departments = departments;
                 this.loadingService.stop();
-                if (this.id == 0) this.user.departmentId = departments[0].departmentId;
+                if (this.id == 0) {
+                    this.form.patchValue({
+                        departmentId: departments[0].departmentId
+                    });
+                }
             });
             if (this.id > 0) {
                 this.title = "You are updating account";
                 this.userService.getUser(this.id).then((res: User) => {
                     this.user = res;
-                    this.form.setValue(
+                    this.form.patchValue(
                         {
                             userName: this.user.userName,
                             email: this.user.email,
@@ -113,9 +109,13 @@ export class UserDetailComponent {
                             dayOfBirth: this.user.dayOfBirth,
                             address: this.user.address,
                             phone: this.user.phone,
-                            certificate: this.user.certificate
+                            certificate: this.user.certificate,
+                            departmentId: this.user.departmentId,
+                            roleId: this.user.roleId,
+                            status: this.user.status,
+                            position: this.user.position,
+                            userId: this.user.userId
                         });
-                    console.log(this.form.fullName + "sfilhdkjfka");
                     // this.user.sex = this.user.sex.toString();
                 }).catch(err => {
                     console.log(err);
@@ -123,11 +123,18 @@ export class UserDetailComponent {
             } else {
                 this.user.position = "Doctor";
                 this.title = "You are creating new account";
+                this.form.patchValue(
+                    {
+                        position: 'Doctor',
+                        dayOfBirth: '03/27/2018'
+                    });
             }
 
         });
     }
 
+    // Check validity of form control, write a method for a form control
+    // HTML template we can access validity state as userName.invalid
     get userName() {
         return this.form.get('userName');
     }
@@ -141,7 +148,7 @@ export class UserDetailComponent {
     }
 
     get sex() {
-        return this.form.get('sex').value;
+        return this.form.get('sex');
     }
 
     get dayOfBirth() {
@@ -160,26 +167,47 @@ export class UserDetailComponent {
         return this.form.get('certificate');
     }
 
-    save() {
+    get departmentId() {
+        return this.form.get('departmentId');
+    }
+
+    get roleId() {
+        return this.form.get('roldId');
+    }
+
+    get position() {
+        return this.form.get('position');
+    }
+
+    onFormSubmit(user: User) {
+        this.formSubmitted = true;
+        if (this.form.valid) {
+            console.log(user);
+            this.save(user);
+        } else {
+            this.formSubmitted = false;
+            alert('Invalid format');
+        }
+    }
+
+    save(user: User) {
         this.routerSubcription = this.route.params.subscribe(params => {
             this.id = +params['id']; // (+) converts string 'id' to a number
             if (this.id > 0) {
-                this.userService.updateUser(this.user).then(() => {
+                this.userService.updateUser(user).then(() => {
                     this.notificationService.success("Success").then(() => {
                         this.router.navigate(['/main/user-list']);
                     });
                 }).catch(err => {
-                    debugger
                     alert(err);
                 });
             } else {
-                this.userService.createUser(this.user).then(() => {
+                this.userService.createUser(user).then(() => {
                     //Server trả về role sau khi save
                     //Nếu là tạo role mới thì res sẽ có giá trị id mới thay vì 0
                     this.notificationService.success("Success");
                     this.router.navigate(['/main/user-list']);
                 }).catch(err => {
-                    debugger
                     alert(err);
                 });
             }
