@@ -1,5 +1,7 @@
 import { ApiService } from '../../../api.service';
 import { Injectable } from '@angular/core';
+import { ShiftDay } from '../shared/shiftDay.model';
+import { Shift } from '../shared/shift.model';
 
 @Injectable()
 export class ShiftSchedulerService {
@@ -12,5 +14,12 @@ export class ShiftSchedulerService {
                 reject(err);
             });
         });
+    }
+    addShiftToDay(date: ShiftDay) {
+      let  listShift : Shift[] = date.shiftList;
+      let shift: Shift;
+      listShift.push(shift);
+      return listShift;
+
     }
  }

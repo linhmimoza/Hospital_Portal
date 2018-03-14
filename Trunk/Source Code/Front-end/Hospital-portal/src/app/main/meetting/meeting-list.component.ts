@@ -9,25 +9,41 @@ import { MeetingService } from './service/meeting.service';
     // styleUrls:['user-list.component.css']
 })
 export class MeetingListComponent {
-
-    meetings: Meeting[] = [];
-
+    fPage = 0;
+    pPage = 0;
+    futureMeetings: Meeting[] = [];
+    passMeetings: Meeting[] = [];
     constructor(private router: Router,
         private meetingService: MeetingService) { }
 
     ngOnInit() {
-        // this.loadingService.start();
-        this.meetingService.getList().then((res: Meeting[]) => {
-            this.meetings = res;
-        }).catch(err => {
-            alert(err);
-            // this.loadingService.stop();
-        });
+
+        this.loadFuture();
+        this.loadPass();
+
     }
 
 
     ngAfterViewInit() {
 
+    }
+    loadFuture() {
+        this.fPage = this.fPage + 1;
+        this.meetingService.getFutureMeeting(this.fPage).then((res: Meeting[]) => {
+            this.futureMeetings = res;
+        }).catch(err => {
+            alert(err);
+
+        });
+    }
+    loadPass() {
+        this.pPage = this.pPage + 1;
+        this.meetingService.getPassMeeting(this.pPage).then((res: Meeting[]) => {
+            this.passMeetings = res;
+        }).catch(err => {
+            alert(err);
+
+        });
     }
 
     detail(meeting: Meeting) {
@@ -36,9 +52,9 @@ export class MeetingListComponent {
 
     delete(meeting: Meeting) {
         // this.departmentService.deleteDepartment(department.departmentId).then(() => {
-            // window.location.reload();
-            this.router.navigateByUrl('/main/meeting-list');
+        // window.location.reload();
+        this.router.navigateByUrl('/main/meeting-list');
         // });
 
-}
+    }
 }

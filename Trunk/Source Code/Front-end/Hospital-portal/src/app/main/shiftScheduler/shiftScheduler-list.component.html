@@ -6,51 +6,44 @@
     </div>
     <h2 class="panel-title">ShiftScheduler list</h2>
   </header>
+  
   <div class="panel-body">
-    <div class="table-responsive">
-      <table class="table mb-none">
-        <colgroup>
-          <col />
-          <col width="150px" />
-          <col width="150px" />
-          <col width="150px" />
-          <col width="150px" />
-          <col width="150px" />
-          <col width="150px" />
-          <col width="150px" />
-        </colgroup>
-        <thead>
-          <tr>
-            <th>TIME</th>
-            <th *ngFor="let Day of shiftScheduler.shiftDayList">{{Day.dayInWeek}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td *ngFor="let Day of shiftScheduler.shiftDayList">
-              <select multiple data-plugin-selectTwo class="form-control populate">
-                <optgroup label="Employee name">
-                  <option *ngFor="let user of users" value="user.userId">{{user.fullName}}</option>
-                </optgroup>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <div class="table-responsive">
+          <table class="table mb-none" style="text-align: center" >
+            <colgroup>
+             
+              <col width="16%" />
+              <col width="16%" />
+              <col width="16%" />
+              <col width="16%" />
+              <col width="16%" />
+              <col width="16%" />
+
+            </colgroup>
+            <thead>
+              <tr>             
+                <th *ngFor="let Day of shiftScheduler.shiftDayList" style="text-align: center">{{Day.dayInWeek}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+               
+                <td *ngFor="let Day of shiftScheduler.shiftDayList" style="width: 16%">
+                  <div *ngFor="let shift of Day.shiftList" class="btn-group " 
+                  style="width: 90%; padding: 10px; background-color:deepskyblue; margin: 10px ">  
+                <p style="color: white"><strong>{{shift.startTime}}-{{shift.endTime}}</strong></p>
+       
+                      <button *ngFor="let worker of shift.shiftWorkerList" type="button" class="btn btn-default" style="margin: 2px">
+                        {{worker.userName}}</button>
+                  </div>
+                
+                </td>
+              </tr>
+           
+            </tbody>
+          </table>
+          
+        </div>
   </div>
 </section>
 

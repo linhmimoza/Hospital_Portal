@@ -81,8 +81,8 @@ public class ShiftDAO implements Serializable {
                 while (rs.next()) {
                     Integer id = rs.getInt("ShiftId");
                     Integer shiftNO = rs.getInt("ShiftNO");
-                    String startTime = rs.getString("StartTime");
-                    String endTime = rs.getString("EndTime");
+                    String startTime = rs.getString("StartTime").substring(0, 5);
+                    String endTime = rs.getString("EndTime").substring(0, 5);
                     Integer shiftDayID = rs.getInt("ShiftDayID");
                     String other = rs.getString("Other");       
                     ShiftWorkerDAO dao=new ShiftWorkerDAO();

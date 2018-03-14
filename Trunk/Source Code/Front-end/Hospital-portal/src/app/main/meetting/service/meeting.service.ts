@@ -16,6 +16,24 @@ export class MeetingService {
             });
         });
     }
+    getFutureMeeting(page: number) {
+        return new Promise((resolve, reject) => {
+            this.apiService.get('getFutureMeeting?page=' + page).then(res => {
+                resolve(res.json());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
+    getPassMeeting(page: number) {
+        return new Promise((resolve, reject) => {
+            this.apiService.get('getPassMeeting?page=' + page).then(res => {
+                resolve(res.json());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
     getMeeting(id) {
         return new Promise((resolve, reject) => {
             this.apiService.get(`getMeetingById/${id}`).then(res => {

@@ -13,11 +13,15 @@ import java.util.Calendar;
  *
  * @author Admin
  */
-public class Time {
+public class TimeEditor {
      public String getTime(){
          DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 Calendar cal = Calendar.getInstance();
          return dateFormat.format(cal.getTime());
      }
-     
+      public String getDate(){
+         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+Calendar cal = Calendar.getInstance();
+         return dateFormat.format(cal.getTime());
+     }
 }

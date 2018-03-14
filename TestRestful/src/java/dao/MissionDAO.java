@@ -5,7 +5,7 @@
  */
 package dao;
 
-import Function.Time;
+import Function.TimeEditor;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.Date;
@@ -121,12 +121,12 @@ public class MissionDAO implements Serializable {
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                Time time= new Time();
+                TimeEditor time= new TimeEditor();
                 String sql = "insert into Mission(Content,Createby,CreateDate,EndDate,Note,Place,StartDate,Status,Updateby,UpdateDate) OUTPUT INSERTED.MissionId\n"
                         + "values('" + mission.getContent() + "'," + mission.getCreateby() + ",'" + time.getTime() + "','" + mission.getEndDate() + "',"
                         + "'" + mission.getNote() + "','" + mission.getPlace() + "','" + mission.getStartDate() + "'"
                         + ",1," + mission.getCreateby()+ ",'" + time.getTime()+ "')";
-                System.out.println(sql);
+      
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 if (rs.next()) {
@@ -150,7 +150,7 @@ public class MissionDAO implements Serializable {
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                     Time time= new Time();
+                     TimeEditor time= new TimeEditor();
                 String sql = "update Mission set Content='"+mission.getContent()
                         + ",EndDate='"+mission.getEndDate()+"',Note='"+mission.getNote()+"'\n"
                         + ",Place='"+mission.getPlace()+"',StartDate='"+mission.getStartDate()+"',"

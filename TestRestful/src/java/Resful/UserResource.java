@@ -46,7 +46,7 @@ public class UserResource {
      */
      @Path("/checkLogin")
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces()
     public User checkLogin(
     @QueryParam("username") String username ,
     @QueryParam("password") String password) throws SQLException, ClassNotFoundException {

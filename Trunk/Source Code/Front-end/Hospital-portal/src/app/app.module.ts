@@ -34,6 +34,7 @@ import { ArticleDetailComponent } from './main/article/article-detail.component'
 import { ArticleService } from './main/article/service/article.service';
 import { ShiftSchedulerService } from './main/shiftScheduler/service/shiftScheduler.service';
 import { ShiftSchedulerListComponent } from './main/shiftScheduler/shiftScheduler-list.component';
+import { CreateShiftSchedulerComponent } from './main/shiftScheduler/createShiftScheduler.component';
 import { CookieService } from 'ngx-cookie-service';
 import { NotificationService } from './main/extra/notification.service';
 import { LoadingService } from './main/extra/loading.service';
@@ -54,6 +55,7 @@ const routes: Routes = [
       { path: 'mission-list', component: MissionListComponent },
       { path: 'mission-detail/:id', component: MissionDetailComponent },
       { path: 'shiftScheduler-list', component: ShiftSchedulerListComponent },
+      { path: 'createShiftScheduler', component: CreateShiftSchedulerComponent },
       { path: 'meeting-list', component: MeetingListComponent },
       { path: 'meeting-forUser', component: MeetingForUserComponent },
       { path: 'meeting-detail/:id', component: MeetingDetailComponent },
@@ -80,6 +82,7 @@ const routes: Routes = [
     MissionListComponent,
     MissionDetailComponent,
     ShiftSchedulerListComponent,
+    CreateShiftSchedulerComponent,
     MeetingListComponent,
     MeetingDetailComponent,
     MeetingForUserComponent,
@@ -90,7 +93,7 @@ const routes: Routes = [
     BrowserModule,
     HttpModule,
     FormsModule,
-    ReactiveFormsModule,  
+    ReactiveFormsModule,
     RouterModule.forRoot(routes),
     CalendarModule.forRoot()
   ],

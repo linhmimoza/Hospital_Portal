@@ -16,6 +16,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -41,6 +42,22 @@ public class MeetingResource {
     public List<Meeting> getListDepartment() throws SQLException, ClassNotFoundException {
    MeetingDAO dao = new MeetingDAO();
             List<Meeting> listMeeting = dao.getMeetings();        
+            return listMeeting;
+    }
+    @Path("/getFutureMeeting")
+    @GET
+    @Produces()
+    public List<Meeting> getFutureMeeting(@QueryParam("page") int page) throws SQLException, ClassNotFoundException {
+   MeetingDAO dao = new MeetingDAO();
+            List<Meeting> listMeeting = dao.getFutureMeetings(page);        
+            return listMeeting;
+    }
+    @Path("/getPassMeeting")
+    @GET
+    @Produces()
+    public List<Meeting> getPassMeeting(@QueryParam("page") int page ) throws SQLException, ClassNotFoundException {
+   MeetingDAO dao = new MeetingDAO();
+            List<Meeting> listMeeting = dao.getPassMeetings(page);        
             return listMeeting;
     }
 }

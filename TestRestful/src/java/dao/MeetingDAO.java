@@ -5,6 +5,7 @@
  */
 package dao;
 
+import Function.TimeEditor;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.Date;
@@ -14,12 +15,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import Models.Meeting;
-import java.sql.Time;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MeetingDAO implements Serializable {
- Connection con = null;
+
+    Connection con = null;
     PreparedStatement stm = null;
     ResultSet rs = null;
 
@@ -40,15 +41,15 @@ public class MeetingDAO implements Serializable {
         }
 
     }
-    public List<Meeting> getMeetings()  {
-    
+
+    public List<Meeting> getMeetings() {
 
         List<Meeting> listMeetings = new ArrayList<>();
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                String sql = "Select MeetingId, m.RoomId,r.RoomName, MeetingName, StartTime, Date,Duration, Content, Note, CreateBy,CreateDate,\n" +
-" UpdateBy, UpdateDate, m.Status from Meeting m, Room r where  m.RoomId=r.RoomId ORDER BY Date,StartTime";
+                String sql = "Select MeetingId, m.RoomId,r.RoomName, MeetingName, StartTime, Date,Duration, Content, Note, CreateBy,CreateDate,\n"
+                        + " UpdateBy, UpdateDate, m.Status from Meeting m, Room r where  m.RoomId=r.RoomId ORDER BY Date,StartTime";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -57,7 +58,7 @@ public class MeetingDAO implements Serializable {
                     String meetingName = rs.getString("MeetingName");
                     String startTime = rs.getString("StartTime");
                     String date = rs.getString("Date");
-                    String duration=rs.getString("Duration");
+                    String duration = rs.getString("Duration");
                     String content = rs.getString("Content");
                     String note = rs.getString("Note");
                     Integer createBy = rs.getInt("CreateBy");
@@ -65,17 +66,105 @@ public class MeetingDAO implements Serializable {
                     Integer updateBy = rs.getInt("UpdateBy");
                     Date updateDate = rs.getDate("UpdateDate");
                     Integer status = rs.getInt("Status");
-                    String roomName= rs.getString("RoomName");
+                    String roomName = rs.getString("RoomName");
                     Meeting meeting = new Meeting(id, meetingName, startTime, duration, date, content, note, createDate, updateDate, status, roomId, roomName, createBy, updateBy);
-        listMeetings.add(meeting);
+                    listMeetings.add(meeting);
                 }
             }
         } catch (ClassNotFoundException ex) {
-         Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
-     } catch (SQLException ex) {
-         Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
-     } finally {
-  closeConnection();
+            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeConnection();
+        }
+        return listMeetings;
+    }
+
+    public List<Meeting> getFutureMeetings(int page) {
+ int rows=3*page;
+        List<Meeting> listMeetings = new ArrayList<>();
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                TimeEditor time = new TimeEditor();
+                String now = time.getDate();
+                String sql = "Select MeetingId, m.RoomId,r.RoomName, MeetingName, StartTime, Date,Duration, Content, Note, CreateBy,CreateDate,\n"
+                        + " UpdateBy, UpdateDate, m.Status from Meeting m, Room r where  m.RoomId=r.RoomId and m.Date>='" + now + "' ORDER BY Date,StartTime"
+                         + " OFFSET 0 ROWS\n"
+                        + "FETCH NEXT "+rows+" ROWS ONLY;";
+             
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    Integer id = rs.getInt("MeetingId");
+                    Integer roomId = rs.getInt("RoomId");
+                    String meetingName = rs.getString("MeetingName");
+                    String startTime = rs.getString("StartTime");
+                    String date = rs.getString("Date");
+                    String duration = rs.getString("Duration");
+                    String content = rs.getString("Content");
+                    String note = rs.getString("Note");
+                    Integer createBy = rs.getInt("CreateBy");
+                    Date createDate = rs.getDate("CreateDate");
+                    Integer updateBy = rs.getInt("UpdateBy");
+                    Date updateDate = rs.getDate("UpdateDate");
+                    Integer status = rs.getInt("Status");
+                    String roomName = rs.getString("RoomName");
+                    Meeting meeting = new Meeting(id, meetingName, startTime, duration, date, content, note, createDate, updateDate, status, roomId, roomName, createBy, updateBy);
+                    listMeetings.add(meeting);
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeConnection();
+        }
+        return listMeetings;
+    }
+
+    public List<Meeting> getPassMeetings(int page) {
+        int rows=3*page;
+        List<Meeting> listMeetings = new ArrayList<>();
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                TimeEditor time = new TimeEditor();
+                String now = time.getDate();
+                String sql = "Select 10 MeetingId, m.RoomId,r.RoomName, MeetingName, StartTime, Date,Duration, Content, Note, CreateBy,CreateDate,\n"
+                        + " UpdateBy, UpdateDate, m.Status from Meeting m, Room r where  m.RoomId=r.RoomId and m.Date<'" + now + "' ORDER BY Date DESC,StartTime DESC"
+                        + " OFFSET 0 ROWS\n"
+                        + "FETCH NEXT "+rows+" ROWS ONLY;";
+     
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    Integer id = rs.getInt("MeetingId");
+                    Integer roomId = rs.getInt("RoomId");
+                    String meetingName = rs.getString("MeetingName");
+                    String startTime = rs.getString("StartTime");
+                    String date = rs.getString("Date");
+                    String duration = rs.getString("Duration");
+                    String content = rs.getString("Content");
+                    String note = rs.getString("Note");
+                    Integer createBy = rs.getInt("CreateBy");
+                    Date createDate = rs.getDate("CreateDate");
+                    Integer updateBy = rs.getInt("UpdateBy");
+                    Date updateDate = rs.getDate("UpdateDate");
+                    Integer status = rs.getInt("Status");
+                    String roomName = rs.getString("RoomName");
+                    Meeting meeting = new Meeting(id, meetingName, startTime, duration, date, content, note, createDate, updateDate, status, roomId, roomName, createBy, updateBy);
+                    listMeetings.add(meeting);
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeConnection();
         }
         return listMeetings;
     }
