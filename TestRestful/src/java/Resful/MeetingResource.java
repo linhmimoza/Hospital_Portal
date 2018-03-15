@@ -38,10 +38,26 @@ public class MeetingResource {
 
  @Path("/getListMeeting")
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces()
     public List<Meeting> getListDepartment() throws SQLException, ClassNotFoundException {
    MeetingDAO dao = new MeetingDAO();
             List<Meeting> listMeeting = dao.getMeetings();        
+            return listMeeting;
+    }
+     @Path("/getCheckedMeeting")
+    @GET
+    @Produces()
+    public List<Meeting> getCheckedMeeting() throws SQLException, ClassNotFoundException {
+   MeetingDAO dao = new MeetingDAO();
+            List<Meeting> listMeeting = dao.getCheckedMeetings();        
+            return listMeeting;
+    }
+     @Path("/getWaitingMeeting")
+    @GET
+    @Produces()
+    public List<Meeting> getWaitingMeeting() throws SQLException, ClassNotFoundException {
+   MeetingDAO dao = new MeetingDAO();
+            List<Meeting> listMeeting = dao.getWaitingMeetings();        
             return listMeeting;
     }
     @Path("/getFutureMeeting")

@@ -35,7 +35,7 @@ export class ShiftSchedulerListComponent {
             this.shiftScheduler = this.listShiftScheduler[0];
             $.getScript('assets/porto/javascripts/theme.init.js', function () {
                 $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
-
+                    
                 });
             });
         }).catch(err => {

@@ -8,23 +8,36 @@ import { MeetingService } from './service/meeting.service';
     // styleUrls:['user-list.component.css']
 })
 export class ManageMeetingComponent {
-    meetings: Meeting[] = [];
+    checkedMeetings: Meeting[] = [];
+    waitingMeetings: Meeting[] = [];
     constructor(private router: Router,
         private meetingService: MeetingService) { }
 
     ngOnInit() {
-
-        this.meetingService.getList().then((res: Meeting[]) => {
-            this.meetings = res;
-
-            // console.log(this.users);
-        }).catch(err => {
-            alert(err);
-            // this.loadingService.stop();
-        });
+        this.loadChecked();
+        this.loadWaiting();
     }
+loadChecked() {
+    this.meetingService.getCheked().then((res: Meeting[]) => {
+        this.checkedMeetings = res;
 
+        // console.log(this.users);
+    }).catch(err => {
+        alert(err);
+        // this.loadingService.stop();
+    });
+}
 
+loadWaiting() {
+    this.meetingService.getWaiting().then((res: Meeting[]) => {
+        this.waitingMeetings = res;
+
+        // console.log(this.users);
+    }).catch(err => {
+        alert(err);
+        // this.loadingService.stop();
+    });
+}
     ngAfterViewInit() {
 
     }
