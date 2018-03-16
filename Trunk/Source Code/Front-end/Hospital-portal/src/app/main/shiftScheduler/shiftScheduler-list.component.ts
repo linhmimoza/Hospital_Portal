@@ -45,10 +45,8 @@ export class ShiftSchedulerListComponent {
 
     }
 
-
     ngAfterViewInit() {
 
     }
-
 
 }
