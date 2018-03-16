@@ -19,7 +19,7 @@
                      <span class="input-group-addon">
                 <i class="fa fa-calendar"></i>
               </span>
-              <input type="text" data-plugin-datepicker class="form-control" value="{{date0.toLocaleDateString()}}"  >
+              <input type="text" data-plugin-datepicker class="form-control" value="{{date.toLocaleDateString()}}"  >
                </div>
               
           </div>
@@ -28,15 +28,17 @@
          </div>
         </div>
       <div class="table-responsive">
-          <table  class="table  " id="datatable-tabletools3" style="text-align: center" >
+          <table  class="table  " id="datatable-tabletools3" style="text-align: center; display: block;" >
             <colgroup>
              
-              <col width="16%" />
-              <col width="16%" />
-              <col width="16%" />
-              <col width="16%" />
-              <col width="16%" />
-              <col width="16%" />
+              <col width="10%" />
+              <col width="10%" />
+              <col width="10%" />
+              <col width="10%" />
+              <col width="10%" />
+              <col width="10%" />
+              <col width="10%" />
+             
 
             </colgroup>
             <thead>
@@ -45,18 +47,15 @@
                   {{Day.shiftDay}} </th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
+            <tbody >
+              <tr width="10%" >
                
-                <td *ngFor="let Day of shiftScheduler.shiftDayList" style="width: 16%">
-                  <div *ngFor="let shift of Day.shiftList" class="btn-group " 
-                  style="width: 90%; padding: 10px; background-color:deepskyblue; margin: 10px ">  
+                <td *ngFor="let Day of shiftScheduler.shiftDayList" style="width: 10%" class="group-vertical">
+                  <div *ngFor="let shift of Day.shiftList" class="btn-group well success " style="display: block;overflow: auto;" >  
                 <p style="color: white"><strong>{{shift.startTime}}-{{shift.endTime}}</strong></p>
-       
                       <button *ngFor="let worker of shift.shiftWorkerList" type="button" class="btn btn-default" style="margin: 2px">
                         {{worker.userName}}</button>
-                  </div>
-                
+                  </div>              
                 </td>
               </tr>
            
@@ -65,5 +64,60 @@
           
         </div>
   </div>
+  
 </section>
-
+  <div class="row">
+      <div class="col-lg-12">
+        <section class="panel">
+          <header class="panel-heading">
+            <div class="panel-actions">
+              <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+              <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+            </div>
+    
+            <h2 class="panel-title">Time Pickers</h2>
+          </header>
+          <div class="panel-body">
+            <form class="form-horizontal form-bordered">
+    
+              <div class="form-group">
+                <label class="col-md-3 control-label">Default Time Picker</label>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </span>
+                    <input type="text" data-plugin-timepicker class="form-control">
+                  </div>
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <label class="col-md-3 control-label">24 Hour Mode Time Picker</label>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </span>
+                    <input type="text" data-plugin-timepicker class="form-control" data-plugin-options='{ "showMeridian": false }'>
+                  </div>
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <label class="col-md-3 control-label">Specify a step for the minute field</label>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </span>
+                    <input type="text" data-plugin-timepicker class="form-control" data-plugin-options='{ "minuteStep": 15 }'>
+                  </div>
+                </div>
+              </div>
+    
+            </form>
+          </div>
+        </section>
+      </div>
+    </div>
