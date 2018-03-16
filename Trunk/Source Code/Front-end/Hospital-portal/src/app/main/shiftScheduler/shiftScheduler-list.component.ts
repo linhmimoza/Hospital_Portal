@@ -6,6 +6,8 @@ import { ShiftSchedulerService } from './service/shiftScheduler.service';
 import { UserService } from '../user/service/user.service';
 import { User } from '../user/shared/user.model';
 import { ShiftDay } from './shared/shiftDay.model';
+import { DepartmentService } from '../department/service/department.service';
+import { Department } from '../department/shared/department.model';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 declare var $: any;
 @Component({
@@ -14,7 +16,7 @@ declare var $: any;
     //   styleUrls: ['./css/dropdown.css']
 })
 export class ShiftSchedulerListComponent {
-
+    departments: Department[] = [];
     listShiftScheduler: ShiftScheduler[] = [];
     shiftScheduler = new ShiftScheduler();
     users: User[] = [];
@@ -22,10 +24,11 @@ export class ShiftSchedulerListComponent {
     numberOfDay: number[] = [];
     date: Date;
     constructor(private router: Router,
-        private shiftSchedulerService: ShiftSchedulerService, private userService: UserService) { }
+        private shiftSchedulerService: ShiftSchedulerService, private userService: UserService,
+        private departmentService: DepartmentService) { }
 
     ngOnInit() {
-
+this.loadDepartment();
         // this.loadingService.start();
         this.userService.getList().then((users: User[]) => {
             this.users = users;
@@ -59,6 +62,11 @@ console.log(date);
     ngAfterViewInit() {
 
     }
+loadDepartment() {
+    this.departmentService.getList().then((departments: Department[]) => {
+        this.departments = departments;
 
+    });
+}
 
 }
