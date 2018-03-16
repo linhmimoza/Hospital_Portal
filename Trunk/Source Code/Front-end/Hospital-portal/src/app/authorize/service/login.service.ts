@@ -14,9 +14,11 @@ export class LoginService {
             this.apiService.get('checkLogin?username=' + username + '&password=' + password)
                 .then((res: Response) => {
                     this.user = res.json();
+                    this.cookieService.set("Auth-UserId", this.user.userId.toString());
+                    this.cookieService.set("Auth-Username", this.user.userName);
+                    this.cookieService.set("Auth-RoleId", this.user.roleId.toString());
                     resolve(this.user);
-                    // this.apiService.token = res.json();
-                    // this.cookieService.set("Auth-Hospital", this.apiService.token);
+                    // this.apiService.token = res.json();              
                     // this.getAuthorize().then(user => {
                     //     resolve(user);
                     // }).catch(err => {
