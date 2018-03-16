@@ -40,6 +40,9 @@ import { CookieService } from 'ngx-cookie-service';
 import { NotificationService } from './main/extra/notification.service';
 import { LoadingService } from './main/extra/loading.service';
 import { DemoPagingComponent } from './main/demoPaging/demoPaging.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbdModalBasic } from './main/demoModal/modal-basic';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -93,7 +96,8 @@ const routes: Routes = [
     ManageMeetingComponent,
     ArticleListComponent,
     ArticleDetailComponent,
-    DemoPagingComponent
+    DemoPagingComponent,
+    NgbdModalBasic
   ],
   imports: [
     BrowserModule,
@@ -101,7 +105,8 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
-    CalendarModule.forRoot()
+    CalendarModule.forRoot(),
+    NgbModule.forRoot()
   ],
   providers: [NotificationService, LoadingService, LoginService, ApiService, UserService, DepartmentService, RoleService, CategoryService, RoomService, MissionService,
     ShiftSchedulerService, MeetingService, ArticleService, CookieService],
