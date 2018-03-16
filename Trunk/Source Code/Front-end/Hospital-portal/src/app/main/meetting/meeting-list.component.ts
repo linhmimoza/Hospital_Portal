@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Meeting } from './shared/meeting.model';
 import { MeetingService } from './service/meeting.service';
-
+declare var $: any;
 @Component({
     selector: 'meeting-list',
     templateUrl: './meeting-list.component.html'
@@ -11,31 +11,31 @@ import { MeetingService } from './service/meeting.service';
 export class MeetingListComponent {
     fPage = 0;
     pPage = 0;
+    fromDate: string;
+    toDate: string;
     futureMeetings: Meeting[] = [];
     passMeetings: Meeting[] = [];
     constructor(private router: Router,
         private meetingService: MeetingService) { }
 
     ngOnInit() {
-
         this.loadFuture();
         this.loadPass();
-
     }
-
 
     ngAfterViewInit() {
 
     }
+
     loadFuture() {
         this.fPage = this.fPage + 1;
         this.meetingService.getFutureMeeting(this.fPage).then((res: Meeting[]) => {
             this.futureMeetings = res;
         }).catch(err => {
             alert(err);
-
         });
     }
+
     loadPass() {
         this.pPage = this.pPage + 1;
         this.meetingService.getPassMeeting(this.pPage).then((res: Meeting[]) => {
@@ -57,4 +57,10 @@ export class MeetingListComponent {
         // });
 
     }
+
+    search(){
+        console.log(this.fromDate);
+        console.log(this.toDate);
+    }
+
 }

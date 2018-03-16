@@ -1,19 +1,22 @@
 <section class="panel">
   <div>
-     
-      <div class="form-group">
-          <label class="col-md-3 control-label">Date range</label>
-          <div class="col-md-6">
-            <div class="input-daterange input-group" data-plugin-datepicker>
-              <span class="input-group-addon">
-                <i class="fa fa-calendar"></i>
-              </span>
-              <input type="text" class="form-control" name="start">
-              <span class="input-group-addon">to</span>
-              <input type="text" class="form-control" name="end">
-            </div>
-          </div>
+
+    <div class="form-group">
+      <label class="col-md-3 control-label">Date range</label>
+      <div class="col-md-6">
+        <div class="input-daterange input-group" data-plugin-datepicker>
+          <span class="input-group-addon">
+            <i class="fa fa-calendar"></i>
+          </span>
+          <input type="button" id="fromDate" class="form-control" [(ngModel)]="fromDate" (ngModelChange)="d" name="start">
+          <span class="input-group-addon">to</span>
+          <input type="text" id="toDate" class="form-control" [(ngModel)]="toDate" name="end">
         </div>
+        <p class="m-none">
+          <button type="button" class="mb-xs mt-xs mr-xs btn btn-default" (click)="search()">Search</button>
+        </p>
+      </div>
+    </div>
     <div class="tabs">
       <ul class="nav nav-tabs nav-justified">
         <li class="active">
@@ -69,7 +72,7 @@
               </ol>
             </div>
           </div>
-          <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block"(click)="loadFuture()" >Show more</button>
+          <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block" (click)="loadFuture()">Show more</button>
         </div>
         <div id="recent10" class="tab-pane ">
           <div class="timeline">
@@ -115,7 +118,7 @@
               </ol>
             </div>
           </div>
-          <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block"(click)="loadPass()" >Show more</button>
+          <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block" (click)="loadPass()">Show more</button>
         </div>
       </div>
     </div>
