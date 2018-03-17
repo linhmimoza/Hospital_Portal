@@ -29,7 +29,7 @@ export class ShiftSchedulerListComponent {
 
     ngOnInit() {
         $.getScript('assets/porto/javascripts/theme.init.js', function () {
-            $.getScript('assets/porto/javascripts/theme.admin.extensio.js', function () {
+            $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
                 $.getScript('/assets/porto/vendor/bootstrap-timepicker/bootstrap-timepicker.js', function () {
 
                 });

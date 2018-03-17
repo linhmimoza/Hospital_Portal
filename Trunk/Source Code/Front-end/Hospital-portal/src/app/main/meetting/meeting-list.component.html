@@ -1,5 +1,5 @@
 <section class="panel">
-  <div>
+
     <div class="form-group">
       <label class="col-md-3 control-label">Date range</label>
       <div class="col-md-6">
@@ -10,23 +10,9 @@
           <input type="button" id="fromDate" class="form-control" [(ngModel)]="fromDate" (ngModelChange)="d" name="start">
           <span class="input-group-addon">to</span>
           <input type="text" id="toDate" class="form-control" [(ngModel)]="toDate" name="end">
-      <div class="form-group">
-          <label class="col-md-3 control-label">Date range</label>
-          <div class="col-md-6">
-            <div class="input-daterange input-group" data-plugin-datepicker>
-              <span class="input-group-addon">
-                <i class="fa fa-calendar"></i>
-              </span>
-              <input type="button" class="form-control" name="start">
-              <span class="input-group-addon">to</span>
-              <input type="text" class="form-control" name="end">
-            </div>
-          </div>
-        </div>
-        <p class="m-none">
-          <button type="button" class="mb-xs mt-xs mr-xs btn btn-default" (click)="search()">Search</button>
-        </p>
-      </div>
+     
+  </div>
+    </div>
     </div>
     <div class="tabs">
       <ul class="nav nav-tabs nav-justified">
@@ -88,12 +74,9 @@
           </div>
 
           <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block" (click)="loadFuture()">Show more</button>
+        
+        
         </div>
-
-          <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block"(click)="loadFuture()" >Show more</button>
-      
-         </div>
-
         <div id="recent10" class="tab-pane ">
           <div class="timeline">
             <div class="tm-body">
@@ -140,56 +123,56 @@
 
           <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block" (click)="loadPass()">Show more</button>
         </div>
-
-          </div>
         <div id="recent20" class="tab-pane ">
-            <div class="timeline">
-              <div class="tm-body">
-                <!-- <div class="tm-title">
-                                          <h3 class="h5 text-uppercase">November 2013</h3>
-                                      </div> -->
-                <ol class="tm-items">
-                  <li *ngFor="let meeting of passMeetings">
-                    <div class="tm-info">
-                      <div></div>
-                      <time class="tm-datetime" datetime="2013-11-22 19:13">
-                        <div class="tm-datetime-time">{{meeting.date}}</div>
-                        <div class="tm-datetime-date">{{meeting.startTime}}</div>
-                      </time>
-                    </div>
-                    <div class="tm-box appear-animation fadeInRight appear-animation-visible" data-appear-animation="fadeInRight" data-appear-animation-delay="100"
-                      style="animation-delay: 100ms;">
-                      <h2>{{meeting.meetingName}}</h2>
-                      <div class="tm-meta">
-                        <div>
-                          <p>
-                            {{meeting.content}}
-                          </p>
-                        </div>
-                        <span>
-                          <i class="glyphicon glyphicon-map-marker"></i> At:
-                          <a>{{meeting.roomName}}</a>
-                        </span>
-                        <span>
-                          <i class="fa fa-hourglass"></i> Duration: {{meeting.duration}}
-                        </span>
-                        <span>
-                          <i class="fa fa-comments"></i>
-                          <a href="#">5652 Comments</a>
-                        </span>
+          <div class="timeline">
+            <div class="tm-body">
+              <!-- <div class="tm-title">
+                                        <h3 class="h5 text-uppercase">November 2013</h3>
+                                    </div> -->
+              <ol class="tm-items">
+                <li *ngFor="let meeting of passMeetings">
+                  <div class="tm-info">
+                    <div></div>
+                    <time class="tm-datetime" datetime="2013-11-22 19:13">
+                      <div class="tm-datetime-time">{{meeting.date}}</div>
+                      <div class="tm-datetime-date">{{meeting.startTime}}</div>
+                    </time>
+                  </div>
+                  <div class="tm-box appear-animation fadeInRight appear-animation-visible" data-appear-animation="fadeInRight" data-appear-animation-delay="100"
+                    style="animation-delay: 100ms;">
+                    <h2>{{meeting.meetingName}}</h2>
+                    <div class="tm-meta">
+                      <div>
+                        <p>
+                          {{meeting.content}}
+                        </p>
                       </div>
+                      <span>
+                        <i class="glyphicon glyphicon-map-marker"></i> At:
+                        <a>{{meeting.roomName}}</a>
+                      </span>
+                      <span>
+                        <i class="fa fa-hourglass"></i> Duration: {{meeting.duration}}
+                      </span>
+                      <span>
+                        <i class="fa fa-comments"></i>
+                        <a href="#">5652 Comments</a>
+                      </span>
                     </div>
-                  </li>
-  
-  
-                </ol>
-              </div>
-            </div>
-            <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block"(click)="loadPass()" >Show more</button>
-      
-             </div>
+                  </div>
+                </li>
 
-      </div>
+
+              </ol>
+            </div>
+          </div>
+          <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block"(click)="loadPass()" >Show more</button>
+    
+           </div>
+
     </div>
-  </div>
+       
+       
+   </div>
+  
 </section>
