@@ -1,19 +1,7 @@
 <section class="panel">
 
-    <div class="form-group">
-      <label class="col-md-3 control-label">Date range</label>
-      <div class="col-md-6">
-        <div class="input-daterange input-group" data-plugin-datepicker>
-          <span class="input-group-addon">
-            <i class="fa fa-calendar"></i>
-          </span>
-          <input type="button" id="fromDate" class="form-control" [(ngModel)]="fromDate" (ngModelChange)="d" name="start">
-          <span class="input-group-addon">to</span>
-          <input type="text" id="toDate" class="form-control" [(ngModel)]="toDate" name="end">
-     
-  </div>
-    </div>
-    </div>
+
+  
     <div class="tabs">
       <ul class="nav nav-tabs nav-justified">
         <li class="active">
@@ -40,7 +28,7 @@
                     <div></div>
                     <time class="tm-datetime" datetime="2013-11-22 19:13">
                       <div class="tm-datetime-time">{{meeting.date}}</div>
-                      <div class="tm-datetime-date">{{meeting.startTime}}</div>
+                      <div class="tm-datetime-time">{{meeting.startTime}}</div>
 
                     </time>
                   </div>
@@ -78,18 +66,38 @@
         
         </div>
         <div id="recent10" class="tab-pane ">
+           
+    <div class="form-group" >
+        <label class="col-md-3 control-label"></label>
+        <div class="col-md-6 panel-body">
+          <div class="input-group " style="padding: 10px" >
+            <span class="input-group-addon">
+              from
+            </span>
+            <input type="date" class="form-control"  [(ngModel)]="fromDate" (change)="from()">
+          </div>
+          <div class="input-group" style="padding: 10px">
+            <span class="input-group-addon" >
+             to
+            </span>
+            <input type="date"  class="form-control"  [(ngModel)]="toDate" (change)="to()">
+          </div>
+      <button class="" (click)=search()>Search</button>
+        </div>
+        
+      </div>
           <div class="timeline">
             <div class="tm-body">
               <!-- <div class="tm-title">
                                         <h3 class="h5 text-uppercase">November 2013</h3>
                                     </div> -->
               <ol class="tm-items">
-                <li *ngFor="let meeting of passMeetings">
+                <li *ngFor="let meeting of meetingInRange">
                   <div class="tm-info">
                     <div></div>
                     <time class="tm-datetime" datetime="2013-11-22 19:13">
                       <div class="tm-datetime-time">{{meeting.date}}</div>
-                      <div class="tm-datetime-date">{{meeting.startTime}}</div>
+                      <div class="tm-datetime-time">{{meeting.startTime}}</div>
                     </time>
                   </div>
                   <div class="tm-box appear-animation fadeInRight appear-animation-visible" data-appear-animation="fadeInRight" data-appear-animation-delay="100"
@@ -121,8 +129,7 @@
             </div>
           </div>
 
-          <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block" (click)="loadPass()">Show more</button>
-        </div>
+           </div>
         <div id="recent20" class="tab-pane ">
           <div class="timeline">
             <div class="tm-body">
@@ -135,7 +142,7 @@
                     <div></div>
                     <time class="tm-datetime" datetime="2013-11-22 19:13">
                       <div class="tm-datetime-time">{{meeting.date}}</div>
-                      <div class="tm-datetime-date">{{meeting.startTime}}</div>
+                      <div class="tm-datetime-time">{{meeting.startTime}}</div>
                     </time>
                   </div>
                   <div class="tm-box appear-animation fadeInRight appear-animation-visible" data-appear-animation="fadeInRight" data-appear-animation-delay="100"

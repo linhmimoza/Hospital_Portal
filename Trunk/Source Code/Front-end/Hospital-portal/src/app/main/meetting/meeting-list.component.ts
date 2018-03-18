@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Meeting } from './shared/meeting.model';
 import { MeetingService } from './service/meeting.service';
+import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 declare var $: any;
 @Component({
     selector: 'meeting-list',
@@ -13,12 +14,23 @@ export class MeetingListComponent {
     pPage = 0;
     fromDate: string;
     toDate: string;
+    meetingInRange: Meeting[] = [];
     futureMeetings: Meeting[] = [];
     passMeetings: Meeting[] = [];
+    form: any;
     constructor(private router: Router,
         private meetingService: MeetingService) { }
 
     ngOnInit() {
+
+        this.form = new FormGroup({
+            fromDate: new FormControl(this.fromDate)
+        });
+        $.getScript('assets/porto/javascripts/theme.init.js', function () {
+            $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
+
+            });
+        });
         this.loadFuture();
         this.loadPass();
     }
@@ -57,10 +69,26 @@ export class MeetingListComponent {
         // });
 
     }
+from() {
+    if (this.fromDate > this.toDate) {
+this.toDate = this.fromDate;
 
-    search(){
-        console.log(this.fromDate);
-        console.log(this.toDate);
+    }
+}
+to() {
+    if (this.fromDate > this.toDate) {
+this.fromDate = this.toDate;
+
+    }
+}
+    search() {
+        this.pPage = this.pPage + 1;
+        this.meetingService.getInRange(this.fromDate , this.toDate).then((res: Meeting[]) => {
+            this.meetingInRange = res;
+        }).catch(err => {
+            alert(err);
+
+        });
     }
 
 }
