@@ -24,7 +24,7 @@ export class MeetingListComponent {
     }
 
     ngAfterViewInit() {
-
+        
     }
 
     loadFuture() {
@@ -62,5 +62,7 @@ export class MeetingListComponent {
         console.log(this.fromDate);
         console.log(this.toDate);
     }
+
+
 
 }
