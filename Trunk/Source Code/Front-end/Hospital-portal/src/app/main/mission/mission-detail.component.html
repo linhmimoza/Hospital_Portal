@@ -52,7 +52,14 @@
                             <textarea class="form-control" [(ngModel)]="mission.content" rows="3" id="textareaDefault"></textarea>
                         </div>
                     </div>
-
+                    <div class="form-group">
+                            <label class="col-md-3 control-label" for="textareaDefault">Member</label>
+                            <div class="col-md-7">
+                            <select multiple data-plugin-selectTwo class="form-control populate" style="width: 100%" [(ngModel)]="member.fullName" >
+                              <optgroup label="Employee name">
+                                <option *ngFor="let user of users" value="user.userId">{{user.fullName}}</option>
+                              </optgroup>
+                            </select></div></div>
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="textareaDefault">Note</label>
                         <div class="col-md-7">

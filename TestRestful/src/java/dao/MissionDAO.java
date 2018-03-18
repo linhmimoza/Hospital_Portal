@@ -17,6 +17,7 @@ import java.util.List;
 import Models.Category;
 import Models.Mission;
 import Models.MissionWorker;
+import java.util.AbstractList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -169,6 +170,43 @@ public class MissionDAO implements Serializable {
             closeConnection();
         }
         return result;
+    }
+ public List<Mission> getMissionByUser(int userId) {
+        List<Mission>  listMission = new ArrayList<>();
+        try {
+          con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+         String   sql = "Select m.MissionId, StartDate, EndDate, Place, Content, Note, Status, Createby, CreateDate, \n" +
+"Updateby, UpdateDate from Mission m, MissionWorker w where\n" +
+" m.MissionId=w.MissionId  and m.Status=2 and w.UserId="+userId+" ORDER BY m.StartDate,m.EndDate";
+   stm = con.prepareStatement(sql);
+
+         rs = stm.executeQuery();
+                while (rs.next()) {
+                  Integer id = rs.getInt("MissionId");
+                    String startDate = rs.getString("StartDate");
+                    String endDate = rs.getString("EndDate");
+                    String place = rs.getString("Place");
+                    String content = rs.getString("Content");
+                    String note = rs.getString("Note");
+                    Integer status = rs.getInt("Status");
+                    Integer createby = rs.getInt("Createby");
+                    String createDate = rs.getString("CreateDate");
+                    Integer updateby = rs.getInt("Updateby");
+                    String updateDate = rs.getString("UpdateDate");
+                    MissionWorkerDAO dao = new MissionWorkerDAO();
+                    List<MissionWorker> listWorker = dao.getMissionWorkersById(id);
+                    Mission mission = new Mission(id, startDate, endDate, place, content, note, status, createDate, updateDate, listWorker, createby, updateby);
+                    listMission.add(mission); 
+                } 
+                }
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(MissionDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeConnection();
+        }
+        return listMission;
     }
 
 }

@@ -44,7 +44,7 @@ Connection con = null;
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                String sql = "Select RoleId, RoleName from Role";
+                String sql = "Select RoleId, RoleName from Role where RoleId>1";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {

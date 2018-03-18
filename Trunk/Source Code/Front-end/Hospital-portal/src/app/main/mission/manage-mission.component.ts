@@ -2,31 +2,26 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Mission } from './shared/mission.model';
 import { MissionService } from './service/mission.service';
-import { AccountService } from '../account/account.service';
 @Component({
-    selector: 'mission-list',
-    templateUrl: './mission-list.component.html'
+    selector: 'manage-mission',
+    templateUrl: './manage-mission.component.html'
     // styleUrls:['user-list.component.css']
 })
-export class MissionListComponent {
-    userId: String;
+export class ManageMissionComponent {
+
     missions: Mission[] = [];
 
     constructor(private router: Router,
-        private missionService: MissionService,
-        private accountService: AccountService) { }
+        private missionService: MissionService) { }
 
     ngOnInit() {
-        this.userId = this.accountService.getUserId();
         // this.loadingService.start();
-        this.missionService.getByUser(this.userId).then((res: Mission[]) => {
+        this.missionService.getList().then((res: Mission[]) => {
             this.missions = res;
         }).catch(err => {
             alert(err);
             // this.loadingService.stop();
         });
-
-       console.log(this.accountService.getRoleId());
     }
 
 
@@ -41,7 +36,7 @@ export class MissionListComponent {
     delete(mission: Mission) {
         // this.departmentService.deleteDepartment(department.departmentId).then(() => {
             // window.location.reload();
-            this.router.navigateByUrl('/main/mission-list');
+            this.router.navigateByUrl('/main/manage-mission');
         // });
 
     }

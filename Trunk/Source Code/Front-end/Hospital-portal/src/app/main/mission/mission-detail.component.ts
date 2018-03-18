@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { MissionService } from './service/mission.service';
 import { Mission } from './shared/mission.model';
+import { UserService } from '../user/service/user.service';
+import { User } from '../user/shared/user.model';
 
 @Component({
     selector: 'mission-detail',
@@ -11,10 +13,13 @@ import { Mission } from './shared/mission.model';
 export class MissionDetailComponent {
     mission = new Mission();
     routerSubcription: any;
-    id: number = 0;
+    id = 0;
     title: string;
+    member: User[] = [];
+    users: User[] = [];
     missions: Mission[] = [];
-    constructor(private route: ActivatedRoute, private router: Router, private missionService: MissionService) {
+    constructor(private route: ActivatedRoute, private router: Router, private missionService: MissionService
+        , private userService: UserService) {
 
     }
     back() {
@@ -22,6 +27,8 @@ export class MissionDetailComponent {
     }
 
     ngOnInit() {
+       this.loadUser();
+       this.member= this.users;
         // this.loadingService.start();
         // this.roleService.getList().then((res: Role[]) => {
         //     this.roles = res;
@@ -33,7 +40,7 @@ export class MissionDetailComponent {
             this.id = +params['id']; // (+) converts string 'id' to a number        
             this.missionService.getList().then((missions: Mission[]) => {
                 this.missions = missions;
-                if (this.id == 0) this.mission.missionId = missions[0].missionId;
+                if (this.id == 0) { this.mission.missionId = missions[0].missionId; }
             });
             if (this.id > 0) {
                 this.title = "You are updating mission";
@@ -45,6 +52,12 @@ export class MissionDetailComponent {
             } else {
                 this.title = "You are creating new mission";
             }
+        });
+    }
+    loadUser() {
+        this.userService.getList().then((users: User[]) => {
+            this.users = users;
+            // console.log(users);
         });
     }
     save() {
