@@ -25,7 +25,6 @@ export class DepartmentListComponent {
                 });
             });
         });
-   
     }
 
 loadDepartment() {

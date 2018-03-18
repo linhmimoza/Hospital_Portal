@@ -68,4 +68,13 @@ public class MissionResource {
      MissionDAO dao=new MissionDAO();   
     return dao.updateMission(mission);
    }
+   @Path("/geMissionByUser/{userId}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Mission> geMissionByUser(@PathParam("userId") int missionId) throws SQLException, ClassNotFoundException {
+    MissionDAO dao = new MissionDAO();
+            List<Mission> listMission = dao.getMissionByUser(missionId);         
+            return listMission;
+    }
+    
 }

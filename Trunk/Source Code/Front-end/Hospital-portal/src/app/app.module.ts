@@ -4,11 +4,13 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarModule } from 'angular-calendar';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 import { LoginComponent } from './authorize/login.component';
 import { LoginService } from './authorize/service/login.service';
+import { AccountService } from './main/account/account.service';
 import { ApiService } from './api.service';
 import { UserListComponent } from './main/user/user-list.component';
 import { UserService } from './main/user/service/user.service';
@@ -23,10 +25,10 @@ import { RoomListComponent } from './main/room/room-list.component';
 import { RoomDetailComponent } from './main/room/room-detail.component';
 import { RoomService } from './main/room/service/room.service';
 import { MissionListComponent } from './main/mission/mission-list.component';
+import { ManageMissionComponent } from './main/mission/manage-mission.component';
 import { MissionDetailComponent } from './main/mission/mission-detail.component';
 import { MissionService } from './main/mission/service/mission.service';
 import { MeetingListComponent } from './main/meetting/meeting-list.component';
-import { MeetingForUserComponent } from './main/meetting/meeting-forUser.component';
 import { MeetingDetailComponent } from './main/meetting/meeting-detail.component';
 import { ManageMeetingComponent } from './main/meetting/manage-meeting.component';
 import { MeetingService } from './main/meetting/service/meeting.service';
@@ -58,13 +60,13 @@ const routes: Routes = [
       { path: 'category-list', component: CategoryListComponent },
       { path: 'room-list', component: RoomListComponent },
       { path: 'room-detail/:id', component: RoomDetailComponent },
+      { path: 'manage-mission', component: ManageMissionComponent },
       { path: 'mission-list', component: MissionListComponent },
       { path: 'mission-detail/:id', component: MissionDetailComponent },
       { path: 'shiftScheduler-list', component: ShiftSchedulerListComponent },
       { path: 'createShiftScheduler', component: CreateShiftSchedulerComponent },
       { path: 'meeting-list', component: MeetingListComponent },
       { path: 'manage-meeting', component: ManageMeetingComponent },
-      { path: 'meeting-forUser', component: MeetingForUserComponent },
       { path: 'meeting-detail/:id', component: MeetingDetailComponent },
       { path: 'article-list', component: ArticleListComponent },
       { path: 'article-detail/:id', component: ArticleDetailComponent },
@@ -90,12 +92,12 @@ const routes: Routes = [
     RoomListComponent,
     RoomDetailComponent,
     MissionListComponent,
+    ManageMissionComponent,
     MissionDetailComponent,
     ShiftSchedulerListComponent,
     CreateShiftSchedulerComponent,
     MeetingListComponent,
     MeetingDetailComponent,
-    MeetingForUserComponent,
     ManageMeetingComponent,
     ArticleListComponent,
     ArticleDetailComponent,
@@ -108,12 +110,14 @@ const routes: Routes = [
     BrowserModule,
     HttpModule,
     FormsModule,
+    AngularMultiSelectModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
     CalendarModule.forRoot(),
     NgbModule.forRoot()
   ],
-  providers: [NotificationService, LoadingService, LoginService, ApiService, UserService, DepartmentService, RoleService, CategoryService, RoomService, MissionService,
+  providers: [NotificationService, LoadingService, LoginService, AccountService, ApiService, UserService,
+    DepartmentService, RoleService, CategoryService, RoomService, MissionService,
     ShiftSchedulerService, MeetingService, ArticleService, CookieService],
   bootstrap: [AppComponent]
 })

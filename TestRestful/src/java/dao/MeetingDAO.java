@@ -272,7 +272,8 @@ public List<Meeting> getMeetingInRange(String from,String to, int status) {
                 String sql = "Select MeetingId, m.RoomId,r.RoomName, MeetingName, StartTime,\n" +
 " Date,Duration, Content, Note, CreateBy,CreateDate,\n" +
 " UpdateBy, UpdateDate, m.Status from Meeting m, Room r where  m.RoomId=r.RoomId\n" +
-" and m.Status="+status+" and (Date>='"+from+"') and (Date <'"+to+"') ORDER BY CreateDate";
+" and m.Status="+status+" and (Date>='"+from+"') and (Date <='"+to+"') ORDER BY CreateDate";
+             
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {

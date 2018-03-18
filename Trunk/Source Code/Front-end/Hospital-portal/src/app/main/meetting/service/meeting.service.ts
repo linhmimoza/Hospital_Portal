@@ -25,6 +25,15 @@ export class MeetingService {
             });
         });
     }
+    getInRange(from: String, to: String) {
+        return new Promise((resolve, reject) => {
+            this.apiService.get('getMeetingInRange?status=2&from=' + from + '&to=' + to).then(res => {
+                resolve(res.json());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
     getWaiting() {
         return new Promise((resolve, reject) => {
             this.apiService.get('getWaitingMeeting').then(res => {

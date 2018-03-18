@@ -11,7 +11,7 @@ Theme Version: 	1.5.2
 	var datatableInit = function() {
 		var $table = $('#datatable-tabletools');
 		var $table2 = $('#datatable-tabletools2');
-		var $table3 = $('#datatable-tabletools3');
+		var $table4 = $('#datatable-tabletools4');
 		$table.dataTable({
 			sDom: "<'text-right mb-md'T>" + $.fn.dataTable.defaults.sDom,
 			oTableTools: {
@@ -40,10 +40,10 @@ Theme Version: 	1.5.2
 				]
 			}
 		});
-		$table3.dataTable({
+		$table4.dataTable({
 			sDom: "<'text-right mb-md'T>" + $.fn.dataTable.defaults.sDom,
 			oTableTools: {
-				sSwfPath: $table3.data('swf-path'),
+				sSwfPath: $table4.data('swf-path'),
 				aButtons: [
 
 					{
