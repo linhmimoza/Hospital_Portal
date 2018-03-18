@@ -12,7 +12,8 @@ declare var $: any;
 export class MeetingListComponent {
     fPage = 0;
     pPage = 0;
-    fromDate: string;
+    toDay: Date = new Date;
+    fromDate: any ;
     toDate: string;
     meetingInRange: Meeting[] = [];
     futureMeetings: Meeting[] = [];
@@ -23,9 +24,7 @@ export class MeetingListComponent {
 
     ngOnInit() {
 
-        this.form = new FormGroup({
-            fromDate: new FormControl(this.fromDate)
-        });
+    this.fromDate = this.toDay.toUTCString;
         $.getScript('assets/porto/javascripts/theme.init.js', function () {
             $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
 
@@ -82,13 +81,14 @@ this.fromDate = this.toDate;
     }
 }
     search() {
-        this.pPage = this.pPage + 1;
+        if (this.fromDate < '99/99/9999' && this.toDate < '99/99/9999') {
         this.meetingService.getInRange(this.fromDate , this.toDate).then((res: Meeting[]) => {
             this.meetingInRange = res;
         }).catch(err => {
             alert(err);
 
         });
-    }
+
+    }}
 
 }
