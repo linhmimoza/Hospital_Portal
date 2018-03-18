@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarModule } from 'angular-calendar';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
@@ -104,6 +105,7 @@ const routes: Routes = [
     BrowserModule,
     HttpModule,
     FormsModule,
+    AngularMultiSelectModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
     CalendarModule.forRoot(),

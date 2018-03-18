@@ -11,6 +11,9 @@ import { User } from '../user/shared/user.model';
     templateUrl: './mission-detail.component.html'
 })
 export class MissionDetailComponent {
+    dropdownList = [];
+    selectedItems = [];
+    dropdownSettings = {};
     mission = new Mission();
     routerSubcription: any;
     id = 0;
@@ -28,6 +31,7 @@ export class MissionDetailComponent {
 
     ngOnInit() {
        this.loadUser();
+       this.createMenber();
        this.member= this.users;
         // this.loadingService.start();
         // this.roleService.getList().then((res: Role[]) => {
@@ -54,13 +58,57 @@ export class MissionDetailComponent {
             }
         });
     }
+createMenber() {
+    this.dropdownList = [
+        {'id': 1, 'itemName': 'India'},
+        {"id":2,"itemName":"Singapore"},
+        {"id":3,"itemName":"Australia"},
+        {"id":4,"itemName":"Canada"},
+        {"id":5,"itemName":"South Korea"},
+        {"id":6,"itemName":"Germany"},
+        {"id":7,"itemName":"France"},
+        {"id":8,"itemName":"Russia"},
+        {"id":9,"itemName":"Italy"},
+        {"id":10,"itemName":"Sweden"}
+      ];
+this.selectedItems = [
+          {"id":2,"itemName":"Singapore"},
+          {"id":3,"itemName":"Australia"},
+          {"id":4,"itemName":"Canada"},
+          {"id":5,"itemName":"South Korea"}
+      ];
+this.dropdownSettings = {
+            singleSelection: false, 
+            text:"Select Countries",
+            selectAllText:'Select All',
+            unSelectAllText:'UnSelect All',
+            enableSearchFilter: true,
+            classes:"myclass custom-class"
+          };
+}
+onItemSelect(item: any) {
+console.log(item);
+console.log(this.selectedItems);
+}
+OnItemDeSelect(item: any) {
+console.log(item);
+console.log(this.selectedItems);
+}
+onSelectAll(items: any) {
+console.log(items);
+}
+onDeSelectAll(items: any) {
+console.log(items);
+}
+
+
     loadUser() {
         this.userService.getList().then((users: User[]) => {
             this.users = users;
             // console.log(users);
         });
     }
-    save() {
+    save(){
         this.routerSubcription = this.route.params.subscribe(params => {
             this.id = +params['id']; // (+) converts string 'id' to a number
             if (this.id > 0) {
