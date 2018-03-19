@@ -19,7 +19,7 @@ export class LoginComponent {
         this.loginService.login(this.username, this.password).then(() => {
             this.router.navigate(["main"]);
         }).catch(err => {
-            alert(err);
+            console.log(err);
         });
     }
 }

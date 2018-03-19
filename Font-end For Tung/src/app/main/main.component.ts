@@ -37,6 +37,13 @@ export class MainComponent {
                 });
             });
         });
+
+        if (localStorage.getItem('sidebar-left-position')) {
+            let initialPosition = localStorage.getItem('sidebar-left-position'),
+                sidebarLeft = document.querySelector('#sidebar-left .nano-content');
+
+            sidebarLeft.scrollTop = parseInt(initialPosition, 10);
+        }
     }
 
     ngOnDestroy() {

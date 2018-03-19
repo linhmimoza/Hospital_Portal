@@ -8,6 +8,8 @@ import { CalendarModule } from 'angular-calendar';
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 import { LoginComponent } from './authorize/login.component';
+import { MedicalComponent } from './main/medical/medical.component';
+import { HomeComponent } from './home/home.component';
 import { LoginService } from './authorize/service/login.service';
 import { ApiService } from './api.service';
 import { UserListComponent } from './main/user/user-list.component';
@@ -35,9 +37,12 @@ import { ArticleService } from './main/article/service/article.service';
 import { ShiftSchedulerService } from './main/shiftScheduler/service/shiftScheduler.service';
 import { ShiftSchedulerListComponent } from './main/shiftScheduler/shiftScheduler-list.component';
 import { CookieService } from 'ngx-cookie-service';
+import { ServicesComponent } from './main/services/services.component';
+import { MedicalDetailComponent } from './main/medical/medical-detail/medical-detail.component';
+import { NewsComponent } from './news/news.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'main', component: MainComponent,
     children: [
@@ -56,7 +61,14 @@ const routes: Routes = [
       { path: 'meeting-forUser', component: MeetingForUserComponent },
       { path: 'meeting-detail/:id', component: MeetingDetailComponent },
       { path: 'article-list', component: ArticleListComponent },
-      { path: 'article-detail/:id', component: ArticleDetailComponent }
+      { path: 'article-detail/:id', component: ArticleDetailComponent },
+    ]
+  },
+  {
+    path: 'home', component: HomeComponent, 
+    children: [
+      { path: 'medical-booking', component: MedicalComponent },
+      { path: 'medical-detail', component: MedicalDetailComponent },
     ]
   },
   { path: 'login', component: LoginComponent, pathMatch: 'full' }
@@ -83,6 +95,11 @@ const routes: Routes = [
     MeetingForUserComponent,
     ArticleListComponent,
     ArticleDetailComponent,
+    MedicalComponent,
+    ServicesComponent,
+    MedicalDetailComponent,
+    HomeComponent,
+    NewsComponent
   ],
   imports: [
     BrowserModule,
