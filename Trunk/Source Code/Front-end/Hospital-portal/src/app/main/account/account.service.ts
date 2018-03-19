@@ -15,6 +15,6 @@ export class AccountService {
         return  roleId;
     }
     getUserId() {
-        return   this.cookieService.get('Auth-UserId');
+        return parseInt(this.cookieService.get('Auth-UserId'), 10);
     }
 }

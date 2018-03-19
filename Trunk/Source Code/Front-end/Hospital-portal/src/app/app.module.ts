@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 import { LoginComponent } from './authorize/login.component';
 import { LoginService } from './authorize/service/login.service';
+import { SelectService } from './main/select/service/select.service';
 import { AccountService } from './main/account/account.service';
 import { ApiService } from './api.service';
 import { UserListComponent } from './main/user/user-list.component';
@@ -118,7 +119,7 @@ const routes: Routes = [
   ],
   providers: [NotificationService, LoadingService, LoginService, AccountService, ApiService, UserService,
     DepartmentService, RoleService, CategoryService, RoomService, MissionService,
-    ShiftSchedulerService, MeetingService, ArticleService, CookieService],
+    ShiftSchedulerService, MeetingService, ArticleService, CookieService, SelectService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

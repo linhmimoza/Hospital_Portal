@@ -1,5 +1,36 @@
 <section class="panel">
 
+					<!-- Modal LG -->
+         
+
+          <div id="modalLG" class="modal-block modal-block-md mfp-hide">
+            <section class="panel">
+              <header class="panel-heading">
+                <h2 class="panel-title">{{selectMeeting.meetingName}}</h2>
+              </header>
+              <div class="panel-body">
+                <div class="modal-wrapper">
+                  <div class="modal-text">
+                    <div class="form-group">
+                        <h4> <p><strong>Time :</strong>  {{selectMeeting.startTime}} (<strong>Duration :</strong> {{selectMeeting.duration}})</p></h4>
+                        <h4> <p><strong>Date :</strong>  {{selectMeeting.date}}</p></h4>
+                        <h4> <p><strong>At room :</strong>  {{selectMeeting.roomName}}</p></h4>
+                        <h4> <p><strong>Content :</strong>  {{selectMeeting.content}}</p></h4>
+                
+                    </div>
+                     </div>
+                </div>
+              </div>
+              <footer class="panel-footer">
+                <div class="row">
+                  <div class="col-md-12 text-right">
+               
+                    <button class="btn btn-default modal-dismiss">Close</button>
+                  </div>
+                </div>
+              </footer>
+            </section>
+          </div>
 
   
     <div class="tabs">
@@ -38,6 +69,7 @@
                         <p>
                           {{meeting.content}}
                         </p>
+                        <a class="mb-xs mt-xs mr-xs modal-sizes btn btn-default" (click)="view(meeting)" href="#modalLG">View</a>
                       </div>
                       <span>
                         <i class="glyphicon glyphicon-map-marker"></i> At:
@@ -104,6 +136,7 @@
                         <p>
                           {{meeting.content}}
                         </p>
+                        <a class="mb-xs mt-xs mr-xs modal-sizes btn btn-default" (click)="view(meeting)" href="#modalLG">View</a>
                       </div>
                       <span>
                         <i class="glyphicon glyphicon-map-marker"></i> At:
@@ -149,6 +182,7 @@
                         <p>
                           {{meeting.content}}
                         </p>
+                        <a class="mb-xs mt-xs mr-xs modal-sizes btn btn-default" (click)="view(meeting)" href="#modalLG">View</a>
                       </div>
                       <span>
                         <i class="glyphicon glyphicon-map-marker"></i> At:

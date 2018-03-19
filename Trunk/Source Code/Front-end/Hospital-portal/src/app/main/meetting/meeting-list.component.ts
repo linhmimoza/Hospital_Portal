@@ -18,6 +18,7 @@ export class MeetingListComponent {
     meetingInRange: Meeting[] = [];
     futureMeetings: Meeting[] = [];
     passMeetings: Meeting[] = [];
+    selectMeeting: Meeting = new Meeting;
     form: any;
     constructor(private router: Router,
         private meetingService: MeetingService) { }
@@ -25,29 +26,41 @@ export class MeetingListComponent {
     ngOnInit() {
 
     this.fromDate = this.toDay.toUTCString;
-        $.getScript('assets/porto/javascripts/theme.init.js', function () {
-            $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
-
-            });
-        });
-        this.loadFuture();
-        this.loadPass();
+    this.loadFuture();
+    this.loadPass();
+    this.loadScrip();
     }
 
     ngAfterViewInit() {
-        
+        this.loadScrip();
     }
+loadScrip() {
+    $.getScript('assets/porto/javascripts/theme.init.js', function () {
+        $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
+            $.getScript('assets/porto/javascripts/ui-elements/examples.modals.js', function () {
 
+            });
+        });
+    });
+}
     loadFuture() {
+        this.loadScrip();
         this.fPage = this.fPage + 1;
         this.meetingService.getFutureMeeting(this.fPage).then((res: Meeting[]) => {
             this.futureMeetings = res;
         }).catch(err => {
             alert(err);
         });
+        this.loadScrip();
     }
-
+    view(meet) {
+        this.loadScrip();
+        this.selectMeeting = meet;
+        console.log(this.selectMeeting);
+        this.loadScrip();
+    }
     loadPass() {
+        this.loadScrip();
         this.pPage = this.pPage + 1;
         this.meetingService.getPassMeeting(this.pPage).then((res: Meeting[]) => {
             this.passMeetings = res;
@@ -55,6 +68,7 @@ export class MeetingListComponent {
             alert(err);
 
         });
+        this.loadScrip();
     }
 
     detail(meeting: Meeting) {
@@ -69,18 +83,23 @@ export class MeetingListComponent {
 
     }
 from() {
+    this.loadScrip();
     if (this.fromDate > this.toDate) {
 this.toDate = this.fromDate;
 
     }
+    this.loadScrip();
 }
 to() {
+    this.loadScrip();
     if (this.fromDate > this.toDate) {
 this.fromDate = this.toDate;
 
     }
+    this.loadScrip();
 }
     search() {
+        this.loadScrip();
         if (this.fromDate < '99/99/9999' && this.toDate < '99/99/9999') {
         this.meetingService.getInRange(this.fromDate , this.toDate).then((res: Meeting[]) => {
             this.meetingInRange = res;
@@ -89,7 +108,9 @@ this.fromDate = this.toDate;
 
         });
 
-    }}
+    }
+    this.loadScrip();
+}
 
 
 

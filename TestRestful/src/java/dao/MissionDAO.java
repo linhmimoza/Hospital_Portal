@@ -153,11 +153,13 @@ public class MissionDAO implements Serializable {
             if (con != null) {
                      TimeEditor time= new TimeEditor();
                 String sql = "update Mission set Content='"+mission.getContent()
-                        + ",EndDate='"+mission.getEndDate()+"',Note='"+mission.getNote()+"'\n"
+                        + "',EndDate='"+mission.getEndDate()+"',Note='"+mission.getNote()+"'\n"
                         + ",Place='"+mission.getPlace()+"',StartDate='"+mission.getStartDate()+"',"
                         + "Status="+mission.getStatus()+",Updateby="+mission.getUpdateby()+","
                         + "UpdateDate='"+time.getTime()+"' where MissionId="+mission.getMissionId();        
+                            
                 stm = con.prepareStatement(sql);
+
                 stm.executeUpdate();
                 MissionWorkerDAO dao = new MissionWorkerDAO();
                 dao.createMissionWorker(mission.getMissionWorkerList(), mission.getMissionId());
