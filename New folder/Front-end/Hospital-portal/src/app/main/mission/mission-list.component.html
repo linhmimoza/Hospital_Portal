@@ -1,0 +1,53 @@
+<section class="panel">
+  <header class="panel-heading">
+    <div class="panel-actions">
+      <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+      <!-- <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a> -->
+    </div>
+    <h2 class="panel-title">Mission list</h2>
+  </header>
+  <div class="panel-body">
+    <div class="timeline">
+      <div class="tm-body">
+     
+        <ol class="tm-items">
+          <li *ngFor="let mission of missions">
+            <div class="tm-info">
+            
+              <time class="tm-datetime" datetime="2013-11-22 19:13">
+                <div class="tm-datetime-time"><h4>{{mission.startDate}}</h4></div>
+                <div class="tm-datetime-time"><h5>to {{mission.endDate}}</h5></div>
+                
+              </time>
+            </div>
+     
+            <div class="tm-box appear-animation fadeInRight appear-animation-visible" 
+            data-appear-animation="fadeInRight" data-appear-animation-delay="100"
+              style="animation-delay: 100ms;">
+           
+              <h3>{{mission.content}}</h3>
+              <div class="tm-meta">
+              
+               
+                  <h3>At: {{mission.place}}</h3>
+                  <h3>Member: <button *ngFor="let worker of mission.missionWorkerList"
+                     type="button" class=" btn btn-default">{{worker.userName}}</button></h3>
+                  <p>{{mission.note}}</p>
+             
+             
+              </div>
+              <i>upload:{{mission.updateDate}}</i>
+            </div>
+          </li>
+
+
+        </ol>
+      </div>
+    </div>
+    <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block" >Show more</button>
+  
+  
+    
+  </div>
+  
+</section>

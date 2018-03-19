@@ -1,0 +1,107 @@
+<section role="main" class="panel">
+    <header class="panel-heading">
+      <div class="panel-actions">
+        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+      </div>
+      <h2 class="panel-title">ShiftScheduler list</h2>
+    </header>
+
+
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table mb-none">
+          <colgroup>
+
+            <col width="150px" />
+            <col width="150px" />
+            <col width="150px" />
+            <col width="150px" />
+            <col width="150px" />
+            <col width="150px" />
+            <col width="150px" />
+          </colgroup>
+          <thead>
+            <tr>
+             
+              <th *ngFor="let Day of shiftScheduler.shiftDayList">{{Day.dayInWeek}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>          
+              <td *ngFor="let Day of shiftScheduler.shiftDayList">
+                <div *ngFor="let shift of Day.shiftList">                
+                <div>
+                  <select multiple data-plugin-selectTwo class="form-control populate" style="width: 100%" >
+                    <optgroup label="Employee name">
+                      <option *ngFor="let user of users" value="user.userId">{{user.fullName}}</option>
+                    </optgroup>
+                  </select></div></div>
+                  <button type="button" class="btn btn-default form-control" (click)="addShift(Day)"><i class="glyphicon glyphicon-plus"></i></button>
+              </td>
+            </tr>
+         
+          </tbody>
+        </table>
+        
+      </div>
+     </div>
+     <div class="row">
+      <div class="col-lg-12">
+        <section class="panel">
+          <header class="panel-heading">
+            <div class="panel-actions">
+              <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+              <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+            </div>
+    
+            <h2 class="panel-title">Time Pickers</h2>
+          </header>
+          <div class="panel-body">
+            <form class="form-horizontal form-bordered">
+    
+              <div class="form-group">
+                <label class="col-md-3 control-label">Default Time Picker</label>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </span>
+                    <input type="text" data-plugin-timepicker class="form-control">
+                  </div>
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <label class="col-md-3 control-label">24 Hour Mode Time Picker</label>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </span>
+                    <input type="text" data-plugin-timepicker class="form-control" data-plugin-options='{ "showMeridian": false }'>
+                  </div>
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <label class="col-md-3 control-label">Specify a step for the minute field</label>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </span>
+                    <input type="text" data-plugin-timepicker class="form-control" data-plugin-options='{ "minuteStep": 15 }'>
+                  </div>
+                </div>
+              </div>
+    
+            </form>
+          </div>
+        </section>
+      </div>
+    </div>
+    
+  </section>
+  
+  
