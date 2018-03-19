@@ -1,0 +1,43 @@
+<section class="panel">
+        <div class="timeline">
+                <div class="tm-body">
+                    <!-- <div class="tm-title">
+                        <h3 class="h5 text-uppercase">November 2013</h3>
+                    </div> -->
+                    <ol class="tm-items" >
+                        <li *ngFor="let meeting of meetings"  >
+                            <div class="tm-info">
+                                <div ></div>
+                                <time class="tm-datetime" datetime="2013-11-22 19:13">
+                                        <div class="tm-datetime-time">{{meeting.date}}</div>
+                                    <div class="tm-datetime-date">{{meeting.startTime}}</div>
+                       
+                            </time>
+                            </div>
+                            <div class="tm-box appear-animation fadeInRight appear-animation-visible" data-appear-animation="fadeInRight" data-appear-animation-delay="100" style="animation-delay: 100ms;">
+                                    <h2>{{meeting.meetingName}}</h2>  
+                                <div class="tm-meta">
+                                   <div>
+                                            <p>
+                                                    {{meeting.content}}
+                                            </p>
+                                   </div>
+                                    <span>
+                                        <i class="glyphicon glyphicon-map-marker"></i> At: <a>{{meeting.roomName}}</a>
+                                    </span>
+                                    <span>
+                                        <i class="fa fa-hourglass"></i> Duration: {{meeting.duration}}
+                                    </span>
+                                    <span>
+                                        <i class="fa fa-comments"></i> <a href="#">5652 Comments</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        
+                       
+                    </ol>
+             </div>
+             </div>
+                   
+    </section>

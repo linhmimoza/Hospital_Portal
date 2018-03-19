@@ -1,0 +1,23 @@
+#sel-cont {
+  width: 600px;
+  margin: 100px auto;
+}
+#sel-cont .chosen-container-multi .chosen-choices {
+  border: 1px solid #aaa;
+  padding: 0 2px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+#sel-cont .chosen-container-multi .chosen-choices:after {
+  content: "\f107";
+  font-family: FontAwesome;
+  text-align: right;
+  float: right;
+  padding: 2px 5px;
+  color: #aaa;
+  font-size: 22px;
+}
+#sel-cont .chosen-container-active .chosen-choices {
+  border: 1px solid #cccccc;
+}
