@@ -76,4 +76,14 @@ public class MeetingResource {
             List<Meeting> listMeeting = dao.getPassMeetings(page);        
             return listMeeting;
     }
+    @Path("/getMeetingInRange")
+    @GET
+    @Produces()
+    public List<Meeting> getMeetingInRange(@QueryParam("status") int status,
+           @QueryParam("from") String from ,
+            @QueryParam("to") String to) throws SQLException, ClassNotFoundException {
+   MeetingDAO dao = new MeetingDAO();
+            List<Meeting> listMeeting = dao.getMeetingInRange(from, to, status);        
+            return listMeeting;
+    }
 }

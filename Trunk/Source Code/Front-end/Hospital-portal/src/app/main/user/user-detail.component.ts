@@ -125,8 +125,7 @@ export class UserDetailComponent {
                 this.title = "You are creating new account";
                 this.form.patchValue(
                     {
-                        position: 'Doctor',
-                        dayOfBirth: '03/27/2018'
+                        position: 'Doctor'
                     });
             }
 

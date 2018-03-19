@@ -7,80 +7,47 @@
     <h2 class="panel-title">Mission list</h2>
   </header>
   <div class="panel-body">
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="mb-md">
-          <button class="btn btn-primary" [routerLink]="['/main/mission-detail',0]">Add
-            <i class="fa fa-plus"></i>
-          </button>
-        </div>
+    <div class="timeline">
+      <div class="tm-body">
+     
+        <ol class="tm-items">
+          <li *ngFor="let mission of missions">
+            <div class="tm-info">
+            
+              <time class="tm-datetime" datetime="2013-11-22 19:13">
+                <div class="tm-datetime-time"><h4>{{mission.startDate}}</h4></div>
+                <div class="tm-datetime-time"><h5>to {{mission.endDate}}</h5></div>
+                
+              </time>
+            </div>
+     
+            <div class="tm-box appear-animation fadeInRight appear-animation-visible" 
+            data-appear-animation="fadeInRight" data-appear-animation-delay="100"
+              style="animation-delay: 100ms;">
+           
+              <h3>{{mission.content}}</h3>
+              <div class="tm-meta">
+              
+               
+                  <h3>At: {{mission.place}}</h3>
+                  <h3>Member: <button *ngFor="let worker of mission.missionWorkerList"
+                     type="button" class=" btn btn-default">{{worker.userName}}</button></h3>
+                  <p>{{mission.note}}</p>
+             
+             
+              </div>
+              <i>upload:{{mission.updateDate}}</i>
+            </div>
+          </li>
+
+
+        </ol>
       </div>
     </div>
-    <table class="table table-bordered table-striped mb-none">
-      <colgroup>
-        <col width="150px" />
-        <col width="150px" />
-        <col width="150px" />
-        <col />
-        <col width="150px" />
-        <col width="150px" />
-        <col width="150px" />
-        <col width="50px" />
-        <col width="50px" />
-      </colgroup>
-      <thead>
-        <tr>
-          <th>Start date</th>
-          <th>End date</th>
-          <th>Place</th>
-          <th>Worker</th>
-          <th>Status</th>
-          <th>Created by</th>
-          <th>Updated by</th>
-          <th class="hidden-phone"></th>
-          <th class="hidden-phone"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let mission of missions" class="gradeX">
-          <td>{{mission.startDate}}</td>
-          <td>{{mission.endDate}}</td>
-          <td>{{mission.place}}</td>
-          <td>
-            <div class="bootstrap-tagsinput">
-              <span *ngFor="let worker of mission.missionWorkerList" class="tag label label-info">
-                {{worker.userName}}
-                <span data-role="remove">
-                </span>
-              </span>
-            </div>
-          </td>
-
-          <td class="text-center">
-            <!-- <span [ngClass]="{'bg-primary':mission.status == 1,'bg-danger':mission.status == 2}"> -->
-            <div class="grid-status" [ngClass]="{'bg-primary':mission.status == 1,'bg-danger':mission.status == 2}">
-
-              {{mission.status == 1?'Active':'Disable'}}
-
-            </div>
-          </td>
-          <td>{{mission.createby}}</td>
-          <td>{{mission.updateby}}</td>
-          <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
-
-          <td align="center">
-            <a>
-              <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(mission)"></i>
-            </a>
-          </td>
-          <td align="center">
-            <a class="text-danger remove-row">
-              <i style="cursor:pointer" class="fa fa-trash-o text-danger" (click)="delete(mission)"></i>
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block" >Show more</button>
+  
+  
     
   </div>
+  
 </section>

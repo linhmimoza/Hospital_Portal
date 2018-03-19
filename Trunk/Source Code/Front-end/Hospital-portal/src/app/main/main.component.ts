@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { User } from './user/shared/user.model';
 import { LoginService } from '../authorize/service/login.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 declare var $: any;
 
 @Component({
@@ -10,20 +11,22 @@ declare var $: any;
 })
 export class MainComponent {
     currentUser: User = new User();
+    userName: string;
+    userId: string;
+    roleId: string;
     menu: string[];
     private routerSubcription: any;
     title: string;
-    constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService) {
+    constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService,
+        private cookieService: CookieService) {
 
     }
 
     ngOnInit() {
-        this.currentUser = this.loginService.user;
-        // let role = this.loginService.user.role;
-        // if (role == 1){
-        //     this.menu = [""];
-        // }
-        console.log(this.currentUser);
+        this.userName = this.cookieService.get("Auth-Username");
+        console.log(this.userName);
+        this.roleId = this.cookieService.get("Auth-RoleId");
+        console.log(this.roleId);
     }
 
     ngAfterViewInit() {
@@ -31,9 +34,7 @@ export class MainComponent {
         $.getScript("assets/porto/javascripts/theme.js", function () {
             $.getScript("assets/porto/javascripts/theme.custom.js", function () {
                 $.getScript("assets/porto/javascripts/theme.init.js", function () {
-                    // $.getScript("assets/porto/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js", function () {
 
-                    // });
                 });
             });
         });

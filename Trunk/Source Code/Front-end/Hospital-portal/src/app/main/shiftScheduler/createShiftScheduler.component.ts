@@ -35,9 +35,11 @@ export class CreateShiftSchedulerComponent {
 
         this.createSchedule();
         this.loadUser();
-        $.getScript("assets/porto/javascripts/theme.init.js", function () {
-            $.getScript("assets/porto/javascripts/theme.admin.extension.js", function () {
+        $.getScript('assets/porto/javascripts/theme.init.js', function () {
+            $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
+                $.getScript('/assets/porto/vendor/bootstrap-timepicker/bootstrap-timepicker.js', function () {
 
+                });
             });
         });
     }
@@ -79,9 +81,11 @@ loadScheduler() {
     }
     addShift(day: ShiftDay) {
         this.shiftSchedulerService.addShiftToDay(day);
-        $.getScript("assets/porto/javascripts/theme.init.js", function () {
-            $.getScript("assets/porto/javascripts/theme.admin.extension.js", function () {
+        $.getScript('assets/porto/javascripts/theme.init.js', function () {
+            $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
+                $.getScript('/assets/porto/vendor/bootstrap-timepicker/bootstrap-timepicker.js', function () {
 
+                });
             });
         });
         console.log(this.shiftScheduler);

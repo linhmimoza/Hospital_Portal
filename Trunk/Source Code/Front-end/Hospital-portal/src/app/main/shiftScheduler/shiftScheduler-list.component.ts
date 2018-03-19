@@ -28,6 +28,13 @@ export class ShiftSchedulerListComponent {
         private departmentService: DepartmentService) { }
 
     ngOnInit() {
+        $.getScript('assets/porto/javascripts/theme.init.js', function () {
+            $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
+                $.getScript('/assets/porto/vendor/bootstrap-timepicker/bootstrap-timepicker.js', function () {
+
+                });
+            });
+        });
 this.loadDepartment();
         // this.loadingService.start();
         this.userService.getList().then((users: User[]) => {
@@ -37,16 +44,7 @@ this.loadDepartment();
         this.shiftSchedulerService.getList().then((res: ShiftScheduler[]) => {
             this.listShiftScheduler = res;
             this.shiftScheduler = this.listShiftScheduler[0];
-            $.getScript('assets/porto/javascripts/theme.init.js', function () {
-                $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
-                    $.getScript('assets/porto/javascripts/tables/examples.datatables.default.js', function () {
-                        $.getScript('assets/porto/javascripts/tables/examples.datatables.row.with.details.js', function () {
-                            $.getScript('assets/porto/javascripts/tables/examples.datatables.tabletools.js', function () {
-                            });
-                        });
-                    });
-                });
-            });
+            
         }).catch(err => {
             alert(err);
             // this.loadingService.stop();
