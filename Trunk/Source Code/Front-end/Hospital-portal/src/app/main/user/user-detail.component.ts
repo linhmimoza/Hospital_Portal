@@ -49,7 +49,7 @@ export class UserDetailComponent {
             fullName: new FormControl('', [
                 Validators.required
             ]),
-            sex: new FormControl('Male'),
+            sex: new FormControl(),
             dayOfBirth: new FormControl('', [
                 Validators.required
             ]),
@@ -125,7 +125,8 @@ export class UserDetailComponent {
                 this.title = "You are creating new account";
                 this.form.patchValue(
                     {
-                        position: 'Doctor'
+                        position: 'Doctor',
+                        sex: 'Male'
                     });
             }
 

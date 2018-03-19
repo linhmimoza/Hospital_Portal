@@ -64,12 +64,12 @@
                             </label>
                             <div class="col-sm-7">
                                 <div class="radio-custom">
-                                    <input type="radio" fromControlName="sex" value="Male" name="radioExample">
+                                    <input type="radio" formControlName="sex" value="Male" name="radioExample">
                                     <label>Male</label>
                                 </div>
 
                                 <div class="radio-custom">
-                                    <input type="radio" fromControlName="sex" value="Female" name="radioExample">
+                                    <input type="radio" formControlName="sex" value="Female" name="radioExample">
                                     <label>Female</label>
                                 </div>
                                 <div class="form-group" *ngIf="sex.invalid && (sex.dirty || sex.touched)" class="alert alert-danger" style="margin-top: 10px">
@@ -85,7 +85,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>
-                                    <input formControlName="dayOfBirth" type="text" data-plugin-datepicker class="form-control">
+                                    <input formControlName="dayOfBirth" type="date" class="form-control">
                                 </div>
                                 <div class="form-group" *ngIf="dayOfBirth.invalid && (dayOfBirth.dirty || dayOfBirth.touched)" class="alert alert-danger"
                                     style="margin-top: 10px">
