@@ -60,8 +60,7 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public User getUserById(@PathParam("userId") int userId) throws SQLException, ClassNotFoundException {
     UserDAO dao = new UserDAO();                    
-          User user = dao.getUserById(userId);
-          
+          User user = dao.getUserById(userId);         
             return user;
     }
 
@@ -95,6 +94,14 @@ public class UserResource {
    public String deleteUser(@PathParam("userId") int userId){
      UserDAO dao=new UserDAO();   
      return dao.deleteUser(userId);
+
+   }
+    @GET
+   @Path("/activeUser/{userId}")
+   @Produces()
+   public String activeUser(@PathParam("userId") int userId){
+     UserDAO dao=new UserDAO();   
+     return dao.activeUser(userId);
 
    }
 }

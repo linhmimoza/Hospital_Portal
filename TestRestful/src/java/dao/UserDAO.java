@@ -308,5 +308,24 @@ public boolean isEmailExited(String email){
         }
         return result;
     }
-   
+     public String activeUser(int userId) {
+        String result = "Susscess";
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "UPDATE [User]\n"
+                        + "SET Status=" + 1 + "\n"
+                        + "WHERE UserId=" + userId;             
+                stm = con.prepareStatement(sql);
+                stm.executeUpdate();
+
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            result = "Failed";
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
 }
