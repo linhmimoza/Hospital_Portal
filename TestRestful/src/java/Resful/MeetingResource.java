@@ -16,6 +16,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
@@ -85,5 +86,14 @@ public class MeetingResource {
    MeetingDAO dao = new MeetingDAO();
             List<Meeting> listMeeting = dao.getMeetingInRange(from, to, status);        
             return listMeeting;
+    }
+    @Path("/getMeetingById/{meetingId}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Meeting getMeetingrById(@PathParam("meetingId") int meetingId) throws SQLException, ClassNotFoundException {
+    MeetingDAO dao = new MeetingDAO();                    
+          Meeting meeting = dao.getMeetingById(meetingId);
+          
+            return meeting;
     }
 }
