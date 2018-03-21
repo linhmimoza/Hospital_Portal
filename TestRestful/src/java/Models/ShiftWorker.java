@@ -22,25 +22,18 @@ import javax.persistence.Table;
  *
  * @author Admin
  */
-@Entity
-@Table(name = "ShiftWorker")
-@NamedQueries({
-    @NamedQuery(name = "ShiftWorker.findAll", query = "SELECT s FROM ShiftWorker s")})
+
 public class ShiftWorker implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ShiftWorkerId")
+
         private Integer shiftWorkerId;
     
-    @Basic(optional = false)
-    @Column(name = "ShiftId")
+
     private Integer shiftId;
     
-    @Basic(optional = false)
-    @Column(name = "UserId")
+    private int id;
+    private String itemName;
     private Integer userId;
     private String userName;
     public ShiftWorker() {
@@ -83,6 +76,22 @@ public class ShiftWorker implements Serializable {
 
     public void setShiftId(Integer shiftId) {
         this.shiftId = shiftId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public Integer getUserId() {

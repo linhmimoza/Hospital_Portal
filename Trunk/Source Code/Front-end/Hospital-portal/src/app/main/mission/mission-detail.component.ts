@@ -40,6 +40,7 @@ export class MissionDetailComponent {
 
     ngOnInit() {
         this.loadPage();
+        
         this.routerSubcription = this.route.params.subscribe(params => {
             this.id = +params['id']; // (+) converts string 'id' to a number
             this.missionService.getList().then((missions: Mission[]) => {
@@ -67,7 +68,7 @@ createMember() {
 
 this.dropdownSettings = {
             singleSelection: false,
-            text: 'Select Countries',
+            text: 'Select Employee',
             selectAllText: 'Select All',
             unSelectAllText: 'UnSelect All',
             enableSearchFilter: true,
