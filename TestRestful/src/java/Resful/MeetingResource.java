@@ -14,6 +14,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
@@ -96,4 +97,11 @@ public class MeetingResource {
           
             return meeting;
     }
+    @Path("/createMeeting")
+   @POST
+   @Produces()
+   public String createMission(Meeting meeting){
+     MeetingDAO dao=new MeetingDAO();   
+    return dao.createMeeting(meeting);
+   }
 }
