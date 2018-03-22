@@ -30,6 +30,7 @@
     "core-js": "^2.4.1",
     "fullcalendar": "^3.9.0",
     "jquery": "^2.2.4",
+    "moment": "^2.21.0",
     "ng2-input-mask": "0.0.7",
     "ngx-cookie-service": "^1.0.10",
     "rxjs": "^5.5.6",

@@ -47,9 +47,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbdModalBasic } from './main/demoModal/modal-basic';
 import { DemoScheduleComponent } from './main/demo-schedule/demo-schedule.component';
 import { EmployeeCheckComponent } from './main/demo-schedule/employee-check.component';
+import { HomeComponent } from './home/home.component';
+import { MedicalComponent } from './home/medical/medical.component';
+import { MedicalDetailComponent } from './home/medical/medical-detail/medical-detail.component';
+import { NewsComponent } from './home/news/news.component';
+
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'main', component: MainComponent,
     children: [
@@ -76,7 +81,15 @@ const routes: Routes = [
       { path: 'employee-check', component: EmployeeCheckComponent}
     ]
   },
-  { path: 'login', component: LoginComponent, pathMatch: 'full' }
+  { path: 'login', component: LoginComponent, pathMatch: 'full' },
+  {
+    path: 'home', component: HomeComponent, 
+    children: [
+      { path: 'news/:id', component: NewsComponent },
+      { path: 'medical-booking', component: MedicalComponent },
+      { path: 'medical-detail', component: MedicalDetailComponent },
+    ]
+  }
 ];
 
 
@@ -105,7 +118,11 @@ const routes: Routes = [
     DemoPagingComponent,
     NgbdModalBasic,
     DemoScheduleComponent,
-    EmployeeCheckComponent
+    EmployeeCheckComponent,
+    HomeComponent,
+    MedicalComponent,
+    MedicalDetailComponent,
+    NewsComponent
   ],
   imports: [
     BrowserModule,

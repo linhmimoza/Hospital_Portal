@@ -1,0 +1,184 @@
+<div class="row">
+  <div class="col-md-12">
+    <header class="page-header">
+      <h2>Đặt lịch hẹn</h2>
+
+      <div class="right-wrapper pull-right">
+        <ol class="breadcrumbs">
+          <li>
+            <a href="index.html">
+              <i class="fa fa-home"></i>
+            </a>
+          </li>
+          <li>
+            <span>Đặt lịch hẹn</span>
+          </li>
+        </ol>
+
+        <a class="sidebar-right-toggle" data-open="sidebar-right">
+          <i class="fa fa-chevron-left"></i>
+        </a>
+      </div>
+    </header>
+
+    <!-- start: page -->
+
+
+    <section class="panel form-wizard" id="w4">
+      <header class="panel-heading">
+        <div class="panel-actions">
+          <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+          <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+        </div>
+
+        <h2 class="panel-title">Xin quý khách thực hiện theo các bước sau đây:</h2>
+      </header>
+      <div class="panel-body" *ngIf="list?.length">
+        <div class="wizard-progress wizard-progress-lg">
+          <div class="steps-progress">
+            <div class="progress-indicator"></div>
+          </div>
+          <ul class="wizard-steps">
+            <li class="active">
+              <a href="#w4-specialist" data-toggle="tab">
+                <span>1</span>Chuyên khoa</a>
+            </li>
+            <li>
+              <a href="#w4-service" data-toggle="tab">
+                <span>2</span>Dịch vụ</a>
+            </li>
+            <li>
+              <a href="#w4-daytime" data-toggle="tab">
+                <span>3</span>Ngày giờ</a>
+            </li>
+            <li>
+              <a href="#w4-confirm" data-toggle="tab">
+                <span>4</span>Điền thông tin</a>
+            </li>
+          </ul>
+        </div>
+
+        <form class="form-horizontal" novalidate="novalidate">
+          <div class="tab-content">
+            <div id="w4-specialist" class="tab-pane active">
+              <div class="form-group">
+                <div class="col-md-12">
+                  <select class="form-control input-lg mb-md" (change)="getServiceList($event.target.value)" name="specialistId" [(ngModel)]="data.SpecialistId">
+                    <option value="">Please select</option>
+                    <option *ngFor="let item of list" value="{{item.specialistId}}">{{item.specialistName}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div id="w4-service" class="tab-pane">
+              <div class="form-group">
+                <div class="col-md-12" *ngIf="serviceList?.length">
+                  <select class="form-control input-lg mb-md" name="serviceId" [(ngModel)]="data.ServiceId">
+                    <option value="">Please select</option>
+                    <option *ngFor="let option of serviceList" value="{{option.serviceId}}">{{option.serviceName}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div id="w4-daytime" class="tab-pane">
+              <div class="form-group">
+                <label class="col-md-3 control-label">Chọn ngày:</label>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                    <input type="date" data-plugin-datepicker class="form-control" [(ngModel)]="data.time" (change)="selectTime()" name="time">
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-md-3 control-label" for="inputSuccess">Chọn thời gian hẹn:</label>
+                <div class="col-md-6">
+                  <select class="form-control input-lg mb-md" (change)="setTimeId($event.target.value)">
+                    <option value="">Please select</option>
+                    <option *ngFor="let option of listTime" value="{{option.timeId}}">{{option.time}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div id="w4-confirm" class="tab-pane">
+              <div class="panel-body">
+                <form class="form-horizontal form-bordered" method="get">
+                  <div class="form-group">
+                    <label class="col-md-3 control-label" for="inputDefault">Họ và Tên
+                      <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6">
+                      <input type="text" class="form-control" id="inputDefault" name="GuestName" [(ngModel)]="data.GuestName">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-3 control-label" for="inputDefault">Chứng minh nhân dân
+                      <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6">
+                      <input type="text" class="form-control" id="inputDefault" name="guestidentity" [(ngModel)]="data.GuestIdentity">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-3 control-label" for="inputDefault">Số điện thoại
+                      <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6">
+                      <input type="text" class="form-control" id="inputDefault" name="guestphone" [(ngModel)]="data.GuestPhone">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-3 control-label" for="inputDefault">Email
+                      <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6">
+                      <input type="text" class="form-control" id="inputDefault" name="GuestEmail" [(ngModel)]="data.GuestEmail">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-3 control-label" for="inputDefault">Địa chỉ
+                      <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6">
+                      <input type="text" class="form-control" name="GuestAddress" [(ngModel)]="data.GuestAddress" id="inputDefault">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-3 control-label" for="inputDefault">Ghi chú</label>
+                    <div class="col-md-6">
+                      <input type="text" class="form-control" name="Note" [(ngModel)]="data.Note" id="inputDefault">
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="panel-footer">
+        <ul class="pager">
+          <li class="previous disabled">
+            <a>
+              <i class="fa fa-angle-left"></i> Previous</a>
+          </li>
+          <!-- <li class="finish pull-right">
+                <button (click)="submitBooking()">Finish</button>
+              </li> -->
+          <li class="finish hidden pull-right">
+            <a (click)="submitBooking()"> Finish</a>
+          </li>
+          <li class="next">
+            <a>Next
+              <i class="fa fa-angle-right"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- end: page -->
