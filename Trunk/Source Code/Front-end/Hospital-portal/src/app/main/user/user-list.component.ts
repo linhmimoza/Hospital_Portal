@@ -41,17 +41,25 @@ export class UserListComponent {
 
     }
 
-    delete(user: User) {
-        this.userService.deleteUser(user.userId).then(() => {
-            this.notificationService.success("Success");
-            // window.location.reload();
-            this.userService.getList().then((res: User[]) => {
-                this.users = res;
-                // console.log(this.users);
-            }).catch(err => {
-                alert(err);
-                // this.loadingService.stop();
+    switchStatus(user: User) {
+        if (user.status == 1) {
+            this.userService.deleteUser(user.userId).then(() => {
+                this.notificationService.success("Success");
+                this.userService.getList().then((res: User[]) => {
+                    this.users = res;
+                }).catch(err => {
+                    alert(err);
+                });
             });
-        });
+        } else {
+            this.userService.activeUser(user.userId).then(() => {
+                this.notificationService.success("Success");
+                this.userService.getList().then((res: User[]) => {
+                    this.users = res;
+                }).catch(err => {
+                    alert(err);
+                });
+            });
+        }
     }
 }

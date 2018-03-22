@@ -64,12 +64,12 @@
                             </label>
                             <div class="col-sm-7">
                                 <div class="radio-custom">
-                                    <input type="radio" formControlName="sex" value="Male" name="radioExample">
+                                    <input type="radio" formControlName="sex" value="Male" name="sex">
                                     <label>Male</label>
                                 </div>
 
                                 <div class="radio-custom">
-                                    <input type="radio" formControlName="sex" value="Female" name="radioExample">
+                                    <input type="radio" formControlName="sex" value="Female" name="sex">
                                     <label>Female</label>
                                 </div>
                                 <div class="form-group" *ngIf="sex.invalid && (sex.dirty || sex.touched)" class="alert alert-danger" style="margin-top: 10px">
@@ -167,7 +167,7 @@
                     <footer class="panel-footer">
                         <div class="row">
                             <div class="col-sm-9 col-sm-offset-3">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
                                     <i class="fa fa-floppy-o"></i>
                                     Save</button>
                                 <button class="btn btn-default" (click)="back()">
