@@ -22,12 +22,14 @@ export class ShiftSchedulerListComponent {
     users: User[] = [];
     days: ShiftDay[] = [];
     numberOfDay: number[] = [];
-    date: Date;
+    toDate: any;
+    toDay: Date = new Date;
     constructor(private router: Router,
         private shiftSchedulerService: ShiftSchedulerService, private userService: UserService,
         private departmentService: DepartmentService) { }
 
     ngOnInit() {
+
         $.getScript('assets/porto/javascripts/theme.init.js', function () {
             $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
                 $.getScript('/assets/porto/vendor/bootstrap-timepicker/bootstrap-timepicker.js', function () {
@@ -44,14 +46,12 @@ this.loadDepartment();
         this.shiftSchedulerService.getList().then((res: ShiftScheduler[]) => {
             this.listShiftScheduler = res;
             this.shiftScheduler = this.listShiftScheduler[0];
-            
+            console.log(this.shiftScheduler);
         }).catch(err => {
             alert(err);
             // this.loadingService.stop();
         });
-        this.date = new Date();
-        this.date.setDate( this.date.getDate() + 3 );
-        console.log(this.date.toLocaleDateString());
+
     }
 
     printDate(date: String) {
@@ -66,5 +66,12 @@ loadDepartment() {
 
     });
 }
+to(){
+    console.log(this.toDate );
+    //   this.toDay = new Date();
+    //     this.toDay.setDate( this.toDay.getDate() + 23 );
 
+    //     console.log(this.toDay.toLocaleDateString());
+    //     this.toDate = this.toDay.toLocaleDateString();
+}
 }

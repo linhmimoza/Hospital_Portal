@@ -25,32 +25,21 @@ import javax.persistence.Table;
  *
  * @author Admin
  */
-@Entity
-@Table(name = "Shift")
-@NamedQueries({
-    @NamedQuery(name = "Shift.findAll", query = "SELECT s FROM Shift s")})
+
 public class Shift implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ShiftId")
+
     private Integer shiftId;
-    @Basic(optional = false)
-    @Column(name = "ShiftNO")
+
     private int shiftNO;
-    @Basic(optional = false)
-    @Column(name = "StartTime")
+
     private String startTime;
-    @Basic(optional = false)
-    @Column(name = "EndTime")
+
     private String endTime;
-    @Column(name = "Other")
+
     private String other;
     
-    @Basic(optional = false)
-    @Column(name = "ShiftDayID")
     private Integer shiftDayID;
     
     private List<ShiftWorker> shiftWorkerList;

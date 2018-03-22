@@ -8,9 +8,9 @@ export class Mission {
     content: string;
     note: string;
     status: number;
-    createBy: number;
+    createby: number;
     createDate: Date;
-    updateBy: number;
+    updateby: number;
     updateDate: Date;
     missionWorkerList: MissionWorker[];
     constructor() {

@@ -6,6 +6,13 @@ import { ShiftSchedulerService } from './service/shiftScheduler.service';
 import { UserService } from '../user/service/user.service';
 import { User } from '../user/shared/user.model';
 import { ShiftDay } from './shared/shiftDay.model';
+import { Select } from '../select/share/select.model';
+import { SelectService } from '../select/service/select.service';
+import { CreateShiftScheduler } from './shared/createShiftScheduler.model';
+import { CreateShiftDay } from './shared/createShiftDay.model';
+import { AccountService } from '../account/account.service';
+import { Department } from '../department/shared/department.model';
+import { DepartmentService } from '../department/service/department.service';
 declare var $: any;
 @Component({
     selector: 'createShiftScheduler',
@@ -13,26 +20,34 @@ declare var $: any;
     //   styleUrls: ['./css/dropdown.css']
 })
 export class CreateShiftSchedulerComponent {
-    listShiftScheduler: ShiftScheduler[] = [];
-    shiftScheduler = new ShiftScheduler();
+    listShiftScheduler: CreateShiftScheduler[] = [];
+    shiftScheduler = new CreateShiftScheduler();
+    departments: Department[] = [];
+    department: any;
     selectedOptions: any;
+    toDay: String;
     users: User[] = [];
-    week: ShiftDay[] = [];
-    Mon: ShiftDay;
-    Tue: ShiftDay;
-    Wed: ShiftDay;
-    Thu: ShiftDay;
-    Fri: ShiftDay;
-    Sat: ShiftDay;
-    Sun: ShiftDay;
-
+    week: CreateShiftDay[] = [];
+    Mon: CreateShiftDay;
+    Tue: CreateShiftDay;
+    Wed: CreateShiftDay;
+    Thu: CreateShiftDay;
+    Fri: CreateShiftDay;
+    Sat: CreateShiftDay;
+    Sun: CreateShiftDay;
+    dropdownList: Select [] = [] ;
+    selectedItems = [];
+    dropdownSettings = {};
     numberOfDay: number[] = [];
 
     constructor(private router: Router,
-        private shiftSchedulerService: ShiftSchedulerService, private userService: UserService) { }
+        private shiftSchedulerService: ShiftSchedulerService, private userService: UserService,
+        private selectService: SelectService, private accountService: AccountService,
+        private departmentService: DepartmentService) { }
 
     ngOnInit() {
-
+        this.loadDepartment();
+        this.createMember();
         this.createSchedule();
         this.loadUser();
         $.getScript('assets/porto/javascripts/theme.init.js', function () {
@@ -43,26 +58,19 @@ export class CreateShiftSchedulerComponent {
             });
         });
     }
+    loadDepartment(){
+        this.departmentService.getList().then((departments: Department[]) => {
+            this.departments = departments;
+        });
+    }
     loadUser() {
         this.userService.getList().then((users: User[]) => {
             this.users = users;
+            this.selectService.userSelect(users, this.dropdownList);
             // console.log(users);
         });
     }
-loadScheduler() {
-    this.shiftSchedulerService.getList().then((res: ShiftScheduler[]) => {
-        this.listShiftScheduler = res;
-        this.shiftScheduler = this.listShiftScheduler[0];
-        $.getScript("assets/porto/javascripts/theme.init.js", function () {
-            $.getScript("assets/porto/javascripts/theme.admin.extension.js", function () {
 
-            });
-        });
-    }).catch(err => {
-        alert(err);
-        // this.loadingService.stop();
-    });
-}
     createSchedule() {
         this.Mon = { shiftDayID: 0, dayInWeek: 'Mon', shiftScheduleId: 0, shiftDay: '', shiftList: [] };
         this.Tue = { shiftDayID: 0, dayInWeek: 'Tue', shiftScheduleId: 0, shiftDay: '', shiftList: [] };
@@ -79,7 +87,7 @@ loadScheduler() {
         this.week = [this.Mon, this.Tue, this.Wed, this.Thu, this.Fri, this.Sat, this.Sun];
         this.shiftScheduler.shiftDayList = this.week;
     }
-    addShift(day: ShiftDay) {
+    addShift(day: CreateShiftDay) {
         this.shiftSchedulerService.addShiftToDay(day);
         $.getScript('assets/porto/javascripts/theme.init.js', function () {
             $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
@@ -95,5 +103,46 @@ loadScheduler() {
 
     }
 
+    createMember() {
 
+
+        this.dropdownSettings = {
+                    singleSelection: false,
+                    text: 'Select Employee',
+                    selectAllText: 'Select All',
+                    unSelectAllText: 'UnSelect All',
+                    enableSearchFilter: true,
+                    classes: 'myclass custom-class'
+                  };
+        }
+        onItemSelect(item: any) {
+        }
+        OnItemDeSelect(item: any) {
+
+        }
+        onSelectAll(items: any) {
+
+        }
+        onDeSelectAll(items: any) {
+
+        }
+con() {
+
+   this.shiftSchedulerService.dateFullWeek(this.toDay, this.shiftScheduler);
+   this.shiftScheduler.week = this.toDay;
+}
+save() {
+    this.shiftScheduler.createby = this.accountService.getUserId();
+    this.shiftScheduler.updateby = this.accountService.getUserId();
+   this.shiftScheduler.departmentId = this.department;
+    this.shiftSchedulerService.createMission(this.shiftScheduler).then(() => {
+        console.log(this.shiftScheduler);
+
+        alert('Save success');
+        // this.router.navigate(['/main/manage-mission']);
+    }).catch(err => {
+       // debugger;
+        alert(err);
+    });
+}
 }

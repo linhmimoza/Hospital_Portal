@@ -9,7 +9,7 @@ import { AccountService } from '../account/account.service';
     // styleUrls:['user-list.component.css']
 })
 export class MissionListComponent {
-    userId: String;
+    userId: number;
     missions: Mission[] = [];
 
     constructor(private router: Router,

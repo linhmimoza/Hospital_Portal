@@ -96,4 +96,30 @@ public class ShiftDayDAO implements Serializable {
         }
         return listShiftDays;
     }
+    public void createShiftDay(ShiftDay day,int scheduleId) {
+
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "insert into ShiftDay(ShiftDay,DayInWeek,ShiftScheduleId)\n" +
+" OUTPUT INSERTED.ShiftDayID\n" +
+" values('"+day.getShiftDay()+"','"+day.getDayInWeek()+"',"+scheduleId+")";           
+                stm = con.prepareStatement(sql);
+                 rs = stm.executeQuery();
+                  System.out.println(sql);
+                if (rs.next()) {
+                    int shiftDayID = rs.getInt("ShiftDayID");
+                    ShiftDAO dao = new ShiftDAO();
+                  for (Shift shift:day.getShiftList()){
+                     dao.createShift(shift, shiftDayID);
+                  }}
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            closeConnection();
+        }
+
+    }
 }

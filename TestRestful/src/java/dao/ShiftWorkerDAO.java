@@ -89,4 +89,43 @@ public List<ShiftWorker> getWorkersByShiftId(int shiftId)  {
         }
         return listShiftWorkers;
     }
+public  void deleteWorkerByShiftId(int shiftId){
+     try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+               String sql = "  delete ShiftWorker where ShiftId=39"+shiftId;           
+                stm = con.prepareStatement(sql);
+                stm.executeUpdate();}
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            closeConnection();
+        }
+
+    }
+
+  public void createWorker(List<ShiftWorker> listWorker,int shiftId) {
+
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+            
+                for(ShiftWorker worker:listWorker){
+                  String  sql="  insert into ShiftWorker(UserId,ShiftId) values("+worker.getId()+","+shiftId+")";
+                         System.out.println(sql);
+                  stm = con.prepareStatement(sql);
+              
+                stm.executeUpdate();
+
+            }}
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            closeConnection();
+        }
+
+    }
+
 }

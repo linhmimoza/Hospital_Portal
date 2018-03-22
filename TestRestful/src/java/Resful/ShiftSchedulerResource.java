@@ -42,13 +42,20 @@ public class ShiftSchedulerResource {
      */
    @Path("/getListShiftScheduler")
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces()
     public List<ShiftSchedule> getListShiftScheduler() throws SQLException, ClassNotFoundException {
        ShiftScheduleDAO dao = new ShiftScheduleDAO();
             List<ShiftSchedule> listShiftSchedule = dao.getShiftSchedules();         
             return listShiftSchedule;
     }
-    
+     @Path("/createShiftScheduler")
+    @POST
+    @Produces()
+    public String createShiftScheduler(ShiftSchedule scheduler) throws SQLException, ClassNotFoundException {
+         ShiftScheduleDAO dao= new ShiftScheduleDAO();
+         return dao.createShiftScheduler(scheduler);
+           
+    }
  @GET
     @Produces()
     public String updateEmployee() {

@@ -35,7 +35,7 @@ export class MissionService {
         });
     }
 
-    updateMission(mission: Mission){
+    updateMission(mission: Mission) {
         return new Promise((resolve, reject) => {
             this.apiService.post('updateMission', mission).then(res => {
                 resolve();
