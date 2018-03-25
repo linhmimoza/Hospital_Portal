@@ -27,14 +27,10 @@ export class CreateShiftSchedulerComponent {
     selectedOptions: any;
     toDay: String;
     users: User[] = [];
-    week: CreateShiftDay[] = [];
-    Mon: CreateShiftDay;
-    Tue: CreateShiftDay;
-    Wed: CreateShiftDay;
-    Thu: CreateShiftDay;
-    Fri: CreateShiftDay;
-    Sat: CreateShiftDay;
-    Sun: CreateShiftDay;
+    empNumber = 2;
+    star: string;
+    end: string;
+    last: string;
     dropdownList: Select [] = [] ;
     selectedItems = [];
     dropdownSettings = {};
@@ -48,17 +44,10 @@ export class CreateShiftSchedulerComponent {
     ngOnInit() {
         this.loadDepartment();
         this.createMember();
-        this.createSchedule();
         this.loadUser();
-        $.getScript('assets/porto/javascripts/theme.init.js', function () {
-            $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
-                $.getScript('/assets/porto/vendor/bootstrap-timepicker/bootstrap-timepicker.js', function () {
-
-                });
-            });
-        });
+      
     }
-    loadDepartment(){
+    loadDepartment() {
         this.departmentService.getList().then((departments: Department[]) => {
             this.departments = departments;
         });
@@ -71,31 +60,11 @@ export class CreateShiftSchedulerComponent {
         });
     }
 
-    createSchedule() {
-        this.Mon = { shiftDayID: 0, dayInWeek: 'Mon', shiftScheduleId: 0, shiftDay: '', shiftList: [] };
-        this.Tue = { shiftDayID: 0, dayInWeek: 'Tue', shiftScheduleId: 0, shiftDay: '', shiftList: [] };
-        this.Wed = { shiftDayID: 0, dayInWeek: 'Wed', shiftScheduleId: 0, shiftDay: '', shiftList: [] };
-        this.Thu = { shiftDayID: 0, dayInWeek: 'Thu', shiftScheduleId: 0, shiftDay: '', shiftList: [] };
-        this.Fri = { shiftDayID: 0, dayInWeek: 'Fri', shiftScheduleId: 0, shiftDay: '', shiftList: [] };
-        this.Sat = { shiftDayID: 0, dayInWeek: 'Sat', shiftScheduleId: 0, shiftDay: '', shiftList: [] };
-        this.Sun = { shiftDayID: 0, dayInWeek: 'Sun', shiftScheduleId: 0, shiftDay: '', shiftList: [] };
-        this.week = [this.Mon, this.Tue, this.Wed, this.Thu, this.Fri, this.Sat, this.Sun];
-        this.shiftScheduler.shiftDayList = this.week;
-
-    }
-    setSchedule() {
-        this.week = [this.Mon, this.Tue, this.Wed, this.Thu, this.Fri, this.Sat, this.Sun];
-        this.shiftScheduler.shiftDayList = this.week;
-    }
-    addShift(day: CreateShiftDay) {
-        this.shiftSchedulerService.addShiftToDay(day);
-        $.getScript('assets/porto/javascripts/theme.init.js', function () {
-            $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
-                $.getScript('/assets/porto/vendor/bootstrap-timepicker/bootstrap-timepicker.js', function () {
-
-                });
-            });
-        });
+    addShift() {
+        this.shiftSchedulerService.addShiftToALLDay(this.shiftScheduler.shiftDayList,
+            this.star, this.end);
+            this.last = this.end;
+            this.star = this.end;
         console.log(this.shiftScheduler);
            }
 
@@ -109,10 +78,11 @@ export class CreateShiftSchedulerComponent {
         this.dropdownSettings = {
                     singleSelection: false,
                     text: 'Select Employee',
-                    selectAllText: 'Select All',
-                    unSelectAllText: 'UnSelect All',
                     enableSearchFilter: true,
-                    classes: 'myclass custom-class'
+                    classes: 'myclass custom-class',
+                    limitSelection: this.empNumber,
+                    maxHeight: 180
+
                   };
         }
         onItemSelect(item: any) {
@@ -130,6 +100,7 @@ con() {
 
    this.shiftSchedulerService.dateFullWeek(this.toDay, this.shiftScheduler);
    this.shiftScheduler.week = this.toDay;
+
 }
 save() {
     this.shiftScheduler.createby = this.accountService.getUserId();

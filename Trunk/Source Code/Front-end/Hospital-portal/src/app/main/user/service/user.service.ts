@@ -17,6 +17,7 @@ export class UserService {
         });
     }
 
+
     getUser(id) {
         return new Promise((resolve, reject) => {
             this.apiService.get(`getUserById/${id}`).then(res => {

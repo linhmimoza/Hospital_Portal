@@ -50,17 +50,18 @@ public class DepartmentDAO implements Serializable {
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                String sql = "Select DepartmentId, DepartmentName, Description, Status from Department";
+                String sql = "Select DepartmentId, DepartmentName, Description, Status, Code from Department";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     Integer id = rs.getInt("DepartmentId");
                     String departmentName = rs.getString("DepartmentName");
                     String description = rs.getString("Description");
+                    String code = rs.getString("Code");
                     Integer status = rs.getInt("Status");
                     UserDAO dao=new UserDAO();
                     int quantity=dao.getDepartmentQuantity(id);
-                    Department department = new Department(id, departmentName, description, status, quantity);           
+                    Department department = new Department(id, departmentName, description, code, status, quantity);           
                     listDepartments.add(department);
                 }
             }
@@ -79,7 +80,7 @@ public class DepartmentDAO implements Serializable {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
                 String sql = "Select DepartmentId, DepartmentName, Description,"
-                        + " Status from Department where DepartmentId="+departmentId;
+                        + " Status, Code from Department where DepartmentId="+departmentId;
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 if (rs.next()) {
@@ -87,9 +88,10 @@ public class DepartmentDAO implements Serializable {
                     String departmentName = rs.getString("DepartmentName");
                     String description = rs.getString("Description");
                     Integer status = rs.getInt("Status");
+                     String code = rs.getString("Code");
                     UserDAO dao=new UserDAO();
                     int quantity=dao.getDepartmentQuantity(id);
-                  department = new Department(id, departmentName, description, status, quantity);           
+                  department = new Department(id, departmentName, description, code, status, quantity);           
 
                 }
             }
@@ -106,7 +108,7 @@ public class DepartmentDAO implements Serializable {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
                 String sql = "update Department set DepartmentName='"+department.getDepartmentName()+"'"
-                        + ",Description='"+department.getDescription()+"' ,Status="+department.getStatus()+
+                        + ",Description='"+department.getDescription()+"' ,Code='"+department.getCode()+"' ,Status="+department.getStatus()+
                         " where DepartmentId="+department.getDepartmentId();           
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
@@ -150,8 +152,9 @@ public class DepartmentDAO implements Serializable {
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                String sql = "insert into Department(DepartmentName,Description,Status)"
-                        + " values('"+department.getDepartmentName()+"','"+department.getDescription()+"',1)";           
+                String sql = "insert into Department(DepartmentName,Description,Status,Code)"
+                        + " values('"+department.getDepartmentName()+"','"+department.getDescription()+"',"
+                        + "1,'"+department.getCode()+"')";           
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
 
