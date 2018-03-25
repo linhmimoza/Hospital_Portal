@@ -17,6 +17,7 @@ declare var $: any;
 })
 export class ShiftSchedulerListComponent {
     departments: Department[] = [];
+    department: Department;
     listShiftScheduler: ShiftScheduler[] = [];
     shiftScheduler = new ShiftScheduler();
     users: User[] = [];
@@ -67,11 +68,20 @@ loadDepartment() {
     });
 }
 to(){
-    console.log(this.toDate );
+    console.log(this.toDate, this.department );
     //   this.toDay = new Date();
     //     this.toDay.setDate( this.toDay.getDate() + 23 );
 
     //     console.log(this.toDay.toLocaleDateString());
     //     this.toDate = this.toDay.toLocaleDateString();
+}
+search() {
+    this.shiftSchedulerService.getByWeek(this.toDate, this.department).then((res: ShiftScheduler) => {
+        this.shiftScheduler = res;
+        console.log(this.shiftScheduler);
+    }).catch(err => {
+        alert(err);
+        // this.loadingService.stop();
+    });
 }
 }

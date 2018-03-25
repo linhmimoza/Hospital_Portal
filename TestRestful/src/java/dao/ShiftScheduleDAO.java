@@ -102,4 +102,40 @@ public class ShiftScheduleDAO implements Serializable {
         }
         return result;
     }
+    
+     public ShiftSchedule getShiftSchedulesByWeek(String week,int deptId)  {
+   
+
+       ShiftSchedule shiftSchedule = new ShiftSchedule();
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "select ShiftScheduleId, DepartmentId,  Status, \n" +
+"Createby, CreateDate, UpdateDate, Updateby,Week from ShiftSchedule where \n" +
+"DepartmentId="+deptId+" and Week='"+week+"' and Status=1";
+                stm = con.prepareStatement(sql);
+                System.out.println(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    Integer id = rs.getInt("ShiftScheduleId");
+                    Integer departmentId = rs.getInt("DepartmentId");
+                           
+                    String createDate = rs.getString("CreateDate");
+                    String updateDate = rs.getString("UpdateDate");
+                    Integer status = rs.getInt("Status");
+                    Integer createby = rs.getInt("Createby");
+                    Integer updateby = rs.getInt("Updateby");
+                    ShiftDayDAO dao= new ShiftDayDAO();
+                    List<ShiftDay> listShiftDays=dao.getShiftDaysBySchedulerId(id);
+              shiftSchedule = new ShiftSchedule(id, status, createDate, updateDate, departmentId, createby, updateby,listShiftDays);
+                
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+         Logger.getLogger(ShiftScheduleDAO.class.getName()).log(Level.SEVERE, null, ex);
+     } finally {
+      closeConnection();
+        }
+        return shiftSchedule;
+    }
 }

@@ -15,7 +15,7 @@
                 </div>
             </div>
         </div>
-        <table class="table table-bordered table-striped mb-none">
+        <table class="table table-bordered table-striped mb-none display" id="example">
             <colgroup>
                 <col width="150px" />
                 <col width="150px" />
@@ -24,7 +24,6 @@
                 <col width="150px" />
                 <col />
                 <col width="150px" />
-                <col width="50px" />
                 <col width="50px" />
             </colgroup>
             <thead>
@@ -37,7 +36,6 @@
                     <th>Phone</th>
                     <th>Status</th>
                     <!-- <th class="hidden-phone">Status</th> -->
-                    <th class="hidden-phone"></th>
                     <th class="hidden-phone"></th>
                 </tr>
             </thead>
@@ -53,19 +51,13 @@
                     <td class="text-center">
                         <!-- <span [ngClass]="{'bg-primary':user.IsActived,'bg-danger':!user.IsActived}">  -->
 
-                        <div class="grid-status" [ngClass]="{'bg-primary': user.status == 1, 'bg-danger': user.status == 2 }">
-
+                        <div class="grid-status" [ngClass]="{'bg-primary': user.status == 1, 'bg-danger': user.status == 2 }" (click)="switchStatus(user)">
                             {{user.status == 1? 'Active':'Disable'}}
                         </div>
                     </td>
                     <td align="center">
                         <a>
                             <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(user)"></i>
-                        </a>
-                    </td>
-                    <td align="center">
-                        <a class="text-danger remove-row">
-                            <i style="cursor:pointer" class="fa fa-trash-o text-danger" (click)="delete(user)"></i>
                         </a>
                     </td>
                 </tr>

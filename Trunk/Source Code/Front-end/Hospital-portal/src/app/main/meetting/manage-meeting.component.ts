@@ -25,30 +25,39 @@ export class ManageMeetingComponent {
             });
         });
     }
-loadChecked() {
-    this.meetingService.getCheked().then((res: Meeting[]) => {
-        this.checkedMeetings = res;
+    loadChecked() {
+        this.meetingService.getCheked().then((res: Meeting[]) => {
+            this.checkedMeetings = res;
 
-        // console.log(this.users);
-    }).catch(err => {
-        alert(err);
-        // this.loadingService.stop();
-    });
-}
+            // console.log(this.users);
+        }).catch(err => {
+            alert(err);
+            // this.loadingService.stop();
+        });
+    }
 
-loadWaiting() {
-    this.meetingService.getWaiting().then((res: Meeting[]) => {
-        this.waitingMeetings = res;
+    loadWaiting() {
+        this.meetingService.getWaiting().then((res: Meeting[]) => {
+            this.waitingMeetings = res;
 
-        // console.log(this.users);
-    }).catch(err => {
-        alert(err);
-        // this.loadingService.stop();
-    });
-}
+            // console.log(this.users);
+        }).catch(err => {
+            alert(err);
+            // this.loadingService.stop();
+        });
+    }
+
     ngAfterViewInit() {
 
     }
 
-    
+    detail(meeting: Meeting) {
+        this.router.navigate(['/main/meeting-detail', meeting.meetingId]);
+    }
+
+    delete(meeting: Meeting) {
+        this.meetingService.deleteMeeting(meeting.meetingId).then(() => {
+            
+        });
+    }
 }

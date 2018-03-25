@@ -35,4 +35,13 @@ return item;
        console.log(workers);
        return workers;
      }
+     getUserForSelect() {
+      return new Promise((resolve, reject) => {
+          this.apiService.get('getUserForSelect').then(res => {
+              resolve(res.json());
+          }).catch(err => {
+              reject(err);
+          });
+      });
+  }
  }

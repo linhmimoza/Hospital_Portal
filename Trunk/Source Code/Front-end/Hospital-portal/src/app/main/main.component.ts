@@ -43,4 +43,9 @@ export class MainComponent {
     ngOnDestroy() {
         if (this.routerSubcription) this.routerSubcription.unsubscribe();
     }
+
+    logout(){
+        this.cookieService.deleteAll();
+        this.router.navigate(['/login']);
+    }
 }
