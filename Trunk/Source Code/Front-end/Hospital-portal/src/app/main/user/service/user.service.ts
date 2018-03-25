@@ -41,7 +41,7 @@ export class UserService {
     createUser(user: User) {
         return new Promise((resolve, reject) => {
             this.apiService.post('createUser', user).then(res => {
-                resolve();
+                resolve(res);
             }).catch(err => {
                 reject(err);
             });
@@ -51,12 +51,24 @@ export class UserService {
     deleteUser(id) {
         return new Promise<User>((resolve, reject) => {
             this.apiService.get(`deleteUser/${id}`).then(() => {
-            // this.apiService.post('deleteUser', id).then(() => {
+                // this.apiService.post('deleteUser', id).then(() => {
                 resolve();
                 alert("Success");
             }).catch(err => {
                 reject(err);
+                alert("Fail");
+            });
+        });
+    }
+
+    activeUser(id) {
+        return new Promise<User>((resolve, reject) => {
+            this.apiService.get(`activeUser/${id}`).then(() => {
+                resolve();
                 alert("Success");
+            }).catch(err => {
+                reject(err);
+                alert("Fail");
             });
         });
     }

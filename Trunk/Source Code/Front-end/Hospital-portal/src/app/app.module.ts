@@ -44,9 +44,10 @@ import { NotificationService } from './main/extra/notification.service';
 import { LoadingService } from './main/extra/loading.service';
 import { DemoPagingComponent } from './main/demoPaging/demoPaging.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgbdModalBasic } from './main/demoModal/modal-basic';
 import { DemoScheduleComponent } from './main/demo-schedule/demo-schedule.component';
 import { EmployeeCheckComponent } from './main/demo-schedule/employee-check.component';
+import { NotificationListComponent } from './main/notification/notification-list.component';
+import { NotificationDetailComponent } from './main/notification/notification-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -73,7 +74,8 @@ const routes: Routes = [
       { path: 'article-detail/:id', component: ArticleDetailComponent },
       { path: 'demoPaging', component: DemoPagingComponent },
       { path: 'app-demo-schedule', component: DemoScheduleComponent},
-      { path: 'employee-check', component: EmployeeCheckComponent}
+      { path: 'employee-check', component: EmployeeCheckComponent},
+      { path: 'notification-list', component: NotificationListComponent}
     ]
   },
   { path: 'login', component: LoginComponent, pathMatch: 'full' }
@@ -103,9 +105,9 @@ const routes: Routes = [
     ArticleListComponent,
     ArticleDetailComponent,
     DemoPagingComponent,
-    NgbdModalBasic,
     DemoScheduleComponent,
-    EmployeeCheckComponent
+    EmployeeCheckComponent,
+    NotificationListComponent
   ],
   imports: [
     BrowserModule,
@@ -117,9 +119,11 @@ const routes: Routes = [
     CalendarModule.forRoot(),
     NgbModule.forRoot()
   ],
-  providers: [NotificationService, LoadingService, LoginService, AccountService, ApiService, UserService,
+  providers: [
+    NotificationService, LoadingService, LoginService, AccountService, ApiService, UserService,
     DepartmentService, RoleService, CategoryService, RoomService, MissionService,
-    ShiftSchedulerService, MeetingService, ArticleService, CookieService, SelectService],
+    ShiftSchedulerService, MeetingService, ArticleService, CookieService, SelectService, NotificationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -25,11 +25,11 @@ export class UserDetailComponent {
     title: string;
     roles: Role[] = [];
     departments: Department[] = [];
-    formSubmitted = false;
-
+    response: string;
     constructor(private route: ActivatedRoute, private router: Router, private userService: UserService,
         private roleService: RoleService, private departmentService: DepartmentService, private loadingService: LoadingService,
         private notificationService: NotificationService) {
+
     }
 
     back() {
@@ -68,7 +68,6 @@ export class UserDetailComponent {
             position: new FormControl(''),
             userId: new FormControl('')
         });
-
         this.loadingService.start();
         // this.roleService.getList().then((res: Role[]) => {
         //     this.roles = res;
@@ -180,12 +179,10 @@ export class UserDetailComponent {
     }
 
     onFormSubmit(user: User) {
-        this.formSubmitted = true;
         if (this.form.valid) {
             console.log(user);
             this.save(user);
         } else {
-            this.formSubmitted = false;
             alert('Invalid format');
         }
     }
@@ -194,10 +191,12 @@ export class UserDetailComponent {
         this.routerSubcription = this.route.params.subscribe(params => {
             this.id = +params['id']; // (+) converts string 'id' to a number
             if (this.id > 0) {
-                this.userService.updateUser(user).then(() => {
-                    this.notificationService.success("Success").then(() => {
-                        this.router.navigate(['/main/user-list']);
-                    });
+                this.userService.updateUser(user).then((res: string) => {
+                    this.response = res;
+                    console.log(this.response);
+                    // this.notificationService.success("Success").then(() => {
+                    //     this.router.navigate(['/main/user-list']);
+                    // });
                 }).catch(err => {
                     alert(err);
                 });
@@ -215,7 +214,6 @@ export class UserDetailComponent {
     }
 
     ngAfterViewInit() {
-
         $.getScript("assets/porto/javascripts/theme.init.js", function () {
             $.getScript("assets/porto/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js", function () {
 
