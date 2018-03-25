@@ -5,6 +5,7 @@
  */
 package dao;
 
+import Models.Select;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -328,4 +329,35 @@ public boolean isEmailExited(String email){
         }
         return result;
     }
+     
+       public List<Select> getUserForSelect() {
+
+        List<Select> listUsers = new ArrayList<>();
+        try {
+          
+            con = DBUtils.DBUtils.makeConnection();
+
+            if (con != null) {
+                String sql = "select UserId,Code,UserName from [User] u,"
+                        + " Department d where u.DepartmentId=d.DepartmentId\n" +
+"and u.Status=1 and u.RoleId>1";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    Integer id = rs.getInt("UserId");
+                    String userName = rs.getString("UserName");
+                    String code = rs.getString("Code");
+                   Select user= new Select(id, code+"."+userName);
+                            listUsers.add(user);
+                     
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeConnection();
+        }
+        return listUsers;
+    }
+
 }

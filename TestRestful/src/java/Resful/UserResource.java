@@ -5,6 +5,7 @@
  */
 package Resful;
 
+import Models.Select;
 import Models.User;
 import dao.UserDAO;
 import java.sql.SQLException;
@@ -104,4 +105,12 @@ public class UserResource {
      return dao.activeUser(userId);
 
    }
+     @Path("/getUserForSelect")
+    @GET
+    @Produces()
+    public List<Select> getUserForSelect() throws SQLException, ClassNotFoundException {
+    UserDAO dao = new UserDAO();
+            List<Select> listUsers = dao.getUserForSelect();         
+            return listUsers;
+    }
 }

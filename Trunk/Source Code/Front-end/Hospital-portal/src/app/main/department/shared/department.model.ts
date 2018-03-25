@@ -1,11 +1,11 @@
-export class Department{
+export class Department {
     departmentId: number;
     departmentName: string;
     description: string;
-    quantity: number; 
+    code: string;
+    quantity: number;
     sratus: number;
 
-    constructor(){
-        
+    constructor() {
     }
 }

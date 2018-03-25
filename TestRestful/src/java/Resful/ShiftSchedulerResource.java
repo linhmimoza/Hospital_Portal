@@ -17,6 +17,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -55,6 +56,16 @@ public class ShiftSchedulerResource {
          ShiftScheduleDAO dao= new ShiftScheduleDAO();
          return dao.createShiftScheduler(scheduler);
            
+    }
+     @Path("/getShiftSchedulesByWeek")
+    @GET
+    @Produces()
+    public ShiftSchedule getShiftSchedulesByWeek(
+    @QueryParam("DepartmentId") int id ,
+    @QueryParam("Week") String week) throws SQLException, ClassNotFoundException {
+    ShiftScheduleDAO dao = new ShiftScheduleDAO();                    
+          ShiftSchedule schedule = dao.getShiftSchedulesByWeek(week, id);       
+            return schedule;
     }
  @GET
     @Produces()

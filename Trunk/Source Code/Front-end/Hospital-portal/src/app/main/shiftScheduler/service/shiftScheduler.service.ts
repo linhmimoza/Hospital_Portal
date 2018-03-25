@@ -18,6 +18,31 @@ export class ShiftSchedulerService {
             });
         });
     }
+    getByWeek(week, depId) {
+        return new Promise((resolve, reject) => {
+            this.apiService.get('getShiftSchedulesByWeek?DepartmentId=' + depId + '&Week=' + week).then(res => {
+                resolve(res.json());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
+
+
+
+
+    addShiftToALLDay(dates: CreateShiftDay[], star: string, end: string) {
+        dates.forEach(function(date) {
+        let  listShift : CreateShift[] = date.shiftList;
+        let shift: CreateShift = {'endTime': end, 'shiftDayID': 0, 'shiftId': 0, 'shiftNO': date.shiftList.length,
+         'shiftWorkerList': [], 'startTime': star, 'other': ''};
+        listShift.push(shift);
+      });
+      return dates;
+    }
+
+
+
     addShiftToDay(date: CreateShiftDay) {
       let  listShift : CreateShift[] = date.shiftList;
       let shift: CreateShift = {'endTime': '', 'shiftDayID': 0, 'shiftId': 0, 'shiftNO': date.shiftList.length,

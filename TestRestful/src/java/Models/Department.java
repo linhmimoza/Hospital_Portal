@@ -23,28 +23,21 @@ import javax.persistence.Table;
  *
  * @author Admin
  */
-@Entity
-@Table(name = "Department")
-@NamedQueries({
-    @NamedQuery(name = "Department.findAll", query = "SELECT d FROM Department d")})
+
 public class Department implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "DepartmentId")
+
     private Integer departmentId;
-    @Basic(optional = false)
-    @Column(name = "DepartmentName")
+
     private String departmentName;
-    @Column(name = "Description")
+
     private String description;
-    @Basic(optional = false)
-    @Column(name = "Status")
+    private String code;
+
     private int status;
     private int quantity;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
+
     private List<ShiftSchedule> shiftScheduleList;
   
 
@@ -55,26 +48,35 @@ public class Department implements Serializable {
         this.departmentId = departmentId;
     }
 
-    public Department(Integer departmentId, String departmentName, int status) {
-        this.departmentId = departmentId;
-        this.departmentName = departmentName;
-        this.status = status;
+    public String getCode() {
+        return code;
     }
 
-    public Department(Integer departmentId, String departmentName, String description, int status) {
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Department(Integer departmentId, String departmentName, String description, String code, int status, int quantity) {
         this.departmentId = departmentId;
         this.departmentName = departmentName;
         this.description = description;
-        this.status = status;
-    }
-
-    public Department(Integer departmentId, String departmentName, String description, int status, int quantity) {
-        this.departmentId = departmentId;
-        this.departmentName = departmentName;
-        this.description = description;
+        this.code = code;
         this.status = status;
         this.quantity = quantity;
     }
+
+    public Department(Integer departmentId, String departmentName, String description, String code, int status) {
+        this.departmentId = departmentId;
+        this.departmentName = departmentName;
+        this.description = description;
+        this.code = code;
+        this.status = status;
+    }
+
+   
+
+   
+ 
 
     public int getQuantity() {
         return quantity;

@@ -30,20 +30,20 @@ export class DepartmentDetailComponent {
         //     alert(err);
         // });
         this.routerSubcription = this.route.params.subscribe(params => {
-            this.id = +params['id']; // (+) converts string 'id' to a number        
+            this.id = +params['id']; // (+) converts string 'id' to a number
             this.departmentService.getList().then((departments: Department[]) => {
                 this.departments = departments;
-                if (this.id == 0) this.department.departmentId = departments[0].departmentId;
+                if (this.id === 0) { this.department.departmentId = departments[0].departmentId; }
             });
             if (this.id > 0) {
-                this.title = "You are updating department";
+                this.title = 'You are updating department';
                 this.departmentService.getDepartment(this.id).then((res: Department) => {
                     this.department = res;
                 }).catch(err => {
                     console.log(err);
                 });
             } else {
-                this.title = "You are creating new department";
+                this.title = 'You are creating new department';
             }
         });
     }
@@ -52,7 +52,7 @@ export class DepartmentDetailComponent {
             this.id = +params['id']; // (+) converts string 'id' to a number
             if (this.id > 0) {
                 this.departmentService.updateDepartment(this.department).then(() => {
-                    alert("Save success");
+                    alert('Save success');
                     this.router.navigate(['/main/department-list']);
                 }).catch(err => {
                     debugger
@@ -62,7 +62,7 @@ export class DepartmentDetailComponent {
                 this.departmentService.createDepartment(this.department).then(() => {
                     //Server trả về role sau khi save
                     //Nếu là tạo role mới thì res sẽ có giá trị id mới thay vì 0
-                    alert("Save success");
+                    alert('Save success');
                     this.router.navigate(['/main/department-list']);
                 }).catch(err => {
                     debugger
