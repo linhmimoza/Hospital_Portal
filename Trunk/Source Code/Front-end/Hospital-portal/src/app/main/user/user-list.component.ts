@@ -5,6 +5,7 @@ import { UserService } from './service/user.service';
 import { debug } from 'util';
 import { NotificationService } from '../extra/notification.service';
 import { LoadingService } from '../extra/loading.service';
+declare var $: any; 
 
 @Component({
     selector: 'user-list',
@@ -20,6 +21,14 @@ export class UserListComponent {
         private loadingService: LoadingService) { }
 
     ngOnInit() {
+        $.getScript('/assets/porto/vendor/jquery-datatables/media/js/jquery.dataTables.js', function () {
+
+        });
+        // $(document).ready(function() {
+        //     $('#example').DataTable( {
+        //         "pagingType": "full_numbers"
+        //     } );
+        // } );
         this.loadingService.start();
         this.userService.getList().then((res: User[]) => {
             this.users = res;
