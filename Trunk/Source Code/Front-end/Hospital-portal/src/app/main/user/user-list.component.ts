@@ -2,23 +2,37 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from './shared/user.model';
 import { UserService } from './service/user.service';
+import { debug } from 'util';
+import { NotificationService } from '../extra/notification.service';
+import { LoadingService } from '../extra/loading.service';
+declare var $: any; 
 
 @Component({
     selector: 'user-list',
-    templateUrl: './user-list.component.html'
-    // styleUrls:['user-list.component.css']
+    templateUrl: './user-list.component.html',
+    styleUrls: ['user-list.component.css']
 })
 export class UserListComponent {
 
     users: User[] = [];
 
-    constructor(private router: Router, 
-        private userService: UserService) {  }
+    constructor(private router: Router,
+        private userService: UserService, private notificationService: NotificationService,
+        private loadingService: LoadingService) { }
 
     ngOnInit() {
-        // this.loadingService.start();
+        $.getScript('/assets/porto/vendor/jquery-datatables/media/js/jquery.dataTables.js', function () {
+
+        });
+        // $(document).ready(function() {
+        //     $('#example').DataTable( {
+        //         "pagingType": "full_numbers"
+        //     } );
+        // } );
+        this.loadingService.start();
         this.userService.getList().then((res: User[]) => {
-            this.users = res;         
+            this.users = res;
+            this.loadingService.stop();
             // console.log(this.users);
         }).catch(err => {
             alert(err);
@@ -31,12 +45,30 @@ export class UserListComponent {
 
     }
 
-    // detail(user: User) {
-    //     this.router.navigate(['/main/user-detail', user.Id]);
-    // }
-    // delete(user: User) {
-    //     this.userService.deleteUser(user.Id).then(() => {
-    //         this.router.navigate(['./main/user-list']);
-    //     });
-    // }
+    detail(user: User) {
+        this.router.navigate(['/main/user-detail', user.userId]);
+
+    }
+
+    switchStatus(user: User) {
+        if (user.status == 1) {
+            this.userService.deleteUser(user.userId).then(() => {
+                this.notificationService.success("Success");
+                this.userService.getList().then((res: User[]) => {
+                    this.users = res;
+                }).catch(err => {
+                    alert(err);
+                });
+            });
+        } else {
+            this.userService.activeUser(user.userId).then(() => {
+                this.notificationService.success("Success");
+                this.userService.getList().then((res: User[]) => {
+                    this.users = res;
+                }).catch(err => {
+                    alert(err);
+                });
+            });
+        }
+    }
 }

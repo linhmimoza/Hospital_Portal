@@ -6,3 +6,4 @@
 - Port là http://localhost:4200
 - Username: admin password: 123 
 - Có gì k hieu hoi ban Linh
+npm install --save angular-input-masks

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { User } from './user/shared/user.model';
 import { LoginService } from '../authorize/service/login.service';
-import { ActivatedRoute, Router } from '@angular/router'; 
+import { ActivatedRoute, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 declare var $: any;
 
 @Component({
@@ -10,20 +11,22 @@ declare var $: any;
 })
 export class MainComponent {
     currentUser: User = new User();
-    menu: string [];
+    userName: string;
+    userId: string;
+    roleId: string;
+    menu: string[];
     private routerSubcription: any;
     title: string;
-    constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService) {
-       
+    constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService,
+        private cookieService: CookieService) {
+
     }
 
     ngOnInit() {
-        this.currentUser = this.loginService.user;
-        // let role = this.loginService.user.role;
-        // if (role == 1){
-        //     this.menu = [""];
-        // }
-        console.log(this.currentUser);
+        this.userName = this.cookieService.get("Auth-Username");
+        console.log(this.userName);
+        this.roleId = this.cookieService.get("Auth-RoleId");
+        console.log(this.roleId);
     }
 
     ngAfterViewInit() {
@@ -39,5 +42,10 @@ export class MainComponent {
 
     ngOnDestroy() {
         if (this.routerSubcription) this.routerSubcription.unsubscribe();
+    }
+
+    logout(){
+        this.cookieService.deleteAll();
+        this.router.navigate(['/login']);
     }
 }

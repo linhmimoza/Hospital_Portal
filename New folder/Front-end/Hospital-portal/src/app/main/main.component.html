@@ -1,0 +1,457 @@
+<section class="body">
+    <!-- start: header -->
+    <header class="header">
+        <div class="logo-container">
+            <a href="../" class="logo">
+                <img src="assets/porto/images/Hospital_Logo.png" height="35" alt="Porto Admin" />
+            </a>
+            <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
+                <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+            </div>
+        </div>
+        <!-- start: search & user box -->
+        <div class="header-right">
+            <form action="pages-search-results.html" class="search nav-form">
+                <div class="input-group input-search">
+                    <input type="text" class="form-control" name="q" id="q" placeholder="Search...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </form>
+
+            <span class="separator"></span>
+
+            <div id="userbox" class="userbox">
+                <a href="#" data-toggle="dropdown">
+                    <figure class="profile-picture">
+                        <img src="assets/porto/images/!logged-user.jpg" alt="Joseph Doe" class="img-circle" data-lock-picture="assets/images/!logged-user.jpg"
+                        />
+                    </figure>
+                    <div class="profile-info">
+                        <span class="name">{{userName}}</span>
+                    </div>
+
+                    <i class="fa custom-caret"></i>
+                </a>
+
+                <div class="dropdown-menu">
+                    <ul class="list-unstyled">
+                        <li class="divider"></li>
+                        <li>
+                            <a role="menuitem" tabindex="-1" href="pages-user-profile.html">
+                                <i class="fa fa-user"></i> My Profile</a>
+                        </li>
+                        <li>
+                            <a role="menuitem" tabindex="-1" href="#" data-lock-screen="true">
+                                <i class="fa fa-lock"></i> Lock Screen</a>
+                        </li>
+                        <li>
+                            <a role="menuitem" tabindex="-1" [routerLink]="['/login']">
+                                <i class="fa fa-power-off"></i> Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- end: search & user box -->
+    </header>
+    <!-- end: header -->
+
+    <div class="inner-wrapper">
+        <!-- start: sidebar -->
+        <aside id="sidebar-left" class="sidebar-left">
+
+            <div class="sidebar-header">
+                <div class="sidebar-title">
+                    Navigation
+                </div>
+                <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
+                    <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+                </div>
+            </div>
+
+            <div class="nano">
+                <div class="nano-content">
+                    <nav id="menu" class="nav-main" role="navigation">
+                        <ul class="nav nav-main" *ngIf="roleId == 1">
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Home page</span>
+                                </a>
+                            </li>
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Hospital portal</span>
+                                </a>
+                            </li>
+                            <!-- <li class="nav-parent">
+                                <a>
+                                    <i class="fa fa-columns" aria-hidden="true"></i>
+                                    <span>Manage user</span>
+                                </a>
+                                <ul class="nav nav-children">
+                                    <li>
+                                        <a [routerLink]="['/main/role-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Vai trò</span>
+                                        </a>
+                                    </li>                                
+                                </ul>
+                            </li> -->
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/user-list']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Manage user</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/department-list']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Manage department</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/room-list']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Manage room</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/category-list']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Manage category</span>
+                                </a>
+                            </li>
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/service-list']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Manage service</span>
+                                </a>
+                            </li>
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/clinic-list']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Manage clinic</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="nav nav-main" *ngIf="roleId == 2">
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Home page</span>
+                                </a>
+                            </li>
+                        
+                          
+                            <li class="nav-parent">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-columns" aria-hidden="true"></i>
+                                    <span>Hospital portal</span>
+                                </a>
+                                <ul class="nav nav-children">
+                                    <li>
+                                        <a [routerLink]="['/main/mission-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Mission schedule</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/main/meeting-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Meeting schedule</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/main/shiftScheduler-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Shift schedule</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-parent">
+                                <a>
+                                    <i class="fa fa-columns" aria-hidden="true"></i>
+                                    <span>Manage schedule</span>
+                                </a>
+                                <ul class="nav nav-children">
+                                    <li>
+                                        <a [routerLink]="['/main/mission-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Manage mission schedule</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/main/meeting-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Manage meeting schedule</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/main/shift-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Manage shift schedule</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/user-list']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Manage article</span>
+                                </a>
+                            </li>
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Manage notification</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Log out</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="nav nav-main" *ngIf="roleId == 3">
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Home page</span>
+                                </a>
+                            </li>
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Hospital portal</span>
+                                </a>
+                                <ul class="nav nav-children">
+                                    <li>
+                                        <a [routerLink]="['/main/mission-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Mission schedule</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/main/meeting-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Meeting schedule</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/main/shift-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Shift schedule</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-parent">
+                                <a>
+                                    <i class="fa fa-columns" aria-hidden="true"></i>
+                                    <span>Manage schedule</span>
+                                </a>
+                                <ul class="nav nav-children">
+                                    <li>
+                                        <a [routerLink]="['/main/mission-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Manage mission schedule</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/main/meeting-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Manage meeting schedule</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/main/shift-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Manage shift schedule</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Log out</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="nav nav-main" *ngIf="roleId == 4">
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Home page</span>
+                                </a>
+                            </li>
+                            <li class="nav-parent">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Hospital portal</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/user-list']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Manage article</span>
+                                </a>
+                            </li>
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Log out</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="nav nav-main" *ngIf="roleId == 5">
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Home page</span>
+                                </a>
+                            </li>
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Hospital portal</span>
+                                </a>
+                                <ul class="nav nav-children">
+                                    <li>
+                                        <a [routerLink]="['/main/mission-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Mission schedule</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/main/meeting-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Meeting schedule</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/main/shift-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Shift schedule</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-parent">
+                                <a>
+                                    <i class="fa fa-columns" aria-hidden="true"></i>
+                                    <span>Manage schedule</span>
+                                </a>
+                                <ul class="nav nav-children">
+                                    <li>
+                                        <a [routerLink]="['/main/mission-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Manage mission schedule</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/main/meeting-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Manage meeting schedule</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/main/shift-list']">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Manage shift schedule</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Manage article</span>
+                                </a>
+                            </li>
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Log out</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="nav nav-main" *ngIf="roleId == 6">
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Home page</span>
+                                </a>
+                            </li>
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Hospital portal</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-active">
+                                <a [routerLink]="['/main/dashboard']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Log out</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <script>
+                    // Preserve Scroll Position
+                    if (typeof localStorage !== 'undefined') {
+                        if (localStorage.getItem('sidebar-left-position') !== null) {
+                            var initialPosition = localStorage.getItem('sidebar-left-position'),
+                                sidebarLeft = document.querySelector('#sidebar-left .nano-content');
+
+                            sidebarLeft.scrollTop = initialPosition;
+                        }
+                    }
+                </script>
+
+            </div>
+
+        </aside>
+        <!-- end: sidebar -->
+
+        <section role="main" class="content-body">
+            <header class="page-header">
+                <h2>{{title}}</h2>
+            </header>
+
+            <!-- start: page -->
+            <router-outlet></router-outlet>
+            <!-- end: page -->
+        </section>
+    </div>
+</section>

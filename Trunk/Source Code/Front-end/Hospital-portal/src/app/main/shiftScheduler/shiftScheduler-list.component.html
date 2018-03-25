@@ -1,0 +1,68 @@
+<section role="main" class="panel"  ng-app="">
+  <header class="panel-heading">
+    <div class="panel-actions">
+
+    </div>
+    <h2 class="panel-title">ShiftScheduler list</h2>
+  </header>
+  
+  <div class="panel-body">
+      <div class="form-group">
+          
+          <div class="col-sm-6  ">
+              <select class="form-control">
+                  <option *ngFor="let dept of departments" [ngValue]="dept.departmentId">{{dept.departmentName}}</option>
+              </select>
+          </div>
+          <div class="col-sm-6  ">  
+            <div class="input-group">
+                     <span class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+              </span>
+              <input type="week"  class="form-control"  [(ngModel)]="toDate" (change)="to()">
+               </div>
+              
+          </div>
+          <div class="col-sm-6  ">    
+          <button type="button" class="btn btn-default" style="margin: 2px" (click)="printDate(date)">View</button>
+         </div>
+        </div>
+      <div class="table-responsive">
+          <table  class="table  " id="datatable-tabletools3" style="text-align: center; display: block;" >
+            <colgroup>
+             
+              <col width="10%" />
+              <col width="10%" />
+              <col width="10%" />
+              <col width="10%" />
+              <col width="10%" />
+              <col width="10%" />
+              <col width="10%" />
+             
+
+            </colgroup>
+            <thead>
+              <tr>             
+                <th *ngFor="let Day of shiftScheduler.shiftDayList" style="text-align: center">{{Day.dayInWeek}}<br/>
+                  {{Day.shiftDay}} </th>
+              </tr>
+            </thead>
+            <tbody >
+              <tr width="10%" >
+               
+                <td *ngFor="let Day of shiftScheduler.shiftDayList" style="width: 10%" class="group-vertical">
+                  <div *ngFor="let shift of Day.shiftList" class="btn-group well success " style="display: block;overflow: auto;" >  
+                <p style="color: white"><strong>{{shift.startTime}}-{{shift.endTime}}</strong></p>
+                      <button *ngFor="let worker of shift.shiftWorkerList" type="button" class="btn btn-default" style="margin: 2px">
+                        {{worker.userName}}</button>
+                  </div>              
+                </td>
+              </tr>
+           
+            </tbody>
+          </table>
+          
+        </div>
+  </div>
+  
+</section>

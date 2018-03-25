@@ -45,14 +45,15 @@ public class ShiftWorkerDAO implements Serializable {
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                String sql = "Select ShiftWorkerId, ShiftId, UserId from ShiftWorker";
+                String sql = "Select ShiftWorkerId, ShiftId, w.UserId, u.UserName from ShiftWorker w, [User] u where u.UserId=w.UserId";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     Integer id = rs.getInt("ShiftWorkerId");
                     Integer shiftId = rs.getInt("ShiftId");
                     Integer userId = rs.getInt("UserId");
-                    ShiftWorker shiftWorker = new ShiftWorker(id, shiftId,userId);
+                    String userName=rs.getString("UserName");
+                    ShiftWorker shiftWorker = new ShiftWorker(id, shiftId,userId,userName);
                     listShiftWorkers.add(shiftWorker);
                 }
             }
@@ -69,13 +70,15 @@ public List<ShiftWorker> getWorkersByShiftId(int shiftId)  {
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                String sql = "Select ShiftWorkerId, UserId from ShiftWorker Where ShiftId="+shiftId;
+                String sql = "Select ShiftWorkerId, ShiftId, w.UserId, u.UserName from ShiftWorker w, [User] u "
+                        + "where u.UserId=w.UserId and w.ShiftId="+shiftId;
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     Integer id = rs.getInt("ShiftWorkerId");
                     Integer userId = rs.getInt("UserId");
-                    ShiftWorker shiftWorker = new ShiftWorker(id, shiftId,userId);
+                    String userName=rs.getString("UserName");
+                    ShiftWorker shiftWorker = new ShiftWorker(id, shiftId,userId,userName);
                     listShiftWorkers.add(shiftWorker);
                 }
             }
@@ -86,4 +89,43 @@ public List<ShiftWorker> getWorkersByShiftId(int shiftId)  {
         }
         return listShiftWorkers;
     }
+public  void deleteWorkerByShiftId(int shiftId){
+     try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+               String sql = "  delete ShiftWorker where ShiftId=39"+shiftId;           
+                stm = con.prepareStatement(sql);
+                stm.executeUpdate();}
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            closeConnection();
+        }
+
+    }
+
+  public void createWorker(List<ShiftWorker> listWorker,int shiftId) {
+
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+            
+                for(ShiftWorker worker:listWorker){
+                  String  sql="  insert into ShiftWorker(UserId,ShiftId) values("+worker.getId()+","+shiftId+")";
+                         System.out.println(sql);
+                  stm = con.prepareStatement(sql);
+              
+                stm.executeUpdate();
+
+            }}
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            closeConnection();
+        }
+
+    }
+
 }

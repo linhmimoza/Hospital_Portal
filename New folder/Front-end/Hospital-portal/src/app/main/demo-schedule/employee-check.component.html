@@ -1,0 +1,37 @@
+<div class="col-md-6">
+    <form id="chk-radios-form" action="forms-validation.html">
+        <section class="panel">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                </div>
+                <h2 class="panel-title">List employee</h2>
+                <!-- <p class="panel-subtitle">
+                    Easily validate checkboxes and radios tags.
+                </p> -->
+            </header>
+            <div class="panel-body">               
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Check some to schedule
+                        <span class="required">*</span>
+                    </label>
+                    <div class="col-sm-9">
+                        <div class="checkbox-custom chekbox-primary" *ngFor="let user of users">
+                            <input id="for-project" value="user.fullName" (change)="updateChecked(user, $event)" type="checkbox" required />
+                            <label for="for-project">{{user.fullName}}</label>
+                        </div>                      
+                        <label class="error" for="for[]"></label>
+                    </div>
+                </div>
+            </div>
+            <footer class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-9 col-sm-offset-3">
+                        <button class="btn btn-primary" (click)="OK()">OK</button>
+                        <button type="reset" class="btn btn-default">Reset</button>
+                    </div>
+                </div>
+            </footer>
+        </section>
+    </form>
+</div>

@@ -25,30 +25,20 @@ import javax.persistence.Table;
  *
  * @author Admin
  */
-@Entity
-@Table(name = "ShiftDay")
-@NamedQueries({
-    @NamedQuery(name = "ShiftDay.findAll", query = "SELECT s FROM ShiftDay s")})
+
 public class ShiftDay implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ShiftDayID")
+
     private Integer shiftDayID;
-    @Basic(optional = false)
-    @Column(name = "ShiftDay")
+
     private String shiftDay;
-    @Basic(optional = false)
-    @Column(name = "DayInWeek")
+
     private String dayInWeek;
-    
-    @Basic(optional = false)
-    @Column(name = "ShiftScheduleId")
+
     private Integer shiftScheduleId;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shiftDay")
+
     private List<Shift> shiftList;
 
     public ShiftDay() {

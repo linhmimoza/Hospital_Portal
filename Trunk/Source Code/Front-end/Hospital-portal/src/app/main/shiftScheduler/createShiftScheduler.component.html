@@ -1,0 +1,85 @@
+<section role="main" class="panel">
+    <header class="panel-heading">
+      <div class="panel-actions">
+
+      </div>
+      <h2 class="panel-title">ShiftScheduler list</h2>
+    </header>
+
+  
+    <div class="panel-body">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Department
+                <span class="required">*</span>
+            </label>
+            <div class="col-sm-6  ">
+                <select class="form-control" [(ngModel)]=department>
+                    <option *ngFor="let dept of departments" [ngValue]="dept.departmentId">{{dept.departmentName}}</option>
+                </select>
+            </div>
+           
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Week
+                <span class="required">*</span>
+            </label>
+            <div class="col-sm-6  ">
+                <input type="week"  class="form-control"  [(ngModel)]="toDay"  (change)="con()">
+            </div>
+          </div>
+       
+      <div class="table-responsive">
+        <table class="table mb-none">
+          <colgroup>
+
+            <col width="150px" />
+            <col width="150px" />
+            <col width="150px" />
+            <col width="150px" />
+            <col width="150px" />
+            <col width="150px" />
+            <col width="150px" />
+          </colgroup>
+          <thead>
+            <tr>
+             
+              <th *ngFor="let Day of shiftScheduler.shiftDayList">{{Day.dayInWeek}}<br/>{{Day.shiftDay}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>          
+              <td *ngFor="let Day of shiftScheduler.shiftDayList">
+                <div *ngFor="let shift of Day.shiftList" class="form-group">                
+           
+                  <div class="panel-body" style="padding: 2px;" [ngClass]="{'bg-danger':(shift.startTime==''||shift.endTime==''),'bg-success':(shift.startTime!='' && shift.endTime!='')}">       
+                    <input type="time"  class="form-control"  [(ngModel)]="shift.startTime" step=900 >
+                    <div >
+                            <angular2-multiselect  [data]="dropdownList" [(ngModel)]="shift.shiftWorkerList" 
+                            [settings]="dropdownSettings" 
+                            (onSelect)="onItemSelect($event)" 
+                            (onDeSelect)="OnItemDeSelect($event)"
+                            (onSelectAll)="onSelectAll($event)"
+                            (onDeSelectAll)="onDeSelectAll($event)">
+                        </angular2-multiselect></div>
+                        <input type="time"  class="form-control"  [(ngModel)]="shift.endTime" step=900 min="09:00">
+                      </div>
+                </div>
+         
+                  <button type="button" class="btn btn-default form-control" (click)="addShift(Day)"><i class="glyphicon glyphicon-plus"></i></button>
+              </td>
+            </tr>
+         
+          </tbody>
+        </table>
+        <div style="height: 300px;">
+      
+        </div>
+        <button type="button" class="mb-xs mt-xs mr-xs btn btn-success" (click)="save()">Finish</button>
+      </div>
+     
+     </div>
+   
+    
+  </section>
+  
+  

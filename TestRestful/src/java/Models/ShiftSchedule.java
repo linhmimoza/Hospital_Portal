@@ -28,47 +28,30 @@ import javax.persistence.TemporalType;
  *
  * @author Admin
  */
-@Entity
-@Table(name = "ShiftSchedule")
-@NamedQueries({
-    @NamedQuery(name = "ShiftSchedule.findAll", query = "SELECT s FROM ShiftSchedule s")})
+
 public class ShiftSchedule implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ShiftScheduleId")
+
     private Integer shiftScheduleId;
-    @Basic(optional = false)
-    @Column(name = "StartDate")
-    private String startDate;
-    @Column(name = "EndDate")
-    private String endDate;
-    @Basic(optional = false)
-    @Column(name = "Status")
+
+
+    private String week;
     private int status;
-    @Basic(optional = false)
-    @Column(name = "CreateDate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
-    @Column(name = "UpdateDate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updateDate;
+
+    private String createDate;
+
+    private String updateDate;
     
-    @Basic(optional = false)
-    @Column(name = "DepartmentId")
+
     private Integer departmentId;
-    
-    @Basic(optional = false)
-    @Column(name = "Createby")
+
     private Integer createby;
     
-    @Basic(optional = false)
-    @Column(name = "Updateby")
+
     private Integer updateby;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shiftSchedule")
+
     private List<ShiftDay> shiftDayList;
 
     public ShiftSchedule() {
@@ -78,10 +61,8 @@ public class ShiftSchedule implements Serializable {
         this.shiftScheduleId = shiftScheduleId;
     }
 
-    public ShiftSchedule(Integer shiftScheduleId, String startDate, String endDate, int status, Date createDate, Date updateDate, Integer departmentId, Integer createby, Integer updateby) {
+    public ShiftSchedule(Integer shiftScheduleId, int status, String createDate, String updateDate, Integer departmentId, Integer createby, Integer updateby) {
         this.shiftScheduleId = shiftScheduleId;
-        this.startDate = startDate;
-        this.endDate = endDate;
         this.status = status;
         this.createDate = createDate;
         this.updateDate = updateDate;
@@ -90,10 +71,8 @@ public class ShiftSchedule implements Serializable {
         this.updateby = updateby;
     }
 
-    public ShiftSchedule(Integer shiftScheduleId, String startDate, String endDate, int status, Date createDate, Date updateDate, Integer departmentId, Integer createby, Integer updateby, List<ShiftDay> shiftDayList) {
+    public ShiftSchedule(Integer shiftScheduleId, int status, String createDate, String updateDate, Integer departmentId, Integer createby, Integer updateby, List<ShiftDay> shiftDayList) {
         this.shiftScheduleId = shiftScheduleId;
-        this.startDate = startDate;
-        this.endDate = endDate;
         this.status = status;
         this.createDate = createDate;
         this.updateDate = updateDate;
@@ -103,12 +82,7 @@ public class ShiftSchedule implements Serializable {
         this.shiftDayList = shiftDayList;
     }
 
-    public ShiftSchedule(Integer shiftScheduleId, String startDate, int status, Date createDate) {
-        this.shiftScheduleId = shiftScheduleId;
-        this.startDate = startDate;
-        this.status = status;
-        this.createDate = createDate;
-    }
+
 
     public Integer getShiftScheduleId() {
         return shiftScheduleId;
@@ -118,21 +92,7 @@ public class ShiftSchedule implements Serializable {
         this.shiftScheduleId = shiftScheduleId;
     }
 
-    public String getStartDate() {
-        return startDate;
-    }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
 
     public int getStatus() {
         return status;
@@ -142,19 +102,19 @@ public class ShiftSchedule implements Serializable {
         this.status = status;
     }
 
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
-    public Date getUpdateDate() {
+    public String getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
     }
 
@@ -164,6 +124,14 @@ public class ShiftSchedule implements Serializable {
 
     public void setDepartmentId(Integer departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public String getWeek() {
+        return week;
+    }
+
+    public void setWeek(String week) {
+        this.week = week;
     }
 
     public Integer getCreateby() {

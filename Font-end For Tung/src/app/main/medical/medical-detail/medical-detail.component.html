@@ -1,0 +1,57 @@
+<div class="row">
+  <div class="col-lg-12">
+    <section class="panel">
+      <header class="panel-heading">
+        <div class="panel-actions">
+          <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+          <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+        </div>
+
+        <h2 class="panel-title">Tìm thông tin đã hẹn theo số chứng minh:</h2>
+        <form class="search nav-form">
+          <div class="input-group input-search">
+            <input type="text" class="form-control" name="identity" id="identity" placeholder="Search..." (keyup.enter)="submitIdentity()" [(ngModel)]="identity" />
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="submit" (click)="submitIdentity()">
+                <i class="fa fa-search"></i>
+              </button>
+            </span>
+          </div>
+        </form>
+      </header>
+      <div class="panel-body" *ngIf="guest?.date">
+        <form class="form-horizontal form-bordered" method="get">
+
+
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="inputSuccess">Chuyên khoa:</label>
+            <div class="col-md-6">
+              {{guest.specialistName}}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="inputSuccess">Dịch vụ:</label>
+            <div class="col-md-6">
+              {{guest.serviceName}}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-3 control-label">Ngày:</label>
+            <div class="col-md-6">
+              {{guest.date}}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="inputSuccess">Thời gian hẹn:</label>
+            <div class="col-md-6">
+              {{guest.time}}
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+</div>
