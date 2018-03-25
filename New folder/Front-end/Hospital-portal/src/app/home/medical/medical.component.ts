@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
+import 'rxjs/add/operator/mergeMap';
 
 import { MedicalService } from './medical.service';
 // import { ServicesService } from '../services/services.service';
-// declare var $: any;
+
 @Component({
   selector: 'app-medical',
   templateUrl: './medical.component.html',
@@ -11,13 +13,14 @@ import { MedicalService } from './medical.service';
   providers: [MedicalService
   ]
 })
-export class MedicalComponent implements OnInit {
+export class MedicalComponent implements OnInit, AfterViewInit {
   public list: any[];
   public listTime: any[];
   public serviceList: any[];
   public data: any;
   constructor(
     private _medicalSrv: MedicalService,
+    private _router: Router
   ) {
     this.data = {};
   }
@@ -30,8 +33,9 @@ export class MedicalComponent implements OnInit {
     });
   }
 
-  ngAfterViewInit(){
-    $.getScript("./assets/porto/javascripts/forms/examples.wizard.js").done(() => console.log('load done'));
+  ngAfterViewInit() {
+    $.getScript('./assets/porto/javascripts/forms/examples.wizard.js')
+    .done(() => console.log('load done!'));
   }
 
   getServiceList(id) {
@@ -40,19 +44,32 @@ export class MedicalComponent implements OnInit {
     });
   }
 
-  setTimeId(id){
+  setTimeId(id) {
     this.data.TimeId = id;
   }
 
   submitBooking() {
     let param = `SpecialistId=${this.data.SpecialistId}&ServiceId=${this.data.ServiceId}&TimeId=${this.data.TimeId}&CreateDate=${moment().format('YYYY-MM-DD')}&GuestName=${this.data.GuestName}&GuestPhone=${this.data.GuestPhone}&GuestEmail=${this.data.GuestEmail}&GuestAddress=${this.data.GuestAddress}&GuestIdentity=${this.data.GuestIdentity}&Note=${this.data.Note}`;
-    this._medicalSrv.submitBooking(this.data, param).subscribe(res => {
-      console.log(res);
-    });
+    this._medicalSrv.submitBooking(param)
+      .flatMap(res => {
+        return this._medicalSrv.getBookingId();
+      })
+      .flatMap(res => {
+        return this._medicalSrv.createBookingNumber(res);
+      })
+      .flatMap(res => {
+        return  this._medicalSrv.bookingSuccess(this.data.TimeId);
+      })
+      .flatMap(res => {
+        return this._medicalSrv.checkAvailable();
+      })
+      .subscribe(res => {
+        this._router.navigate(['home/main']);
+      }, err => console.log(err));
   }
 
   selectTime() {
-    let date = moment(this.data.time).format('YYYY-MM-DD');
+    const date = moment(this.data.time).format('YYYY-MM-DD');
     this._medicalSrv.getTimeList(date).subscribe(res => this.listTime = res);
   }
 }

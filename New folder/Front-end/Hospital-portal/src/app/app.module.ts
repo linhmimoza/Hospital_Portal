@@ -47,14 +47,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbdModalBasic } from './main/demoModal/modal-basic';
 import { DemoScheduleComponent } from './main/demo-schedule/demo-schedule.component';
 import { EmployeeCheckComponent } from './main/demo-schedule/employee-check.component';
+import { AdminNewsComponent } from './main/news/news.component';
 import { HomeComponent } from './home/home.component';
 import { MedicalComponent } from './home/medical/medical.component';
 import { MedicalDetailComponent } from './home/medical/medical-detail/medical-detail.component';
 import { NewsComponent } from './home/news/news.component';
+import { HomeMainComponent } from './home/home-main/home-main.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'home/main', pathMatch: 'full' },
   {
     path: 'main', component: MainComponent,
     children: [
@@ -78,16 +80,18 @@ const routes: Routes = [
       { path: 'article-detail/:id', component: ArticleDetailComponent },
       { path: 'demoPaging', component: DemoPagingComponent },
       { path: 'app-demo-schedule', component: DemoScheduleComponent},
-      { path: 'employee-check', component: EmployeeCheckComponent}
+      { path: 'employee-check', component: EmployeeCheckComponent},
+      { path: 'news', component: AdminNewsComponent}
     ]
   },
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
   {
-    path: 'home', component: HomeComponent, 
+    path: 'home', component: HomeComponent,
     children: [
       { path: 'news/:id', component: NewsComponent },
       { path: 'medical-booking', component: MedicalComponent },
       { path: 'medical-detail', component: MedicalDetailComponent },
+      { path: 'main', component: HomeMainComponent },
     ]
   }
 ];
@@ -122,7 +126,9 @@ const routes: Routes = [
     HomeComponent,
     MedicalComponent,
     MedicalDetailComponent,
-    NewsComponent
+    NewsComponent,
+    HomeMainComponent,
+    AdminNewsComponent
   ],
   imports: [
     BrowserModule,

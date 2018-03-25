@@ -29,7 +29,7 @@
 
         <h2 class="panel-title">Tìm thông tin đã hẹn theo số chứng minh:</h2>
         <form class="search nav-form">
-          <div class="input-group input-search">
+          <div class="input-group input-search" style="padding-top: 10px">
             <input type="text" class="form-control" name="identity" id="identity" placeholder="Search..." (keyup.enter)="submitIdentity()" [(ngModel)]="identity" />
             <span class="input-group-btn">
               <button class="btn btn-default" type="submit" (click)="submitIdentity()">
@@ -72,6 +72,17 @@
           </div>
         </form>
       </div>
+      <!-- <a href="index.html">
+        <i class="fa fa-angle-left"></i> Back</a> -->
     </section>
+    <footer class="panel-footer">
+      <div class="row">
+          <div class="col-sm-9 col-sm-offset-1">
+              <a class="btn btn-default" href="index.html">
+                  <i class="fa fa-angle-left"></i>
+                  Trở về trang chủ</a>
+          </div>
+      </div>
+  </footer>
   </div>
 </div>

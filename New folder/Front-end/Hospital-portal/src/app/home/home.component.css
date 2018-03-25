@@ -1,0 +1,15 @@
+.login-block{
+    display: block;
+    color: black;
+    font-size: x-large;
+}
+
+.login-block i, p{
+    display: inline-block;
+}
+
+.ad {
+    position: fixed;
+    right: 0;
+    padding: 0px;
+}

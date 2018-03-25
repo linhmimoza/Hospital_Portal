@@ -12,7 +12,7 @@ const host = 'http://localhost:8080/Datlich/webresources/';
 export class MedicalService {
     private opts: any;
     constructor(private _http: Http) {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
+        const headers = new Headers({ 'Content-Type': 'application/json' });
         this.opts = new RequestOptions({ headers });
     }
 
@@ -32,8 +32,24 @@ export class MedicalService {
         return this._http.get(`${host}MedicalBooking/getListMedicalBooking?GuestIdentity=${identity}`, this.opts).map(res => res.json());
     }
 
-    submitBooking(data, param): Observable<any> {
-        return this._http.get(`${host}MedicalBooking/createMedicalBooking?${param}`, this.opts).map(res => res.json());
+    submitBooking(param): Observable<any> {
+        return this._http.get(`${host}MedicalBooking/createMedicalBooking?${param}`, this.opts).map(res => res);
+    }
+
+    getBookingId(): Observable<any> {
+        return this._http.get(`${host}MedicalBooking/getBookingId`, this.opts).map(res => res.json());
+    }
+
+    createBookingNumber(id): Observable<any> {
+        return this._http.get(`${host}BookingNumber/createBookingNumber?BookingId=${id}`, this.opts).map(res => res);
+    }
+
+    bookingSuccess(timeId): Observable<any> {
+        return this._http.get(`${host}time/bookingSuccess?TimeId=${timeId}`, this.opts).map(res => res);
+    }
+
+    checkAvailable(): Observable<any> {
+        return this._http.get(`${host}time/checkAvailable`, this.opts).map(res => res.json());
     }
 
 }
