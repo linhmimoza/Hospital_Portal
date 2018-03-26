@@ -48,13 +48,15 @@ import { DemoScheduleComponent } from './main/demo-schedule/demo-schedule.compon
 import { EmployeeCheckComponent } from './main/demo-schedule/employee-check.component';
 import { NotificationListComponent } from './main/notification/notification-list.component';
 import { NotificationDetailComponent } from './main/notification/notification-detail.component';
+import { HospitalPortalComponent } from './main/hospital-portal/hospital-portal.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: 'main', component: MainComponent,
     children: [
-      { path: '', redirectTo: 'department-list', pathMatch: 'full' },
+      { path: '', redirectTo: 'hospital-portal', pathMatch: 'full' },
+      { path: 'hospital-portal', component: HospitalPortalComponent },
       { path: 'user-list', component: UserListComponent },
       { path: 'user-detail/:id', component: UserDetailComponent },
       { path: 'department-list', component: DepartmentListComponent },
@@ -107,7 +109,8 @@ const routes: Routes = [
     DemoPagingComponent,
     DemoScheduleComponent,
     EmployeeCheckComponent,
-    NotificationListComponent
+    NotificationListComponent,
+    HospitalPortalComponent
   ],
   imports: [
     BrowserModule,

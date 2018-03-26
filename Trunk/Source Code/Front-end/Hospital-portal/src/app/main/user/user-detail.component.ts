@@ -11,6 +11,7 @@ import { LoadingService } from '../extra/loading.service';
 import { NotificationService } from '../extra/notification.service';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { forbiddenNameValidator } from './user-detail.validate';
+import { CookieService } from 'ngx-cookie-service';
 declare var $: any;
 
 @Component({
@@ -26,9 +27,10 @@ export class UserDetailComponent {
     roles: Role[] = [];
     departments: Department[] = [];
     response: string;
+    roleCookie: string;
     constructor(private route: ActivatedRoute, private router: Router, private userService: UserService,
         private roleService: RoleService, private departmentService: DepartmentService, private loadingService: LoadingService,
-        private notificationService: NotificationService) {
+        private notificationService: NotificationService, private cookieService: CookieService) {
 
     }
 
@@ -37,99 +39,105 @@ export class UserDetailComponent {
     }
 
     ngOnInit() {
-        this.form = new FormGroup({
-            userName: new FormControl('', [
-                Validators.required,
-                Validators.minLength(4),
-                forbiddenNameValidator(/bob/i)
-            ]),
-            email: new FormControl('', [
-                Validators.required
-            ]),
-            fullName: new FormControl('', [
-                Validators.required
-            ]),
-            sex: new FormControl(),
-            dayOfBirth: new FormControl('', [
-                Validators.required
-            ]),
-            phone: new FormControl('', [
-                Validators.required
-            ]),
-            address: new FormControl('', [
-                Validators.required
-            ]),
-            certificate: new FormControl('', [
-                Validators.required
-            ]),
-            departmentId: new FormControl(''),
-            roleId: new FormControl(''),
-            status: new FormControl(''),
-            position: new FormControl(''),
-            userId: new FormControl('')
-        });
-        this.loadingService.start();
-        // this.roleService.getList().then((res: Role[]) => {
-        //     this.roles = res;
-        //     console.log(this.roles);
-        // }).catch(err => {
-        //     alert(err);
-        // });
-        this.routerSubcription = this.route.params.subscribe(params => {
-            this.id = +params['id']; // (+) converts string 'id' to a number
-            this.roleService.getList().then((roles: Role[]) => {
-                this.roles = roles;
-                // this.loadingService.stop();
-                if (this.id == 0) {
-                    this.form.patchValue({
-                        roleId: roles[0].roleId
-                    });
-                }
+        this.roleCookie = this.cookieService.get("Auth-RoleId");
+        if (this.roleCookie == "Admin") {
+            this.form = new FormGroup({
+                userName: new FormControl('', [
+                    Validators.required,
+                    Validators.minLength(4),
+                    forbiddenNameValidator(/bob/i)
+                ]),
+                email: new FormControl('', [
+                    Validators.required
+                ]),
+                fullName: new FormControl('', [
+                    Validators.required
+                ]),
+                sex: new FormControl(),
+                dayOfBirth: new FormControl('', [
+                    Validators.required
+                ]),
+                phone: new FormControl('', [
+                    Validators.required
+                ]),
+                address: new FormControl('', [
+                    Validators.required
+                ]),
+                certificate: new FormControl('', [
+                    Validators.required
+                ]),
+                departmentId: new FormControl(''),
+                roleId: new FormControl(''),
+                status: new FormControl(''),
+                position: new FormControl(''),
+                userId: new FormControl('')
             });
-            this.departmentService.getList().then((departments: Department[]) => {
-                this.departments = departments;
-                this.loadingService.stop();
-                if (this.id == 0) {
-                    this.form.patchValue({
-                        departmentId: departments[0].departmentId
+            this.loadingService.start();
+            // this.roleService.getList().then((res: Role[]) => {
+            //     this.roles = res;
+            //     console.log(this.roles);
+            // }).catch(err => {
+            //     alert(err);
+            // });
+            this.routerSubcription = this.route.params.subscribe(params => {
+                this.id = +params['id']; // (+) converts string 'id' to a number
+                this.roleService.getList().then((roles: Role[]) => {
+                    this.roles = roles;
+                    // this.loadingService.stop();
+                    if (this.id == 0) {
+                        this.form.patchValue({
+                            roleId: roles[0].roleId
+                        });
+                    }
+                });
+                this.departmentService.getList().then((departments: Department[]) => {
+                    this.departments = departments;
+                    this.loadingService.stop();
+                    if (this.id == 0) {
+                        this.form.patchValue({
+                            departmentId: departments[0].departmentId
+                        });
+                    }
+                });
+                if (this.id > 0) {
+                    this.title = "You are updating account";
+                    this.userService.getUser(this.id).then((res: User) => {
+                        this.user = res;
+                        this.form.patchValue(
+                            {
+                                userName: this.user.userName,
+                                email: this.user.email,
+                                fullName: this.user.fullName,
+                                sex: this.user.sex,
+                                dayOfBirth: this.user.dayOfBirth,
+                                address: this.user.address,
+                                phone: this.user.phone,
+                                certificate: this.user.certificate,
+                                departmentId: this.user.departmentId,
+                                roleId: this.user.roleId,
+                                status: this.user.status,
+                                position: this.user.position,
+                                userId: this.user.userId
+                            });
+                        // this.user.sex = this.user.sex.toString();
+                    }).catch(err => {
+                        console.log(err);
                     });
-                }
-            });
-            if (this.id > 0) {
-                this.title = "You are updating account";
-                this.userService.getUser(this.id).then((res: User) => {
-                    this.user = res;
+                } else {
+                    this.user.position = "Doctor";
+                    this.title = "You are creating new account";
                     this.form.patchValue(
                         {
-                            userName: this.user.userName,
-                            email: this.user.email,
-                            fullName: this.user.fullName,
-                            sex: this.user.sex,
-                            dayOfBirth: this.user.dayOfBirth,
-                            address: this.user.address,
-                            phone: this.user.phone,
-                            certificate: this.user.certificate,
-                            departmentId: this.user.departmentId,
-                            roleId: this.user.roleId,
-                            status: this.user.status,
-                            position: this.user.position,
-                            userId: this.user.userId
+                            position: 'Doctor',
+                            sex: 'Male'
                         });
-                    // this.user.sex = this.user.sex.toString();
-                }).catch(err => {
-                    console.log(err);
-                });
-            } else {
-                this.user.position = "Doctor";
-                this.title = "You are creating new account";
-                this.form.patchValue(
-                    {
-                        position: 'Doctor',
-                        sex: 'Male'
-                    });
-            }
+                }
 
-        });
+            });
+        } else {
+            alert("You don't have permission to view this page!");
+            this.router.navigate(['/login']);
+        }
     }
 
     // Check validity of form control, write a method for a form control

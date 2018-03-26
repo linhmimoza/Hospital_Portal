@@ -13,6 +13,7 @@ import { CreateShiftDay } from './shared/createShiftDay.model';
 import { AccountService } from '../account/account.service';
 import { Department } from '../department/shared/department.model';
 import { DepartmentService } from '../department/service/department.service';
+import { CookieService } from 'ngx-cookie-service';
 declare var $: any;
 @Component({
     selector: 'createShiftScheduler',
@@ -35,30 +36,39 @@ export class CreateShiftSchedulerComponent {
     Fri: CreateShiftDay;
     Sat: CreateShiftDay;
     Sun: CreateShiftDay;
-    dropdownList: Select [] = [] ;
+    dropdownList: Select[] = [];
     selectedItems = [];
     dropdownSettings = {};
     numberOfDay: number[] = [];
 
+    roleCookie: number;
     constructor(private router: Router,
         private shiftSchedulerService: ShiftSchedulerService, private userService: UserService,
         private selectService: SelectService, private accountService: AccountService,
-        private departmentService: DepartmentService) { }
+        private departmentService: DepartmentService,
+        private cookieService: CookieService
+    ) { }
 
     ngOnInit() {
-        this.loadDepartment();
-        this.createMember();
-        this.createSchedule();
-        this.loadUser();
-        $.getScript('assets/porto/javascripts/theme.init.js', function () {
-            $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
-                $.getScript('/assets/porto/vendor/bootstrap-timepicker/bootstrap-timepicker.js', function () {
+        this.roleCookie = +this.cookieService.get("Auth-RoleId");
+        if (this.roleCookie == 2 || this.roleCookie == 3 || this.roleCookie == 5) {
+            this.loadDepartment();
+            this.createMember();
+            this.createSchedule();
+            this.loadUser();
+            $.getScript('assets/porto/javascripts/theme.init.js', function () {
+                $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
+                    $.getScript('/assets/porto/vendor/bootstrap-timepicker/bootstrap-timepicker.js', function () {
 
+                    });
                 });
             });
-        });
+        } else {
+            alert("You don't have permission to view this page!");
+            this.router.navigate(['/main/hospital-portal']);
+        }
     }
-    loadDepartment(){
+    loadDepartment() {
         this.departmentService.getList().then((departments: Department[]) => {
             this.departments = departments;
         });
@@ -97,7 +107,7 @@ export class CreateShiftSchedulerComponent {
             });
         });
         console.log(this.shiftScheduler);
-           }
+    }
 
     ngAfterViewInit() {
 
@@ -107,42 +117,42 @@ export class CreateShiftSchedulerComponent {
 
 
         this.dropdownSettings = {
-                    singleSelection: false,
-                    text: 'Select Employee',
-                    selectAllText: 'Select All',
-                    unSelectAllText: 'UnSelect All',
-                    enableSearchFilter: true,
-                    classes: 'myclass custom-class'
-                  };
-        }
-        onItemSelect(item: any) {
-        }
-        OnItemDeSelect(item: any) {
+            singleSelection: false,
+            text: 'Select Employee',
+            selectAllText: 'Select All',
+            unSelectAllText: 'UnSelect All',
+            enableSearchFilter: true,
+            classes: 'myclass custom-class'
+        };
+    }
+    onItemSelect(item: any) {
+    }
+    OnItemDeSelect(item: any) {
 
-        }
-        onSelectAll(items: any) {
+    }
+    onSelectAll(items: any) {
 
-        }
-        onDeSelectAll(items: any) {
+    }
+    onDeSelectAll(items: any) {
 
-        }
-con() {
+    }
+    con() {
 
-   this.shiftSchedulerService.dateFullWeek(this.toDay, this.shiftScheduler);
-   this.shiftScheduler.week = this.toDay;
-}
-save() {
-    this.shiftScheduler.createby = this.accountService.getUserId();
-    this.shiftScheduler.updateby = this.accountService.getUserId();
-   this.shiftScheduler.departmentId = this.department;
-    this.shiftSchedulerService.createMission(this.shiftScheduler).then(() => {
-        console.log(this.shiftScheduler);
+        this.shiftSchedulerService.dateFullWeek(this.toDay, this.shiftScheduler);
+        this.shiftScheduler.week = this.toDay;
+    }
+    save() {
+        this.shiftScheduler.createby = this.accountService.getUserId();
+        this.shiftScheduler.updateby = this.accountService.getUserId();
+        this.shiftScheduler.departmentId = this.department;
+        this.shiftSchedulerService.createMission(this.shiftScheduler).then(() => {
+            console.log(this.shiftScheduler);
 
-        alert('Save success');
-        // this.router.navigate(['/main/manage-mission']);
-    }).catch(err => {
-       // debugger;
-        alert(err);
-    });
-}
+            alert('Save success');
+            // this.router.navigate(['/main/manage-mission']);
+        }).catch(err => {
+            // debugger;
+            alert(err);
+        });
+    }
 }

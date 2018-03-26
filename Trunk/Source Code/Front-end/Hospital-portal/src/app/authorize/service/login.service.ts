@@ -31,14 +31,15 @@ export class LoginService {
         });
     }
 
-    getAuthorize() {
-        return new Promise<User>((resolve, reject) => {
-            this.apiService.get(`authenticateUser/${this.apiService.token}`).then(res => {
-                this.user = res.json();
-                resolve(this.user);
-            }).catch(err => {
-                reject(err);
-            });
-        });
-    }
+    // getAuthorize() {
+    //     return new Promise<User>((resolve, reject) => {
+    //         this.apiService.get(`authenticateUser/${this.apiService.token}`).then(res => {
+    //              this.user = res.json();
+    //              resolve(this.user);
+    //          }).catch(err => {
+    //              reject(err);
+    //          });
+    //         this.cookieService.get("Auth-RoleId");
+    //     });
+    // }
 }

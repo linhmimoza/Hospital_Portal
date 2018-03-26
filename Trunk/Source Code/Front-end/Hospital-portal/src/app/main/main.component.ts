@@ -45,6 +45,7 @@ export class MainComponent {
     }
 
     logout(){
+        debugger
         this.cookieService.deleteAll();
         this.router.navigate(['/login']);
     }

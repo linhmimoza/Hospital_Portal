@@ -5,7 +5,8 @@ import { UserService } from './service/user.service';
 import { debug } from 'util';
 import { NotificationService } from '../extra/notification.service';
 import { LoadingService } from '../extra/loading.service';
-declare var $: any; 
+import { CookieService } from 'ngx-cookie-service';
+declare var $: any;
 
 @Component({
     selector: 'user-list',
@@ -15,29 +16,39 @@ declare var $: any;
 export class UserListComponent {
 
     users: User[] = [];
+    roleCookie: number;
 
     constructor(private router: Router,
         private userService: UserService, private notificationService: NotificationService,
-        private loadingService: LoadingService) { }
+        private loadingService: LoadingService, private cookieService: CookieService) { }
 
     ngOnInit() {
-        $.getScript('/assets/porto/vendor/jquery-datatables/media/js/jquery.dataTables.js', function () {
+        this.roleCookie = +this.cookieService.get("Auth-RoleId");
+        if (this.roleCookie == 1) {
+            $.getScript('https://code.jquery.com/jquery-1.12.4.js', function () {
+                $.getScript('https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js', function () {
 
-        });
-        // $(document).ready(function() {
-        //     $('#example').DataTable( {
-        //         "pagingType": "full_numbers"
-        //     } );
-        // } );
-        this.loadingService.start();
-        this.userService.getList().then((res: User[]) => {
-            this.users = res;
-            this.loadingService.stop();
-            // console.log(this.users);
-        }).catch(err => {
-            alert(err);
-            // this.loadingService.stop();
-        });
+                });
+            });
+            $(document).ready(function() {
+                $('#example').DataTable( {
+                    "pagingType": "full_numbers"
+                } );
+            } );
+            this.loadingService.start();
+            this.userService.getList().then((res: User[]) => {
+                this.users = res;
+                this.loadingService.stop();
+                // console.log(this.users);
+            }).catch(err => {
+                alert(err);
+                // this.loadingService.stop();
+            });
+        } else {
+            alert("You don't have permission to view this page!");
+            this.router.navigate(['/main/hospital-portal']);
+        }
+
     }
 
 
