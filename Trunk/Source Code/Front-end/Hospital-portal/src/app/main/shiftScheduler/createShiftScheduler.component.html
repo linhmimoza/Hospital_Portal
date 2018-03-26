@@ -11,17 +11,16 @@
         <div class="form-group ">
         <div class="form-group col-sm-6">
         <div class="form-group">
-            <label class=" control-label">Department
-            </label>
-            <div class=" ">
+            <label  [ngClass]="{'bg-danger':department==0}" class=" control-label">Department
+            </label >
+            <div >
                 <select class="form-control = " [(ngModel)]=department aria-placeholder="Department">
                     <option *ngFor="let dept of departments" [ngValue]="dept.departmentId">{{dept.departmentName}}</option>
                 </select>
-            </div>
-           
+            </div>         
         </div>
         <div class="form-group">
-            <label class=" control-label">Week
+            <label class=" control-label" [ngClass]="{'bg-danger':((toDay==null)||(toDay==''))}">Week
             </label>
             <div class="  ">
                 <input type="week"  class="form-control  "  [(ngModel)]="toDay"  (change)="con()">
@@ -30,21 +29,14 @@
        </div>
        <div class="form-group col-sm-6">
           <div class="form-group">
-              <label class=" control-label">Employee per shift
+              <label class=" control-label" [ngClass]="{'bg-danger':empNumber==null}">Employee per shift
               </label>
               <div class=" ">
                   <input type="number"  class="form-control"  min="1" max="24" [(ngModel)]="empNumber" 
                   (change)="createMember()">
                 </div>            
           </div>
-          <div class="form-group">
-              <label class=" control-label">Week
-              </label>
-              <div class="  ">
-                  <input type="week"  class="form-control  "  [(ngModel)]="toDay"  (change)="con()">
-              </div>
-            </div>
-     
+  
        </div>
       </div>
       <div class="table-responsive ">
@@ -78,15 +70,13 @@
                             (onSelect)="onItemSelect($event)" 
                             (onDeSelect)="OnItemDeSelect($event)"
                             (onSelectAll)="onSelectAll($event)"
-                            (onDeSelectAll)="onDeSelectAll($event)">
+                            (onDeSelectAll)="onDeSelectAll($event)"
+                            (change)="validation()" >
                         </angular2-multiselect></div>
                         </div>
                 </div>
          
-                     </td>
-            
-               
-            
+                     </td> 
             </tr>
          
           </tbody>
@@ -97,13 +87,30 @@
            </div>
            <div class="panel-body" style="border-color: dimgrey" >
              <h3 class="panel-title">Add shift</h3>
-              <input type="time"  class="form-control"  [(ngModel)]="star" step=900 >
-              <input type="time"  class="form-control"  [(ngModel)]="end" step=900 >
+             <div class="form-group col-sm-6">
+              <div class="form-group">
+                  <label class=" control-label" [ngClass]="{'bg-danger':((star<last)||(star==null))}">Star Time
+                  </label>
+                  <div class=" ">
+                    <input type="time"  class="form-control"  [(ngModel)]="star" step=900 >
+                    </div>            
+              </div></div>
+  
+              <div class="form-group col-sm-6">
+                <div class="form-group">
+                    <label class="  control-label"[ngClass]="{'bg-danger':((star>=end)||(end==null))}" >End Time
+                    </label>
+                    <div class=" ">
+                      <input type="time"  class="form-control"  [(ngModel)]="end" step=900 >
+                      </div>            
+                </div></div>
               <button type="button" [ngClass]="{'disabled': ((star>=end)||(star<last)||(star==null)||(end==null))}"
                class="btn btn-default form-control " (click)="addShift()"><i class="glyphicon glyphicon-plus"></i></button>   
              </div>
-           <button type="button" class="mb-xs mt-xs mr-xs btn btn-success" (click)="save()">Finish</button>
+           <button type="button" [ngClass]="{'btn-success':(valid),'bg-danger disabled':!(valid)}" class="mb-xs mt-xs mr-xs btn " (click)="save()">Finish</button>
    
+    
+
      </div>
    
     

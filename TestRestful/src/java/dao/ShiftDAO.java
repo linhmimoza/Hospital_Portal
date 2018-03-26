@@ -107,9 +107,9 @@ public class ShiftDAO implements Serializable {
                         + " values("+shift.getShiftNO()+",'"+shift.getStartTime()+"','"+shift.getEndTime()+"'"
                         + ","+dayId+",'"+shift.getOther()+"')";           
                 stm = con.prepareStatement(sql);
-                System.out.println(sql);
+           
                  rs = stm.executeQuery();
-                  System.out.println(sql);
+             
                 if (rs.next()) {
                     int shiftID = rs.getInt("ShiftId");
                     ShiftWorkerDAO dao= new ShiftWorkerDAO();            

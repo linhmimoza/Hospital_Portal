@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import Models.ShiftDay;
 import Models.ShiftSchedule;
+import Models.ShiftSchedulerManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -74,6 +75,7 @@ public class ShiftScheduleDAO implements Serializable {
         }
         return listShiftSchedules;
     }
+    
     public String createShiftScheduler(ShiftSchedule scheduler) {
         String result = "Sussces";
         try {
@@ -89,9 +91,12 @@ public class ShiftScheduleDAO implements Serializable {
                 rs = stm.executeQuery();
                 if (rs.next()) {
                     int shiftScheduleId = rs.getInt("ShiftScheduleId");
-                    ShiftDayDAO dao = new ShiftDayDAO();
+                    ShiftDayDAO dao = new ShiftDayDAO();                  
                     for (ShiftDay day:scheduler.getShiftDayList()){
                     dao.createShiftDay(day, shiftScheduleId);}
+                    ShiftSchedulerManagerDAO managerDao=new ShiftSchedulerManagerDAO();
+                            managerDao.createShiftSchedulerManager(scheduler.getWeek(), scheduler.getDepartmentId()
+                                    , shiftScheduleId);
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -138,4 +143,77 @@ public class ShiftScheduleDAO implements Serializable {
         }
         return shiftSchedule;
     }
+     
+      public List<ShiftSchedule> getWaitingShiftSchedules()  {
+   
+
+        List<ShiftSchedule> listShiftSchedules = new ArrayList<>();
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                ShiftSchedulerManagerDAO dao= new ShiftSchedulerManagerDAO();
+                List <ShiftSchedulerManager> list= dao.getListShiftSchedulerManager();
+                for (ShiftSchedulerManager item :list){                  
+                String sql = "Select ShiftScheduleId, DepartmentId,  Status, "
+                        + "Createby, CreateDate, UpdateDate, Updateby from ShiftSchedule where ShiftScheduleId="+item.getWaiting();
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    Integer id = rs.getInt("ShiftScheduleId");
+                    Integer departmentId = rs.getInt("DepartmentId");
+                           
+                    String createDate = rs.getString("CreateDate");
+                    String updateDate = rs.getString("UpdateDate");
+                    Integer status = rs.getInt("Status");
+                    Integer createby = rs.getInt("Createby");
+                    Integer updateby = rs.getInt("Updateby");
+                    ShiftDayDAO dayDao= new ShiftDayDAO();
+                    List<ShiftDay> listShiftDays=dayDao.getShiftDaysBySchedulerId(id);
+                    ShiftSchedule shiftSchedule = new ShiftSchedule(id, status, createDate, updateDate, departmentId, createby, updateby,listShiftDays);
+                    listShiftSchedules.add(shiftSchedule);
+                }
+            }}
+        } catch (ClassNotFoundException | SQLException ex) {
+         Logger.getLogger(ShiftScheduleDAO.class.getName()).log(Level.SEVERE, null, ex);
+     } finally {
+      closeConnection();
+        }
+        return listShiftSchedules;
+    }
+     public ShiftSchedule getShiftSchedulesById(int schedulerId)  {
+   
+
+       ShiftSchedule shiftSchedule = new ShiftSchedule();
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "select ShiftScheduleId, DepartmentId,  Status, \n" +
+"Createby, CreateDate, UpdateDate, Updateby,Week from ShiftSchedule where \n" +
+"ShiftScheduleId="+schedulerId;
+                stm = con.prepareStatement(sql);
+                System.out.println(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    Integer id = rs.getInt("ShiftScheduleId");
+                    Integer departmentId = rs.getInt("DepartmentId");
+                           
+                    String createDate = rs.getString("CreateDate");
+                    String updateDate = rs.getString("UpdateDate");
+                    Integer status = rs.getInt("Status");
+                    Integer createby = rs.getInt("Createby");
+                    Integer updateby = rs.getInt("Updateby");
+                    ShiftDayDAO dao= new ShiftDayDAO();
+                    List<ShiftDay> listShiftDays=dao.getShiftDaysBySchedulerId(id);
+              shiftSchedule = new ShiftSchedule(id, status, createDate, updateDate, departmentId, createby, updateby,listShiftDays);
+                
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+         Logger.getLogger(ShiftScheduleDAO.class.getName()).log(Level.SEVERE, null, ex);
+     } finally {
+      closeConnection();
+        }
+        return shiftSchedule;
+    }
+    
 }

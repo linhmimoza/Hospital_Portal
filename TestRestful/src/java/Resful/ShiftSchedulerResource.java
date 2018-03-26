@@ -49,6 +49,14 @@ public class ShiftSchedulerResource {
             List<ShiftSchedule> listShiftSchedule = dao.getShiftSchedules();         
             return listShiftSchedule;
     }
+    @Path("/getWaitingShiftSchedules")
+    @GET
+    @Produces()
+    public List<ShiftSchedule> getWaitingShiftSchedules() throws SQLException, ClassNotFoundException {
+       ShiftScheduleDAO dao = new ShiftScheduleDAO();
+            List<ShiftSchedule> listShiftSchedule = dao.getWaitingShiftSchedules();         
+            return listShiftSchedule;
+    }
      @Path("/createShiftScheduler")
     @POST
     @Produces()
