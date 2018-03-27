@@ -32,7 +32,7 @@ export class CreateShiftSchedulerComponent {
     star: string;
     end: string;
     last: string;
-    dropdownList: Select [] = [] ;
+    dropdownList: Select[] = [];
     selectedItems = [];
     dropdownSettings = {};
 
@@ -45,13 +45,14 @@ export class CreateShiftSchedulerComponent {
         this.loadDepartment();
         this.createMember();
         this.loadUser();
-      
     }
+
     loadDepartment() {
         this.departmentService.getList().then((departments: Department[]) => {
             this.departments = departments;
         });
     }
+    
     loadUser() {
         this.userService.getList().then((users: User[]) => {
             this.users = users;
@@ -62,71 +63,71 @@ export class CreateShiftSchedulerComponent {
 
     addShift() {
         if (!((this.star >= this.end) || (this.star < this.last) || (this.star == null) || (this.end == null))) {
-        this.shiftSchedulerService.addShiftToALLDay(this.shiftScheduler.shiftDayList,
-            this.star, this.end);
+            this.shiftSchedulerService.addShiftToALLDay(this.shiftScheduler.shiftDayList,
+                this.star, this.end);
             this.last = this.end;
             this.star = this.end;
-        console.log(this.shiftScheduler); }
-           }
+            console.log(this.shiftScheduler);
+        }
+    }
 
     ngAfterViewInit() {
 
     }
 
     createMember() {
-
-
         this.dropdownSettings = {
-                    singleSelection: false,
-                    text: 'Select Employee',
-                    enableSearchFilter: true,
-                    classes: 'myclass custom-class',
-                    limitSelection: this.empNumber,
-                    maxHeight: 180
+            singleSelection: false,
+            text: 'Select Employee',
+            enableSearchFilter: true,
+            classes: 'myclass custom-class',
+            limitSelection: this.empNumber,
+            maxHeight: 180
 
-                  };
-        }
-        onItemSelect(item: any) {
-            this.validation();
-        }
-        OnItemDeSelect(item: any) {
+        };
+    }
+    onItemSelect(item: any) {
+        this.validation();
+    }
+    OnItemDeSelect(item: any) {
 
-        }
-        onSelectAll(items: any) {
+    }
+    onSelectAll(items: any) {
 
-        }
-        onDeSelectAll(items: any) {
+    }
+    onDeSelectAll(items: any) {
 
-        }
-        change() {
-            this.validation();
-        }
-con() {
-this.last = null;
-this.star = null;
-this.end = null;
-   this.shiftSchedulerService.dateFullWeek(this.toDay, this.shiftScheduler);
-   this.shiftScheduler.week = this.toDay;
-}
-save() {
+    }
+    change() {
+        this.validation();
+    }
+    con() {
+        this.last = null;
+        this.star = null;
+        this.end = null;
+        this.shiftSchedulerService.dateFullWeek(this.toDay, this.shiftScheduler);
+        this.shiftScheduler.week = this.toDay;
+    }
+    save() {
         this.shiftScheduler.createby = this.accountService.getUserId();
-    this.shiftScheduler.updateby = this.accountService.getUserId();
-   this.shiftScheduler.departmentId = this.department;
-    this.valid = this.shiftSchedulerService.checkValidateScheduler(this.empNumber, this.toDay, this.department,
-        this.shiftScheduler, this.valid);
-if (this.valid) {
-    this.shiftSchedulerService.createMission(this.shiftScheduler).then(() => {
-        console.log(this.shiftScheduler);
-        alert('Save success');
-        // this.router.navigate(['/main/manage-mission']);
-    }).catch(err => {
-       // debugger;
-        alert(err);
-    });
-}}
-validation() {
-    console.log('test');
-    this.valid = this.shiftSchedulerService.checkValidateScheduler(this.empNumber, this.toDay, this.department,
-        this.shiftScheduler, this.valid);
-}
+        this.shiftScheduler.updateby = this.accountService.getUserId();
+        this.shiftScheduler.departmentId = this.department;
+        this.valid = this.shiftSchedulerService.checkValidateScheduler(this.empNumber, this.toDay, this.department,
+            this.shiftScheduler, this.valid);
+        if (this.valid) {
+            this.shiftSchedulerService.createMission(this.shiftScheduler).then(() => {
+                console.log(this.shiftScheduler);
+                alert('Save success');
+                // this.router.navigate(['/main/manage-mission']);
+            }).catch(err => {
+                // debugger;
+                alert(err);
+            });
+        }
+    }
+    validation() {
+        console.log('test');
+        this.valid = this.shiftSchedulerService.checkValidateScheduler(this.empNumber, this.toDay, this.department,
+            this.shiftScheduler, this.valid);
+    }
 }
