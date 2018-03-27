@@ -6,6 +6,8 @@ import { debug } from 'util';
 import { NotificationService } from '../extra/notification.service';
 import { LoadingService } from '../extra/loading.service';
 import { CookieService } from 'ngx-cookie-service';
+import { DepartmentService } from '../department/service/department.service';
+import { Department } from '../department/shared/department.model';
 declare var $: any;
 
 @Component({
@@ -14,27 +16,19 @@ declare var $: any;
     styleUrls: ['user-list.component.css']
 })
 export class UserListComponent {
-
+    p: number = 1;
     users: User[] = [];
     roleCookie: number;
-
+    departments: Department [] = [];
+    
     constructor(private router: Router,
         private userService: UserService, private notificationService: NotificationService,
-        private loadingService: LoadingService, private cookieService: CookieService) { }
+        private loadingService: LoadingService, private cookieService: CookieService,
+        private departmentService: DepartmentService) { }
 
     ngOnInit() {
         this.roleCookie = +this.cookieService.get("Auth-RoleId");
         if (this.roleCookie == 1) {
-            $.getScript('https://code.jquery.com/jquery-1.12.4.js', function () {
-                $.getScript('https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js', function () {
-
-                });
-            });
-            $(document).ready(function() {
-                $('#example').DataTable( {
-                    "pagingType": "full_numbers"
-                } );
-            } );
             this.loadingService.start();
             this.userService.getList().then((res: User[]) => {
                 this.users = res;
@@ -44,6 +38,10 @@ export class UserListComponent {
                 alert(err);
                 // this.loadingService.stop();
             });
+
+            this.departmentService.getList().then((res: Department[]) =>{
+                this.departments = res;
+            })
         } else {
             alert("You don't have permission to view this page!");
             this.router.navigate(['/main/hospital-portal']);

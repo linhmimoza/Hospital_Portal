@@ -17,50 +17,39 @@
             </div>
         </div>
         <div class="table-responsive">
-        <table class="table table-bordered table-striped mb-none">
-            <colgroup>
-                <col width="150px" />
-                <col />
-                <col width="150px" />
-                <col width="50px" />
-                <col width="50px" />
-            </colgroup>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Room size</th>
-                    <th>Status</th>
-                    <th class="hidden-phone"></th>
-                    <th class="hidden-phone"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let room of rooms" class="gradeX">
-                    <td>{{room.roomName}}</td>
-                    <td>{{room.roomSize}}</td>
-                    <td>{{room.status}}</td>
-                    <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
-                    <!-- <td class="text-center">
-                        <span [ngClass]="{'bg-primary':user.IsActived,'bg-danger':!user.IsActived}"> 
-
-                        <div class="grid-status" [ngClass]="{'bg-primary':user.IsActived,'bg-danger':!user.IsActived}">
-
-                            {{user.IsActived?'Hoạt động':'Khóa'}}
-                        </div>
-                    </td> -->
-                    <td align="center">
-                        <a>
-                            <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(room)"></i>
-                        </a>
-                    </td>
-                    <td align="center">
-                        <a class="text-danger remove-row" >
-                            <i style="cursor:pointer" class="fa fa-trash-o text-danger" (click)="delete(room)"></i>
-                        </a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+            <table class="table table-bordered table-striped mb-none">
+                <colgroup>
+                    <col width="350px" />
+                    <col />
+                    <col width="150px" />
+                    <col width="50px" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Room size</th>
+                        <th>Status</th>
+                        <th class="hidden-phone"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let room of rooms" class="gradeX">
+                        <td>{{room.roomName}}</td>
+                        <td>{{room.roomSize}}</td>
+                        <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
+                        <td class="text-center">
+                            <div class="grid-status" [ngClass]="{'bg-primary': room.status == 1, 'bg-danger': room.status == 2 }" (click)="switchStatus(room)">
+                                {{room.status == 1? 'Active':'Disable'}}
+                            </div>
+                        </td>
+                        <td align="center">
+                            <a>
+                                <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(room)"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </section>

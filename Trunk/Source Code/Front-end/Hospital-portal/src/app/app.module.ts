@@ -49,6 +49,8 @@ import { EmployeeCheckComponent } from './main/demo-schedule/employee-check.comp
 import { NotificationListComponent } from './main/notification/notification-list.component';
 import { NotificationDetailComponent } from './main/notification/notification-detail.component';
 import { HospitalPortalComponent } from './main/hospital-portal/hospital-portal.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -111,6 +113,7 @@ const routes: Routes = [
     EmployeeCheckComponent,
     NotificationListComponent,
     HospitalPortalComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -120,7 +123,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
     CalendarModule.forRoot(),
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    NgxPaginationModule,
+    Ng2SearchPipeModule
   ],
   providers: [
     NotificationService, LoadingService, LoginService, AccountService, ApiService, UserService,

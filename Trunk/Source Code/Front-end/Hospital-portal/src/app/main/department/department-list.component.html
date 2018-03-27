@@ -17,53 +17,42 @@
             </div>
         </div>
         <div class="table-responsive">
-        <table class="table table-bordered table-striped mb-none" id="datatable-tabletools4">
-            <colgroup>
-                <col width="150px" />
-                <col width="150px" />
-                <col width="150px" />
-                <col width="150px"/>
-                <col width="50px" />
-                <col width="50px" />
-            </colgroup>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Quantity</th>
-                    <th>Status</th>
-                    <th class="hidden-phone"></th>
-                    <th class="hidden-phone"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let department of departments" class="gradeX">
-                    <td>{{department.departmentName}}</td>
-                    <td>{{department.description}}</td>
-                    <td>{{department.quantity}}</td>
-                    <td>{{department.status}}</td>
-                    <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
-                    <!-- <td class="text-center">
-                        <span [ngClass]="{'bg-primary':user.IsActived,'bg-danger':!user.IsActived}"> 
-
-                        <div class="grid-status" [ngClass]="{'bg-primary':user.IsActived,'bg-danger':!user.IsActived}">
-
-                            {{user.IsActived?'Hoạt động':'Khóa'}}
-                        </div>
-                    </td> -->
-                    <td align="center">
-                        <a>
-                            <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(department)"></i>
-                        </a>
-                    </td>
-                    <td align="center">
-                        <a class="text-danger remove-row" >
-                            <i style="cursor:pointer" class="fa fa-trash-o text-danger" (click)="delete(department)"></i>
-                        </a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+            <table class="table table-bordered table-striped mb-none">
+                <colgroup>
+                    <col width="350px" />
+                    <col />
+                    <col width="150px" />
+                    <col width="150px" />
+                    <col width="50px" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Status</th>
+                        <th class="hidden-phone"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let department of departments" class="gradeX">
+                        <td>{{department.departmentName}}</td>
+                        <td>{{department.description}}</td>
+                        <td>{{department.quantity}}</td>
+                        <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
+                        <td class="text-center">
+                            <div class="grid-status" [ngClass]="{'bg-primary': department.status == 1, 'bg-danger': department.status == 2 }" (click)="switchStatus(department)">
+                                {{department.status == 1? 'Active':'Disable'}}
+                            </div>
+                        </td>
+                        <td align="center">
+                            <a>
+                                <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(department)"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </section>

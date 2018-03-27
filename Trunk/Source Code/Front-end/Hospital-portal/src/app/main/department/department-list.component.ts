@@ -6,8 +6,8 @@ import { CookieService } from 'ngx-cookie-service';
 declare var $: any;
 @Component({
     selector: 'department-list',
-    templateUrl: './department-list.component.html'
-    // styleUrls:['user-list.component.css']
+    templateUrl: './department-list.component.html',
+    styleUrls:['department-list.component.css']
 })
 export class DepartmentListComponent {
 
@@ -21,13 +21,6 @@ export class DepartmentListComponent {
         if (this.roleCookie == 1) {
             // this.loadingService.start();
             this.loadDepartment();
-            $.getScript('assets/porto/javascripts/tables/examples.datatables.default.js', function () {
-                $.getScript('assets/porto/javascripts/tables/examples.datatables.row.with.details.js', function () {
-                    $.getScript('assets/porto/javascripts/tables/examples.datatables.tabletools.js', function () {
-
-                    });
-                });
-            });
         } else {
             alert("You don't have permission to view this page!");
             this.router.navigate(['/main/hospital-portal']);
@@ -52,9 +45,7 @@ export class DepartmentListComponent {
 
     delete(department: Department) {
         // this.departmentService.deleteDepartment(department.departmentId).then(() => {
-        // window.location.reload();
         this.router.navigateByUrl('/main/department-list');
         // });
-
     }
 }

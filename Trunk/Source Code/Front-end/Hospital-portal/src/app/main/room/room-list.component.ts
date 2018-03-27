@@ -6,8 +6,8 @@ import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: 'room-list',
-    templateUrl: './room-list.component.html'
-    // styleUrls:['user-list.component.css']
+    templateUrl: './room-list.component.html',
+    styleUrls:['room-list.component.css']
 })
 export class RoomListComponent {
 

@@ -27,7 +27,7 @@ export class UserDetailComponent {
     roles: Role[] = [];
     departments: Department[] = [];
     response: string;
-    roleCookie: string;
+    roleCookie: number;
     constructor(private route: ActivatedRoute, private router: Router, private userService: UserService,
         private roleService: RoleService, private departmentService: DepartmentService, private loadingService: LoadingService,
         private notificationService: NotificationService, private cookieService: CookieService) {
@@ -39,8 +39,8 @@ export class UserDetailComponent {
     }
 
     ngOnInit() {
-        this.roleCookie = this.cookieService.get("Auth-RoleId");
-        if (this.roleCookie == "Admin") {
+        this.roleCookie = +this.cookieService.get("Auth-RoleId");
+        if (this.roleCookie == 1) {
             this.form = new FormGroup({
                 userName: new FormControl('', [
                     Validators.required,
