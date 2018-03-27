@@ -13,7 +13,7 @@ export class MeetingListComponent {
     fPage = 0;
     pPage = 0;
     toDay: Date = new Date;
-    fromDate: any ;
+    fromDate: any;
     toDate: string;
     meetingInRange: Meeting[] = [];
     futureMeetings: Meeting[] = [];
@@ -25,24 +25,24 @@ export class MeetingListComponent {
 
     ngOnInit() {
 
-    this.fromDate = this.toDay.toUTCString;
-    this.loadFuture();
-    this.loadPass();
-    this.loadScrip();
+        this.fromDate = this.toDay.toUTCString;
+        this.loadFuture();
+        this.loadPass();
+        this.loadScrip();
     }
 
     ngAfterViewInit() {
         this.loadScrip();
     }
-loadScrip() {
-    $.getScript('assets/porto/javascripts/theme.init.js', function () {
-        $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
-            $.getScript('assets/porto/javascripts/ui-elements/examples.modals.js', function () {
+    loadScrip() {
+        $.getScript('assets/porto/javascripts/theme.init.js', function () {
+            $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
+                $.getScript('assets/porto/javascripts/ui-elements/examples.modals.js', function () {
 
+                });
             });
         });
-    });
-}
+    }
     loadFuture() {
         this.loadScrip();
         this.fPage = this.fPage + 1;
@@ -82,35 +82,35 @@ loadScrip() {
         // });
 
     }
-from() {
-    this.loadScrip();
-    if (this.fromDate > this.toDate) {
-this.toDate = this.fromDate;
+    from() {
+        this.loadScrip();
+        if (this.fromDate > this.toDate) {
+            this.toDate = this.fromDate;
 
+        }
+        this.loadScrip();
     }
-    this.loadScrip();
-}
-to() {
-    this.loadScrip();
-    if (this.fromDate > this.toDate) {
-this.fromDate = this.toDate;
+    to() {
+        this.loadScrip();
+        if (this.fromDate > this.toDate) {
+            this.fromDate = this.toDate;
 
+        }
+        this.loadScrip();
     }
-    this.loadScrip();
-}
     search() {
         this.loadScrip();
         if (this.fromDate < '99/99/9999' && this.toDate < '99/99/9999') {
-        this.meetingService.getInRange(this.fromDate , this.toDate).then((res: Meeting[]) => {
-            this.meetingInRange = res;
-        }).catch(err => {
-            alert(err);
+            this.meetingService.getInRange(this.fromDate, this.toDate).then((res: Meeting[]) => {
+                this.meetingInRange = res;
+            }).catch(err => {
+                alert(err);
 
-        });
+            });
 
+        }
+        this.loadScrip();
     }
-    this.loadScrip();
-}
 
 
 

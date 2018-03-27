@@ -23,18 +23,18 @@ export class CreateShiftSchedulerComponent {
     listShiftScheduler: CreateShiftScheduler[] = [];
     shiftScheduler = new CreateShiftScheduler();
     departments: Department[] = [];
-    department: any;
+    department: any = 0;
     selectedOptions: any;
-    toDay: String;
+    toDay: String = '';
     users: User[] = [];
     empNumber = 2;
+    valid: Boolean = false;
     star: string;
     end: string;
     last: string;
-    dropdownList: Select [] = [] ;
+    dropdownList: Select[] = [];
     selectedItems = [];
     dropdownSettings = {};
-    numberOfDay: number[] = [];
 
     constructor(private router: Router,
         private shiftSchedulerService: ShiftSchedulerService, private userService: UserService,
@@ -45,13 +45,14 @@ export class CreateShiftSchedulerComponent {
         this.loadDepartment();
         this.createMember();
         this.loadUser();
-      
     }
+
     loadDepartment() {
         this.departmentService.getList().then((departments: Department[]) => {
             this.departments = departments;
         });
     }
+    
     loadUser() {
         this.userService.getList().then((users: User[]) => {
             this.users = users;
@@ -61,59 +62,72 @@ export class CreateShiftSchedulerComponent {
     }
 
     addShift() {
-        this.shiftSchedulerService.addShiftToALLDay(this.shiftScheduler.shiftDayList,
-            this.star, this.end);
+        if (!((this.star >= this.end) || (this.star < this.last) || (this.star == null) || (this.end == null))) {
+            this.shiftSchedulerService.addShiftToALLDay(this.shiftScheduler.shiftDayList,
+                this.star, this.end);
             this.last = this.end;
             this.star = this.end;
-        console.log(this.shiftScheduler);
-           }
+            console.log(this.shiftScheduler);
+        }
+    }
 
     ngAfterViewInit() {
 
     }
 
     createMember() {
-
-
         this.dropdownSettings = {
-                    singleSelection: false,
-                    text: 'Select Employee',
-                    enableSearchFilter: true,
-                    classes: 'myclass custom-class',
-                    limitSelection: this.empNumber,
-                    maxHeight: 180
+            singleSelection: false,
+            text: 'Select Employee',
+            enableSearchFilter: true,
+            classes: 'myclass custom-class',
+            limitSelection: this.empNumber,
+            maxHeight: 180
 
-                  };
+        };
+    }
+    onItemSelect(item: any) {
+        this.validation();
+    }
+    OnItemDeSelect(item: any) {
+
+    }
+    onSelectAll(items: any) {
+
+    }
+    onDeSelectAll(items: any) {
+
+    }
+    change() {
+        this.validation();
+    }
+    con() {
+        this.last = null;
+        this.star = null;
+        this.end = null;
+        this.shiftSchedulerService.dateFullWeek(this.toDay, this.shiftScheduler);
+        this.shiftScheduler.week = this.toDay;
+    }
+    save() {
+        this.shiftScheduler.createby = this.accountService.getUserId();
+        this.shiftScheduler.updateby = this.accountService.getUserId();
+        this.shiftScheduler.departmentId = this.department;
+        this.valid = this.shiftSchedulerService.checkValidateScheduler(this.empNumber, this.toDay, this.department,
+            this.shiftScheduler, this.valid);
+        if (this.valid) {
+            this.shiftSchedulerService.createMission(this.shiftScheduler).then(() => {
+                console.log(this.shiftScheduler);
+                alert('Save success');
+                // this.router.navigate(['/main/manage-mission']);
+            }).catch(err => {
+                // debugger;
+                alert(err);
+            });
         }
-        onItemSelect(item: any) {
-        }
-        OnItemDeSelect(item: any) {
-
-        }
-        onSelectAll(items: any) {
-
-        }
-        onDeSelectAll(items: any) {
-
-        }
-con() {
-
-   this.shiftSchedulerService.dateFullWeek(this.toDay, this.shiftScheduler);
-   this.shiftScheduler.week = this.toDay;
-
-}
-save() {
-    this.shiftScheduler.createby = this.accountService.getUserId();
-    this.shiftScheduler.updateby = this.accountService.getUserId();
-   this.shiftScheduler.departmentId = this.department;
-    this.shiftSchedulerService.createMission(this.shiftScheduler).then(() => {
-        console.log(this.shiftScheduler);
-
-        alert('Save success');
-        // this.router.navigate(['/main/manage-mission']);
-    }).catch(err => {
-       // debugger;
-        alert(err);
-    });
-}
+    }
+    validation() {
+        console.log('test');
+        this.valid = this.shiftSchedulerService.checkValidateScheduler(this.empNumber, this.toDay, this.department,
+            this.shiftScheduler, this.valid);
+    }
 }
