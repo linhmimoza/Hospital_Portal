@@ -38,6 +38,7 @@ public class ArticleResource {
 
     /**
      * Retrieves representation of an instance of restful.ArticleResource
+     *
      * @return an instance of java.lang.String
      */
     @GET
@@ -50,9 +51,82 @@ public class ArticleResource {
     @Path("/getListArticle")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Article> getListSService( @QueryParam("CategoryId") int categoryId) throws SQLException, ClassNotFoundException {
-            ArticleDao dao = new ArticleDao();
-            List<Article> listArticle = dao.getListArticle(categoryId);        
-            return listArticle;
+    public List<Article> getListSService(@QueryParam("CategoryId") int categoryId) throws SQLException, ClassNotFoundException {
+        ArticleDao dao = new ArticleDao();
+        List<Article> listArticle = dao.getListArticle(categoryId);
+        return listArticle;
+    }
+
+    @Path("/getTopListArticle")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Article> getTopListSService() throws SQLException, ClassNotFoundException {
+        ArticleDao dao = new ArticleDao();
+        List<Article> listArticle = dao.getTopListArticle();
+        return listArticle;
+    }
+
+    @Path("/getListArticleById")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Article> getListArticle(@QueryParam("Id") int id) throws SQLException, ClassNotFoundException {
+        ArticleDao dao = new ArticleDao();
+        List<Article> listArticle = dao.getListArticleById(id);
+        return listArticle;
+    }
+
+    @Path("/createArticle")
+    @GET
+    @Produces()
+    public String createArticle(
+            @QueryParam("Title") String Title,
+            @QueryParam("CategoryId") int CategoryId,
+            @QueryParam("UploadBy") int UploadBy,
+            @QueryParam("UploadDate") String UploadDate,
+            @QueryParam("Link") String Link,
+            @QueryParam("Describe") String Describe) throws SQLException {
+        ArticleDao dao = new ArticleDao();
+        return dao.createArticle(Title, CategoryId, UploadBy, UploadDate, Link, Describe);
+    }
+
+    @Path("/updateArticle")
+    @GET
+    @Produces()
+    public String updateArticle(
+            @QueryParam("ArticleId") int id,
+            @QueryParam("Title") String Title,
+            @QueryParam("Describe") String Describe,
+            @QueryParam("UpdateBy") int UpdateBy,
+            @QueryParam("UpdateDate") String UpdateDate) throws SQLException {
+        
+        ArticleDao dao = new ArticleDao();
+        return dao.updateArticle(id, Title, Describe, UpdateBy, UpdateDate);
+    }
+
+    @Path("/disableArticle")
+    @GET
+    @Produces()
+    public String disableArticle(
+            @QueryParam("ArticleId") int ArticleId) throws SQLException {
+        ArticleDao dao = new ArticleDao();
+        return dao.disableArticle(ArticleId);
+    }
+
+    @Path("/getListArticleByStatus")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Article> getListArticleByStatus(@QueryParam("Status") int status) throws SQLException, ClassNotFoundException {
+        ArticleDao dao = new ArticleDao();
+        List<Article> listArticle = dao.getListArticleByStatus(status);
+        return listArticle;
+    }
+
+    @Path("/activeArticle")
+    @GET
+    @Produces()
+    public String activeArticle(
+            @QueryParam("ArticleId") int ArticleId) throws SQLException {
+        ArticleDao dao = new ArticleDao();
+        return dao.activeArticle(ArticleId);
     }
 }

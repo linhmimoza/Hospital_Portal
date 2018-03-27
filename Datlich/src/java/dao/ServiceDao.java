@@ -40,7 +40,7 @@ public class ServiceDao {
         try {
             con = MyConnection.getMyConnection();
             if (con != null){
-                String sql = "Select ServiceId, ServiceName, Description from Service where DepartmentId=?";
+                String sql = "Select ServiceId, ServiceName, Description from Service where DepartmentId=? AND Status=1";
                 stm = con.prepareStatement(sql);
                 stm.setInt(1, departmentId);
                 rs = stm.executeQuery();
@@ -52,7 +52,33 @@ public class ServiceDao {
                     listService.add(ser);
                 }
             }
-        } finally {
+        }catch(SQLException e){
+            System.out.println("error");
+        }finally {
+            closeConnection();
+        }
+        return listService;
+    }
+    public List<Service> getListServiceById(int ServiceId) throws SQLException, ClassNotFoundException {
+        List<Service> listService = new ArrayList<>();
+        try {
+            con = MyConnection.getMyConnection();
+            if (con != null){
+                String sql = "Select DepartmentId, ServiceName, Description from Service where ServiceId=?";
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, ServiceId);
+                rs = stm.executeQuery();
+                while (rs.next()){
+                    Integer departmentId = rs.getInt("DepartmentId");
+                    String name = rs.getString("ServiceName");
+                    String description = rs.getString("Description");
+                    Service ser = new Service(ServiceId, departmentId, name, description);
+                    listService.add(ser);
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally {
             closeConnection();
         }
         return listService;
@@ -78,14 +104,14 @@ public class ServiceDao {
         }
         return result;
     }
-    public String updateService(int id,String ServiceName,String Description,int DepartmentId,int Status) {
+    public String updateService(int id,String ServiceName,String Description,int DepartmentId) {
         String result = "Susscess";
         try {
             con = MyConnection.getMyConnection();
             if (con != null) {
                 String sql = "update Service set ServiceName='"+ServiceName+"'"
-                        + ",Description='"+Description+"' ,DepartmentId='"+DepartmentId+"' ,Status="+Status
-                        + "' where Id="+id;           
+                        + ",Description='"+Description+"' ,DepartmentId='"+DepartmentId
+                        + "' where ServiceId="+id;           
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
 
@@ -103,7 +129,48 @@ public class ServiceDao {
         try {
             con = MyConnection.getMyConnection();
             if (con != null) {
-                String sql = "update Service set Status=0 where Id="+id;           
+                String sql = "update Service set Status=0 where ServiceId="+id;           
+                stm = con.prepareStatement(sql);
+                stm.executeUpdate();
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = "Failed";
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
+    public List<Service> getListServiceByStatus(int status) throws SQLException, ClassNotFoundException {
+        List<Service> listService = new ArrayList<>();
+        try {
+            con = MyConnection.getMyConnection();
+            if (con != null){
+                String sql = "select * from Service where Status=?";
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, status);
+                rs = stm.executeQuery();
+                while (rs.next()){
+                    Integer ServiceId = rs.getInt("ServiceId");
+                    Integer departmentId = rs.getInt("DepartmentId");
+                    String name = rs.getString("ServiceName");
+                    String description = rs.getString("Description");
+                    Service ser = new Service(ServiceId, departmentId, name, description);
+                    listService.add(ser);
+                }
+            }
+        } finally {
+            closeConnection();
+        }
+        return listService;
+    }
+    public String activeService(int id) {
+        String result = "Susscess";
+        try {
+            con = MyConnection.getMyConnection();
+            if (con != null) {
+                String sql = "update Service set Status=1 where ServiceId="+id;           
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
 

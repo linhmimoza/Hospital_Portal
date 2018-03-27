@@ -32,8 +32,8 @@ public class DepartmentDao {
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()){
-                    Integer id = rs.getInt("SpecialistId");
-                    String name = rs.getString("SpecialistName");
+                    Integer id = rs.getInt("DepartmentId");
+                    String name = rs.getString("DepartmentName");
                     String description = rs.getString("Description");
                     Department d = new Department(id, name, description);
                     listDepartment.add(d);

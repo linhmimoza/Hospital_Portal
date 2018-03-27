@@ -53,7 +53,7 @@ public class UploadFile extends HttpServlet {
         OutputStream out = new FileOutputStream("D://thu.jpg");
         IOUtils.copy(fileContent, out);
         out.close();
-
+        response.setStatus(HttpServletResponse.SC_NO_CONTENT);
         PrintWriter out1 = response.getWriter();
 
         out1.println(fileName);

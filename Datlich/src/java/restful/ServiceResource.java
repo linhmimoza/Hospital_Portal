@@ -55,4 +55,57 @@ public class ServiceResource {
             List<Service> listService = dao.getListService(departmentId);        
             return listService;
     }
+    @Path("/getListServiceById")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Service> getListSServiceById( @QueryParam("ServiceId") int serviceId) throws SQLException, ClassNotFoundException {
+            ServiceDao dao = new ServiceDao();
+            List<Service> listService = dao.getListService(serviceId);        
+            return listService;
+    }
+    @Path("/createService")
+    @GET
+    @Produces()
+    public String createService(
+            @QueryParam("ServiceName") String ServiceName,
+            @QueryParam("Description") String Description,
+            @QueryParam("DepartmentId") int DepartmentId) throws SQLException {
+        ServiceDao dao = new ServiceDao();
+        return dao.createService(ServiceName, Description, DepartmentId);
+    }
+    @Path("/updateService")
+    @GET
+    @Produces()
+    public String updateService(
+            @QueryParam("ServiceId") int ServiceId,
+            @QueryParam("ServiceName") String ServiceName,
+            @QueryParam("Description") String Description,
+            @QueryParam("DepartmentId") int DepartmentId) throws SQLException {
+        ServiceDao dao = new ServiceDao();
+        return dao.updateService(ServiceId, ServiceName, Description, DepartmentId);
+    }
+    @Path("/disableService")
+    @GET
+    @Produces()
+    public String disableService(
+            @QueryParam("ServiceId") int ServiceId) throws SQLException {
+        ServiceDao dao = new ServiceDao();
+        return dao.disableService(ServiceId);
+    }
+    @Path("/getListServiceByStatus")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Service> getListServiceByStatus( @QueryParam("Status") int status) throws SQLException, ClassNotFoundException {
+            ServiceDao dao = new ServiceDao();
+            List<Service> listService = dao.getListServiceByStatus(status);        
+            return listService;
+    }
+    @Path("/activeService")
+    @GET
+    @Produces()
+    public String activeService(
+            @QueryParam("ServiceId") int ServiceId) throws SQLException {
+        ServiceDao dao = new ServiceDao();
+        return dao.activeService(ServiceId);
+    }
 }

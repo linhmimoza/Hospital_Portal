@@ -35,6 +35,7 @@ public class ApplicationConfig extends Application {
         resources.add(restful.DepartmentResource.class);
         resources.add(restful.DownloadFileResource.class);
         resources.add(restful.GenericResource.class);
+        resources.add(restful.IntroduceResource.class);
         resources.add(restful.MedicalBookingResource.class);
         resources.add(restful.ServiceResource.class);
         resources.add(restful.TimeResource.class);
