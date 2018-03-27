@@ -18,6 +18,31 @@ export class ShiftSchedulerService {
             });
         });
     }
+    getByWeek(week, depId) {
+        return new Promise((resolve, reject) => {
+            this.apiService.get('getCheckedSchedulerForShow?DepartmentId=' + depId + '&Week=' + week).then(res => {
+                resolve(res.json());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
+
+
+
+
+    addShiftToALLDay(dates: CreateShiftDay[], star: string, end: string) {
+        dates.forEach(function(date) {
+        let  listShift : CreateShift[] = date.shiftList;
+        let shift: CreateShift = {'endTime': end, 'shiftDayID': 0, 'shiftId': 0, 'shiftNO': date.shiftList.length,
+         'shiftWorkerList': [], 'startTime': star, 'other': ''};
+        listShift.push(shift);
+      });
+      return dates;
+    }
+
+
+
     addShiftToDay(date: CreateShiftDay) {
       let  listShift : CreateShift[] = date.shiftList;
       let shift: CreateShift = {'endTime': '', 'shiftDayID': 0, 'shiftId': 0, 'shiftNO': date.shiftList.length,
@@ -63,10 +88,8 @@ export class ShiftSchedulerService {
   scheduler.shiftDayList.push( { shiftDayID: 0, dayInWeek: 'Sat', shiftScheduleId: 0, shiftDay: tue.toLocaleDateString(), shiftList: [] });
   tue.setDate(tue.getDate() + 1);
   scheduler.shiftDayList.push( { shiftDayID: 0, dayInWeek: 'Sun', shiftScheduleId: 0, shiftDay: tue.toLocaleDateString(), shiftList: [] });
-
-
     }
-    createMission(shiftSchedule: CreateShiftScheduler){
+    createMission(shiftSchedule: CreateShiftScheduler) {
         return new Promise((resolve, reject) => {
             this.apiService.post('createShiftScheduler', shiftSchedule).then(res => {
                 resolve();
@@ -74,5 +97,23 @@ export class ShiftSchedulerService {
                 reject(err);
             });
         });
+    }
+
+    checkValidateScheduler(num: number, week: String, DepId: number, shiftSchedule: CreateShiftScheduler, valid: Boolean) {
+     valid = true;
+     if (DepId === 0) {
+        valid = false;
+     }
+     if (week === '') {
+        valid = false;
+     }
+     shiftSchedule.shiftDayList.forEach(function(day) {
+        day.shiftList.forEach(function(shift) {
+            if (shift.shiftWorkerList.length !== num) {
+                valid = false;
+            }
+        });
+     });
+     return valid;
     }
  }

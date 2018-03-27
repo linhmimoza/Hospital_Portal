@@ -32,7 +32,7 @@ export class DepartmentDetailComponent {
             //     this.roles = res;
             //     console.log(this.roles);
             // }).catch(err => {
-            //     alert(err);
+            //     alert(err);F
             // });
             this.routerSubcription = this.route.params.subscribe(params => {
                 this.id = +params['id']; // (+) converts string 'id' to a number        
@@ -53,16 +53,15 @@ export class DepartmentDetailComponent {
             });
         } else {
             alert("You don't have permission to view this page!");
-            this.router.navigate(['/main/hospital-portal']);       
+            this.router.navigate(['/main/hospital-portal']);
         }
-
     }
     save() {
         this.routerSubcription = this.route.params.subscribe(params => {
             this.id = +params['id']; // (+) converts string 'id' to a number
             if (this.id > 0) {
                 this.departmentService.updateDepartment(this.department).then(() => {
-                    alert("Save success");
+                    alert('Save success');
                     this.router.navigate(['/main/department-list']);
                 }).catch(err => {
                     debugger
@@ -72,7 +71,7 @@ export class DepartmentDetailComponent {
                 this.departmentService.createDepartment(this.department).then(() => {
                     //Server trả về role sau khi save
                     //Nếu là tạo role mới thì res sẽ có giá trị id mới thay vì 0
-                    alert("Save success");
+                    alert('Save success');
                     this.router.navigate(['/main/department-list']);
                 }).catch(err => {
                     debugger

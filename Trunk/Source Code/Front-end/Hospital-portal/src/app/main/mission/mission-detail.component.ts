@@ -27,7 +27,7 @@ export class MissionDetailComponent {
     title: string;
 
     member: User[] = [];
-    users: User[] = [];
+    users: Select[] = [];
     userItem: Select;
     missions: Mission[] = [];
 
@@ -105,16 +105,15 @@ export class MissionDetailComponent {
 
     }
     loadUser() {
-        this.userService.getList().then((users: User[]) => {
+        this.selectService.getUserForSelect().then((users: Select[]) => {
             this.users = users;
-            this.selectService.userSelect(users, this.dropdownList);
+            this.dropdownList = users;
         });
 
     }
     save() {
         this.mission.missionWorkerList = this.selectService.selectToWorker(this.selectedItems,
             this.mission.missionWorkerList, this.mission.missionId);
-
         this.routerSubcription = this.route.params.subscribe(params => {
             this.id = +params['id']; // (+) converts string 'id' to a number
             if (this.id > 0) {

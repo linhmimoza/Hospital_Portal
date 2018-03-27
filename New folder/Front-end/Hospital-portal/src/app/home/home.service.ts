@@ -11,7 +11,7 @@ const host = 'http://localhost:8080/Datlich/webresources/';
 export class HomeService {
     private opts: any;
     constructor(private _http: Http) {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
+        const headers = new Headers({ 'Content-Type': 'application/json' });
         this.opts = new RequestOptions({ headers });
     }
 
@@ -19,5 +19,7 @@ export class HomeService {
         return this._http.get(`${host}Category/getListCategory`, this.opts).map(res => res.json());
     }
 
-    
+    resetBookingNumber() {
+        return this._http.get(`${host}BookingNumber/resetBookingNumber`).map(res => res);
+    }
 }

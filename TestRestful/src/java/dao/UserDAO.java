@@ -5,6 +5,7 @@
  */
 package dao;
 
+import Models.Select;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -50,7 +51,7 @@ public class UserDAO implements Serializable {
             if (con != null) {
                 String sql = "Select UserId, UserName, Avatar, Email, FullName, Sex, DayOfBirth,u.RoleId, r.RoleName"
                         + ",u.DepartmentId,d.DepartmentName, Phone, Position, Address, Certificate, u.Status from [User] u, Role r,Department d\n"
-                        + "where  r.RoleId=u.RoleId and u.DepartmentId=d.DepartmentId";
+                        + "where  r.RoleId=u.RoleId and u.DepartmentId=d.DepartmentId  and u.RoleId>1";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -328,4 +329,81 @@ public boolean isEmailExited(String email){
         }
         return result;
     }
+     
+       public List<Select> getUserForSelect() {
+
+        List<Select> listUsers = new ArrayList<>();
+        try {
+          
+            con = DBUtils.DBUtils.makeConnection();
+
+            if (con != null) {
+                String sql = "select UserId,Code,UserName from [User] u,"
+                        + " Department d where u.DepartmentId=d.DepartmentId\n" +
+"and u.Status=1 and u.RoleId>1";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    Integer id = rs.getInt("UserId");
+                    String userName = rs.getString("UserName");
+                    String code = rs.getString("Code");
+                   Select user= new Select(id, code+"."+userName);
+                            listUsers.add(user);
+                     
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeConnection();
+        }
+        return listUsers;
+    }
+
+       
+        public List<User> getUserByDepartment(int depId) {
+
+        List<User> listUsers = new ArrayList<>();
+        try {
+          
+            con = DBUtils.DBUtils.makeConnection();
+
+            if (con != null) {
+                String sql = "Select UserId, UserName, Avatar, Email, FullName, Sex, DayOfBirth,u.RoleId, r.RoleName\n" +
+",u.DepartmentId,d.DepartmentName, Phone, Position, Address, Certificate, u.Status from [User] u,\n" +
+" Role r,Department d where  r.RoleId=u.RoleId and u.DepartmentId=d.DepartmentId \n" +
+" and u.RoleId>1 and u.DepartmentId="+depId;
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    Integer id = rs.getInt("UserId");
+                    String userName = rs.getString("UserName");
+                    String avatar = rs.getString("Avatar");
+                    String email = rs.getString("Email");
+                    String fullName = rs.getString("FullName");
+                    String sex = rs.getString("Sex");
+                    String dayOfBirth = rs.getString("DayOfBirth");
+                    Integer departmentId = rs.getInt("DepartmentId");
+                    String phone = rs.getString("Phone");
+                    String position = rs.getString("Position");
+                    String address = rs.getString("Address");
+                    String certificate = rs.getString("Certificate");
+                    String roleName = rs.getString("RoleName");
+                    String departmentName = rs.getString("DepartmentName");
+                    Integer status = rs.getInt("Status");
+                    Integer roleId = rs.getInt("RoleId");
+                    User user = new User(id, userName, avatar, email, fullName, sex, dayOfBirth, phone, position, address, certificate, status, 
+                            roleId, roleName, departmentId,departmentName);
+                            listUsers.add(user);
+                     
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeConnection();
+        }
+        return listUsers;
+    }
+
 }

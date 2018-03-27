@@ -1,0 +1,134 @@
+<section class="panel">
+    <header class="panel-heading">
+      <div class="panel-actions">
+        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+      </div>
+
+      <h2 class="panel-title">Chọn dịch vụ</h2>
+    </header>
+    <div class="panel-body">
+      <form class="form-horizontal form-bordered" method="get">
+
+
+        <div class="form-group">
+          <label class="col-md-3 control-label" for="inputSuccess">Chọn chuyên khoa:</label>
+          <div class="col-md-6">
+            <select class="form-control input-lg mb-md" (change)="onchange($event.target.value)" name="specialistId" [(ngModel)]="data.SpecialistId">
+              <option value="-1">Please select</option>
+              <option *ngFor="let item of list" value="{{item.specialistId}}" >{{item.specialistName}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label" for="inputSuccess">Chọn dịch vụ:</label>
+          <div class="col-md-6">
+            <select class="form-control input-lg mb-md" name="serviceId" [(ngModel)]="data.ServiceId">
+              <option *ngFor="let option of options"  value="{{option.serviceId}}" >{{option.serviceName}}</option>
+            </select>
+          </div>
+        </div>
+        <input type="button" (click)="showdata()">
+        <!-- <div class="form-group">
+          <label class="col-md-3 control-label">Chọn ngày:</label>
+          <div class="col-md-6">
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+              </span>
+              <input type="text" data-plugin-datepicker class="form-control" [(ngModel)]="time" name="time"/>
+            </div>
+          </div>
+          <input type="button" (click)="showtime()">
+        </div> -->
+
+        <div class="form-group">
+            <label class="col-md-3 control-label" for="inputDefault">Chọn ngày:</label>
+            <div class="col-md-6">
+              <input type="text" class="form-control" id="date" name="date" [(ngModel)]="date" (change)="datechange()"/>
+            </div>
+          </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label" for="inputSuccess">Chọn thời gian hẹn:</label>
+          <div class="col-md-6">
+            <select class="form-control input-lg mb-md" name="TimeId" [(ngModel)]="data.TimeId">
+              <option >Please Select...</option>
+              <option *ngFor="let available of availables; let i = index" value="{{available.timeId}}">{{available.time}}</option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="panel">
+    <header class="panel-heading">
+      <div class="panel-actions">
+        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+      </div>
+
+      <h2 class="panel-title">Thông tin</h2>
+    </header>
+    <div class="panel-body">
+      <form class="form-horizontal form-bordered" method="get">
+        <div class="form-group">
+          <label class="col-md-3 control-label" for="inputDefault">Họ và Tên:</label>
+          <div class="col-md-6">
+            <input type="text" class="form-control" id="inputDefault" name="GuestName" [(ngModel)]="data.GuestName">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label" for="inputDefault">Chứng minh nhân dân:</label>
+          <div class="col-md-6">
+            <input type="text" class="form-control" id="inputDefault" name="guestidentity" [(ngModel)]="data.GuestIdentity">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label" for="inputDefault">Số điện thoại:</label>
+          <div class="col-md-6">
+            <input type="text" class="form-control" id="inputDefault" name="guestphone" [(ngModel)]="data.GuestPhone">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label" for="inputDefault">Email:</label>
+          <div class="col-md-6">
+            <input type="text" class="form-control" id="inputDefault" name="GuestEmail" [(ngModel)]="data.GuestEmail">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label" for="inputDefault">Địa chỉ:</label>
+          <div class="col-md-6">
+            <input type="text" class="form-control" name="GuestAddress" [(ngModel)]="data.GuestAddress" id="inputDefault">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+          <section class="panel">
+            <div class="panel-body">
+              <form class="form-horizontal form-bordered">
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Ghi chú:</label>
+                  <div class="col-md-9">
+                    <div class="summernote" data-plugin-summernote data-plugin-options='{ "height": 180, "codemirror": { "theme": "ambiance" } }'></div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </section>
+        </div>
+        
+      </div>
+      <footer class="panel-footer">
+          <div class="row">
+            <div class="col-sm-9 col-sm-offset-3">
+              <button class="btn btn-primary" (click)="submitdata()">Submit</button>
+              <button type="reset" class="btn btn-default">Reset</button>
+            </div>
+          </div>
+        </footer>
+  </section>

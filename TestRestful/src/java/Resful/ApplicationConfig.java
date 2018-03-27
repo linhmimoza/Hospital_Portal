@@ -36,6 +36,7 @@ public class ApplicationConfig extends Application {
         resources.add(Resful.NotificationResource.class);
         resources.add(Resful.RoleResource.class);
         resources.add(Resful.RoomResource.class);
+        resources.add(Resful.SchedulerManagerResource.class);
         resources.add(Resful.ShiftSchedulerResource.class);
         resources.add(Resful.UserResource.class);
     }

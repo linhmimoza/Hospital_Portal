@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as moment from 'moment';
 import { Params } from '@angular/router/src/shared';
 
@@ -14,7 +14,7 @@ import { DOWNLOAD_LINK } from '../../constant/commonConstant';
   providers: [NewsService
   ]
 })
-export class NewsComponent implements OnInit {
+export class NewsComponent implements OnInit, AfterViewInit {
   public listNews: any[];
   public data: any;
 
@@ -28,13 +28,13 @@ export class NewsComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
-      let newsId = params['id'];
+      const newsId = params['id'];
       this._newsSrv.getNewsList(newsId).subscribe(res => this.listNews = res);
     });
   }
 
   ngAfterViewInit() {
-    // $.getScript("./assets/porto/javascripts/forms/examples.wizard.js").done(() => console.log('load done'));
+    $.getScript("./assets/porto/javascripts/forms/examples.wizard.js").done(() => console.log('load done'));
   }
 
   getFile(name) {
