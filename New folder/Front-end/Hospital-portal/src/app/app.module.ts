@@ -53,6 +53,12 @@ import { MedicalComponent } from './home/medical/medical.component';
 import { MedicalDetailComponent } from './home/medical/medical-detail/medical-detail.component';
 import { NewsComponent } from './home/news/news.component';
 import { HomeMainComponent } from './home/home-main/home-main.component';
+import { NewsDetailComponent } from './home/news/news-detail/news-detail.component';
+import { ManageNewsComponent } from './main/news/manage-news/manage-news.component';
+import { AdminServiceComponent } from './main/service/service.component';
+import { ManageServiceComponent } from './main/service/manage-service/manage-service.component';
+import { SettingComponent } from './main/setting/setting.component';
+import { ActiveServiceComponent } from './main/service/active-service/active-service.component';
 
 
 const routes: Routes = [
@@ -81,7 +87,11 @@ const routes: Routes = [
       { path: 'demoPaging', component: DemoPagingComponent },
       { path: 'app-demo-schedule', component: DemoScheduleComponent},
       { path: 'employee-check', component: EmployeeCheckComponent},
-      { path: 'news', component: AdminNewsComponent}
+      { path: 'news', component: AdminNewsComponent},
+      { path: 'manage-news/:id', component: ManageNewsComponent},
+      { path: 'manage-service', component: ManageServiceComponent},
+      { path: 'service', component: AdminServiceComponent},
+      { path: 'setting', component: SettingComponent}
     ]
   },
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
@@ -89,6 +99,7 @@ const routes: Routes = [
     path: 'home', component: HomeComponent,
     children: [
       { path: 'news/:id', component: NewsComponent },
+      { path: 'news-detail/:id', component: NewsDetailComponent },
       { path: 'medical-booking', component: MedicalComponent },
       { path: 'medical-detail', component: MedicalDetailComponent },
       { path: 'main', component: HomeMainComponent },
@@ -128,7 +139,13 @@ const routes: Routes = [
     MedicalDetailComponent,
     NewsComponent,
     HomeMainComponent,
-    AdminNewsComponent
+    AdminNewsComponent,
+    NewsDetailComponent,
+    ManageNewsComponent,
+    AdminServiceComponent,
+    ManageServiceComponent,
+    SettingComponent,
+    ActiveServiceComponent
   ],
   imports: [
     BrowserModule,

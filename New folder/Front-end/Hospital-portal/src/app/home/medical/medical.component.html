@@ -63,9 +63,9 @@
             <div id="w4-specialist" class="tab-pane active">
               <div class="form-group">
                 <div class="col-md-12">
-                  <select class="form-control input-lg mb-md" (change)="getServiceList($event.target.value)" name="specialistId" [(ngModel)]="data.SpecialistId">
+                  <select class="form-control input-lg mb-md" (change)="getServiceList($event.target.value)" name="id" [(ngModel)]="data.DepartmentId">
                     <option value="" selected>Please select</option>
-                    <option *ngFor="let item of list" value="{{item.specialistId}}">{{item.specialistName}}</option>
+                    <option *ngFor="let item of list" value="{{item.id}}">{{item.name}}</option>
                   </select>
                 </div>
               </div>

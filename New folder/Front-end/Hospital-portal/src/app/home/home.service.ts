@@ -5,21 +5,19 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { ApiService } from '../../app/api.service';
+import { SERVER, OPTIONS } from '../constant/commonConstant';
 
-const host = 'http://localhost:8080/Datlich/webresources/';
 @Injectable()
 export class HomeService {
     private opts: any;
     constructor(private _http: Http) {
-        const headers = new Headers({ 'Content-Type': 'application/json' });
-        this.opts = new RequestOptions({ headers });
     }
 
     getCategoryList(): Observable<any> {
-        return this._http.get(`${host}Category/getListCategory`, this.opts).map(res => res.json());
+        return this._http.get(`${SERVER}Category/getListCategory`, OPTIONS).map(res => res.json());
     }
 
     resetBookingNumber() {
-        return this._http.get(`${host}BookingNumber/resetBookingNumber`).map(res => res);
+        return this._http.get(`${SERVER}BookingNumber/resetBookingNumber`).map(res => res);
     }
 }

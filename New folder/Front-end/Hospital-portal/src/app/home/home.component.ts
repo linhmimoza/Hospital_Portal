@@ -2,7 +2,6 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as moment from 'moment';
 
 import { HomeService } from './home.service';
-import { NewsService } from './news/news.service';
 declare var $: any;
 // "./assets/javascripts/theme.init.js"
 @Component({
@@ -25,7 +24,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.categoryList = res;
       }
     });
-    
+
     setInterval(() => {
       const now = moment().utc().hour();
       if (now === 0) { this._homeSrv.resetBookingNumber().subscribe(res => console.log('reseted')); }

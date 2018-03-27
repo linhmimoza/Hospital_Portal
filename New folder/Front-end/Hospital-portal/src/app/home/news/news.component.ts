@@ -38,7 +38,7 @@ export class NewsComponent implements OnInit, AfterViewInit {
   }
 
   getFile(name) {
-    window.open(`${DOWNLOAD_LINK}${name}`);
+    this._newsSrv.getFile(name);
   }
 
   getServiceList(categoryId) {

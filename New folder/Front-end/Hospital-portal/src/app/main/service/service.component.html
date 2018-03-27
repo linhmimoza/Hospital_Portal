@@ -1,0 +1,58 @@
+<div class="container" style="width: 100%">
+    <header class="page-header">
+        <h2>Service</h2>
+      </header>
+    <div class="row">
+      <div class="col-md-10">
+        <div class="form-group">
+          <select class="form-control input-lg mb-md" name="id" [(ngModel)]="id" *ngIf="departmentList?.length" (change)="getService($event.target.value)">
+            <option value="" selected>Please select</option>
+            <option *ngFor="let option of departmentList" value="{{option.id}}">{{option.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <a [routerLink]="['/main/manage-service']" class="btn btn-primary" style="width:100%">Add Service</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12" *ngIf="listService?.length">
+        
+        <section class="panel">
+          <header class="panel-heading">
+            <h2 class="panel-title">Service</h2>
+          </header>
+          <div class="panel-body">
+            <div class="table-responsive">
+              <table class="table table-hover mb-none">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Tên</th>
+                    <th>Mô tả</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of listService; let idx = index">
+                    <td>{{idx + 1}}</td>
+                    <td>{{item.serviceName}}</td>
+                    <td>{{item.description}}</td>
+                    <td style="cursor: pointer; color: black">
+                      <a [routerLink]="['/main/manage-news', item.serviceId]">
+                        <i class="fa fa-pencil"></i>
+                      </a>
+                      |
+                      <a (click)="disableService(item.serviceId)">
+                        <i class="fa fa-eraser"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>

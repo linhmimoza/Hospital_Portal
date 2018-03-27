@@ -1,4 +1,4 @@
-<div class="row">
+<!-- <div class="row">
     <div class="col-md-12">
         <header class="page-header">
             <h2>Tin tức</h2>
@@ -61,4 +61,60 @@
             </div>
         </section>
     </div>
-</div>
+</div> -->
+<section class="panel">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+            <!-- <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a> -->
+        </div>
+        <h2 class="panel-title">Tin tức</h2>
+    </header>
+    <div class="panel-body">
+        <div class="timeline">
+            <div class="tm-body">
+
+                <ol class="tm-items">
+                    <li *ngFor="let item of listNews">
+                        <div class="tm-info">
+
+                            <time class="tm-datetime" datetime="2013-11-22 19:13">
+                                <div class="tm-datetime-time">
+                                    <h4>{{item.uploadDate | date: 'dd/MM/yyyy'}}</h4>
+                                </div>
+                                <!-- <div class="tm-datetime-time"><h5>to {{mission.uploadDate}}</h5></div> -->
+
+                            </time>
+                        </div>
+
+                        <div class="tm-box appear-animation fadeInRight appear-animation-visible" data-appear-animation="fadeInRight" data-appear-animation-delay="100"
+                            style="animation-delay: 100ms;">
+
+                            <h2 style="font-weight: bold; color:black">
+                                <a [routerLink]="['/home/news-detail', item.articleId]">{{item.title}}</a>
+                            </h2>
+                            <div class="tm-meta">
+
+
+                                <h5>Author: {{item.uploadByName}}</h5>
+
+
+                            </div>
+                            <p style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden">Description: {{item.describe}}</p>
+                            <p>Details:
+                                <a [routerLink]="['/home/news-detail', item.articleId]">Read more</a>
+                            </p>
+                        </div>
+                    </li>
+
+
+                </ol>
+            </div>
+        </div>
+        <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block">Show more</button>
+
+
+
+    </div>
+
+</section>
