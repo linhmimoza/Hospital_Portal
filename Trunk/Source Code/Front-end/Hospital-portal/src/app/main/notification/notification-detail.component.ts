@@ -14,7 +14,8 @@ export class NotificationDetailComponent {
     id: number = 0;
     title: string;
     notifications: Notification[] = [];
-    constructor(private route: ActivatedRoute, private router: Router, private notificationService: NotificationComponentService) {
+    constructor(private route: ActivatedRoute, private router: Router,
+        private notificationService: NotificationComponentService) {
 
     }
 

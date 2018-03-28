@@ -1,0 +1,128 @@
+<section class="body">
+    <!-- start: header -->
+    <header class="header">
+        <div class="logo-container">
+            <a href="../" class="logo">
+                <img src="assets/porto/images/Hospital_Logo.png" height="35" alt="Porto Admin" />
+            </a>
+            <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
+                <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+            </div>
+        </div>
+        <!-- start: search & user box -->
+        <div class="header-right">
+            <!-- <form action="pages-search-results.html" class="search nav-form">
+                <div class="input-group input-search">
+                    <input type="text" class="form-control" name="q" id="q" placeholder="Search...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </form> -->
+
+            <span class="separator"></span>
+
+            <div id="userbox" class="userbox" >
+                <a [routerLink]="['/login']" class="login-block">
+                    <i class="fa fa-user" aria-hidden="true" ></i>
+                    <p >Login</p>
+                </a>
+            </div>
+        </div>
+        <!-- end: search & user box -->
+    </header>
+    <!-- end: header -->
+
+    <div class="inner-wrapper">
+        <!-- start: sidebar -->
+        <aside id="sidebar-left" class="sidebar-left">
+
+            <div class="sidebar-header">
+                <div class="sidebar-title">
+                    Navigation
+                </div>
+                <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
+                    <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+                </div>
+            </div>
+
+            <div class="nano">
+                <div class="nano-content">
+                    <nav id="menu" class="nav-main" role="navigation">
+                        <ul class="nav nav-main">
+                            <li class="nav-active">
+                                <a [routerLink]="['/home/main']">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Home page</span>
+                                </a>
+                            </li>
+                            <li class="nav-active">
+                                <a [routerLink]="['/home/medical-booking']">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                    <span>Đặt lịch hẹn</span>
+                                </a>
+                            </li>
+                            <li class="nav-active">
+                                <a [routerLink]="['/home/medical-detail']">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                    <span>Xem lịch hẹn đã đặt</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-parent">
+                                <a>
+                                    <i class="fa fa-copy" aria-hidden="true"></i>
+                                    <span>Tin tức</span>
+                                </a>
+                                <ul class="nav nav-children">
+                                    <li (change)="getCategoryList($event.target.value)" name="categoryId" *ngFor="let item of categoryList">
+                                        <a  [routerLink]="['/home/news', item.categoryId]">
+                                            {{item.categoryName}}
+                                        </a>
+                                    </li>
+                                    
+                                </ul>
+                            </li>
+
+                            <li class="nav-active">
+                                <a [routerLink]="['/login']">
+                                    <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                    <span>Đăng nhập</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </nav>
+                </div>
+
+                <script>
+                        // Preserve Scroll Position
+                        // if (typeof localStorage !== 'undefined') {
+                            // if (localStorage.getItem('sidebar-left-position')) {
+                            //     var initialPosition = localStorage.getItem('sidebar-left-position'),
+                            //         sidebarLeft = document.querySelector('#sidebar-left .nano-content');
+
+                            //     sidebarLeft.scrollTop = initialPosition;
+                            // }
+                        // }
+                </script>
+
+            </div>
+
+        </aside>
+        <!-- end: sidebar -->
+
+        <section role="main" class="content-body" id="bodyContent">
+            <header class="page-header">
+                <h2>{{title}}</h2>
+            </header>
+            <router-outlet></router-outlet>
+            <!-- end: page -->
+        </section>
+    </div>
+</section>
+<!-- <a type="button" class="btn btn-primary hidden-xs" [routerLink]="['/login']">Login</a>
+<a type="button" class="btn btn-primary hidden-xs" [routerLink]="['/medical-booking']">Medical</a>
+<a type="button" class="btn btn-primary hidden-xs" [routerLink]="['/medical-detail']">Medical Detail</a> -->

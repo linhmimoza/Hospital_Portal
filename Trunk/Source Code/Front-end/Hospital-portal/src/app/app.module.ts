@@ -53,9 +53,21 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NotificationComponentService } from './main/notification/service/notification.component.service';
 import { ManageShiftSchedulerComponent } from './main/shiftScheduler/manage-shiftSchedule.component';
+import { AdminNewsComponent } from './main/news/news.component';
+import { ManageNewsComponent } from './main/news/manage-news/manage-news.component';
+import { ManageServiceComponent } from './main/service/manage-service/manage-service.component';
+import { AdminServiceComponent } from './main/service/service.component';
+import { SettingComponent } from './main/setting/setting.component';
+import { NewsComponent } from './home/news/news.component';
+import { HomeMainComponent } from './home/home-main/home-main.component';
+import { NewsDetailComponent } from './home/news/news-detail/news-detail.component';
+import { ActiveServiceComponent } from './main/service/active-service/active-service.component';
+import { HomeComponent } from './home/home.component';
+import { MedicalComponent } from './home/medical/medical.component';
+import { MedicalDetailComponent } from './home/medical/medical-detail/medical-detail.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'home/main', pathMatch: 'full' },
   {
     path: 'main', component: MainComponent,
     children: [
@@ -82,8 +94,13 @@ const routes: Routes = [
       { path: 'app-demo-schedule', component: DemoScheduleComponent},
       { path: 'employee-check', component: EmployeeCheckComponent},
       { path: 'notification-list', component: NotificationListComponent},
-      { path: 'notification-detail', component: NotificationDetailComponent},
-      { path: 'manage-shiftSchedule', component: ManageShiftSchedulerComponent}
+      { path: 'notification-detail/:id', component: NotificationDetailComponent},
+      { path: 'manage-shiftSchedule', component: ManageShiftSchedulerComponent},
+      { path: 'news', component: AdminNewsComponent},
+      { path: 'manage-news/:id', component: ManageNewsComponent},
+      { path: 'manage-service', component: ManageServiceComponent},
+      { path: 'service', component: AdminServiceComponent},
+      { path: 'setting', component: SettingComponent}
     ]
   },
   { path: 'login', component: LoginComponent, pathMatch: 'full' }
@@ -115,10 +132,24 @@ const routes: Routes = [
     DemoPagingComponent,
     DemoScheduleComponent,
     EmployeeCheckComponent,
+
     NotificationListComponent,
     HospitalPortalComponent,
     NotificationDetailComponent,
-    ManageShiftSchedulerComponent
+    ManageShiftSchedulerComponent,
+
+    HomeComponent,
+    MedicalComponent,
+    MedicalDetailComponent,
+    NewsComponent,
+    HomeMainComponent,
+    AdminNewsComponent,
+    NewsDetailComponent,
+    ManageNewsComponent,
+    AdminServiceComponent,
+    ManageServiceComponent,
+    SettingComponent,
+    ActiveServiceComponent
   ],
   imports: [
     BrowserModule,
