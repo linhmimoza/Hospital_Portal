@@ -5,7 +5,7 @@ import { Notification } from '../shared/notification.model';
 
 @Injectable()// dùng để chưa sẽ tài nguyên
 
-export class NotificationService {
+export class NotificationComponentService {
 
     constructor(private apiService: ApiService) { }
     getList() {

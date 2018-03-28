@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Notification } from './shared/notification.model';
-import { NotificationService } from './service/notification.service';
+import { NotificationComponentService } from './service/notification.component.service';
 
 @Component({
     selector: 'notification-list',
@@ -12,7 +12,7 @@ export class NotificationListComponent {
 
     notifications: Notification[] = [];
 
-    constructor(private router: Router, private notificationService: NotificationService) { }
+    constructor(private router: Router, private notificationService: NotificationComponentService) { }
 
     // ngOnInit() {
     //     // this.loadingService.start();

@@ -16,6 +16,21 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <label class="col-sm-3 control-label">
+                    <h5>
+                        <strong>Search: </strong>
+                    </h5>
+                </label>
+                <div class="col-sm-9">
+                    <div class="mb-md">
+                        <input type="text" [(ngModel)]="term" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="table-responsive">
             <table class="table table-bordered table-striped mb-none">
                 <colgroup>
@@ -35,7 +50,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let department of departments" class="gradeX">
+                    <tr *ngFor="let department of departments | filter:term | paginate: { itemsPerPage: 10, currentPage: p }" class="gradeX">
                         <td>{{department.departmentName}}</td>
                         <td>{{department.description}}</td>
                         <td>{{department.quantity}}</td>
@@ -53,6 +68,11 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-8" style="padding-top: 20px;">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </div>
+            </div>
         </div>
     </div>
 </section>

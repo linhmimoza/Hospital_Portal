@@ -20,6 +20,7 @@ export class UserListComponent {
     users: User[] = [];
     roleCookie: number;
     departments: Department [] = [];
+    dropdownDept: string;
     
     constructor(private router: Router,
         private userService: UserService, private notificationService: NotificationService,
@@ -41,6 +42,7 @@ export class UserListComponent {
 
             this.departmentService.getList().then((res: Department[]) =>{
                 this.departments = res;
+                this.dropdownDept = "All";
             })
         } else {
             alert("You don't have permission to view this page!");
@@ -77,6 +79,22 @@ export class UserListComponent {
                 }).catch(err => {
                     alert(err);
                 });
+            });
+        }
+    }
+
+    loadUserByDept(){
+        if (this.dropdownDept == "All"){
+            this.userService.getList().then((res: User[]) =>{
+                this.users = res;
+            }).catch (err =>{
+                alert(err);
+            });
+        } else {
+            this.userService.loadUsersByDept(this.dropdownDept).then((res: User[]) =>{
+                this.users = res;
+            }).catch (err =>{
+                alert(err);
             });
         }
     }

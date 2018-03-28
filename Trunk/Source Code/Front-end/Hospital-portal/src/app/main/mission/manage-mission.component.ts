@@ -5,8 +5,8 @@ import { MissionService } from './service/mission.service';
 import { CookieService } from 'ngx-cookie-service';
 @Component({
     selector: 'manage-mission',
-    templateUrl: './manage-mission.component.html'
-    // styleUrls:['user-list.component.css']
+    templateUrl: './manage-mission.component.html',
+    styleUrls:['manage-mission.component.css']
 })
 export class ManageMissionComponent {
 

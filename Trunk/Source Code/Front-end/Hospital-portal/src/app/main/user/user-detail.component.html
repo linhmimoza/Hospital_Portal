@@ -38,10 +38,11 @@
                                 <span class="required">*</span>
                             </label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" formControlName="email" required/>
+                                <input type="email" class="form-control" formControlName="email" required/>
 
                                 <div class="form-group" *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger" style="margin-top: 10px">
                                     <strong *ngIf="email.errors.required">Email is required.</strong>
+                                    <strong *ngIf="email.errors.email">Email is invalid.</strong>
                                 </div>
                             </div>
                         </div>
@@ -110,10 +111,11 @@
                                 <span class="required">*</span>
                             </label>
                             <div class="col-sm-7">
-                                <input type="text" formControlName="phone" class="form-control" required/>
+                                <input type="tel" formControlName="phone" class="form-control" required/>
 
                                 <div class="form-group" *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="alert alert-danger" style="margin-top: 10px">
                                     <strong *ngIf="phone.errors.required">Phone is required.</strong>
+                                    <strong *ngIf="phone.errors.pattern">Phone is invalid.</strong>
                                 </div>
                             </div>
                         </div>

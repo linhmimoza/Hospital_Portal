@@ -15,20 +15,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <label class="col-sm-3 control-label">
-                    <h5>
-                        <strong>Search: </strong>
-                    </h5>
-                </label>
-                <div class="col-sm-9">
-                    <div class="mb-md">
-                        <input type="text" [(ngModel)]="term" class="form-control">
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <div class="row">
             <div class="col-md-4">
                 <label class="col-sm-3 control-label">
@@ -43,16 +30,21 @@
                 </div>
             </div>
 
-            <div class="col-md-5 col-md-offset-3">
+            <div class="col-md-6 col-md-offset-2">
                 <label class="col-sm-3 control-label">
                     <h5>
                         <strong>Department: </strong>
                     </h5>
                 </label>
-                <div class="col-sm-9">
-                    <select class="form-control">
+                <div class="col-sm-7">
+                    <select class="form-control" [(ngModel)]="dropdownDept">
+                        <option value="All">All</option>
                         <option *ngFor="let dept of departments" [ngValue]="dept.departmentId">{{dept.departmentName}}</option>
                     </select>
+
+                </div>
+                <div class="col-sm-1">
+                    <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary" (click)="loadUserByDept(dropdownDept)">Go</button>
                 </div>
             </div>
         </div>

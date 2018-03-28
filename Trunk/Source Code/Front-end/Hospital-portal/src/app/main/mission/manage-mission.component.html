@@ -1,89 +1,73 @@
 <section class="panel">
-    <header class="panel-heading">
-      <div class="panel-actions">
-        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-        <!-- <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a> -->
-      </div>
-      <h2 class="panel-title">Mission list</h2>
-    </header>
-    <div class="panel-body">
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="mb-md">
-            <button class="btn btn-primary" [routerLink]="['/main/mission-detail',0]">Add
-              <i class="fa fa-plus"></i>
-            </button>
-          </div>
+  <header class="panel-heading">
+    <div class="panel-actions">
+      <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+      <!-- <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a> -->
+    </div>
+    <h2 class="panel-title">Mission list</h2>
+  </header>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="mb-md">
+          <button class="btn btn-primary" [routerLink]="['/main/mission-detail',0]">Add
+            <i class="fa fa-plus"></i>
+          </button>
         </div>
       </div>
-      <table class="table table-bordered table-striped mb-none">
-        <colgroup>
-          <col width="150px" />
-          <col width="150px" />
-          <col width="150px" />
-          <col />
-          <col width="150px" />
-          <col width="150px" />
-          <col width="150px" />
-          <col width="50px" />
-          <col width="50px" />
-        </colgroup>
-        <thead>
-          <tr>
-            <th>Start date</th>
-            <th>End date</th>
-            <th>Place</th>
-            <th>Worker</th>
-            <th>Status</th>
-            <th>Created by</th>
-            <th>Updated by</th>
-            <th class="hidden-phone"></th>
-            <th class="hidden-phone"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let mission of missions" class="gradeX">
-            <td>{{mission.startDate}}</td>
-            <td>{{mission.endDate}}</td>
-            <td>{{mission.place}}</td>
-            <td>
-              <div class="bootstrap-tagsinput">
-                <span *ngFor="let worker of mission.missionWorkerList" class="tag label label-info">
-                  {{worker.userName}}
-                  <span data-role="remove">
-                  </span>
-                </span>
-              </div>
-            </td>
-  
-            <td class="text-center">
-              <!-- <span [ngClass]="{'bg-primary':mission.status == 1,'bg-danger':mission.status == 2}"> -->
-              <div class="grid-status" [ngClass]="{'bg-warning':mission.status == 1,'bg-success':mission.status == 2,'bg-danger':mission.status == 3}">
-  
-                {{mission.status == 1?'Waiting':''}}
-                {{mission.status == 2?'Accept':''}}
-                {{mission.status == 3?'Deny':''}}
-  
-              </div>
-            </td>
-            <td>{{mission.createby}}</td>
-            <td>{{mission.updateby}}</td>
-            <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
-  
-            <td align="center">
-              <a>
-                <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(mission)"></i>
-              </a>
-            </td>
-            <td align="center">
-              <a class="text-danger remove-row">
-                <i style="cursor:pointer" class="fa fa-trash-o text-danger" (click)="delete(mission)"></i>
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      
     </div>
-  </section>
-  
+    <table class="table table-bordered table-striped mb-none">
+      <colgroup>
+        <col width="150px" />
+        <col width="150px" />
+        <col width="150px" />
+        <col width="350px"/>
+        <col width="150px" />
+        <col width="50px" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Start date</th>
+          <th>End date</th>
+          <th>Place</th>
+          <th>Worker</th>
+          <th>Status</th>
+          <th class="hidden-phone"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mission of missions" class="gradeX">
+          <td>{{mission.startDate}}</td>
+          <td>{{mission.endDate}}</td>
+          <td>{{mission.place}}</td>
+          <td>
+            <div class="bootstrap-tagsinput">
+              <span *ngFor="let worker of mission.missionWorkerList" class="tag label label-info">
+                {{worker.userName}}
+                <span data-role="remove">
+                </span>
+              </span>
+            </div>
+          </td>
+
+          <td class="text-center">
+            <!-- <span [ngClass]="{'bg-primary':mission.status == 1,'bg-danger':mission.status == 2}"> -->
+            <div class="grid-status" [ngClass]="{'bg-warning':mission.status == 1,'bg-success':mission.status == 2,'bg-danger':mission.status == 3}">
+
+              {{mission.status == 1?'Waiting':''}} {{mission.status == 2?'Accept':''}} {{mission.status == 3?'Deny':''}}
+
+            </div>
+          </td>
+          <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
+
+          <td align="center">
+            <a>
+              <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(mission)"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</section>

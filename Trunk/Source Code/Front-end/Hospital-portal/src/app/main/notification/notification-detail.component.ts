@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Http } from '@angular/http';
-import { NotificationService } from './service/notification.service';
 import { Notification } from './shared/notification.model';
+import { NotificationComponentService } from './service/notification.component.service';
 
 @Component({
     selector: 'notification-detail',
@@ -14,7 +14,7 @@ export class NotificationDetailComponent {
     id: number = 0;
     title: string;
     notifications: Notification[] = [];
-    constructor(private route: ActivatedRoute, private router: Router, private notificationService: NotificationService) {
+    constructor(private route: ActivatedRoute, private router: Router, private notificationService: NotificationComponentService) {
 
     }
 

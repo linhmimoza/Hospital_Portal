@@ -10,7 +10,7 @@ declare var $: any;
     styleUrls:['department-list.component.css']
 })
 export class DepartmentListComponent {
-
+    p: number = 1;
     departments: Department[] = [];
     roleCookie: number;
     constructor(private router: Router,

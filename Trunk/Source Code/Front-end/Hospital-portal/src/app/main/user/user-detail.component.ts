@@ -48,17 +48,18 @@ export class UserDetailComponent {
                     forbiddenNameValidator(/bob/i)
                 ]),
                 email: new FormControl('', [
-                    Validators.required
+                    Validators.email
                 ]),
                 fullName: new FormControl('', [
-                    Validators.required
+                    Validators.required                    
                 ]),
                 sex: new FormControl(),
                 dayOfBirth: new FormControl('', [
                     Validators.required
                 ]),
                 phone: new FormControl('', [
-                    Validators.required
+                    Validators.required,
+                    Validators.pattern('^0[0-9]{9,10}')
                 ]),
                 address: new FormControl('', [
                     Validators.required

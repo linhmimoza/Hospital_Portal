@@ -6,8 +6,8 @@ import { CookieService } from 'ngx-cookie-service';
 declare var $: any;
 @Component({
     selector: 'manage-meeting',
-    templateUrl: './manage-meeting.component.html'
-    // styleUrls:['user-list.component.css']
+    templateUrl: './manage-meeting.component.html',
+    styleUrls:['manage-meeting.component.css']
 })
 export class ManageMeetingComponent {
     checkedMeetings: Meeting[] = [];
@@ -21,13 +21,6 @@ export class ManageMeetingComponent {
         if (this.roleCookie == 2 || this.roleCookie == 3 || this.roleCookie == 5) {
             this.loadChecked();
             this.loadWaiting();
-            $.getScript('assets/porto/javascripts/tables/examples.datatables.default.js', function () {
-                $.getScript('assets/porto/javascripts/tables/examples.datatables.row.with.details.js', function () {
-                    $.getScript('assets/porto/javascripts/tables/examples.datatables.tabletools.js', function () {
-
-                    });
-                });
-            });
         } else {
             alert("You don't have permission to view this page!");
             this.router.navigate(['/main/hospital-portal']);

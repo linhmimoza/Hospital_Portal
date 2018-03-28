@@ -10,7 +10,7 @@ import { CookieService } from 'ngx-cookie-service';
     styleUrls:['room-list.component.css']
 })
 export class RoomListComponent {
-
+    p: number = 1;
     rooms: Room[] = [];
     roleCookie: number;
     constructor(private router: Router,

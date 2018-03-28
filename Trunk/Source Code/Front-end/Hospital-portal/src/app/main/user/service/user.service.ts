@@ -72,4 +72,14 @@ export class UserService {
             });
         });
     }
+
+    loadUsersByDept(id) {
+        return new Promise((resolve, reject) => {
+            this.apiService.get(`getUserByDepartmentId/${id}`).then(res => {
+                resolve(res.json());             
+            }).catch(err => {
+                reject(err);             
+            });
+        });
+    }
 }

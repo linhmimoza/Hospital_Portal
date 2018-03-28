@@ -51,6 +51,8 @@ import { NotificationDetailComponent } from './main/notification/notification-de
 import { HospitalPortalComponent } from './main/hospital-portal/hospital-portal.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NotificationComponentService } from './main/notification/service/notification.component.service';
+import { ManageShiftSchedulerComponent } from './main/shiftScheduler/manage-shiftSchedule.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -79,7 +81,9 @@ const routes: Routes = [
       { path: 'demoPaging', component: DemoPagingComponent },
       { path: 'app-demo-schedule', component: DemoScheduleComponent},
       { path: 'employee-check', component: EmployeeCheckComponent},
-      { path: 'notification-list', component: NotificationListComponent}
+      { path: 'notification-list', component: NotificationListComponent},
+      { path: 'notification-detail', component: NotificationDetailComponent},
+      { path: 'manage-shiftSchedule', component: ManageShiftSchedulerComponent}
     ]
   },
   { path: 'login', component: LoginComponent, pathMatch: 'full' }
@@ -112,8 +116,9 @@ const routes: Routes = [
     DemoScheduleComponent,
     EmployeeCheckComponent,
     NotificationListComponent,
-    HospitalPortalComponent
-    
+    HospitalPortalComponent,
+    NotificationDetailComponent,
+    ManageShiftSchedulerComponent
   ],
   imports: [
     BrowserModule,
@@ -130,7 +135,7 @@ const routes: Routes = [
   providers: [
     NotificationService, LoadingService, LoginService, AccountService, ApiService, UserService,
     DepartmentService, RoleService, CategoryService, RoomService, MissionService,
-    ShiftSchedulerService, MeetingService, ArticleService, CookieService, SelectService, NotificationService
+    ShiftSchedulerService, MeetingService, ArticleService, CookieService, SelectService, NotificationComponentService
   ],
   bootstrap: [AppComponent]
 })

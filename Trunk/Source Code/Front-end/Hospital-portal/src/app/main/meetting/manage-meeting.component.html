@@ -16,7 +16,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="tabs tabs-primary">
       <ul class="nav nav-tabs">
         <li class="active">
@@ -30,16 +30,14 @@
       <div class="tab-content">
         <div id="popular1" class="tab-pane active">
           <div class="table-responsive">
-            <table class="table  " id="datatable-tabletools">
+            <table class="table">
               <colgroup>
+                <col />
                 <col width="150px" />
                 <col width="150px" />
                 <col width="150px" />
                 <col width="150px" />
                 <col width="150px" />
-                <col width="150px" />
-
-                <col width="50px" />
                 <col width="50px" />
               </colgroup>
               <thead>
@@ -49,10 +47,7 @@
                   <th>Date</th>
                   <th>Start Time</th>
                   <th>Duration</th>
-
-                  <th>Update Date</th>
                   <th>Status</th>
-                  <th class="hidden-phone"></th>
                   <th class="hidden-phone"></th>
                 </tr>
               </thead>
@@ -63,25 +58,15 @@
                   <td>{{meeting.date}}</td>
                   <td>{{meeting.startTime}}</td>
                   <td>{{meeting.duration}}</td>
-                  <td>{{meeting.updateDate}}</td>
-                  <td>{{meeting.status}}</td>
                   <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
-                  <!-- <td class="text-center">
-                                        <span [ngClass]="{'bg-primary':user.IsActived,'bg-danger':!user.IsActived}"> 
-                
-                                        <div class="grid-status" [ngClass]="{'bg-primary':user.IsActived,'bg-danger':!user.IsActived}">
-                
-                                            {{user.IsActived?'Hoạt động':'Khóa'}}
-                                        </div>
-                                    </td> -->
+                  <td class="text-center">
+                    <div class="grid-status" [ngClass]="{'bg-warning':meeting.status == 1,'bg-success':meeting.status == 2,'bg-danger':meeting.status == 3}">
+                      {{meeting.status == 1?'Waiting':''}} {{meeting.status == 2?'Accept':''}} {{meeting.status == 3?'Deny':''}}
+                    </div>
+                  </td>
                   <td align="center">
                     <a>
                       <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(meeting)"></i>
-                    </a>
-                  </td>
-                  <td align="center">
-                    <a class="text-danger remove-row">
-                      <i style="cursor:pointer" class="fa fa-trash-o text-danger" (click)="delete(meeting)"></i>
                     </a>
                   </td>
                 </tr>
@@ -92,69 +77,52 @@
 
         </div>
         <div id="recent1" class="tab-pane">
-            <div class="table-responsive">
-          <table class="table table-bordered table-striped mb-none" id="datatable-tabletools2">
-            <colgroup>
-              <col width="150px" />
-              <col width="150px" />
-              <col width="150px" />
-              <col width="150px" />
-              <col width="150px" />
-              <col width="150px" />
-
-              <col width="50px" />
-              <col width="50px" />
-            </colgroup>
-            <thead>
-              <tr>
-                <th>Meeting name</th>
-                <th>Room</th>
-                <th>Date</th>
-                <th>Start Time</th>
-                <th>Duration</th>
-
-                <th>Update Date</th>
-                <th>Status</th>
-                <th class="hidden-phone"></th>
-                <th class="hidden-phone"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let meeting of checkedMeetings" class="gradeX">
-                <td>{{meeting.meetingName}}</td>
-                <td>{{meeting.roomName}}</td>
-                <td>{{meeting.date}}</td>
-                <td>{{meeting.startTime}}</td>
-                <td>{{meeting.duration}}</td>
-                <td>{{meeting.updateDate}}</td>
-                <td>{{meeting.status}}</td>
-                <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
-                <!-- <td class="text-center">
-                                            <span [ngClass]="{'bg-primary':user.IsActived,'bg-danger':!user.IsActived}"> 
-                    
-                                            <div class="grid-status" [ngClass]="{'bg-primary':user.IsActived,'bg-danger':!user.IsActived}">
-                    
-                                                {{user.IsActived?'Hoạt động':'Khóa'}}
-                                            </div>
-                                        </td> -->
-                <td align="center">
-                  <a>
-                    <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(meeting)"></i>
-                  </a>
-                </td>
-                <td align="center">
-                  <a class="text-danger remove-row">
-                    <i style="cursor:pointer" class="fa fa-trash-o text-danger" (click)="delete(meeting)"></i>
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped mb-none">
+              <colgroup>
+                <col />
+                <col width="150px" />
+                <col width="150px" />
+                <col width="150px" />
+                <col width="150px" />
+                <col width="150px" />
+                <col width="50px" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>Meeting name</th>
+                  <th>Room</th>
+                  <th>Date</th>
+                  <th>Start Time</th>
+                  <th>Duration</th>
+                  <th>Status</th>
+                  <th class="hidden-phone"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let meeting of checkedMeetings" class="gradeX">
+                  <td>{{meeting.meetingName}}</td>
+                  <td>{{meeting.roomName}}</td>
+                  <td>{{meeting.date}}</td>
+                  <td>{{meeting.startTime}}</td>
+                  <td>{{meeting.duration}}</td>
+                  <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
+                  <td class="text-center">
+                    <div class="grid-status" [ngClass]="{'bg-warning':meeting.status == 1,'bg-success':meeting.status == 2,'bg-danger':meeting.status == 3}">
+                      {{meeting.status == 1?'Waiting':''}} {{meeting.status == 2?'Accept':''}} {{meeting.status == 3?'Deny':''}}
+                    </div>
+                  </td>
+                  <td align="center">
+                    <a>
+                      <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(meeting)"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
-
   </div>
-  
 </section>
