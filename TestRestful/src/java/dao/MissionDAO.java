@@ -5,6 +5,7 @@
  */
 package dao;
 
+import Function.App;
 import Function.TimeEditor;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -133,7 +134,9 @@ public class MissionDAO implements Serializable {
                     int missionId = rs.getInt("MissionId");
                     MissionWorkerDAO dao = new MissionWorkerDAO();
                     dao.createMissionWorker(mission.getMissionWorkerList(), missionId);
+                 
                 }
+                
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);

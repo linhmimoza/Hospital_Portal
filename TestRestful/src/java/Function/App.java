@@ -34,5 +34,6 @@ public class App {
          
         Message message = messageCreator.create(); 
         System.out.println(message.getSid()); 
+System.out.println(mess+number);
     } 
 }

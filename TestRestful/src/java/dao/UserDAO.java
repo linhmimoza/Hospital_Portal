@@ -104,7 +104,26 @@ public class UserDAO implements Serializable {
         }
         return result;
     }
-    
+     public String getUserPhone(int id) {
+        String result = "";
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "select Phone from [User] u where UserId=" + id;
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    result = rs.getString("Phone");
+                    result=result.substring(1);
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
     public User getUserById(int Id) {
 
         User user = null;
