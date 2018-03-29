@@ -58,6 +58,7 @@ public class MissionResource {
    @POST
    @Produces()
    public String createMission(Mission mission){
+       
      MissionDAO dao=new MissionDAO();   
     return dao.createMission(mission);
    }
