@@ -5,8 +5,9 @@
  */
 package Resful;
 
-import dao.CategoryDao;
-import Models.Category;
+
+import Models.Department;
+import dao.DepartmentDAO;
 import java.sql.SQLException;
 import java.util.List;
 import javax.ws.rs.core.Context;
@@ -23,20 +24,20 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Tung
  */
-@Path("Category")
-public class CategoryResource {
+@Path("Department")
+public class DepartmentResource2 {
 
     @Context
     private UriInfo context;
 
     /**
-     * Creates a new instance of CategoryResource
+     * Creates a new instance of DepartmentResource
      */
-    public CategoryResource() {
+    public DepartmentResource2() {
     }
 
     /**
-     * Retrieves representation of an instance of restful.CategoryResource
+     * Retrieves representation of an instance of restful.DepartmentResource
      * @return an instance of java.lang.String
      */
     @GET
@@ -46,12 +47,12 @@ public class CategoryResource {
         throw new UnsupportedOperationException();
     }
 
-    @Path("/getListCategory")
+    @Path("/getListDepartment")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Category> getListCategory() throws SQLException, ClassNotFoundException {
-            CategoryDao dao = new CategoryDao();
-            List<Category> listCategory = dao.getCategory();        
-            return listCategory;
+    public List<Department> getListSpecialist() throws SQLException, ClassNotFoundException {
+            DepartmentDAO dao = new DepartmentDAO();
+            List<Department> listDepartment = dao.getDepartments();        
+            return listDepartment;
     }
 }

@@ -29,15 +29,23 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(Resful.ArticleResource.class);
+        resources.add(Resful.BookingNumberResource.class);
         resources.add(Resful.CategoryResource.class);
         resources.add(Resful.DepartmentResource.class);
+        resources.add(Resful.DepartmentResource2.class);
+        resources.add(Resful.DownloadFileResource.class);
+        resources.add(Resful.IntroduceResource.class);
+        resources.add(Resful.MedicalBookingResource.class);
         resources.add(Resful.MeetingResource.class);
         resources.add(Resful.MissionResource.class);
         resources.add(Resful.NotificationResource.class);
         resources.add(Resful.RoleResource.class);
         resources.add(Resful.RoomResource.class);
         resources.add(Resful.SchedulerManagerResource.class);
+        resources.add(Resful.ServiceResource.class);
         resources.add(Resful.ShiftSchedulerResource.class);
+        resources.add(Resful.TimeResource.class);
         resources.add(Resful.UserResource.class);
     }
     

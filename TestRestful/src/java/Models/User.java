@@ -87,11 +87,8 @@ public class User implements Serializable {
     private List<Meeting> meetingList;
     @OneToMany(mappedBy = "user1")
     private List<Meeting> meetingList1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Article> articleList;
-    @OneToMany(mappedBy = "user1")
-    private List<Article> articleList1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+
+
     private List<Notification> notificationList;
     @OneToMany(mappedBy = "user1")
     private List<Notification> notificationList1;
@@ -348,22 +345,7 @@ public class User implements Serializable {
         this.meetingList1 = meetingList1;
     }
 
-    public List<Article> getArticleList() {
-        return articleList;
-    }
-
-    public void setArticleList(List<Article> articleList) {
-        this.articleList = articleList;
-    }
-
-    public List<Article> getArticleList1() {
-        return articleList1;
-    }
-
-    public void setArticleList1(List<Article> articleList1) {
-        this.articleList1 = articleList1;
-    }
-
+   
     public List<Notification> getNotificationList() {
         return notificationList;
     }

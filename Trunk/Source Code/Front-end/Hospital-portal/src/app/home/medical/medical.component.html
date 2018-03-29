@@ -65,7 +65,7 @@
                 <div class="col-md-12">
                   <select class="form-control input-lg mb-md" (change)="getServiceList($event.target.value)" name="id" [(ngModel)]="data.DepartmentId">
                     <option value="" selected>Please select</option>
-                    <option *ngFor="let item of list" value="{{item.id}}">{{item.name}}</option>
+                    <option *ngFor="let item of list" value="{{item.departmentId}}">{{item.departmentName}}</option>
                   </select>
                 </div>
               </div>

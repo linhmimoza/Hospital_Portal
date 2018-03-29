@@ -6,7 +6,7 @@
 package dao;
 
 import DBUtils.DBUtils;
-import Models.Category;
+import Models.BookingNumber;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author Tung
  */
-public class CategoryDao {
+public class BookingNumberDao {
     private PreparedStatement stm;
     private Connection con;
     private ResultSet rs;
@@ -35,26 +35,38 @@ public class CategoryDao {
             e.printStackTrace();
         }
     }
-    public List<Category> getCategory() throws SQLException, ClassNotFoundException {        
-        List<Category> listCategory = new ArrayList<>();
+    public String createBookingNumber(int BookingId) throws SQLException {
+        
+        String result = "Susscess";
         try {
-             con = DBUtils.makeConnection();
-            if (con != null){
-                String sql = "Select CategoryId, CategoryName, Description, Status from Category where Status=1";
+         con = DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "insert into BookingNumber(BookingId)values(?)";
                 stm = con.prepareStatement(sql);
-                rs = stm.executeQuery();
-                while (rs.next()){
-                    Integer categoryId = rs.getInt("CategoryId");
-                    String name = rs.getString("CategoryName");
-                    String description = rs.getString("Description");
-                    Integer status = rs.getInt("Status");
-                    Category ca = new Category(categoryId, status, name, description);
-                    listCategory.add(ca);
-                }
+                stm.setInt(1, BookingId);
+                rs=stm.executeQuery();
             }
+        } catch(Exception e){
+            e.printStackTrace();
+            result= "Failed";
         } finally {
             closeConnection();
         }
-        return listCategory;
+        return result;
+    }
+    public String resetBookingNumber(){
+        String result = "Susscess";
+        try{
+            String sql="Delete * from BookingNumber";
+      con = DBUtils.makeConnection();
+            stm=con.prepareStatement(sql);
+            stm.executeUpdate();
+        }catch(Exception e){
+            e.printStackTrace();
+            result= "Failed";
+        }finally{
+            closeConnection();
+        }
+    return result;
     }
 }

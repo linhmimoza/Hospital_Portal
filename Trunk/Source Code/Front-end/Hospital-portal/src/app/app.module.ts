@@ -103,7 +103,17 @@ const routes: Routes = [
       { path: 'setting', component: SettingComponent}
     ]
   },
-  { path: 'login', component: LoginComponent, pathMatch: 'full' }
+  { path: 'login', component: LoginComponent, pathMatch: 'full' },
+  {
+    path: 'home', component: HomeComponent,
+    children: [
+      { path: 'news/:id', component: NewsComponent },
+      { path: 'news-detail/:id', component: NewsDetailComponent },
+      { path: 'medical-booking', component: MedicalComponent },
+      { path: 'medical-detail', component: MedicalDetailComponent },
+      { path: 'main', component: HomeMainComponent },
+    ]
+  }
 ];
 
 

@@ -5,15 +5,12 @@
  */
 package Resful;
 
-import dao.CategoryDao;
-import Models.Category;
-import java.sql.SQLException;
-import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
@@ -23,35 +20,38 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Tung
  */
-@Path("Category")
-public class CategoryResource {
+@Path("Introduce")
+public class IntroduceResource {
 
     @Context
     private UriInfo context;
 
     /**
-     * Creates a new instance of CategoryResource
+     * Creates a new instance of IntroduceResource
      */
-    public CategoryResource() {
+    public IntroduceResource() {
     }
 
     /**
-     * Retrieves representation of an instance of restful.CategoryResource
+     * Retrieves representation of an instance of restful.IntroduceResource
      * @return an instance of java.lang.String
      */
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getText() {
+    @Produces(MediaType.APPLICATION_XML)
+    public String getXml() {
         //TODO return proper representation object
         throw new UnsupportedOperationException();
     }
 
-    @Path("/getListCategory")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Category> getListCategory() throws SQLException, ClassNotFoundException {
-            CategoryDao dao = new CategoryDao();
-            List<Category> listCategory = dao.getCategory();        
-            return listCategory;
+    /**
+     * PUT method for updating or creating an instance of IntroduceResource
+     * @param content representation for the resource
+     */
+    @Path("/test")
+    @POST
+    @Consumes(MediaType.APPLICATION_XML)
+    public String putXml(String content) {
+        return "POST";
     }
+    
 }

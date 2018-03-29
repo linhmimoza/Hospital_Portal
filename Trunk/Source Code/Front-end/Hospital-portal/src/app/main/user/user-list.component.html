@@ -37,15 +37,13 @@
                     </h5>
                 </label>
                 <div class="col-sm-7">
-                    <select class="form-control" [(ngModel)]="dropdownDept">
+                    <select class="form-control" [(ngModel)]="dropdownDept" (change)="loadUserByDept(dropdownDept)">
                         <option value="All">All</option>
                         <option *ngFor="let dept of departments" [ngValue]="dept.departmentId">{{dept.departmentName}}</option>
                     </select>
 
                 </div>
-                <div class="col-sm-1">
-                    <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary" (click)="loadUserByDept(dropdownDept)">Go</button>
-                </div>
+               
             </div>
         </div>
 
