@@ -56,7 +56,7 @@ public class MedicalBookingDao {
                 stm.setString(8, GuestAddress);
                 stm.setInt(9, GuestIdentity);
                 stm.setString(10, Note);
-                rs=stm.executeQuery();
+                stm.executeUpdate();
             }
         } catch(Exception e){
             e.printStackTrace();

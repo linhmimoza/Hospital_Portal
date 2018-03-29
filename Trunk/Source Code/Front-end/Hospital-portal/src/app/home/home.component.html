@@ -86,11 +86,19 @@
                                 </ul>
                             </li>
 
-                            <li class="nav-active">
-                                <a [routerLink]="['/login']">
-                                    <i class="fa fa-sign-in" aria-hidden="true"></i>
-                                    <span>Đăng nhập</span>
+                            <li class="nav-parent">
+                                <a>
+                                    <i class="fa fa-copy" aria-hidden="true"></i>
+                                    <span>Giới thiệu</span>
                                 </a>
+                                <ul class="nav nav-children">
+                                    <li (change)="getIntroduceList($event.target.value)" name="id" *ngFor="let item of introduceList">
+                                        <a  >
+                                            {{item.title}}
+                                        </a>
+                                    </li>
+                                    
+                                </ul>
                             </li>
 
                         </ul>

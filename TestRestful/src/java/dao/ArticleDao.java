@@ -43,7 +43,7 @@ public class ArticleDao {
     public List<Article> getListArticle(int categoryId) throws SQLException, ClassNotFoundException {
         List<Article> listArticle = new ArrayList<>();
         try {
-        con = DBUtils.makeConnection();
+            con = DBUtils.makeConnection();
             if (con != null) {
                 String sql = "Select a.*, u.FullName as uploadByUser, u1.FullName as updateByUser\n"
                         + "from Article a\n"
@@ -77,6 +77,7 @@ public class ArticleDao {
         }
         return listArticle;
     }
+
     public List<Article> getListArticleById(int id) throws SQLException, ClassNotFoundException {
         List<Article> listArticle = new ArrayList<>();
         try {
@@ -114,16 +115,18 @@ public class ArticleDao {
         }
         return listArticle;
     }
+
     public List<Article> getTopListArticle() throws SQLException, ClassNotFoundException {
         List<Article> listArticle = new ArrayList<>();
         try {
-           con = DBUtils.makeConnection();
+            con = DBUtils.makeConnection();
             if (con != null) {
                 String sql = "Select top 5 a.*, u.FullName as uploadByUser, u1.FullName as updateByUser\n"
                         + "from Article a\n"
                         + "left outer join [User] u on u.UserId = a.UploadBy\n"
                         + "left outer join [User] u1 on u1.UserId = a.UpdateBy \n"
-                        + "order by a.ArticleId desc AND a.Status=1";
+                        + " where a.Status=1 \n"
+                        + " order by a.ArticleId desc";
                 //select * from article order by id desc limit 5;
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
@@ -151,11 +154,12 @@ public class ArticleDao {
         }
         return listArticle;
     }
-    public String createArticle(String Title,int CategoryId, int UploadBy, String UploadDate, String Link, String Describe) throws SQLException, ClassNotFoundException {
-        
+
+    public String createArticle(String Title, int CategoryId, int UploadBy, String UploadDate, String Link, String Describe) throws SQLException, ClassNotFoundException {
+
         String result = "Susscess";
         try {
-      con = DBUtils.makeConnection();
+            con = DBUtils.makeConnection();
             if (con != null) {
                 String sql = "insert into Article(Title,CategoryId,UpdateBy,UpdateDate,UploadBy,UploadDate,Status,Link,Describe)values(?,?,?,?,?,?,?,?,?)";
                 stm = con.prepareStatement(sql);
@@ -168,24 +172,25 @@ public class ArticleDao {
                 stm.setInt(7, 2);
                 stm.setString(8, Link);
                 stm.setString(9, Describe);
-                rs=stm.executeQuery();
+                stm.executeUpdate();
             }
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-            result= "Failed";
+            result = "Failed";
         } finally {
             closeConnection();
         }
         return result;
     }
-    public String updateArticle(int id,String Title,String Describe,int UpdateBy,String UpdateDate) {
+
+    public String updateArticle(int id, String Title, String Describe, int UpdateBy, String UpdateDate) {
         String result = "Susscess";
         try {
-  con = DBUtils.makeConnection();
+            con = DBUtils.makeConnection();
             if (con != null) {
-                String sql = "update Article set Title='"+Title+"'"
-                        + ",UpdateBy="+UpdateBy+" ,UpdateDate='"+UpdateDate+"' ,Describe='"+Describe
-                        + "' where ArticleId="+id;           
+                String sql = "update Article set Title='" + Title + "'"
+                        + ",UpdateBy=" + UpdateBy + " ,UpdateDate='" + UpdateDate + "' ,Describe='" + Describe
+                        + "' where ArticleId=" + id;
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
 
@@ -198,12 +203,13 @@ public class ArticleDao {
         }
         return result;
     }
+
     public String disableArticle(int id) {
         String result = "Susscess";
         try {
-    con = DBUtils.makeConnection();
+            con = DBUtils.makeConnection();
             if (con != null) {
-                String sql = "update Article set Status=0 where ArticleId="+id;           
+                String sql = "update Article set Status=0 where ArticleId=" + id;
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
 
@@ -216,10 +222,11 @@ public class ArticleDao {
         }
         return result;
     }
+
     public List<Article> getListArticleByStatus(int status) throws SQLException, ClassNotFoundException {
         List<Article> listArticle = new ArrayList<>();
         try {
-          con = DBUtils.makeConnection();
+            con = DBUtils.makeConnection();
             if (con != null) {
                 String sql = "Select a.*, u.FullName as uploadByUser, u1.FullName as updateByUser\n"
                         + "from Article a\n"
@@ -253,12 +260,13 @@ public class ArticleDao {
         }
         return listArticle;
     }
+
     public String activeArticle(int id) {
         String result = "Susscess";
         try {
-  con = DBUtils.makeConnection();
+            con = DBUtils.makeConnection();
             if (con != null) {
-                String sql = "update Article set Status=1 where ArticleId="+id;           
+                String sql = "update Article set Status=1 where ArticleId=" + id;
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
 

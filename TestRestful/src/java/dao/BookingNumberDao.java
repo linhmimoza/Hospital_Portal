@@ -44,7 +44,7 @@ public class BookingNumberDao {
                 String sql = "insert into BookingNumber(BookingId)values(?)";
                 stm = con.prepareStatement(sql);
                 stm.setInt(1, BookingId);
-                rs=stm.executeQuery();
+                stm.executeUpdate();
             }
         } catch(Exception e){
             e.printStackTrace();
