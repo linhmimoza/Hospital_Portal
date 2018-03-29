@@ -56,5 +56,12 @@ public class NotificationResource {
     return dao.createNotification(notification);
 
    }
-    
+     @Path("/updateNotification")
+   @POST
+   @Produces()
+   public String updateNotification(Notification notification){
+     NotificationDAO dao=new NotificationDAO();   
+    return dao.updateNotification(notification);
+
+   }
 }

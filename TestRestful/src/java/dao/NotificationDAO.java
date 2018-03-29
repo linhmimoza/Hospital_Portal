@@ -5,6 +5,7 @@
  */
 package dao;
 
+import Function.TimeEditor;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.Date;
@@ -77,11 +78,11 @@ public class NotificationDAO implements Serializable {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
             
-          
+              TimeEditor time= new TimeEditor();
                   String  sql=" insert  Notification(NotificationName,Content,CreateDate,"
                           + "CreateBy,UpdateDate,UpdateBy,Status)\n" +
-"values('"+notify.getNotificationName()+"','"+notify.getContent()+"','"+notify.getCreateDate()+"'"
-                          + ","+notify.getCreateBy()+",'"+notify.getUpdateDate()+"',"+notify.getUpdateBy()+","+notify.getStatus()+")";
+"values('"+notify.getNotificationName()+"','"+notify.getContent()+"','"+time.getTime()+"'"
+                          + ","+notify.getCreateBy()+",'"+time.getTime()+"',"+notify.getCreateBy()+",1)";
                          System.out.println(sql);
                   stm = con.prepareStatement(sql);
               
@@ -96,4 +97,29 @@ result="Fail";
         }
         return result;
    }
+   
+    public String updateNotification(Notification notify){
+      String result="Success";
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+            
+                TimeEditor time= new TimeEditor();
+                  String  sql=" update Notification set NotificationName='"+notify.getNotificationName()+"', Content='"+notify.getContent()+"',\n" +
+"UpdateDate='"+time.getTime()+"',UpdateBy="+notify.getUpdateBy()+", Status="+notify.getStatus()+" where NotificationId="+notify.getNotificationId();
+                         System.out.println(sql);
+                  stm = con.prepareStatement(sql);
+              
+                stm.executeUpdate();
+
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+result="Fail";
+        } finally {
+            closeConnection();
+        }
+        return result;
+   }
+
 }
