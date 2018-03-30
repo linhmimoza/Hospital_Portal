@@ -81,7 +81,7 @@ public class NotificationDAO implements Serializable {
               TimeEditor time= new TimeEditor();
                   String  sql=" insert  Notification(NotificationName,Content,CreateDate,"
                           + "CreateBy,UpdateDate,UpdateBy,Status)\n" +
-"values('"+notify.getNotificationName()+"','"+notify.getContent()+"','"+time.getTime()+"'"
+"values('"+notify.getNotificationName().trim()+"','"+notify.getContent().trim()+"','"+time.getTime()+"'"
                           + ","+notify.getCreateBy()+",'"+time.getTime()+"',"+notify.getCreateBy()+",1)";
                          System.out.println(sql);
                   stm = con.prepareStatement(sql);
@@ -105,7 +105,7 @@ result="Fail";
             if (con != null) {
             
                 TimeEditor time= new TimeEditor();
-                  String  sql=" update Notification set NotificationName='"+notify.getNotificationName()+"', Content='"+notify.getContent()+"',\n" +
+                  String  sql=" update Notification set NotificationName='"+notify.getNotificationName().trim()+"', Content='"+notify.getContent().trim()+"',\n" +
 "UpdateDate='"+time.getTime()+"',UpdateBy="+notify.getUpdateBy()+", Status="+notify.getStatus()+" where NotificationId="+notify.getNotificationId();
                          System.out.println(sql);
                   stm = con.prepareStatement(sql);

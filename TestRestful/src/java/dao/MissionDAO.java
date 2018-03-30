@@ -124,8 +124,8 @@ public class MissionDAO implements Serializable {
             if (con != null) {
                 TimeEditor time= new TimeEditor();
                 String sql = "insert into Mission(Content,Createby,CreateDate,EndDate,Note,Place,StartDate,Status,Updateby,UpdateDate) OUTPUT INSERTED.MissionId\n"
-                        + "values('" + mission.getContent() + "'," + mission.getCreateby() + ",'" + time.getTime() + "','" + mission.getEndDate() + "',"
-                        + "'" + mission.getNote() + "','" + mission.getPlace() + "','" + mission.getStartDate() + "'"
+                        + "values('" + mission.getContent().trim() + "'," + mission.getCreateby() + ",'" + time.getTime() + "','" + mission.getEndDate() + "',"
+                        + "'" + mission.getNote().trim() + "','" + mission.getPlace().trim() + "','" + mission.getStartDate() + "'"
                         + ",1," + mission.getCreateby()+ ",'" + time.getTime()+ "')";
       
                 stm = con.prepareStatement(sql);
@@ -154,9 +154,9 @@ public class MissionDAO implements Serializable {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
                      TimeEditor time= new TimeEditor();
-                String sql = "update Mission set Content='"+mission.getContent()
-                        + "',EndDate='"+mission.getEndDate()+"',Note='"+mission.getNote()+"'\n"
-                        + ",Place='"+mission.getPlace()+"',StartDate='"+mission.getStartDate()+"',"
+                String sql = "update Mission set Content='"+mission.getContent().trim()
+                        + "',EndDate='"+mission.getEndDate()+"',Note='"+mission.getNote().trim()+"'\n"
+                        + ",Place='"+mission.getPlace().trim()+"',StartDate='"+mission.getStartDate()+"',"
                         + "Status="+mission.getStatus()+",Updateby="+mission.getUpdateby()+","
                         + "UpdateDate='"+time.getTime()+"' where MissionId="+mission.getMissionId();        
                             
