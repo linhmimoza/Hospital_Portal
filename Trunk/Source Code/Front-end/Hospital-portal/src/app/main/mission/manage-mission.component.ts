@@ -26,8 +26,10 @@ export class ManageMissionComponent {
                 // this.loadingService.stop();
             });
 
-        }
-        else {
+        } else if (this.roleCookie == 0) {
+            alert("You don't have permission to view this page!");
+            this.router.navigate(['/login']);
+        } else {
             alert("You don't have permission to view this page!");
             this.router.navigate(['/main/hospital-portal']);
         }

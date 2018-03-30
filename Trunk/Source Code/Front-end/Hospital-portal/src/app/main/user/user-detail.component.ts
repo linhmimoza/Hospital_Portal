@@ -61,12 +61,8 @@ export class UserDetailComponent {
                     Validators.required,
                     Validators.pattern('^0[0-9]{9,10}')
                 ]),
-                address: new FormControl('', [
-                    Validators.required
-                ]),
-                certificate: new FormControl('', [
-                    Validators.required
-                ]),
+                address: new FormControl(''),
+                certificate: new FormControl(''),
                 departmentId: new FormControl(''),
                 roleId: new FormControl(''),
                 status: new FormControl(''),
@@ -202,7 +198,8 @@ export class UserDetailComponent {
             if (this.id > 0) {
                 this.userService.updateUser(user).then((res: string) => {
                     this.response = res;
-                    console.log(this.response);
+                    // debugger
+                    // console.log(this.response);
                     // this.notificationService.success("Success").then(() => {
                     //     this.router.navigate(['/main/user-list']);
                     // });

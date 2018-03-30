@@ -42,7 +42,6 @@ import { CreateShiftSchedulerComponent } from './main/shiftScheduler/createShift
 import { CookieService } from 'ngx-cookie-service';
 import { NotificationService } from './main/extra/notification.service';
 import { LoadingService } from './main/extra/loading.service';
-import { DemoPagingComponent } from './main/demoPaging/demoPaging.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DemoScheduleComponent } from './main/demo-schedule/demo-schedule.component';
 import { EmployeeCheckComponent } from './main/demo-schedule/employee-check.component';
@@ -90,7 +89,6 @@ const routes: Routes = [
       { path: 'meeting-detail/:id', component: MeetingDetailComponent },
       { path: 'article-list', component: ArticleListComponent },
       { path: 'article-detail/:id', component: ArticleDetailComponent },
-      { path: 'demoPaging', component: DemoPagingComponent },
       { path: 'app-demo-schedule', component: DemoScheduleComponent},
       { path: 'employee-check', component: EmployeeCheckComponent},
       { path: 'notification-list', component: NotificationListComponent},
@@ -139,7 +137,6 @@ const routes: Routes = [
     ManageMeetingComponent,
     ArticleListComponent,
     ArticleDetailComponent,
-    DemoPagingComponent,
     DemoScheduleComponent,
     EmployeeCheckComponent,
 
