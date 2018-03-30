@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { Notification } from './shared/notification.model';
 import { NotificationComponentService } from './service/notification.component.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: 'notification-detail',
@@ -14,9 +15,9 @@ export class NotificationDetailComponent {
     id: number = 0;
     title: string;
     notifications: Notification[] = [];
+    roleCookie: number;
     constructor(private route: ActivatedRoute, private router: Router,
-        private notificationService: NotificationComponentService) {
-
+        private notificationService: NotificationComponentService, private cookieService: CookieService) {
     }
 
     back() {
@@ -24,23 +25,32 @@ export class NotificationDetailComponent {
     }
 
     ngOnInit() {
-        this.routerSubcription = this.route.params.subscribe(params => {
-            this.id = +params['id']; // (+) converts string 'id' to a number        
-            this.notificationService.getList().then((notifications: Notification[]) => {
-                this.notifications = notifications;
-                if (this.id == 0) this.notification.notificationId = notifications[0].notificationId;
+        this.roleCookie = +this.cookieService.get("Auth-RoleId");
+        if (this.roleCookie == 2 || this.roleCookie == 3 || this.roleCookie == 5) {
+            this.routerSubcription = this.route.params.subscribe(params => {
+                this.id = +params['id']; // (+) converts string 'id' to a number        
+                this.notificationService.getList().then((notifications: Notification[]) => {
+                    this.notifications = notifications;
+                    if (this.id == 0) this.notification.notificationId = notifications[0].notificationId;
+                });
+                // if (this.id > 0) {
+                //     this.title = "You are updating notification";
+                //     this.notificationService.getDepartment(this.id).then((res: Notification) => {
+                //         this.notification = res;
+                //     }).catch(err => {
+                //         console.log(err);
+                //     });
+                // } else {
+                //     this.title = "You are creating new notification";
+                // }
             });
-            // if (this.id > 0) {
-            //     this.title = "You are updating notification";
-            //     this.notificationService.getDepartment(this.id).then((res: Notification) => {
-            //         this.notification = res;
-            //     }).catch(err => {
-            //         console.log(err);
-            //     });
-            // } else {
-            //     this.title = "You are creating new notification";
-            // }
-        });
+        } else if (this.roleCookie == 0) {
+            alert("You don't have permission to view this page!");
+            this.router.navigate(['/login']);
+        } else {
+            alert("You don't have permission to view this page!");
+            this.router.navigate(['/main/hospital-portal']);
+        }
     }
     // save() {
     //     this.routerSubcription = this.route.params.subscribe(params => {
