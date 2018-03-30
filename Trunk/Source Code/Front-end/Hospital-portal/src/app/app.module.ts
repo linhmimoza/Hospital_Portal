@@ -64,6 +64,7 @@ import { ActiveServiceComponent } from './main/service/active-service/active-ser
 import { HomeComponent } from './home/home.component';
 import { MedicalComponent } from './home/medical/medical.component';
 import { MedicalDetailComponent } from './home/medical/medical-detail/medical-detail.component';
+import { IntroduceComponent } from './home/introduce/introduce.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home/main', pathMatch: 'full' },
@@ -96,7 +97,7 @@ const routes: Routes = [
       { path: 'manage-shiftSchedule', component: ManageShiftSchedulerComponent},
       { path: 'news', component: AdminNewsComponent},
       { path: 'manage-news/:id', component: ManageNewsComponent},
-      { path: 'manage-service', component: ManageServiceComponent},
+      { path: 'manage-service/:id', component: ManageServiceComponent},
       { path: 'service', component: AdminServiceComponent},
       { path: 'setting', component: SettingComponent}
     ]
@@ -110,6 +111,7 @@ const routes: Routes = [
       { path: 'medical-booking', component: MedicalComponent },
       { path: 'medical-detail', component: MedicalDetailComponent },
       { path: 'main', component: HomeMainComponent },
+      { path: 'introduce/:id', component: IntroduceComponent },
     ]
   }
 ];
@@ -156,7 +158,8 @@ const routes: Routes = [
     AdminServiceComponent,
     ManageServiceComponent,
     SettingComponent,
-    ActiveServiceComponent
+    ActiveServiceComponent,
+    IntroduceComponent
   ],
   imports: [
     BrowserModule,

@@ -7,12 +7,12 @@
         <div class="form-group">
           <select class="form-control input-lg mb-md" name="id" [(ngModel)]="id" *ngIf="departmentList?.length" (change)="getService($event.target.value)">
             <option value="" selected>Please select</option>
-            <option *ngFor="let option of departmentList" value="{{option.id}}">{{option.name}}</option>
+            <option *ngFor="let option of departmentList" value="{{option.departmentId}}">{{option.departmentName}}</option>
           </select>
         </div>
       </div>
       <div class="col-md-2">
-        <a [routerLink]="['/main/manage-service']" class="btn btn-primary" style="width:100%">Add Service</a>
+        <a [routerLink]="['/main/manage-service/-1']" class="btn btn-primary" style="width:100%">Add Service</a>
       </div>
     </div>
     <div class="row">
@@ -39,7 +39,7 @@
                     <td>{{item.serviceName}}</td>
                     <td>{{item.description}}</td>
                     <td style="cursor: pointer; color: black">
-                      <a [routerLink]="['/main/manage-news', item.serviceId]">
+                      <a [routerLink]="['/main/manage-service', item.serviceId]">
                         <i class="fa fa-pencil"></i>
                       </a>
                       |

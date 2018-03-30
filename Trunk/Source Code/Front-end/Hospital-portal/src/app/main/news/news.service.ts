@@ -7,8 +7,6 @@ import { DOWNLOAD_LINK, SERVER, OPTIONS } from '../../constant/commonConstant';
 
 import { ApiService } from '../../../app/api.service';
 
-const host = 'http://localhost:8080/Datlich/webresources/';
-
 @Injectable()
 export class AdminNewsService {
     private opts: any;
@@ -22,15 +20,15 @@ export class AdminNewsService {
     }
 
     download(name): Observable<any> {
-        return this._http.get(`${host}DownloadFile/DownloadFile?FileName=${name}`, this.opts).map(res => res.json());
+        return this._http.get(`${SERVER}DownloadFile/DownloadFile?FileName=${name}`, this.opts).map(res => res.json());
     }
 
     getNewsList(categoryId): Observable<any> {
-        return this._http.get(`${host}Article/getListArticle?CategoryId=${categoryId}`, this.opts).map(res => res.json());
+        return this._http.get(`${SERVER}Article/getListArticle?CategoryId=${categoryId}`, this.opts).map(res => res.json());
     }
 
     getDetail(id): Observable<any> {
-        return this._http.get(`${host}Article/getListArticleById?Id=${id}`, this.opts).map(res => res.json());
+        return this._http.get(`${SERVER}Article/getListArticleById?Id=${id}`, this.opts).map(res => res.json());
     }
 
     getFile(name) {

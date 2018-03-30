@@ -7,7 +7,7 @@ const DOWNLOAD_LINK = 'http://localhost:8080/TestRestful/webresources/DownloadFi
 const SERVER = 'http://localhost:8080/TestRestful/webresources/';
 const headers = new Headers({ 'Content-Type': 'application/json' });
 const OPTIONS = new RequestOptions({ headers });
-const SUCCESS = 'Susscess';
+const SUCCESS = 'Success';
 
 export { DOWNLOAD_LINK, SERVER, OPTIONS, SUCCESS
 

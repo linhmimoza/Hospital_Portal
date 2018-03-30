@@ -88,5 +88,14 @@ public class TimeResource {
         }
         return Response.status(204).build();
     }
+    @Path("/updateAmountTime")
+    @GET
+    @Produces()
+    public String updateAmountTime(
+            @QueryParam("Amount") int Amount,
+            @QueryParam("date") String date) throws SQLException {
+        TimeDao dao = new TimeDao();
+        return dao.updateAmountTime(Amount, date);
+    }
 
 }

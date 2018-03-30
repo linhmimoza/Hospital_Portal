@@ -40,7 +40,7 @@ public class MedicalBookingDao {
     }
     public String createMedicalBooking(int DepartmentId, int ServiceId, int TimeId, String CreateDate, String GuestName, String GuestPhone, String GuestEmail, String GuestAddress, int GuestIdentity, String Note) throws SQLException {
         
-        String result = "Susscess";
+        String result = "Success";
         try {
               con = DBUtils.makeConnection();
             if (con != null) {
@@ -56,7 +56,7 @@ public class MedicalBookingDao {
                 stm.setString(8, GuestAddress);
                 stm.setInt(9, GuestIdentity);
                 stm.setString(10, Note);
-                rs=stm.executeQuery();
+                stm.executeUpdate();
             }
         } catch(Exception e){
             e.printStackTrace();

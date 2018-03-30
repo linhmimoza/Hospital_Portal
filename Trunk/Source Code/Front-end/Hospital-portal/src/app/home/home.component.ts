@@ -12,6 +12,7 @@ declare var $: any;
 })
 export class HomeComponent implements OnInit, AfterViewInit {
   public categoryList: any[];
+  public introduceList: any[];
   public data: any;
 
   constructor(private _homeSrv: HomeService) {
@@ -19,16 +20,29 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this._homeSrv.getCategoryList().subscribe(res => {
-      if (res.length) {
-        this.categoryList = res;
-      }
-    });
+    this.getCategory();
+    this.getIntroduceList();
 
     setInterval(() => {
       const now = moment().utc().hour();
       if (now === 0) { this._homeSrv.resetBookingNumber().subscribe(res => console.log('reseted')); }
     }, 60000);
+  }
+
+  getCategory() {
+    this._homeSrv.getCategoryList().subscribe(res => {
+      if (res.length) {
+        this.categoryList = res;
+      }
+    });
+  }
+
+  getIntroduceList() {
+    this._homeSrv.getIntroduceList().subscribe(res => {
+      if (res.length) {
+        this.introduceList = res;
+      }
+    });
   }
 
   loadScript(path) {

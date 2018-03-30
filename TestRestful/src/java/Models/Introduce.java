@@ -11,10 +11,25 @@ package Models;
  */
 public class Introduce {
     int id,status,uploadBy,updateBy;
-    String title,content,uploadDay,updateDay;
+    String title,content,uploadDay,updateDay,uploadByUser,updateByUser;
 
     public Introduce() {
     }
+
+    public Introduce(int id, int status, String title, String content, String uploadDay, String updateDay, String uploadByUser, String updateByUser) {
+        this.id = id;
+        this.status = status;
+        this.title = title;
+        this.content = content;
+        this.uploadDay = uploadDay;
+        this.updateDay = updateDay;
+        this.uploadByUser = uploadByUser;
+        this.updateByUser = updateByUser;
+    }
+
+    
+    
+    
 
     public Introduce(int id, int status, int uploadBy, int updateBy, String title, String content, String uploadDay, String updateDay) {
         this.id = id;
@@ -25,6 +40,22 @@ public class Introduce {
         this.content = content;
         this.uploadDay = uploadDay;
         this.updateDay = updateDay;
+    }
+
+    public String getUploadByUser() {
+        return uploadByUser;
+    }
+
+    public void setUploadByUser(String uploadByUser) {
+        this.uploadByUser = uploadByUser;
+    }
+
+    public String getUpdateByUser() {
+        return updateByUser;
+    }
+
+    public void setUpdateByUser(String updateByUser) {
+        this.updateByUser = updateByUser;
     }
 
     public int getId() {

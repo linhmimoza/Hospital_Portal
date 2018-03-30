@@ -17,6 +17,10 @@ export class HomeService {
         return this._http.get(`${SERVER}Category/getListCategory`, OPTIONS).map(res => res.json());
     }
 
+    getIntroduceList(): Observable<any> {
+        return this._http.get(`${SERVER}Introduce/getListIntroduce`, OPTIONS).map(res => res.json());
+    }
+
     resetBookingNumber() {
         return this._http.get(`${SERVER}BookingNumber/resetBookingNumber`).map(res => res);
     }

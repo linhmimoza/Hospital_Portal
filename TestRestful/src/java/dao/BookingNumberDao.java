@@ -37,14 +37,14 @@ public class BookingNumberDao {
     }
     public String createBookingNumber(int BookingId) throws SQLException {
         
-        String result = "Susscess";
+        String result = "Success";
         try {
          con = DBUtils.makeConnection();
             if (con != null) {
                 String sql = "insert into BookingNumber(BookingId)values(?)";
                 stm = con.prepareStatement(sql);
                 stm.setInt(1, BookingId);
-                rs=stm.executeQuery();
+                stm.executeUpdate();
             }
         } catch(Exception e){
             e.printStackTrace();
@@ -55,7 +55,7 @@ public class BookingNumberDao {
         return result;
     }
     public String resetBookingNumber(){
-        String result = "Susscess";
+        String result = "Success";
         try{
             String sql="Delete * from BookingNumber";
       con = DBUtils.makeConnection();

@@ -86,7 +86,7 @@ public class ServiceDao {
     }
     public String createService(String ServiceName,String Description,int DepartmentId) throws SQLException {
         
-        String result = "Susscess";
+        String result = "Success";
         try {
   con = DBUtils.makeConnection();
             if (con != null) {
@@ -95,7 +95,7 @@ public class ServiceDao {
                 stm.setString(1, ServiceName);
                 stm.setString(2, Description);
                 stm.setInt(3, DepartmentId);
-                rs=stm.executeQuery();
+                stm.executeUpdate();
             }
         } catch(Exception e){
             e.printStackTrace();
@@ -106,7 +106,7 @@ public class ServiceDao {
         return result;
     }
     public String updateService(int id,String ServiceName,String Description,int DepartmentId) {
-        String result = "Susscess";
+        String result = "Success";
         try {
       con = DBUtils.makeConnection();
             if (con != null) {
@@ -126,7 +126,7 @@ public class ServiceDao {
         return result;
     }
     public String disableService(int id) {
-        String result = "Susscess";
+        String result = "Success";
         try {
        con = DBUtils.makeConnection();
             if (con != null) {
@@ -167,7 +167,7 @@ public class ServiceDao {
         return listService;
     }
     public String activeService(int id) {
-        String result = "Susscess";
+        String result = "Success";
         try {
    con = DBUtils.makeConnection();
             if (con != null) {
