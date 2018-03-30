@@ -255,7 +255,7 @@ public boolean isEmailExited(String email){
             if (con != null) {
                 String sql = "UPDATE [User]\n"
                         + "SET Address = '" + user.getAddress().trim() + "', "
-                        + "Avatar='" + user.getAvatar().trim() + "', Certificate='" + user.getCertificate().trim() + "', \n"
+                        + "Avatar='" + user.getAvatar() + "', Certificate='" + user.getCertificate() + "', \n"
                         + "DayOfBirth='" + user.getDayOfBirth() + "',DepartmentId=" + user.getDepartmentId() +  ","
                         + "FullName='" + user.getFullName().trim() + "',\n"
                         +  "Phone='" + user.getPhone().trim() + "',Position='" + user.getPosition() + "',RoleId=" + user.getRoleId() + ",Sex='" + user.getSex() + "',Status=" + user.getStatus() + "\n"
@@ -290,8 +290,8 @@ public boolean isEmailExited(String email){
             if (con != null) {
                 String sql = "insert	into [User](Address,Avatar,Certificate,DayOfBirth,DepartmentId,"
                         + "Email,FullName,Password,Phone,Position,RoleId,Sex,Status,UserName)\n"
-                        + "values('" + user.getAddress().trim() + "','" + user.getAvatar().trim() + "',"
-                        + "'" + user.getCertificate().trim() + "',"
+                        + "values('" + user.getAddress().trim() + "','" + user.getAvatar() + "',"
+                        + "'" + user.getCertificate() + "',"
                         + "'" + user.getDayOfBirth() + "'," + user.getDepartmentId() + ","
                         + "'" + user.getEmail().trim() + "','" + user.getFullName().trim() + "','123',"
                         + "'" + user.getPhone() + "','" + user.getPosition() + "'," + user.getRoleId() + ",'" + user.getSex() + "',"
