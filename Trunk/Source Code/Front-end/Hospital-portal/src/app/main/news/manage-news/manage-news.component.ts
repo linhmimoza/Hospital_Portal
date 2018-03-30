@@ -3,6 +3,7 @@ import { Params } from '@angular/router/src/shared';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
+import { CookieService } from 'ngx-cookie-service';
 
 import { AdminNewsService } from '../news.service';
 import { HomeService } from '../../../home/home.service';
@@ -26,6 +27,7 @@ export class ManageNewsComponent implements OnInit {
     , private activatedRoute: ActivatedRoute
     , private _homeSrv: HomeService
     , private _router: Router
+    , private _cookieSrv: CookieService
   ) {
     this.news = {};
   }
@@ -46,10 +48,11 @@ export class ManageNewsComponent implements OnInit {
   }
 
   save() {
+    const userId = this._cookieSrv.get('Auth-UserId');
     if (this.command === CREATE) {
       const data = `CategoryId=${this.news.CategoryId}&` +
         `Title=${this.news.title}&` +
-        `UploadBy=1&` +
+        `UploadBy=${userId}&` +
         `UploadDate=${moment().format('YYYY-MM-DD HH:mm:ss.SSS')}&` +
         `Link=thu.jpg&` +
         `Describe=${this.news.describe}`;
@@ -62,7 +65,7 @@ export class ManageNewsComponent implements OnInit {
       const data = `ArticleId=${this.news.articleId}&` +
         `Title=${this.news.title}&` +
         `Describe=${this.news.describe}&` +
-        `UpdateBy=1&` +
+        `UpdateBy=${userId}&` +
         `UpdateDate=${this.news.uploadDate}`;
       this._newsSrv.update(data).subscribe(res => {
         if (res._body === SUCCESS) {

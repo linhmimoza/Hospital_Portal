@@ -93,7 +93,7 @@
                                 </a>
                                 <ul class="nav nav-children">
                                     <li (change)="getIntroduceList($event.target.value)" name="id" *ngFor="let item of introduceList">
-                                        <a  >
+                                        <a [routerLink]="['/home/introduce', item.id]" >
                                             {{item.title}}
                                         </a>
                                     </li>
