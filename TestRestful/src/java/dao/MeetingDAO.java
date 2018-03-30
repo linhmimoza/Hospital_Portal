@@ -379,12 +379,10 @@ public String updateMeeting(Meeting meeting) {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
                    TimeEditor time= new TimeEditor();
-                String sql = "insert into Meeting(RoomId,MeetingName,StartTime,Duration,Date,\n" +
-"Content,Note,CreateBy,CreateDate,UpdateBy,UpdateDate,Status)\n" +
-"Values("+meeting.getRoomId()+",'"+meeting.getMeetingName().trim()+"',"
-                        + "'"+meeting.getStartTime()+"','"+meeting.getDuration()+"','"+meeting.getDate()+"'"
-                        + ",'"+meeting.getContent().trim()+"','"+meeting.getNote().trim()+"',"+meeting.getCreateBy()+","
-                        + "'"+time.getTime()+"',"+meeting.getUpdateBy()+",'"+time.getTime()+"',1)" ;     
+                String sql = "update Meeting set RoomId="+meeting.getRoomId()+", MeetingName='"+meeting.getMeetingName().trim()+"'"
+                        + ", StartTime='"+meeting.getStartTime()+"', Duration='"+meeting.getDuration()+"',\n" +
+"Date='"+meeting.getDate()+"', Content='"+meeting.getContent().trim()+"', Note='"+meeting.getNote().trim()+"', \n" +
+"UpdateBy="+meeting.getUpdateBy()+",UpdateDate='"+time.getTime()+"', Status="+meeting.getStatus()+" where MeetingId="+meeting.getMeetingId() ;     
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
                 
