@@ -31,9 +31,7 @@ export class UserService {
     updateUser(user: User) {
         return new Promise((resolve, reject) => {
             this.apiService.post('updateUser', user).then(res => {
-                debugger
-                console.log(res.text());
-                resolve();
+                resolve(res.text());
             }).catch(err => {
                 reject(err);
             });
@@ -43,9 +41,7 @@ export class UserService {
     createUser(user: User) {
         return new Promise((resolve, reject) => {
             this.apiService.post('createUser', user).then(res => {
-                debugger
-                console.log(res);
-                resolve(res);
+                resolve(res.text());
             }).catch(err => {
                 reject(err);
             });
@@ -53,10 +49,10 @@ export class UserService {
     }
 
     deleteUser(id) {
-        return new Promise<User>((resolve, reject) => {
-            this.apiService.get(`deleteUser/${id}`).then(() => {
+        return new Promise((resolve, reject) => {
+            this.apiService.get(`deleteUser/${id}`).then(res => {
                 // this.apiService.post('deleteUser', id).then(() => {
-                resolve();
+                resolve(res.text());
                 alert("Success");
             }).catch(err => {
                 reject(err);
@@ -66,9 +62,9 @@ export class UserService {
     }
 
     activeUser(id) {
-        return new Promise<User>((resolve, reject) => {
-            this.apiService.get(`activeUser/${id}`).then(() => {
-                resolve();
+        return new Promise((resolve, reject) => {
+            this.apiService.get(`activeUser/${id}`).then(res => {
+                resolve(res.text());
                 alert("Success");
             }).catch(err => {
                 reject(err);

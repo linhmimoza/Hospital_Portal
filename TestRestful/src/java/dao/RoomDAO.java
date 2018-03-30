@@ -91,7 +91,7 @@ Connection con = null;
         return room;
     }
      public String updateRoom(Room room) {
-        String result = "Susscess";
+        String result = "Success";
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
@@ -110,7 +110,7 @@ Connection con = null;
         return result;
     }
     public String createRoom(Room room) {
-        String result = "Susscess";
+        String result = "Success";
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {

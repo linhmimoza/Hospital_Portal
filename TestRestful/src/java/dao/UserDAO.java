@@ -249,7 +249,7 @@ public boolean isEmailExited(String email){
         return result;
     }
     public String updateUser(User user) {
-        String result = "Susscess";
+        String result = "Success";
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
@@ -312,7 +312,7 @@ public boolean isEmailExited(String email){
     }
 
     public String deleteUser(int userId) {
-        String result = "Susscess";
+        String result = "Success";
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
@@ -332,7 +332,7 @@ public boolean isEmailExited(String email){
         return result;
     }
      public String activeUser(int userId) {
-        String result = "Susscess";
+        String result = "Success";
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
