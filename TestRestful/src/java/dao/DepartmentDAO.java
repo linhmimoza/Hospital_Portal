@@ -107,8 +107,8 @@ public class DepartmentDAO implements Serializable {
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                String sql = "update Department set DepartmentName='"+department.getDepartmentName()+"'"
-                        + ",Description='"+department.getDescription()+"' ,Code='"+department.getCode()+"' ,Status="+department.getStatus()+
+                String sql = "update Department set DepartmentName='"+department.getDepartmentName().trim()+"'"
+                        + ",Description='"+department.getDescription().trim()+"' ,Code='"+department.getCode().trim()+"' ,Status="+department.getStatus()+
                         " where DepartmentId="+department.getDepartmentId();           
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
@@ -149,12 +149,24 @@ public class DepartmentDAO implements Serializable {
     }
       public String createDepartment(Department department) {
         String result = "Susscess";
+        if (isNameExited(department.getDepartmentName())){
+            if (isCodeExited(department.getCode())){
+                result="Name and code  exited";
+            }
+            else result="Name exited";
+        }else{
+            if (isCodeExited(department.getCode())){
+                result="Code exited";
+            }
+            else{     
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                String sql = "insert into Department(DepartmentName,Description,Status,Code)"
-                        + " values('"+department.getDepartmentName()+"','"+department.getDescription()+"',"
-                        + "1,'"+department.getCode()+"')";           
+                
+                 
+             String   sql = "insert into Department(DepartmentName,Description,Status,Code)"
+                        + " values('"+department.getDepartmentName().trim()+"','"+department.getDescription().trim()+"',"
+                        + "1,'"+department.getCode().trim()+"')";           
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
 
@@ -162,6 +174,48 @@ public class DepartmentDAO implements Serializable {
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
             result = "Failed";
+        } finally {
+            closeConnection();
+        }}}
+        return result;
+    }
+      public boolean isNameExited(String name){
+        boolean result=false;
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                 String sql="select DepartmentId from Department where  DepartmentName='"+name.trim()+"'";
+                stm = con.prepareStatement(sql);
+                System.out.println(sql);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    result = true;
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+         
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
+      public boolean isCodeExited(String code){
+        boolean result=false;
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                 String sql="select DepartmentId from Department where Code='"+code.trim()+"'";
+                   System.out.println(sql);
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    result = true;
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+         
         } finally {
             closeConnection();
         }

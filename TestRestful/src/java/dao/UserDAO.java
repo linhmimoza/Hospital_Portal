@@ -104,7 +104,26 @@ public class UserDAO implements Serializable {
         }
         return result;
     }
-    
+     public String getUserPhone(int id) {
+        String result = "";
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "select Phone from [User] u where UserId=" + id;
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    result = rs.getString("Phone");
+                    result=result.substring(1);
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
     public User getUserById(int Id) {
 
         User user = null;
@@ -193,7 +212,7 @@ public class UserDAO implements Serializable {
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                String sql = "select UserId from [User] where UserName='"+userName+"' and Status<2";
+                String sql = "select UserId from [User] where UserName='"+userName+"'";
                 stm = con.prepareStatement(sql);
      
                 rs = stm.executeQuery();
@@ -214,7 +233,7 @@ public boolean isEmailExited(String email){
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                String sql = "select UserId from [User] where Email='"+email+"' and Status<2";
+                String sql = "select UserId from [User] where Email='"+email+"'";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 if (rs.next()) {
@@ -235,9 +254,11 @@ public boolean isEmailExited(String email){
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
                 String sql = "UPDATE [User]\n"
-                        + "SET Address = '" + user.getAddress() + "', Avatar='" + user.getAvatar() + "', Certificate='" + user.getCertificate() + "', \n"
-                        + "DayOfBirth='" + user.getDayOfBirth() + "',DepartmentId=" + user.getDepartmentId() +  ",FullName='" + user.getFullName() + "',\n"
-                        +  "Phone='" + user.getPhone() + "',Position='" + user.getPosition() + "',RoleId=" + user.getRoleId() + ",Sex='" + user.getSex() + "',Status=" + user.getStatus() + "\n"
+                        + "SET Address = '" + user.getAddress().trim() + "', "
+                        + "Avatar='" + user.getAvatar() + "', Certificate='" + user.getCertificate() + "', \n"
+                        + "DayOfBirth='" + user.getDayOfBirth() + "',DepartmentId=" + user.getDepartmentId() +  ","
+                        + "FullName='" + user.getFullName().trim() + "',\n"
+                        +  "Phone='" + user.getPhone().trim() + "',Position='" + user.getPosition() + "',RoleId=" + user.getRoleId() + ",Sex='" + user.getSex() + "',Status=" + user.getStatus() + "\n"
                         + "WHERE UserId=" + user.getUserId();
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
@@ -269,11 +290,12 @@ public boolean isEmailExited(String email){
             if (con != null) {
                 String sql = "insert	into [User](Address,Avatar,Certificate,DayOfBirth,DepartmentId,"
                         + "Email,FullName,Password,Phone,Position,RoleId,Sex,Status,UserName)\n"
-                        + "values('" + user.getAddress() + "','" + user.getAvatar() + "','" + user.getCertificate() + "',"
+                        + "values('" + user.getAddress().trim() + "','" + user.getAvatar() + "',"
+                        + "'" + user.getCertificate() + "',"
                         + "'" + user.getDayOfBirth() + "'," + user.getDepartmentId() + ","
-                        + "'" + user.getEmail() + "','" + user.getFullName() + "','123',"
+                        + "'" + user.getEmail().trim() + "','" + user.getFullName().trim() + "','123',"
                         + "'" + user.getPhone() + "','" + user.getPosition() + "'," + user.getRoleId() + ",'" + user.getSex() + "',"
-                        + "1,'" + user.getUserName() + "')";
+                        + "1,'" + user.getUserName().trim() + "')";
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
 

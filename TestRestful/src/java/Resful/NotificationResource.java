@@ -14,6 +14,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
@@ -47,6 +48,20 @@ public class NotificationResource {
             List<Notification> listShiftSchedule = dao.getNotifications();         
             return listShiftSchedule;
     }
+  @Path("/createNotification")
+   @POST
+   @Produces()
+   public String createNotification(Notification notification){
+     NotificationDAO dao=new NotificationDAO();   
+    return dao.createNotification(notification);
 
-    
+   }
+     @Path("/updateNotification")
+   @POST
+   @Produces()
+   public String updateNotification(Notification notification){
+     NotificationDAO dao=new NotificationDAO();   
+    return dao.updateNotification(notification);
+
+   }
 }

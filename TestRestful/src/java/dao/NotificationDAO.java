@@ -5,6 +5,7 @@
  */
 package dao;
 
+import Function.TimeEditor;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.Date;
@@ -48,19 +49,19 @@ public class NotificationDAO implements Serializable {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
                 String sql = "Select NotificationId, NotificationName, Content, CreateDate, CreateBy,UpdateDate,"
-                        + "UpdateBy, Status from Notification where Status=2";
+                        + "UpdateBy, Status from Notification ";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     Integer id = rs.getInt("NotificationId");
                     String notificationName = rs.getString("NotificationName");
                     String content = rs.getString("Content");
-                    Date createDate = rs.getDate("CreateDate");
+                    String createDate = rs.getString("CreateDate");
                     Integer createBy = rs.getInt("CreateBy");
                     Integer updateBy = rs.getInt("UpdateBy");
-                    Date updateDate = rs.getDate("UpdateDate");
+                    String updateDate = rs.getString("UpdateDate");
                     Integer status = rs.getInt("Status");
-                    Notification notification = new Notification(id, notificationName, content, createDate, updateDate, createBy, updateBy, status);
+                    Notification notification = new Notification(id, notificationName, content, createDate, updateDate, status , createBy,  updateBy);
                     listNotifications.add(notification);
                 }
             }
@@ -71,5 +72,54 @@ public class NotificationDAO implements Serializable {
         }
         return listNotifications;
     }
+   public String createNotification(Notification notify){
+      String result="Success";
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+            
+              TimeEditor time= new TimeEditor();
+                  String  sql=" insert  Notification(NotificationName,Content,CreateDate,"
+                          + "CreateBy,UpdateDate,UpdateBy,Status)\n" +
+"values('"+notify.getNotificationName().trim()+"','"+notify.getContent().trim()+"','"+time.getTime()+"'"
+                          + ","+notify.getCreateBy()+",'"+time.getTime()+"',"+notify.getCreateBy()+",1)";
+                         System.out.println(sql);
+                  stm = con.prepareStatement(sql);
+              
+                stm.executeUpdate();
+
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+result="Fail";
+        } finally {
+            closeConnection();
+        }
+        return result;
+   }
+   
+    public String updateNotification(Notification notify){
+      String result="Success";
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+            
+                TimeEditor time= new TimeEditor();
+                  String  sql=" update Notification set NotificationName='"+notify.getNotificationName().trim()+"', Content='"+notify.getContent().trim()+"',\n" +
+"UpdateDate='"+time.getTime()+"',UpdateBy="+notify.getUpdateBy()+", Status="+notify.getStatus()+" where NotificationId="+notify.getNotificationId();
+                         System.out.println(sql);
+                  stm = con.prepareStatement(sql);
+              
+                stm.executeUpdate();
+
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+result="Fail";
+        } finally {
+            closeConnection();
+        }
+        return result;
+   }
 
 }
