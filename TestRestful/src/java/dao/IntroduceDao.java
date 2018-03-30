@@ -75,7 +75,7 @@ public class IntroduceDao {
 
     public String createIntroduce(String title, String content, int uploadBy, String uploadDay) throws SQLException {
 
-        String result = "Susscess";
+        String result = "Success";
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
@@ -97,9 +97,8 @@ public class IntroduceDao {
         }
         return result;
     }
-
-    public String updateIntroduce(int id, String title, String content, int updateBy, String updateDay) {
-        String result = "Susscess";
+    public String updateIntroduce(int id, String title,String content,int status,int updateBy,String updateDay) {
+        String result = "Success";
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
@@ -121,7 +120,7 @@ public class IntroduceDao {
     }
 
     public String disableIntroduce(int id) {
-        String result = "Susscess";
+        String result = "Success";
         try {
             con = DBUtils.makeConnection();
             if (con != null) {

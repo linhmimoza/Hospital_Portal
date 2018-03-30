@@ -104,4 +104,11 @@ public class MeetingResource {
      MeetingDAO dao=new MeetingDAO();   
     return dao.createMeeting(meeting);
    }
+   @Path("/updateMeeting")
+   @POST
+   @Produces()
+   public String updateMeeting(Meeting meeting){
+     MeetingDAO dao=new MeetingDAO();   
+    return dao.updateMeeting(meeting);
+   }
 }

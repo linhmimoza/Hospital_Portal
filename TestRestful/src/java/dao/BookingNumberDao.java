@@ -37,7 +37,7 @@ public class BookingNumberDao {
     }
     public String createBookingNumber(int BookingId) throws SQLException {
         
-        String result = "Susscess";
+        String result = "Success";
         try {
          con = DBUtils.makeConnection();
             if (con != null) {
@@ -55,7 +55,7 @@ public class BookingNumberDao {
         return result;
     }
     public String resetBookingNumber(){
-        String result = "Susscess";
+        String result = "Success";
         try{
             String sql="Delete * from BookingNumber";
       con = DBUtils.makeConnection();

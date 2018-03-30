@@ -25,7 +25,7 @@ export class MeetingDetailComponent {
     }
 
     back() {
-        this.router.navigate(['/main/meeting-list']);
+        this.router.navigate(['/main/manage-meeting']);
     }
 
     ngOnInit() {

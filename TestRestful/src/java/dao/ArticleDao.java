@@ -157,7 +157,7 @@ public class ArticleDao {
 
     public String createArticle(String Title, int CategoryId, int UploadBy, String UploadDate, String Link, String Describe) throws SQLException, ClassNotFoundException {
 
-        String result = "Susscess";
+        String result = "Success";
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
@@ -184,7 +184,7 @@ public class ArticleDao {
     }
 
     public String updateArticle(int id, String Title, String Describe, int UpdateBy, String UpdateDate) {
-        String result = "Susscess";
+        String result = "Success";
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
@@ -205,7 +205,7 @@ public class ArticleDao {
     }
 
     public String disableArticle(int id) {
-        String result = "Susscess";
+        String result = "Success";
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
@@ -262,7 +262,7 @@ public class ArticleDao {
     }
 
     public String activeArticle(int id) {
-        String result = "Susscess";
+        String result = "Success";
         try {
             con = DBUtils.makeConnection();
             if (con != null) {

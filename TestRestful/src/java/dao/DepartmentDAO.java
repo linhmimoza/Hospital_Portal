@@ -103,7 +103,7 @@ public class DepartmentDAO implements Serializable {
         return department;
     }
     public String updateDepartment(Department department) {
-        String result = "Susscess";
+        String result = "Success";
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
@@ -124,7 +124,7 @@ public class DepartmentDAO implements Serializable {
     }
     
     public String deleteDepartment(int departmentId) {
-        String result = "Susscess";
+        String result = "Success";
             UserDAO dao=new UserDAO();
                     int quantity=dao.getDepartmentQuantity(departmentId);
                     if (quantity>0){
@@ -148,7 +148,7 @@ public class DepartmentDAO implements Serializable {
         return result;
     }
       public String createDepartment(Department department) {
-        String result = "Susscess";
+        String result = "Success";
         if (isNameExited(department.getDepartmentName())){
             if (isCodeExited(department.getCode())){
                 result="Name and code  exited";

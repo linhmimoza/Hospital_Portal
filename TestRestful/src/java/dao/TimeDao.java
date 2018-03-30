@@ -95,7 +95,7 @@ public class TimeDao {
         return check;
     }
     public String updateAmountTime(int Amount,String date) {
-        String result = "Susscess";
+        String result = "Success";
         try {
    con = DBUtils.makeConnection();
             if (con != null) {
