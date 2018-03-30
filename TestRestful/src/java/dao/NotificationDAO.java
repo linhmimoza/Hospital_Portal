@@ -121,5 +121,35 @@ result="Fail";
         }
         return result;
    }
+public Notification getNotificationById(int id) {
+
+        Notification notify = new Notification();
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "Select NotificationId, NotificationName, Content, CreateDate, CreateBy,UpdateDate,"
+                        + "UpdateBy, Status from Notification where NotificationId="+id;
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    id = rs.getInt("NotificationId");
+                    String notificationName = rs.getString("NotificationName");
+                    String content = rs.getString("Content");
+                    String createDate = rs.getString("CreateDate");
+                    Integer createBy = rs.getInt("CreateBy");
+                    Integer updateBy = rs.getInt("UpdateBy");
+                    String updateDate = rs.getString("UpdateDate");
+                    Integer status = rs.getInt("Status");
+                    notify = new Notification(id, notificationName, content, createDate, updateDate, status , createBy,  updateBy);
+                  
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(NotificationDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeConnection();
+        }
+        return notify;
+    }
 
 }
