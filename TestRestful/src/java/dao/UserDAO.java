@@ -212,7 +212,7 @@ public class UserDAO implements Serializable {
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                String sql = "select UserId from [User] where UserName='"+userName+"' and Status<2";
+                String sql = "select UserId from [User] where UserName='"+userName+"'";
                 stm = con.prepareStatement(sql);
      
                 rs = stm.executeQuery();
@@ -233,7 +233,7 @@ public boolean isEmailExited(String email){
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                String sql = "select UserId from [User] where Email='"+email+"' and Status<2";
+                String sql = "select UserId from [User] where Email='"+email+"'";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 if (rs.next()) {
