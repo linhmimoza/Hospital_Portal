@@ -357,9 +357,33 @@ public String createMeeting(Meeting meeting) {
                    TimeEditor time= new TimeEditor();
                 String sql = "insert into Meeting(RoomId,MeetingName,StartTime,Duration,Date,\n" +
 "Content,Note,CreateBy,CreateDate,UpdateBy,UpdateDate,Status)\n" +
-"Values("+meeting.getRoomId()+",'"+meeting.getMeetingName()+"',"
+"Values("+meeting.getRoomId()+",'"+meeting.getMeetingName().trim()+"',"
                         + "'"+meeting.getStartTime()+"','"+meeting.getDuration()+"','"+meeting.getDate()+"'"
-                        + ",'"+meeting.getContent()+"','"+meeting.getNote()+"',"+meeting.getCreateBy()+","
+                        + ",'"+meeting.getContent().trim()+"','"+meeting.getNote().trim()+"',"+meeting.getCreateBy()+","
+                        + "'"+time.getTime()+"',"+meeting.getUpdateBy()+",'"+time.getTime()+"',1)" ;     
+                stm = con.prepareStatement(sql);
+                stm.executeUpdate();
+                
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+            result = "fail";
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
+public String updateMeeting(Meeting meeting) {
+        String result = "success";
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                   TimeEditor time= new TimeEditor();
+                String sql = "insert into Meeting(RoomId,MeetingName,StartTime,Duration,Date,\n" +
+"Content,Note,CreateBy,CreateDate,UpdateBy,UpdateDate,Status)\n" +
+"Values("+meeting.getRoomId()+",'"+meeting.getMeetingName().trim()+"',"
+                        + "'"+meeting.getStartTime()+"','"+meeting.getDuration()+"','"+meeting.getDate()+"'"
+                        + ",'"+meeting.getContent().trim()+"','"+meeting.getNote().trim()+"',"+meeting.getCreateBy()+","
                         + "'"+time.getTime()+"',"+meeting.getUpdateBy()+",'"+time.getTime()+"',1)" ;     
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();

@@ -19,9 +19,9 @@ export class UserListComponent {
     p: number = 1;
     users: User[] = [];
     roleCookie: number;
-    departments: Department [] = [];
+    departments: Department[] = [];
     dropdownDept: string;
-    
+
     constructor(private router: Router,
         private userService: UserService, private notificationService: NotificationService,
         private loadingService: LoadingService, private cookieService: CookieService,
@@ -29,6 +29,7 @@ export class UserListComponent {
 
     ngOnInit() {
         this.roleCookie = +this.cookieService.get("Auth-RoleId");
+        console.log(this.roleCookie);
         if (this.roleCookie == 1) {
             this.loadingService.start();
             this.userService.getList().then((res: User[]) => {
@@ -40,10 +41,13 @@ export class UserListComponent {
                 // this.loadingService.stop();
             });
 
-            this.departmentService.getList().then((res: Department[]) =>{
+            this.departmentService.getList().then((res: Department[]) => {
                 this.departments = res;
                 this.dropdownDept = "All";
             })
+        } else if (this.roleCookie == 0) {
+            alert("You don't have permission to view this page!");
+            this.router.navigate(['/login']);
         } else {
             alert("You don't have permission to view this page!");
             this.router.navigate(['/main/hospital-portal']);
@@ -83,17 +87,17 @@ export class UserListComponent {
         }
     }
 
-    loadUserByDept(){
-        if (this.dropdownDept == "All"){
-            this.userService.getList().then((res: User[]) =>{
+    loadUserByDept() {
+        if (this.dropdownDept == "All") {
+            this.userService.getList().then((res: User[]) => {
                 this.users = res;
-            }).catch (err =>{
+            }).catch(err => {
                 alert(err);
             });
         } else {
-            this.userService.loadUsersByDept(this.dropdownDept).then((res: User[]) =>{
+            this.userService.loadUsersByDept(this.dropdownDept).then((res: User[]) => {
                 this.users = res;
-            }).catch (err =>{
+            }).catch(err => {
                 alert(err);
             });
         }

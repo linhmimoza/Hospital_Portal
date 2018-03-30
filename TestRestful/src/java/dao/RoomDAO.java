@@ -95,7 +95,7 @@ Connection con = null;
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                String sql = "update Room set RoomName='"+room.getRoomName()+"',RoomSize="
+                String sql = "update Room set RoomName='"+room.getRoomName().trim()+"',RoomSize="
                         + room.getRoomSize()+",Status="+room.getStatus()+" where RoomId="+room.getRoomId();           
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
@@ -114,7 +114,7 @@ Connection con = null;
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                String sql = "insert into Room(RoomName,RoomSize,Status) values('"+room.getRoomName()+"',"+room.getRoomSize()+",1)";           
+                String sql = "insert into Room(RoomName,RoomSize,Status) values('"+room.getRoomName().trim()+"',"+room.getRoomSize()+",1)";           
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
             }

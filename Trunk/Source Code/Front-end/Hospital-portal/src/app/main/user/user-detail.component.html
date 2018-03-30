@@ -127,30 +127,20 @@
                                 <select formControlName="position" class="form-control">
                                     <option value="Doctor">Doctor</option>
                                     <option value="Nurse">Nurse</option>
+                                    <option value="Other">Other</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Address
-                                <span class="required">*</span>
-                            </label>
+                            <label class="col-sm-3 control-label">Address</label>
                             <div class="col-sm-7">
-                                <input type="text" formControlName="address" class="form-control" required/>
-                                <div class="form-group" *ngIf="address.invalid && (address.dirty || address.touched)" class="alert alert-danger" style="margin-top: 10px">
-                                    <strong *ngIf="address.errors.required">Address is required.</strong>
-                                </div>
+                                <input type="text" formControlName="address" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Certificate
-                                <span class="required">*</span>
-                            </label>
+                            <label class="col-sm-3 control-label">Certificate</label>
                             <div class="col-sm-7">
                                 <textarea class="form-control" formControlName="certificate" rows="3" id="textareaDefault"></textarea>
-                                <div class="form-group" *ngIf="certificate.invalid && (certificate.dirty || certificate.touched)" class="alert alert-danger"
-                                    style="margin-top: 10px">
-                                    <strong *ngIf="certificate.errors.required">Certificate is required.</strong>
-                                </div>
                             </div>
                         </div>
 

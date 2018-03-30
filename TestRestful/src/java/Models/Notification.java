@@ -23,40 +23,27 @@ import javax.persistence.TemporalType;
  *
  * @author Admin
  */
-@Entity
-@Table(name = "Notification")
-@NamedQueries({
-    @NamedQuery(name = "Notification.findAll", query = "SELECT n FROM Notification n")})
+
 public class Notification implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "NotificationId")
+
     private Integer notificationId;
-    @Basic(optional = false)
-    @Column(name = "NotificationName")
+
     private String notificationName;
-    @Basic(optional = false)
-    @Column(name = "Content")
+
     private String content;
-    @Basic(optional = false)
-    @Column(name = "CreateDate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
-    @Column(name = "UpdateDate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updateDate;
-    @Basic(optional = false)
-    @Column(name = "Status")
+
+    private String createDate;
+
+    private String updateDate;
+
     private int status;
 
-    @Basic(optional = false)
-    @Column(name = "CreateBy")
+
     private int createBy;
 
-    @Basic(optional = false)
-    @Column(name = "UpdateBy")
+
     private int updateBy;
 
     public Notification() {
@@ -66,7 +53,7 @@ public class Notification implements Serializable {
         this.notificationId = notificationId;
     }
 
-    public Notification(Integer notificationId, String notificationName, String content, Date createDate, Date updateDate, int status, int createBy, int updateBy) {
+    public Notification(Integer notificationId, String notificationName, String content, String createDate, String updateDate, int status, int createBy, int updateBy) {
         this.notificationId = notificationId;
         this.notificationName = notificationName;
         this.content = content;
@@ -77,13 +64,7 @@ public class Notification implements Serializable {
         this.updateBy = updateBy;
     }
     
-    public Notification(Integer notificationId, String notificationName, String content, Date createDate, int status) {
-        this.notificationId = notificationId;
-        this.notificationName = notificationName;
-        this.content = content;
-        this.createDate = createDate;
-        this.status = status;
-    }
+
 
     public Integer getNotificationId() {
         return notificationId;
@@ -109,19 +90,19 @@ public class Notification implements Serializable {
         this.content = content;
     }
 
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
-    public Date getUpdateDate() {
+    public String getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
     }
 

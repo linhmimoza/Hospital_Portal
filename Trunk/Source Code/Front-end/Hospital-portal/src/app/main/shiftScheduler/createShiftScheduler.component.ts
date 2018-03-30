@@ -13,6 +13,7 @@ import { CreateShiftDay } from './shared/createShiftDay.model';
 import { AccountService } from '../account/account.service';
 import { Department } from '../department/shared/department.model';
 import { DepartmentService } from '../department/service/department.service';
+import { CookieService } from 'ngx-cookie-service';
 declare var $: any;
 @Component({
     selector: 'createShiftScheduler',
@@ -35,16 +36,27 @@ export class CreateShiftSchedulerComponent {
     dropdownList: Select[] = [];
     selectedItems = [];
     dropdownSettings = {};
-
+    roleCookie: number;
     constructor(private router: Router,
         private shiftSchedulerService: ShiftSchedulerService, private userService: UserService,
         private selectService: SelectService, private accountService: AccountService,
-        private departmentService: DepartmentService) { }
+        private departmentService: DepartmentService,
+        private cookieService: CookieService) { }
 
     ngOnInit() {
-        this.loadDepartment();
-        this.createMember();
-        this.loadUser();
+        this.roleCookie = +this.cookieService.get("Auth-RoleId");
+        if (this.roleCookie == 2 || this.roleCookie == 3 || this.roleCookie == 5) {
+            this.loadDepartment();
+            this.createMember();
+            this.loadUser();
+        } else if (this.roleCookie == 0) {
+            alert("You don't have permission to view this page!");
+            this.router.navigate(['/login']);
+        } else {
+            alert("You don't have permission to view this page!");
+            this.router.navigate(['/main/hospital-portal']);
+        }
+
     }
 
     loadDepartment() {
@@ -52,7 +64,7 @@ export class CreateShiftSchedulerComponent {
             this.departments = departments;
         });
     }
-    
+
     loadUser() {
         this.userService.getList().then((users: User[]) => {
             this.users = users;
