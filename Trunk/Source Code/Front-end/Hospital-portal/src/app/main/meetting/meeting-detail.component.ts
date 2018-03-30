@@ -68,6 +68,7 @@ export class MeetingDetailComponent {
             this.id = +params['id']; // (+) converts string 'id' to a number
             this.meeting.createBy = +this.cookieService.get("Auth-UserId");
             this.meeting.updateBy = +this.cookieService.get("Auth-UserId");
+            console.log(this.meeting);
             if (this.id > 0) {
                 this.meetingService.updateMeeting(this.meeting).then(() => {
                     console.log(this.meeting);
