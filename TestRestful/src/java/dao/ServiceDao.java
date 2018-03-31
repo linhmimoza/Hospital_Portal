@@ -95,7 +95,7 @@ public class ServiceDao {
                 stm.setString(1, ServiceName);
                 stm.setString(2, Description);
                 stm.setInt(3, DepartmentId);
-                rs=stm.executeQuery();
+                stm.executeUpdate();
             }
         } catch(Exception e){
             e.printStackTrace();

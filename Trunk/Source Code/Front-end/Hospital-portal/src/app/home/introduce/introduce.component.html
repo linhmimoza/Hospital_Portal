@@ -1,0 +1,10 @@
+<header class="panel-heading">
+  <h2 style="color: blue">{{intro.title}}</h2>
+</header>
+<div class="container" style="background: white; width: 100%">
+
+  <h5 style="color: black">Ngày đăng: {{intro.uploadDay | date: 'dd/MM/yyyy'}}</h5>
+  <h5 style="color: black">Tác giả: {{intro.uploadByUser}}</h5>
+  <h5 style="color: black">Nội dung sơ lược: </h5>
+  {{intro.content}}
+</div>

@@ -60,7 +60,7 @@ public class ServiceResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<Service> getListSServiceById( @QueryParam("ServiceId") int serviceId) throws SQLException, ClassNotFoundException {
             ServiceDao dao = new ServiceDao();
-            List<Service> listService = dao.getListService(serviceId);        
+            List<Service> listService = dao.getListServiceById(serviceId);        
             return listService;
     }
     @Path("/createService")
