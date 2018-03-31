@@ -17,52 +17,44 @@ export class NotificationComponentService {
             });
         });
     }
-    // getByUser(userId) {
-    //     return new Promise((resolve, reject) => {
-    //         this.apiService.get('geMissionByUser/' + userId).then(res => {
-    //             resolve(res.json());
-    //         }).catch(err => {
-    //             reject(err);
-    //         });
-    //     });
-    // }
-    // getMission(id) {
-    //     return new Promise((resolve, reject) => {
-    //         this.apiService.get(`getMissionById/${id}`).then(res => {
-    //             resolve(res.json());
-    //         }).catch(err => {
-    //             reject(err);
-    //         });
-    //     });
-    // }
 
-    // updateMission(mission: Mission) {
-    //     return new Promise((resolve, reject) => {
-    //         this.apiService.post('updateMission', mission).then(res => {
-    //             resolve();
-    //         }).catch(err => {
-    //             reject(err);
-    //         });
-    //     });
-    // }
+    getNotificationById(id) {
+        return new Promise((resolve, reject) => {
+            this.apiService.get(`getNotificationById/${id}`).then(res => {
+                resolve(res.json());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
 
-    // createMission(mission: Mission){
-    //     return new Promise((resolve, reject) => {
-    //         this.apiService.post('createMission', mission).then(res => {
-    //             resolve();
-    //         }).catch(err => {
-    //             reject(err);
-    //         });
-    //     });
-    // }
+    updateNotification(notification: Notification) {
+        return new Promise((resolve, reject) => {
+            this.apiService.post('updateNotification', notification).then(res => {
+                resolve(res.text());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
 
-    // deleteDepartment(id){
-    //     return new Promise((resolve, reject) => {
-    //         this.apiService.get(`deleteDepartment/${id}`).then(res => {
-    //             resolve();
-    //         }).catch(err => {
-    //             reject(err);
-    //         });
-    //     });
-    // }
+    createNotification(notification: Notification){
+        return new Promise((resolve, reject) => {
+            this.apiService.post('createNotification', notification).then(res => {
+                resolve(res.text());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
+
+    deleteNotification(id){
+        return new Promise((resolve, reject) => {
+            this.apiService.get(`deleteNotification/${id}`).then(res => {
+                resolve(res.text());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
 }
