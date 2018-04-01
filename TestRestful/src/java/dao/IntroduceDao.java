@@ -172,7 +172,7 @@ public class IntroduceDao {
     }
 
     public String activeIntroduce(int id) {
-        String result = "Susscess";
+        String result = "Success";
         try {
             con = DBUtils.makeConnection();
             if (con != null) {

@@ -21,7 +21,7 @@ export class ManageMeetingComponent {
         if (this.roleCookie == 2 || this.roleCookie == 3 || this.roleCookie == 5) {
             this.loadChecked();
             this.loadWaiting();
-        } else if (this.roleCookie == 0) {
+        } else if (isNaN(this.roleCookie)) {
             alert("You don't have permission to view this page!");
             this.router.navigate(['/login']);
         } else {

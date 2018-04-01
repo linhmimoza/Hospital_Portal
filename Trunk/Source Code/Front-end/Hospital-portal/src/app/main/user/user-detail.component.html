@@ -22,7 +22,7 @@
                                 <span class="required">*</span>
                             </label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" formControlName="userName" appForbiddenName="bob" required />
+                                <input [disabled]="id == 0" name="slot" type="text" class="form-control" formControlName="userName" appForbiddenName="bob" required />
 
                                 <div class="form-control-feedback" *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="alert alert-danger"
                                     style="margin-top: 10px">

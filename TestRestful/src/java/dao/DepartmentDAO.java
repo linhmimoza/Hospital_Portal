@@ -104,11 +104,21 @@ public class DepartmentDAO implements Serializable {
     }
     public String updateDepartment(Department department) {
         String result = "Success";
+        if (isNameExited(department.getDepartmentName(),department.getDepartmentId())){
+            if (isCodeExited(department.getCode(),department.getDepartmentId())){
+                result="Name and code  exited";
+            }
+            else result="Name exited";
+        }else{
+            if (isCodeExited(department.getCode(),department.getDepartmentId())){
+                result="Code exited";
+            }
+            else{ 
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
                 String sql = "update Department set DepartmentName='"+department.getDepartmentName().trim()+"'"
-                        + ",Description='"+department.getDescription().trim()+"' ,Code='"+department.getCode().trim()+"' ,Status="+department.getStatus()+
+                        + ",Description='"+department.getDescription().trim()+"' ,Code='"+department.getCode()+"' ,Status="+department.getStatus()+
                         " where DepartmentId="+department.getDepartmentId();           
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
@@ -119,7 +129,7 @@ public class DepartmentDAO implements Serializable {
             result = "Failed";
         } finally {
             closeConnection();
-        }
+        }}}
         return result;
     }
     
@@ -149,13 +159,13 @@ public class DepartmentDAO implements Serializable {
     }
       public String createDepartment(Department department) {
         String result = "Success";
-        if (isNameExited(department.getDepartmentName())){
-            if (isCodeExited(department.getCode())){
+        if (isNameExited(department.getDepartmentName(),department.getDepartmentId())){
+            if (isCodeExited(department.getCode(),department.getDepartmentId())){
                 result="Name and code  exited";
             }
             else result="Name exited";
         }else{
-            if (isCodeExited(department.getCode())){
+            if (isCodeExited(department.getCode(),department.getDepartmentId())){
                 result="Code exited";
             }
             else{     
@@ -165,7 +175,7 @@ public class DepartmentDAO implements Serializable {
                 
                  
              String   sql = "insert into Department(DepartmentName,Description,Status,Code)"
-                        + " values('"+department.getDepartmentName().trim()+"','"+department.getDescription().trim()+"',"
+                        + " values('"+department.getDepartmentName().trim()+"','"+department.getDescription()+"',"
                         + "1,'"+department.getCode().trim()+"')";           
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
@@ -179,16 +189,16 @@ public class DepartmentDAO implements Serializable {
         }}}
         return result;
     }
-      public boolean isNameExited(String name){
+      public boolean isNameExited(String name, int id){
         boolean result=false;
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                 String sql="select DepartmentId from Department where  DepartmentName='"+name.trim()+"'";
+                 String sql="select DepartmentId from Department where  DepartmentName='"+name.trim()+"' and DepartmentId<>"+id;
                 stm = con.prepareStatement(sql);
                 System.out.println(sql);
                 rs = stm.executeQuery();
-                if (rs.next()) {
+                while (rs.next()) {
                     result = true;
                 }
             }
@@ -200,16 +210,16 @@ public class DepartmentDAO implements Serializable {
         }
         return result;
     }
-      public boolean isCodeExited(String code){
+      public boolean isCodeExited(String code, int id){
         boolean result=false;
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                 String sql="select DepartmentId from Department where Code='"+code.trim()+"'";
+                 String sql="select DepartmentId from Department where Code='"+code.trim()+"' and DepartmentId<>"+id;
                    System.out.println(sql);
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
-                if (rs.next()) {
+                while (rs.next()) {
                     result = true;
                 }
             }

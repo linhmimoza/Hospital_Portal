@@ -52,7 +52,11 @@
                         <td>{{room.roomSize}}</td>
                         <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
                         <td class="text-center">
-                            <div class="grid-status" [ngClass]="{'bg-primary': room.status == 1, 'bg-danger': room.status == 2 }" (click)="switchStatus(room)">
+                            <div class="grid-status" [ngClass]="{'bg-primary': room.status == 1, 'bg-danger': room.status == 2 }" mwlConfirmationPopover
+                                [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmText" [cancelText]="cancelText"
+                                [placement]="placement" (confirm)="switchStatus(room)" (cancel)="cancelClicked = true"
+                                confirmButtonType="danger" cancelButtonType="default" (click)="confirmClicked = false; cancelClicked = false"
+                                [appendToBody]="true">
                                 {{room.status == 1? 'Active':'Disable'}}
                             </div>
                         </td>

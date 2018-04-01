@@ -4,7 +4,7 @@ export class Department {
     description: string;
     code: string;
     quantity: number;
-    sratus: number;
+    status: number;
 
     constructor() {
     }

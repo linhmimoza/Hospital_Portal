@@ -37,6 +37,7 @@ import { ArticleListComponent } from './main/article/article-list.component';
 import { ArticleDetailComponent } from './main/article/article-detail.component';
 import { ArticleService } from './main/article/service/article.service';
 import { ShiftSchedulerService } from './main/shiftScheduler/service/shiftScheduler.service';
+import { ManageService } from './main/shiftScheduler/service/shiftSchedulerManage.service';
 import { ShiftSchedulerListComponent } from './main/shiftScheduler/shiftScheduler-list.component';
 import { CreateShiftSchedulerComponent } from './main/shiftScheduler/createShiftScheduler.component';
 import { CookieService } from 'ngx-cookie-service';
@@ -48,7 +49,7 @@ import { EmployeeCheckComponent } from './main/demo-schedule/employee-check.comp
 import { NotificationListComponent } from './main/notification/notification-list.component';
 import { NotificationDetailComponent } from './main/notification/notification-detail.component';
 import { HospitalPortalComponent } from './main/hospital-portal/hospital-portal.component';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NotificationComponentService } from './main/notification/service/notification.component.service';
 import { ManageShiftSchedulerComponent } from './main/shiftScheduler/manage-shiftSchedule.component';
@@ -65,6 +66,8 @@ import { HomeComponent } from './home/home.component';
 import { MedicalComponent } from './home/medical/medical.component';
 import { MedicalDetailComponent } from './home/medical/medical-detail/medical-detail.component';
 import { IntroduceComponent } from './home/introduce/introduce.component';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+import { CheckShiftScheduleComponent } from './main/shiftScheduler/check-shiftSchedule.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home/main', pathMatch: 'full' },
@@ -90,16 +93,17 @@ const routes: Routes = [
       { path: 'meeting-detail/:id', component: MeetingDetailComponent },
       { path: 'article-list', component: ArticleListComponent },
       { path: 'article-detail/:id', component: ArticleDetailComponent },
-      { path: 'app-demo-schedule', component: DemoScheduleComponent},
-      { path: 'employee-check', component: EmployeeCheckComponent},
-      { path: 'notification-list', component: NotificationListComponent},
-      { path: 'notification-detail/:id', component: NotificationDetailComponent},
-      { path: 'manage-shiftSchedule', component: ManageShiftSchedulerComponent},
-      { path: 'news', component: AdminNewsComponent},
-      { path: 'manage-news/:id', component: ManageNewsComponent},
-      { path: 'manage-service/:id', component: ManageServiceComponent},
-      { path: 'service', component: AdminServiceComponent},
-      { path: 'setting', component: SettingComponent}
+      { path: 'app-demo-schedule', component: DemoScheduleComponent },
+      { path: 'employee-check', component: EmployeeCheckComponent },
+      { path: 'notification-list', component: NotificationListComponent },
+      { path: 'notification-detail/:id', component: NotificationDetailComponent },
+      { path: 'manage-shiftSchedule', component: ManageShiftSchedulerComponent },
+      { path: 'news', component: AdminNewsComponent },
+      { path: 'manage-news/:id', component: ManageNewsComponent },
+      { path: 'manage-service/:id', component: ManageServiceComponent },
+      { path: 'service', component: AdminServiceComponent },
+      { path: 'setting', component: SettingComponent },
+      { path: 'check-shiftSchedule', component: CheckShiftScheduleComponent }
     ]
   },
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
@@ -159,7 +163,8 @@ const routes: Routes = [
     ManageServiceComponent,
     SettingComponent,
     ActiveServiceComponent,
-    IntroduceComponent
+    IntroduceComponent,
+    CheckShiftScheduleComponent
   ],
   imports: [
     BrowserModule,
@@ -171,12 +176,15 @@ const routes: Routes = [
     CalendarModule.forRoot(),
     NgbModule.forRoot(),
     NgxPaginationModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    ConfirmationPopoverModule.forRoot({
+      confirmButtonType: 'danger' // set defaults here
+    })
   ],
   providers: [
     NotificationService, LoadingService, LoginService, AccountService, ApiService, UserService,
     DepartmentService, RoleService, CategoryService, RoomService, MissionService,
-    ShiftSchedulerService, MeetingService, ArticleService, CookieService, SelectService, NotificationComponentService
+    ShiftSchedulerService, ManageService, MeetingService, ArticleService, CookieService, SelectService, NotificationComponentService
   ],
   bootstrap: [AppComponent]
 })

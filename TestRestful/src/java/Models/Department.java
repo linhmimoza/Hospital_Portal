@@ -28,7 +28,7 @@ public class Department implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer departmentId;
+    private int departmentId;
 
     private String departmentName;
 
@@ -44,7 +44,7 @@ public class Department implements Serializable {
     public Department() {
     }
 
-    public Department(Integer departmentId) {
+    public Department(int departmentId) {
         this.departmentId = departmentId;
     }
 
@@ -56,7 +56,7 @@ public class Department implements Serializable {
         this.code = code;
     }
 
-    public Department(Integer departmentId, String departmentName, String description, String code, int status, int quantity) {
+    public Department(int departmentId, String departmentName, String description, String code, int status, int quantity) {
         this.departmentId = departmentId;
         this.departmentName = departmentName;
         this.description = description;
@@ -65,7 +65,7 @@ public class Department implements Serializable {
         this.quantity = quantity;
     }
 
-    public Department(Integer departmentId, String departmentName, String description, String code, int status) {
+    public Department(int departmentId, String departmentName, String description, String code, int status) {
         this.departmentId = departmentId;
         this.departmentName = departmentName;
         this.description = description;
@@ -86,11 +86,11 @@ public class Department implements Serializable {
         this.quantity = quantity;
     }
 
-    public Integer getDepartmentId() {
+    public int getDepartmentId() {
         return departmentId;
     }
 
-    public void setDepartmentId(Integer departmentId) {
+    public void setDepartmentId(int departmentId) {
         this.departmentId = departmentId;
     }
 
@@ -128,25 +128,8 @@ public class Department implements Serializable {
 
   
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (departmentId != null ? departmentId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Department)) {
-            return false;
-        }
-        Department other = (Department) object;
-        if ((this.departmentId == null && other.departmentId != null) || (this.departmentId != null && !this.departmentId.equals(other.departmentId))) {
-            return false;
-        }
-        return true;
-    }
+    
+   
 
     @Override
     public String toString() {

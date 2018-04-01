@@ -16,6 +16,13 @@ declare var $: any;
     styleUrls: ['user-list.component.css']
 })
 export class UserListComponent {
+    popoverTitle: string = 'Are you sure?';
+    popoverMessage: string = 'Are you really <b>sure</b> you want to do this?';
+    confirmText: string = 'Yes <i class="glyphicon glyphicon-ok"></i>';
+    cancelText: string = 'No <i class="glyphicon glyphicon-remove"></i>';
+    confirmClicked: boolean = false;
+    cancelClicked: boolean = false;
+
     p: number = 1;
     users: User[] = [];
     roleCookie: number;
@@ -45,7 +52,7 @@ export class UserListComponent {
                 this.departments = res;
                 this.dropdownDept = "All";
             })
-        } else if (this.roleCookie == 0) {
+        } else if (isNaN(this.roleCookie)) {
             alert("You don't have permission to view this page!");
             this.router.navigate(['/login']);
         } else {

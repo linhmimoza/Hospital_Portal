@@ -56,7 +56,24 @@
                         <td>{{department.quantity}}</td>
                         <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
                         <td class="text-center">
-                            <div class="grid-status" [ngClass]="{'bg-primary': department.status == 1, 'bg-danger': department.status == 2 }" (click)="switchStatus(department)">
+                            <div *ngIf="department.quantity != 0 && department.status == 1" class="grid-status" [ngClass]="{'bg-primary': department.status == 1, 'bg-danger': department.status == 2 }"
+                                (click)="disableDeny()">
+                                {{department.status == 1? 'Active':'Disable'}}
+                            </div>
+
+                            <div *ngIf="department.quantity == 0" class="grid-status" [ngClass]="{'bg-primary': department.status == 1, 'bg-danger': department.status == 2 }"
+                                mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmText"
+                                [cancelText]="cancelText" [placement]="placement" (confirm)="switchStatus(department)" (cancel)="cancelClicked = true"
+                                confirmButtonType="danger" cancelButtonType="default" (click)="confirmClicked = false; cancelClicked = false"
+                                [appendToBody]="true">
+                                {{department.status == 1? 'Active':'Disable'}}
+                            </div>
+
+                            <div *ngIf="department.quantity != 0 && department.status == 2" class="grid-status" [ngClass]="{'bg-primary': department.status == 1, 'bg-danger': department.status == 2 }"
+                                mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmText"
+                                [cancelText]="cancelText" [placement]="placement" (confirm)="switchStatus(department)" (cancel)="cancelClicked = true"
+                                confirmButtonType="danger" cancelButtonType="default" (click)="confirmClicked = false; cancelClicked = false"
+                                [appendToBody]="true">
                                 {{department.status == 1? 'Active':'Disable'}}
                             </div>
                         </td>

@@ -43,7 +43,7 @@
                     </select>
 
                 </div>
-               
+
             </div>
         </div>
 
@@ -82,8 +82,10 @@
                     <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
                     <td class="text-center">
                         <!-- <span [ngClass]="{'bg-primary':user.IsActived,'bg-danger':!user.IsActived}">  -->
-
-                        <div class="grid-status" [ngClass]="{'bg-primary': user.status == 1, 'bg-danger': user.status == 2 }" (click)="switchStatus(user)">
+                        <div class="grid-status" [ngClass]="{'bg-primary': user.status == 1, 'bg-danger': user.status == 2 }" mwlConfirmationPopover
+                            [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmText" [cancelText]="cancelText"
+                            [placement]="placement" (confirm)="switchStatus(user)" (cancel)="cancelClicked = true" confirmButtonType="danger"
+                            cancelButtonType="default" (click)="confirmClicked = false; cancelClicked = false" [appendToBody]="true">
                             {{user.status == 1? 'Active':'Disable'}}
                         </div>
                     </td>

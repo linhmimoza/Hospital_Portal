@@ -10,6 +10,7 @@ import Models.ShiftSchedulerManager;
 import dao.ShiftScheduleDAO;
 import dao.ShiftSchedulerManagerDAO;
 import java.sql.SQLException;
+import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -45,6 +46,14 @@ public class SchedulerManagerResource {
     @QueryParam("Week") String week) throws SQLException, ClassNotFoundException {
      ShiftSchedulerManagerDAO dao = new ShiftSchedulerManagerDAO();                    
           ShiftSchedulerManager schedule = dao.getShiftSchedulerManager(week, id);       
+            return schedule;
+    }
+    @Path("/getListManager")
+    @GET
+    @Produces()
+    public List<ShiftSchedulerManager> getListShiftManagerByWeek() throws SQLException, ClassNotFoundException {
+     ShiftSchedulerManagerDAO dao = new ShiftSchedulerManagerDAO();                    
+          List<ShiftSchedulerManager> schedule = dao.getListShiftSchedulerManager();
             return schedule;
     }
      @Path("/getCheckedSchedulerForShow")
