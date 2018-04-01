@@ -61,20 +61,20 @@
                             <li class="nav-active">
                                 <a [routerLink]="['/home/medical-booking']">
                                     <i class="fa fa-plus" aria-hidden="true"></i>
-                                    <span>Đặt lịch hẹn</span>
+                                    <span>Medical examination booking</span>
                                 </a>
                             </li>
                             <li class="nav-active">
                                 <a [routerLink]="['/home/medical-detail']">
                                     <i class="fa fa-eye" aria-hidden="true"></i>
-                                    <span>Xem lịch hẹn đã đặt</span>
+                                    <span>Medical examination booking detail</span>
                                 </a>
                             </li>
 
                             <li class="nav-parent">
                                 <a>
                                     <i class="fa fa-copy" aria-hidden="true"></i>
-                                    <span>Tin tức</span>
+                                    <span>News</span>
                                 </a>
                                 <ul class="nav nav-children">
                                     <li (change)="getCategoryList($event.target.value)" name="categoryId" *ngFor="let item of categoryList">
@@ -89,7 +89,7 @@
                             <li class="nav-parent">
                                 <a>
                                     <i class="fa fa-copy" aria-hidden="true"></i>
-                                    <span>Giới thiệu</span>
+                                    <span>About us</span>
                                 </a>
                                 <ul class="nav nav-children">
                                     <li (change)="getIntroduceList($event.target.value)" name="id" *ngFor="let item of introduceList">

@@ -97,7 +97,7 @@ public class IntroduceDao {
         }
         return result;
     }
-    public String updateIntroduce(int id, String title,String content,int status,int updateBy,String updateDay) {
+    public String updateIntroduce(int id, String title,String content,int updateBy,String updateDay) {
         String result = "Success";
         try {
             con = DBUtils.makeConnection();

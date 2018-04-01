@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-12">
     <header class="page-header">
-      <h2>Đặt lịch hẹn</h2>
+      <h2>Medical examination booking</h2>
 
       <div class="right-wrapper pull-right">
         <ol class="breadcrumbs">
@@ -11,7 +11,7 @@
             </a>
           </li>
           <li>
-            <span>Đặt lịch hẹn</span>
+            <span>Medical examination booking</span>
           </li>
         </ol>
 
@@ -31,7 +31,7 @@
           <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
         </div>
 
-        <h2 class="panel-title">Xin quý khách thực hiện theo các bước sau đây:</h2>
+        <h2 class="panel-title">Please follow the steps below:</h2>
       </header>
       <div class="panel-body" >
         <div class="wizard-progress wizard-progress-lg">
@@ -41,19 +41,19 @@
           <ul class="wizard-steps">
             <li class="active">
               <a href="#w4-specialist" data-toggle="tab">
-                <span>1</span>Chuyên khoa</a>
+                <span>1</span>Department</a>
             </li>
             <li>
               <a href="#w4-service" data-toggle="tab">
-                <span>2</span>Dịch vụ</a>
+                <span>2</span>Service</a>
             </li>
             <li>
               <a href="#w4-daytime" data-toggle="tab">
-                <span>3</span>Ngày giờ</a>
+                <span>3</span>Day&Time</a>
             </li>
             <li>
               <a href="#w4-confirm" data-toggle="tab">
-                <span>4</span>Điền thông tin</a>
+                <span>4</span>Fill information</a>
             </li>
           </ul>
         </div>
@@ -82,7 +82,7 @@
             </div>
             <div id="w4-daytime" class="tab-pane">
               <div class="form-group">
-                <label class="col-md-3 control-label">Chọn ngày:</label>
+                <label class="col-md-3 control-label">Select day</label>
                 <div class="col-md-6">
                   <div class="input-group">
                     <span class="input-group-addon">
@@ -94,7 +94,7 @@
               </div>
 
               <div class="form-group">
-                <label class="col-md-3 control-label" for="inputSuccess">Chọn thời gian hẹn:</label>
+                <label class="col-md-3 control-label" for="inputSuccess">Select time</label>
                 <div class="col-md-6">
                   <select class="form-control input-lg mb-md" (change)="setTimeId($event.target.value)">
                     <option value="">Please select</option>
@@ -107,7 +107,7 @@
               <div class="panel-body">
                 <form class="form-horizontal form-bordered" >
                   <div class="form-group">
-                    <label class="col-md-3 control-label" for="inputDefault">Họ và Tên
+                    <label class="col-md-3 control-label" for="inputDefault">Full name
                       <span class="required">*</span>
                     </label>
                     <div class="col-md-6">
@@ -115,7 +115,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-md-3 control-label" for="inputDefault">Chứng minh nhân dân
+                    <label class="col-md-3 control-label" for="inputDefault">Identity number
                       <span class="required">*</span>
                     </label>
                     <div class="col-md-6">
@@ -123,7 +123,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-md-3 control-label" for="inputDefault">Số điện thoại
+                    <label class="col-md-3 control-label" for="inputDefault">Phone number
                       <span class="required">*</span>
                     </label>
                     <div class="col-md-6">
@@ -139,7 +139,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-md-3 control-label" for="inputDefault">Địa chỉ
+                    <label class="col-md-3 control-label" for="inputDefault">Address
                       <span class="required">*</span>
                     </label>
                     <div class="col-md-6">
@@ -147,7 +147,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-md-3 control-label" for="inputDefault">Ghi chú</label>
+                    <label class="col-md-3 control-label" for="inputDefault">Note</label>
                     <div class="col-md-6">
                       <input type="text" class="form-control" name="Note" [(ngModel)]="data.Note" id="inputDefault" required>
                     </div>
