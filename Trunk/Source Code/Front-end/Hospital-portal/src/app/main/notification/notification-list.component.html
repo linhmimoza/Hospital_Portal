@@ -56,12 +56,25 @@
                         <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
                         <td>{{notification.createBy}}</td>
                         <td class="text-center">
-                            <div class="grid-status" [ngClass]="{'bg-primary': notification.status == 1, 'bg-danger': notification.status == 2 }" (click)="switchStatus(notification)">
+                            <div class="grid-status" [ngClass]="{'bg-primary': notification.status == 1, 'bg-danger': notification.status == 2 }" mwlConfirmationPopover
+                                [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmText" [cancelText]="cancelText"
+                                [placement]="placement" (confirm)="switchStatus(notification)" (cancel)="cancelClicked = true"
+                                confirmButtonType="danger" cancelButtonType="default" (click)="confirmClicked = false; cancelClicked = false"
+                                [appendToBody]="true">
                                 {{notification.status == 1? 'Active':'Disable'}}
                             </div>
+                            <!-- <button class="btn btn-default" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="top"
+                                (confirm)="switchStatus()" (cancel)="cancelClicked = true">
+                                Click me!
+                            </button> -->
 
-                            <button type="button" class="btn btn-primary m-xs" data-toggle="popover" data-container="body" data-placement="top" title="This one have a title"
-                                data-content="Example of top popover, click again to close :)">Top</button>
+                            <!-- <button class="btn btn-default" [ngClass]="{'bg-primary': notification.status == 1, 'bg-danger': notification.status == 2 }"
+                                mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmText"
+                                [cancelText]="cancelText" [placement]="placement" (confirm)="switchStatus(notification)" (cancel)="cancelClicked = true"
+                                confirmButtonType="danger" cancelButtonType="default" (click)="confirmClicked = false; cancelClicked = false"
+                                [appendToBody]="true">
+                                Show on {{ placement }}
+                            </button> -->
                         </td>
                         <td align="center">
                             <a>

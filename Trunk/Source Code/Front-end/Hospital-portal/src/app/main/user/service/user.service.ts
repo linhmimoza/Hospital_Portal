@@ -53,7 +53,6 @@ export class UserService {
             this.apiService.get(`deleteUser/${id}`).then(res => {
                 // this.apiService.post('deleteUser', id).then(() => {
                 resolve(res.text());
-                alert("Success");
             }).catch(err => {
                 reject(err);
                 alert("Fail");
@@ -65,7 +64,6 @@ export class UserService {
         return new Promise((resolve, reject) => {
             this.apiService.get(`activeUser/${id}`).then(res => {
                 resolve(res.text());
-                alert("Success");
             }).catch(err => {
                 reject(err);
                 alert("Fail");

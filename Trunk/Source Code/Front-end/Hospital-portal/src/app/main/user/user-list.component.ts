@@ -16,6 +16,13 @@ declare var $: any;
     styleUrls: ['user-list.component.css']
 })
 export class UserListComponent {
+    popoverTitle: string = 'Are you sure?';
+    popoverMessage: string = 'Are you really <b>sure</b> you want to do this?';
+    confirmText: string = 'Yes <i class="glyphicon glyphicon-ok"></i>';
+    cancelText: string = 'No <i class="glyphicon glyphicon-remove"></i>';
+    confirmClicked: boolean = false;
+    cancelClicked: boolean = false;
+
     p: number = 1;
     users: User[] = [];
     roleCookie: number;
