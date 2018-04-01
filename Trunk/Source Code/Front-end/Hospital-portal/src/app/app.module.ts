@@ -37,6 +37,7 @@ import { ArticleListComponent } from './main/article/article-list.component';
 import { ArticleDetailComponent } from './main/article/article-detail.component';
 import { ArticleService } from './main/article/service/article.service';
 import { ShiftSchedulerService } from './main/shiftScheduler/service/shiftScheduler.service';
+import { ManageService } from './main/shiftScheduler/service/shiftSchedulerManage.service';
 import { ShiftSchedulerListComponent } from './main/shiftScheduler/shiftScheduler-list.component';
 import { CreateShiftSchedulerComponent } from './main/shiftScheduler/createShiftScheduler.component';
 import { CookieService } from 'ngx-cookie-service';
@@ -176,7 +177,7 @@ const routes: Routes = [
   providers: [
     NotificationService, LoadingService, LoginService, AccountService, ApiService, UserService,
     DepartmentService, RoleService, CategoryService, RoomService, MissionService,
-    ShiftSchedulerService, MeetingService, ArticleService, CookieService, SelectService, NotificationComponentService
+    ShiftSchedulerService, ManageService, MeetingService, ArticleService, CookieService, SelectService, NotificationComponentService
   ],
   bootstrap: [AppComponent]
 })

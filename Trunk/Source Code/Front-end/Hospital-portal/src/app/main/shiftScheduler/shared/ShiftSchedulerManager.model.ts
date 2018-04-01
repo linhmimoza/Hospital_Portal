@@ -3,7 +3,7 @@ export class ShiftSchedulerManager {
     week: string;
     waiting: number;
     checked: number;
-
+    range: string;
     constructor() {
     }
 }

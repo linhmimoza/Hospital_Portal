@@ -4,6 +4,7 @@ import { ShiftDay } from '../shared/shiftDay.model';
 import { Shift } from '../shared/shift.model';
 import { CreateShiftDay } from '../shared/createShiftDay.model';
 import { CreateShift } from '../shared/createShift.model';
+import { ShiftSchedulerManager } from '../shared/ShiftSchedulerManager.model';
 import { CreateShiftScheduler } from '../shared/createShiftScheduler.model';
 
 @Injectable()
@@ -27,9 +28,37 @@ export class ShiftSchedulerService {
             });
         });
     }
+getListManager() {
+    return new Promise((resolve, reject) => {
+        this.apiService.get('getListManager').then(res => {
+            resolve(res.json());
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
 
+setListManager(list: ShiftSchedulerManager[]){
+    list.forEach(function(manage){
+        let today = manage.week;
+        let  week= parseInt(today.substring(6, 8), 10);
+        let  year=  parseInt(today.substring(0, 4), 10);
+          let d = new Date(year, 0, 1),
+          offset = d.getTimezoneOffset();
+      d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+      d.setTime(d.getTime() + 7 * 24 * 60 * 60 * 1000
+          * (week + (year === d.getFullYear() ? -1 : 0 )));
+      d.setTime(d.getTime()
+          + (d.getTimezoneOffset() - offset) * 60 * 1000);
+      d.setDate(d.getDate() - 3);
+      let result = d.toLocaleDateString() + '-';
+      d.setDate(d.getDate() + 7);
+      result = result + d.toLocaleDateString();
+      manage.range = result;
 
-
+    });
+        return list;
+}
 
     addShiftToALLDay(dates: CreateShiftDay[], star: string, end: string) {
         dates.forEach(function(date) {
@@ -115,5 +144,29 @@ export class ShiftSchedulerService {
         });
      });
      return valid;
+    }
+    getThisWeek() {
+        let today = new Date();
+        let onejan = new Date(today.getFullYear(), 0, 1);
+        let week=Math.ceil((((today.getTime() - onejan.getTime()) / 86400000) + onejan.getDay()+ 1)/ 7 - 1);
+        let thisWeek =today.getFullYear() + '-W' + week;
+       return thisWeek;
+    }
+    
+    weekToDate(today: String){
+        let  week= parseInt(today.substring(6, 8), 10);
+        let  year=  parseInt(today.substring(0, 4), 10);
+          let d = new Date(year, 0, 1),
+          offset = d.getTimezoneOffset();
+      d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+      d.setTime(d.getTime() + 7 * 24 * 60 * 60 * 1000
+          * (week + (year === d.getFullYear() ? -1 : 0 )));
+      d.setTime(d.getTime()
+          + (d.getTimezoneOffset() - offset) * 60 * 1000);
+      d.setDate(d.getDate() - 3);
+      let result = d.toLocaleDateString() + '-';
+      d.setDate(d.getDate() + 7);
+      result = result + d.toLocaleDateString();
+      return result;
     }
  }
