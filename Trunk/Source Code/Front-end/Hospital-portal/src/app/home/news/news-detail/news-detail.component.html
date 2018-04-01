@@ -3,11 +3,11 @@
 </header>
 <div class="container" style="background: white; width: 100%" *ngIf="news">
 
-  <h5 style="color: black">Ngày đăng: {{news.uploadDate | date: 'dd/MM/yyyy'}}</h5>
-  <h5 style="color: black">Tác giả: {{news.uploadByName}}</h5>
-  <h5 style="color: black">Nội dung:
+  <h5 style="color: black">Upload day: {{news.uploadDate | date: 'dd/MM/yyyy'}}</h5>
+  <h5 style="color: black">Author: {{news.uploadByName}}</h5>
+  <h5 style="color: black">Download full content:
     <a (click)="getFile(news.link)" style="cursor: pointer">Tải về</a>
   </h5>
-  <h5 style="color: black">Nội dung sơ lược: </h5>
+  <h5 style="color: black">Quickview: </h5>
   {{news.describe}}
 </div>
