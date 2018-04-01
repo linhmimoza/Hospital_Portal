@@ -1,75 +1,81 @@
 <section class="panel">
-        <header class="panel-heading">
-            <div class="panel-actions">
-                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-                <!-- <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a> -->
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+            <!-- <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a> -->
+        </div>
+        <h2 class="panel-title">Notification list</h2>
+    </header>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="mb-md">
+                    <button class="btn btn-primary" [routerLink]="['/main/notification-detail',0]">Add
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
             </div>
-            <h2 class="panel-title">Notification list</h2>
-        </header>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-sm-6">
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <label class="col-sm-3 control-label">
+                    <h5>
+                        <strong>Search: </strong>
+                    </h5>
+                </label>
+                <div class="col-sm-9">
                     <div class="mb-md">
-                        <button class="btn btn-primary" [routerLink]="['/main/notification-detail',0]">Add
-                            <i class="fa fa-plus"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-    
-            <div class="row">
-                <div class="col-md-4">
-                    <label class="col-sm-3 control-label">
-                        <h5>
-                            <strong>Search: </strong>
-                        </h5>
-                    </label>
-                    <div class="col-sm-9">
-                        <div class="mb-md">
-                            <input type="text" [(ngModel)]="term" class="form-control">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped mb-none">
-                    <colgroup>
-                        <col width="350px" />
-                        <col />
-                        <col width="150px" />
-                        <col width="50px" />
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Content</th>
-                            <th>Status</th>
-                            <th class="hidden-phone"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let notification of notifications | filter:term | paginate: { itemsPerPage: 10, currentPage: p }" class="gradeX">
-                            <td>{{notification.notificationName}}</td>
-                            <td>{{notification.content}}</td>
-                            <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
-                            <td class="text-center">
-                                <div class="grid-status" [ngClass]="{'bg-primary': notification.status == 1, 'bg-danger': notification.status == 2 }" (click)="switchStatus(notification)">
-                                    {{notification.status == 1? 'Active':'Disable'}}
-                                </div>
-                            </td>
-                            <td align="center">
-                                <a>
-                                    <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(notification)"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-8" style="padding-top: 20px;">
-                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                        <input type="text" [(ngModel)]="term" class="form-control">
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped mb-none">
+                <colgroup>
+                    <col />
+                    <col width="250px" />
+                    <col width="150px" />
+                    <col width="150px" />
+                    <col width="50px" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Create date</th>
+                        <th>Create by</th>
+                        <th>Status</th>
+                        <th class="hidden-phone"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let notification of notifications | filter:term | paginate: { itemsPerPage: 10, currentPage: p }" class="gradeX">
+                        <td>{{notification.notificationName}}</td>
+                        <td>{{notification.createDate | date:'dd/MM/yyyy'}}</td>
+                        <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
+                        <td>{{notification.createBy}}</td>
+                        <td class="text-center">
+                            <div class="grid-status" [ngClass]="{'bg-primary': notification.status == 1, 'bg-danger': notification.status == 2 }" (click)="switchStatus(notification)">
+                                {{notification.status == 1? 'Active':'Disable'}}
+                            </div>
+
+                            <button type="button" class="btn btn-primary m-xs" data-toggle="popover" data-container="body" data-placement="top" title="This one have a title"
+                                data-content="Example of top popover, click again to close :)">Top</button>
+                        </td>
+                        <td align="center">
+                            <a>
+                                <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(notification)"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-8" style="padding-top: 20px;">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

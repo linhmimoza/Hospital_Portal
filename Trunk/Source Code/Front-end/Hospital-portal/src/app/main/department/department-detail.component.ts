@@ -4,6 +4,7 @@ import { Http } from '@angular/http';
 import { DepartmentService } from './service/department.service';
 import { Department } from './shared/department.model';
 import { CookieService } from 'ngx-cookie-service';
+import { NotificationService } from '../extra/notification.service';
 
 @Component({
     selector: 'department-detail',
@@ -16,8 +17,9 @@ export class DepartmentDetailComponent {
     title: string;
     departments: Department[] = [];
     roleCookie: number;
+    responseText: string;
     constructor(private route: ActivatedRoute, private router: Router, private departmentService: DepartmentService,
-        private cookieService: CookieService) {
+        private cookieService: CookieService, private notificationService: NotificationService) {
 
     }
     back() {
@@ -51,7 +53,7 @@ export class DepartmentDetailComponent {
                     this.title = "You are creating new department";
                 }
             });
-        } else if (this.roleCookie == 0) {
+        } else if (isNaN(this.roleCookie)) {
             alert("You don't have permission to view this page!");
             this.router.navigate(['/login']);
         } else {
@@ -63,19 +65,30 @@ export class DepartmentDetailComponent {
         this.routerSubcription = this.route.params.subscribe(params => {
             this.id = +params['id']; // (+) converts string 'id' to a number
             if (this.id > 0) {
-                this.departmentService.updateDepartment(this.department).then(() => {
-                    alert('Save success');
-                    this.router.navigate(['/main/department-list']);
+                this.departmentService.updateDepartment(this.department).then((res: string) => {
+                    this.responseText = res;
+                    if (this.responseText === "Success") {
+                        this.notificationService.success(this.responseText).then((res) => {
+                            this.router.navigate(['/main/department-list']);
+                        });
+                    } else {
+                        this.notificationService.fail(this.responseText);
+                    }
                 }).catch(err => {
-                    debugger
                     alert(err);
                 });
             } else {
-                this.departmentService.createDepartment(this.department).then(() => {
+                this.departmentService.createDepartment(this.department).then((res: string) => {
                     //Server trả về role sau khi save
                     //Nếu là tạo role mới thì res sẽ có giá trị id mới thay vì 0
-                    alert('Save success');
-                    this.router.navigate(['/main/department-list']);
+                    this.responseText = res;
+                    if (this.responseText === "Success") {
+                        this.notificationService.success(this.responseText).then((res) => {
+                            this.router.navigate(['/main/department-list']);
+                        });
+                    } else {
+                        this.notificationService.fail(this.responseText);
+                    }
                 }).catch(err => {
                     debugger
                     alert(err);

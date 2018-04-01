@@ -29,7 +29,7 @@ export class DepartmentService {
     updateDepartment(department: Department){
         return new Promise((resolve, reject) => {
             this.apiService.post('updateDepartment', department).then(res => {
-                resolve();
+                resolve(res.text());
             }).catch(err => {
                 reject(err);
             });
@@ -39,7 +39,7 @@ export class DepartmentService {
     createDepartment(department: Department){
         return new Promise((resolve, reject) => {
             this.apiService.post('createDepartment', department).then(res => {
-                resolve();
+                resolve(res.text());
             }).catch(err => {
                 reject(err);
             });
@@ -49,7 +49,7 @@ export class DepartmentService {
     deleteDepartment(id){
         return new Promise((resolve, reject) => {
             this.apiService.get(`deleteDepartment/${id}`).then(res => {
-                resolve();
+                resolve(res.text());
             }).catch(err => {
                 reject(err);
             });

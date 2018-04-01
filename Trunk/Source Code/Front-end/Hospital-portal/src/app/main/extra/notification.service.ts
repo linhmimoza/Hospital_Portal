@@ -6,8 +6,8 @@ export class NotificationService {
 
     constructor() { }
 
-    success(message: string){
-        return new Promise(resolve=>{
+    success(message: string) {
+        return new Promise(resolve => {
             $('body').append(`<div class="alert alert-success" id="notificationSuccess" style="
             position:fixed;
             bottom: 20px;
@@ -22,10 +22,24 @@ export class NotificationService {
                 }, 1000);
             }, 1000);
         });
-        
+
     }
 
-    fail(msg: string){
-
+    fail(msg: string) {
+        return new Promise(resolve => {
+            $('body').append(`<div class="alert alert-danger" id="notificationFail" style="
+            position:fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 99999;
+            "><strong>Fail:</strong> ${msg}</div>`);
+            $('#notificationFail').fadeIn(1000);
+            setTimeout(() => {
+                $('#notificationFail').fadeOut(1000);
+                setTimeout(() => {
+                    resolve();
+                }, 1000);
+            }, 1000);
+        });
     }
 }

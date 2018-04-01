@@ -37,8 +37,8 @@ export class ShiftSchedulerListComponent {
 
     ngOnInit() {
         this.manage = this.manageService.getSelect();
-        if (this.manage.departmentId > 0)
-        {this.toDate = this.manage.week;
+        if (this.manage.departmentId > 0)        {
+            this.toDate = this.manage.week;
             this.department = this.manage.departmentId;
             this.search(this.manage.week, this.manage.departmentId);
         }
@@ -52,7 +52,18 @@ export class ShiftSchedulerListComponent {
                 this.users = users;
                 // console.log(users);
             });
+
         } else if (this.roleCookie === 0) {
+
+            this.shiftSchedulerService.getList().then((res: ShiftScheduler[]) => {
+                this.listShiftScheduler = res;
+                this.shiftScheduler = this.listShiftScheduler[0];
+                console.log(this.shiftScheduler);
+            }).catch(err => {
+                alert(err);
+                // this.loadingService.stop();
+            });
+        } else if (isNaN(this.roleCookie)) {
             alert("You don't have permission to view this page!");
             this.router.navigate(['/login']);
         } else {

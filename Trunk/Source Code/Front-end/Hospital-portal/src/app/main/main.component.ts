@@ -45,7 +45,9 @@ export class MainComponent {
     }
 
     logout(){
-        this.cookieService.deleteAll();
+        this.cookieService.set("Auth-UserId", null);
+        this.cookieService.set("Auth-Username", null);
+        this.cookieService.set("Auth-RoleId", null);
         this.router.navigate(['/login']);
     }
 }

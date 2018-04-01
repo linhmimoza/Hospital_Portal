@@ -68,7 +68,7 @@ export class MissionDetailComponent {
                     this.mission.updateby = this.accountService.getUserId();
                 }
             });
-        } else if (this.roleCookie == 0) {
+        } else if (isNaN(this.roleCookie)) {
             alert("You don't have permission to view this page!");
             this.router.navigate(['/login']);
         } else {

@@ -26,7 +26,7 @@ export class UserDetailComponent {
     title: string;
     roles: Role[] = [];
     departments: Department[] = [];
-    response: string;
+    responseText: string;
     roleCookie: number;
     constructor(private route: ActivatedRoute, private router: Router, private userService: UserService,
         private roleService: RoleService, private departmentService: DepartmentService, private loadingService: LoadingService,
@@ -51,7 +51,7 @@ export class UserDetailComponent {
                     Validators.email
                 ]),
                 fullName: new FormControl('', [
-                    Validators.required                    
+                    Validators.required
                 ]),
                 sex: new FormControl(),
                 dayOfBirth: new FormControl('', [
@@ -131,16 +131,25 @@ export class UserDetailComponent {
                 }
 
             });
-        } else {
+        } else if (isNaN(this.roleCookie)) {
             alert("You don't have permission to view this page!");
             this.router.navigate(['/login']);
+        } else {
+            alert("You don't have permission to view this page!");
+            this.router.navigate(['/main/hospital-portal']);
         }
     }
 
     // Check validity of form control, write a method for a form control
     // HTML template we can access validity state as userName.invalid
     get userName() {
-        return this.form.get('userName');
+        const ctrl = this.form.get('userName');
+        if (this.id != 0) {
+            ctrl.disable();
+        } else {
+            ctrl.enable();
+        }
+        return ctrl;
     }
 
     get email() {
@@ -197,21 +206,30 @@ export class UserDetailComponent {
             this.id = +params['id']; // (+) converts string 'id' to a number
             if (this.id > 0) {
                 this.userService.updateUser(user).then((res: string) => {
-                    this.response = res;
-                    // debugger
-                    // console.log(this.response);
-                    // this.notificationService.success("Success").then(() => {
-                    //     this.router.navigate(['/main/user-list']);
-                    // });
+                    this.responseText = res;
+                    if (this.responseText === "Success") {
+                        this.notificationService.success(this.responseText).then(() => {
+                            this.router.navigate(['/main/user-list']);
+                        });
+                    } else {
+                        this.notificationService.fail("Fail");
+                    }
+
                 }).catch(err => {
                     alert(err);
                 });
             } else {
-                this.userService.createUser(user).then(() => {
+                this.userService.createUser(user).then((res: string) => {
                     //Server trả về role sau khi save
                     //Nếu là tạo role mới thì res sẽ có giá trị id mới thay vì 0
-                    this.notificationService.success("Success");
-                    this.router.navigate(['/main/user-list']);
+                    this.responseText = res;
+                    if (this.responseText === "Success") {
+                        this.notificationService.success(this.responseText).then(() => {
+                            this.router.navigate(['/main/user-list']);
+                        });
+                    } else {
+                        this.notificationService.fail(this.responseText + ". Could not complete the transaction");
+                    }
                 }).catch(err => {
                     alert(err);
                 });
