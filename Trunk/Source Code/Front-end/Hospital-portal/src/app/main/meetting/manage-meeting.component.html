@@ -60,9 +60,14 @@
                   <td>{{meeting.duration}}</td>
                   <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
                   <td class="text-center">
-                    <div class="grid-status" [ngClass]="{'bg-warning':meeting.status == 1,'bg-success':meeting.status == 2,'bg-danger':meeting.status == 3}">
+                    <div *ngIf="meeting.status == 1" class="grid-status" [ngClass]="{'bg-warning':meeting.status == 1,'bg-success':meeting.status == 2,'bg-danger':meeting.status == 3}"
+                      mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmDenyText"
+                      [cancelText]="confirmAcceptText" [placement]="placement" (confirm)="denyWaitingMeetings(meeting)" (cancel)="acceptWaitingMeetings(meeting)"
+                      confirmButtonType="danger" cancelButtonType="success" (click)="confirmClicked = false; cancelClicked = false"
+                      [appendToBody]="true">
                       {{meeting.status == 1?'Waiting':''}} {{meeting.status == 2?'Accept':''}} {{meeting.status == 3?'Deny':''}}
                     </div>
+
                   </td>
                   <td align="center">
                     <a>
@@ -108,7 +113,20 @@
                   <td>{{meeting.duration}}</td>
                   <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
                   <td class="text-center">
-                    <div class="grid-status" [ngClass]="{'bg-warning':meeting.status == 1,'bg-success':meeting.status == 2,'bg-danger':meeting.status == 3}">
+
+                    <div *ngIf="meeting.status == 2" class="grid-status" [ngClass]="{'bg-warning':meeting.status == 1,'bg-success':meeting.status == 2,'bg-danger':meeting.status == 3}"
+                      mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmDenyText"
+                      [cancelText]="cancelText" [placement]="placement" (confirm)="switchStatusCheckedMeetings(meeting)" (cancel)="cancelClicked = true"
+                      confirmButtonType="danger" cancelButtonType="default" (click)="confirmClicked = false; cancelClicked = false"
+                      [appendToBody]="true">
+                      {{meeting.status == 1?'Waiting':''}} {{meeting.status == 2?'Accept':''}} {{meeting.status == 3?'Deny':''}}
+                    </div>
+
+                    <div *ngIf="meeting.status == 3" class="grid-status" [ngClass]="{'bg-warning':meeting.status == 1,'bg-success':meeting.status == 2,'bg-danger':meeting.status == 3}"
+                      mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmAcceptText"
+                      [cancelText]="cancelText" [placement]="placement" (confirm)="switchStatusCheckedMeetings(meeting)" (cancel)="cancelClicked = true"
+                      confirmButtonType="success" cancelButtonType="default" (click)="confirmClicked = false; cancelClicked = false"
+                      [appendToBody]="true">
                       {{meeting.status == 1?'Waiting':''}} {{meeting.status == 2?'Accept':''}} {{meeting.status == 3?'Deny':''}}
                     </div>
                   </td>
