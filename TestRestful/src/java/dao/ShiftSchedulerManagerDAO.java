@@ -154,7 +154,7 @@ public class ShiftSchedulerManagerDAO {
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
-            result="fail";
+            result="Failed";
 
         } finally {
             closeConnection();

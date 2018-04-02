@@ -350,7 +350,7 @@ public List<Meeting> getMeetingInRange(String from,String to, int status) {
         return meeting;
     }
 public String createMeeting(Meeting meeting) {
-        String result = "success";
+        String result = "Success";
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
@@ -367,14 +367,14 @@ public String createMeeting(Meeting meeting) {
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
-            result = "fail";
+            result = "Failed";
         } finally {
             closeConnection();
         }
         return result;
     }
 public String updateMeeting(Meeting meeting) {
-        String result = "success";
+        String result = "Success";
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
@@ -389,7 +389,7 @@ public String updateMeeting(Meeting meeting) {
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
-            result = "fail";
+            result = "Failed";
         } finally {
             closeConnection();
         }

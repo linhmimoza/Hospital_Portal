@@ -101,7 +101,7 @@ public class ShiftScheduleDAO implements Serializable {
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
-            result = "fail";
+            result = "Failed";
         } finally {
             closeConnection();
         }
@@ -228,7 +228,7 @@ public class ShiftScheduleDAO implements Serializable {
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
-            result = "fail";
+            result = "Failed";
         } finally {
             closeConnection();
         }
