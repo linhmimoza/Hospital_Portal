@@ -20,6 +20,15 @@ export class ShiftSchedulerService {
             });
         });
     }
+    getListByUpload(uploadBy: number) {
+        return new Promise((resolve, reject) => {
+            this.apiService.get('getListShiftSchedulerByUpload?uploadBy=' + uploadBy).then(res => {
+                resolve(res.json());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
     getCheckedByWeek(week, depId) {
         return new Promise((resolve, reject) => {
             this.apiService.get('getCheckedSchedulerForShow?DepartmentId=' + depId + '&Week=' + week).then(res => {
