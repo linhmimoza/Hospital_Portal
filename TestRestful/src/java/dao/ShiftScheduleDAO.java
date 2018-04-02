@@ -215,5 +215,24 @@ public class ShiftScheduleDAO implements Serializable {
         }
         return shiftSchedule;
     }
-    
+   public String checkShiftScheduler(ShiftSchedule scheduler) {
+        String result = "Sussces";
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+        
+                String sql = "update ShiftSchedule set Status ="+scheduler.getStatus()+" where ShiftScheduleId="+scheduler.getShiftScheduleId();           
+                stm = con.prepareStatement(sql);
+                stm.executeUpdate();
+                            
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+            result = "fail";
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
+      
 }

@@ -6,6 +6,7 @@ import { CreateShiftDay } from '../shared/createShiftDay.model';
 import { CreateShift } from '../shared/createShift.model';
 import { ShiftSchedulerManager } from '../shared/ShiftSchedulerManager.model';
 import { CreateShiftScheduler } from '../shared/createShiftScheduler.model';
+import { ShiftScheduler } from '../shared/shiftScheduler.model';
 
 @Injectable()
 export class ShiftSchedulerService {
@@ -19,9 +20,18 @@ export class ShiftSchedulerService {
             });
         });
     }
-    getByWeek(week, depId) {
+    getCheckedByWeek(week, depId) {
         return new Promise((resolve, reject) => {
             this.apiService.get('getCheckedSchedulerForShow?DepartmentId=' + depId + '&Week=' + week).then(res => {
+                resolve(res.json());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
+    getWaitingByWeek(week, depId) {
+        return new Promise((resolve, reject) => {
+            this.apiService.get('getWaitingSchedulerForCheck?DepartmentId=' + depId + '&Week=' + week).then(res => {
                 resolve(res.json());
             }).catch(err => {
                 reject(err);
@@ -37,10 +47,38 @@ getListManager() {
         });
     });
 }
-
+getFutureManagerByDepartmentId(depId, week) {
+    return new Promise((resolve, reject) => {
+        this.apiService.get('getFutureManagerByDepartmentId?DepartmentId=' + depId + '&Week=' + week).then(res => {
+            resolve(res.json());
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+getSearchManager(depId, week) {
+    return new Promise((resolve, reject) => {
+        this.apiService.get('getSearchManager?DepartmentId=' + depId + '&Week=' + week).then(res => {
+            resolve(res.json());
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+getPassManagerByDepartmentId(depId, week) {
+    return new Promise((resolve, reject) => {
+        this.apiService.get('getPassManagerByDepartmentId?DepartmentId=' + depId + '&Week=' + week).then(res => {
+            resolve(res.json());
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
 setListManager(list: ShiftSchedulerManager[]){
+  
     list.forEach(function(manage){
         let today = manage.week;
+        if (today != null) {
         let  week= parseInt(today.substring(6, 8), 10);
         let  year=  parseInt(today.substring(0, 4), 10);
           let d = new Date(year, 0, 1),
@@ -55,7 +93,7 @@ setListManager(list: ShiftSchedulerManager[]){
       d.setDate(d.getDate() + 7);
       result = result + d.toLocaleDateString();
       manage.range = result;
-
+        }
     });
         return list;
 }
@@ -168,5 +206,23 @@ setListManager(list: ShiftSchedulerManager[]){
       d.setDate(d.getDate() + 7);
       result = result + d.toLocaleDateString();
       return result;
+    }
+    checkScheduler(shiftSchedule: ShiftScheduler) {
+        return new Promise((resolve, reject) => {
+            this.apiService.post('checkShiftScheduler', shiftSchedule).then(res => {
+                resolve();
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
+    checkSchedulerManager(manage: ShiftSchedulerManager) {
+        return new Promise((resolve, reject) => {
+            this.apiService.post('checkShiftSchedulerManager', manage).then(res => {
+                resolve();
+            }).catch(err => {
+                reject(err);
+            });
+        });
     }
  }

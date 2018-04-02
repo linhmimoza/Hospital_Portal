@@ -9,7 +9,6 @@ import { ShiftDay } from './shared/shiftDay.model';
 import { DepartmentService } from '../department/service/department.service';
 import { Department } from '../department/shared/department.model';
 import { ManageService } from './service/shiftSchedulerManage.service';
-import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { ShiftSchedulerManager } from './shared/ShiftSchedulerManager.model';
 declare var $: any;
@@ -47,7 +46,6 @@ export class ShiftSchedulerListComponent {
         if (this.roleCookie === 2 || this.roleCookie === 3 || this.roleCookie === 5 || this.roleCookie === 1 ||
             this.roleCookie === 4 || this.roleCookie === 6) {
             this.loadDepartment();
-            // this.loadingService.start();
             this.userService.getList().then((users: User[]) => {
                 this.users = users;
                 // console.log(users);
@@ -81,7 +79,6 @@ export class ShiftSchedulerListComponent {
     loadDepartment() {
         this.departmentService.getList().then((departments: Department[]) => {
             this.departments = departments;
-
         });
     }
     to() {
@@ -94,7 +91,7 @@ export class ShiftSchedulerListComponent {
     }
     search(week, depId) {
         console.log(this.toDate, this.department);
-        this.shiftSchedulerService.getByWeek(week, depId).then((res: ShiftScheduler) => {
+        this.shiftSchedulerService.getCheckedByWeek(week, depId).then((res: ShiftScheduler) => {
             this.shiftScheduler = res;
             console.log(this.shiftScheduler);
         }).catch(err => {

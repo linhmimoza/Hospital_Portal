@@ -1,0 +1,88 @@
+<section role="main" class="panel"  ng-app="">
+    <header class="panel-heading">
+      <div class="panel-actions">
+  
+      </div>
+      <h2 class="panel-title">Check Shift Scheduler</h2>
+    </header>
+    
+    <div class="panel-body">
+        <div class="form-group">
+          <button class="mb-xs mt-xs mr-xs btn  btn-lg btn-block" 
+          [ngClass]="{'btn-warning': ((manage.waiting != manage.checked)&&(manage.waiting!=0)),
+          'btn-success': ((manage.waiting == manage.checked)&&(manage.waiting!=0)),
+               'bg-danger': ((manage.waiting == manage.checked)&&(manage.waiting==0)) }"
+                >
+              {{((manage.waiting == manage.checked)&&(manage.waiting!=0))? 'Posted':''}}
+              {{((manage.waiting == manage.checked)&&(manage.waiting==0))? 'Empty':''}}
+              {{((manage.waiting != manage.checked)&&(manage.waiting!=0))? 'Waiting ':''}}
+          </button> 
+     
+            <div class="col-sm-5  ">
+                <select class="form-control " disabled [(ngModel)]="department" >
+                    <option *ngFor="let dept of departments" [ngValue]="dept.departmentId">{{dept.departmentName}}</option>
+                </select>
+            </div>
+            <div class="col-sm-5  ">  
+              <div class="input-group">
+                       <span class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
+                </span>
+                <input disabled type="week"  class="form-control"  [(ngModel)]="toDate" (change)="to()">
+                 </div>             
+            </div>
+            <div class="col-sm-2  ">
+              <div *ngIf="((manage.waiting != manage.checked)&&(manage.waiting!=0))" 
+              class="grid-status input-group btn  " [ngClass]="{'bg-warning':((manage.waiting != manage.checked)&&(manage.waiting!=0)),
+              'bg-success':((manage.waiting == manage.checked)&&(manage.waiting!=0)),
+              'bg-danger':((manage.waiting == manage.checked)&&(manage.waiting==0))}"
+              mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmDenyText"
+              [cancelText]="confirmAcceptText" [placement]="placement" (confirm)="deny()" (cancel)="accept()"
+              confirmButtonType="danger" cancelButtonType="success" (click)="confirmClicked = false; cancelClicked = false"
+              [appendToBody]="true">
+              {{((manage.waiting != manage.checked)&&(manage.waiting!=0))?'Waiting':''}}
+               {{((manage.waiting == manage.checked)&&(manage.waiting!=0))?'Accept':''}} 
+               {{((manage.waiting == manage.checked)&&(manage.waiting==0))?'Deny':''}}
+            </div></div>
+          </div>
+        <div class="table-responsive">
+            <table  class="table  " id="datatable-tabletools3" style="text-align: center; display: block;" >
+              <colgroup>
+               
+                <col width="10%" />
+                <col width="10%" />
+                <col width="10%" />
+                <col width="10%" />
+                <col width="10%" />
+                <col width="10%" />
+                <col width="10%" />
+               
+  
+              </colgroup>
+              <thead>
+                <tr>             
+                  <th *ngFor="let Day of shiftScheduler.shiftDayList" style="text-align: center">{{Day.dayInWeek}}<br/>
+                    {{Day.shiftDay}} </th>
+                </tr>
+              </thead>
+              <tbody >
+                <tr width="10%" >
+                 
+                  <td *ngFor="let Day of shiftScheduler.shiftDayList" style="width: 10%" class="group-vertical">
+                    <div *ngFor="let shift of Day.shiftList" class="btn-group well success " style="display: block;overflow: auto;" >  
+                  <p style="color: white"><strong>{{shift.startTime}}-{{shift.endTime}}</strong></p>
+                        <button *ngFor="let worker of shift.shiftWorkerList" type="button" class="btn btn-default" style="margin: 2px">
+                          {{worker.userName}}</button>
+                        
+                    </div>              
+                  </td>
+                </tr>
+             
+              </tbody>
+            </table>
+            
+          </div>
+    </div>
+    
+  </section>
+  
