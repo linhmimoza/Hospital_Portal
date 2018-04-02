@@ -14,38 +14,51 @@
                         Basic validation will display a label with the error after the form control.
                     </p> -->
                 </header>
-                <div class="panel-body" >
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">Room name
-                            <span class="required">*</span>
-                        </label>
-                        <div class="col-sm-7">
-                            <input type="text" [(ngModel)]="room.roomName" class="form-control" required/>
-                        </div>
-                    </div>
+                <form [formGroup]="form" (ngSubmit)="onFormSubmit(form.value)">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Room name
+                                <span class="required">*</span>
+                            </label>
+                            <div class="col-sm-7">
+                                <input type="text" formControlName="roomName" class="form-control" required/>
 
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">Room size
-                            <span class="required">*</span>
-                        </label>
-                        <div class="col-sm-7">
-                            <input type="number" [(ngModel)]="room.roomSize" class="form-control" required min="1"/>
+                                <div class="form-control-feedback" *ngIf="roomName.invalid && (roomName.dirty || roomName.touched)" class="alert alert-danger"
+                                    style="margin-top: 10px">
+                                    <strong *ngIf="roomName.errors.required">Name is required.</strong>
+                                    <strong *ngIf="roomName.errors.minlength">Name must be at least 4 characters long.</strong>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                
-                </div>
-                <footer class="panel-footer">
-                    <div class="row">
-                        <div class="col-sm-9 col-sm-offset-3">
-                            <button class="btn btn-primary" (click)="save()">
-                                <i class="fa fa-floppy-o"></i>
-                                Save</button>
-                            <button class="btn btn-default" (click)="back()">
-                                <i class="fa fa-undo"></i>
-                                Back</button>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Room size
+                                <span class="required">*</span>
+                            </label>
+                            <div class="col-sm-7">
+                                <input type="number" formControlName="roomSize" class="form-control" required min="1" />
+
+                                <div class="form-control-feedback" *ngIf="roomSize.invalid && (roomSize.dirty || roomSize.touched)" class="alert alert-danger"
+                                    style="margin-top: 10px">
+                                    <strong *ngIf="roomSize.errors.required">Size is required.</strong>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
-                </footer>
+                    <footer class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <button class="btn btn-primary" [disabled]="!form.valid">
+                                    <i class="fa fa-floppy-o"></i>
+                                    Save</button>
+                                <button class="btn btn-default" (click)="back()">
+                                    <i class="fa fa-undo"></i>
+                                    Back</button>
+                            </div>
+                        </div>
+                    </footer>
+                </form>
             </section>
         </div>
     </div>
