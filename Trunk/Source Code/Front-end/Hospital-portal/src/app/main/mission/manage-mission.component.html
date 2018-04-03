@@ -21,7 +21,7 @@
         <col width="150px" />
         <col width="150px" />
         <col width="150px" />
-        <col width="350px"/>
+        <col width="350px" />
         <col width="150px" />
         <col width="50px" />
       </colgroup>
@@ -51,11 +51,28 @@
           </td>
 
           <td class="text-center">
-            <!-- <span [ngClass]="{'bg-primary':mission.status == 1,'bg-danger':mission.status == 2}"> -->
-            <div class="grid-status" [ngClass]="{'bg-warning':mission.status == 1,'bg-success':mission.status == 2,'bg-danger':mission.status == 3}">
-
+            <div *ngIf="mission.status == 1" class="grid-status" [ngClass]="{'bg-warning':mission.status == 1,'bg-success':mission.status == 2,'bg-danger':mission.status == 3}"
+              mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmDenyText"
+              [cancelText]="confirmAcceptText" [placement]="placement" (confirm)="deny(mission)" (cancel)="accept(mission)"
+              confirmButtonType="danger" cancelButtonType="success" (click)="confirmClicked = false; cancelClicked = false"
+              [appendToBody]="true">
               {{mission.status == 1?'Waiting':''}} {{mission.status == 2?'Accept':''}} {{mission.status == 3?'Deny':''}}
+            </div>
 
+            <div *ngIf="mission.status == 2" class="grid-status" [ngClass]="{'bg-warning':mission.status == 1,'bg-success':mission.status == 2,'bg-danger':mission.status == 3}"
+              mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmDenyText"
+              [cancelText]="cancelText" [placement]="placement" (confirm)="switchStatus(mission)" (cancel)="cancelClicked = true"
+              confirmButtonType="danger" cancelButtonType="default" (click)="confirmClicked = false; cancelClicked = false"
+              [appendToBody]="true">
+              {{mission.status == 1?'Waiting':''}} {{mission.status == 2?'Accept':''}} {{mission.status == 3?'Deny':''}}
+            </div>
+
+            <div *ngIf="mission.status == 3" class="grid-status" [ngClass]="{'bg-warning':mission.status == 1,'bg-success':mission.status == 2,'bg-danger':mission.status == 3}"
+              mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmAcceptText"
+              [cancelText]="cancelText" [placement]="placement" (confirm)="switchStatus(mission)" (cancel)="cancelClicked = true"
+              confirmButtonType="success" cancelButtonType="default" (click)="confirmClicked = false; cancelClicked = false"
+              [appendToBody]="true">
+              {{mission.status == 1?'Waiting':''}} {{mission.status == 2?'Accept':''}} {{mission.status == 3?'Deny':''}}
             </div>
           </td>
           <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->

@@ -10,6 +10,7 @@ import { Select } from '../select/share/select.model';
 import { SelectService } from '../select/service/select.service';
 import { forEach } from '@angular/router/src/utils/collection';
 import { CookieService } from 'ngx-cookie-service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
 @Component({
@@ -32,6 +33,8 @@ export class MissionDetailComponent {
     missions: Mission[] = [];
 
     roleCookie: number;
+
+    form: any;
     constructor(private route: ActivatedRoute, private router: Router, private missionService: MissionService
         , private userService: UserService, private selectService: SelectService
         , private accountService: AccountService,
@@ -45,6 +48,30 @@ export class MissionDetailComponent {
     ngOnInit() {
         this.roleCookie = +this.cookieService.get("Auth-RoleId");
         if (this.roleCookie == 2 || this.roleCookie == 3 || this.roleCookie == 5) {
+            this.form = new FormGroup({
+                missionId: new FormControl(''),
+                startDate: new FormControl('', [
+                    Validators.required
+                ]),
+                endDate: new FormControl('', [
+                    Validators.required
+                ]),
+                place: new FormControl('', [
+                    Validators.required
+                ]),
+                content: new FormControl('', [
+                    Validators.required
+                ]),
+                note: new FormControl(''),
+                status: new FormControl(''),
+                createby: new FormControl(''),
+                createDate: new FormControl(''),
+                updateby: new FormControl(''),
+                updateDate: new FormControl(''),
+                missionWorkerList: new FormControl('', [
+                    Validators.required
+                ])
+            });
             this.loadPage();
 
             this.routerSubcription = this.route.params.subscribe(params => {
@@ -87,20 +114,10 @@ export class MissionDetailComponent {
             classes: 'myclass custom-class'
         };
     }
-    onItemSelect(item: any) {
-
-
-
-    }
-    OnItemDeSelect(item: any) {
-
-    }
-    onSelectAll(items: any) {
-
-    }
-    onDeSelectAll(items: any) {
-
-    }
+    onItemSelect(item: any) { }
+    OnItemDeSelect(item: any) { }
+    onSelectAll(items: any) { }
+    onDeSelectAll(items: any) { }
 
     loadPage() {
         this.createMember();

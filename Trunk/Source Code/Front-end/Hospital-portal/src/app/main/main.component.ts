@@ -19,7 +19,28 @@ export class MainComponent {
     title: string;
     constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService,
         private cookieService: CookieService) {
-
+        var a = this.router.events.subscribe(event => {
+            if (event.constructor.name === "NavigationEnd") {
+                let url = this.router.url.toString();
+                if (url.includes("meeting")) {
+                    this.title = "Meeting";
+                } else if (url.includes("mission")) {
+                    this.title = "Mission";
+                } else if (url.includes("department")) {
+                    this.title = "Department";
+                } else if (url.includes("notification")) {
+                    this.title = "Notification";
+                } else if (url.includes("room")) {
+                    this.title = "Room";
+                } else if (url.includes("shiftSchedule")) {
+                    this.title = "Shift schedule";
+                } else if (url.includes("user")) {
+                    this.title = "User";
+                } else if (url.includes("hospital")) {
+                    this.title = "Hospital portal";
+                }
+            }
+        });
     }
 
     ngOnInit() {
@@ -44,7 +65,7 @@ export class MainComponent {
         if (this.routerSubcription) this.routerSubcription.unsubscribe();
     }
 
-    logout(){
+    logout() {
         this.cookieService.set("Auth-UserId", null);
         this.cookieService.set("Auth-Username", null);
         this.cookieService.set("Auth-RoleId", null);

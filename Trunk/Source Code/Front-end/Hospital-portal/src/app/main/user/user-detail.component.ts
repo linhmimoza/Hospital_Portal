@@ -114,7 +114,7 @@ export class UserDetailComponent {
                                 roleId: this.user.roleId,
                                 status: this.user.status,
                                 position: this.user.position,
-                                userId: this.user.userId
+                                userId: this.id
                             });
                         // this.user.sex = this.user.sex.toString();
                     }).catch(err => {

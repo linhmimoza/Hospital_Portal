@@ -30,11 +30,6 @@
                     <ul class="list-unstyled">
                         <li class="divider"></li>
                         <li>
-                            <a role="menuitem" tabindex="-1" href="pages-user-profile.html">
-                                <i class="fa fa-user"></i> My Profile</a>
-                        </li>
-
-                        <li>
                             <a role="menuitem" tabindex="-1" (click)="logout()">
                                 <i class="fa fa-power-off"></i> Logout</a>
                         </li>
@@ -234,7 +229,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a [routerLink]="['/main/createShiftScheduler']">
+                                        <a [routerLink]="['/main/manage-shiftSchedule']">
                                             <i class="fa fa-home" aria-hidden="true"></i>
                                             <span>Manage shift schedule</span>
                                         </a>

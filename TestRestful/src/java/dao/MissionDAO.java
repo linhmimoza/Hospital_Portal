@@ -117,7 +117,7 @@ public class MissionDAO implements Serializable {
     }
 
     public String createMission(Mission mission) {
-        String result = "success";
+        String result = "Success";
 
         try {
             con = DBUtils.DBUtils.makeConnection();
@@ -148,7 +148,7 @@ public class MissionDAO implements Serializable {
     }
 
     public String updateMission(Mission mission) {
-        String result = "success";
+        String result = "Success";
 
         try {
             con = DBUtils.DBUtils.makeConnection();

@@ -91,7 +91,7 @@ public class NotificationDAO implements Serializable {
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
-result="Fail";
+result="Failed";
         } finally {
             closeConnection();
         }
@@ -115,7 +115,7 @@ result="Fail";
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
-result="Fail";
+result="Failed";
         } finally {
             closeConnection();
         }

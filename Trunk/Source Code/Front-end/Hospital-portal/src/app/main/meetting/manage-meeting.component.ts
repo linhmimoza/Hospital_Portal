@@ -3,18 +3,28 @@ import { Router } from '@angular/router';
 import { Meeting } from './shared/meeting.model';
 import { MeetingService } from './service/meeting.service';
 import { CookieService } from 'ngx-cookie-service';
+import { NotificationService } from '../extra/notification.service';
 declare var $: any;
 @Component({
     selector: 'manage-meeting',
     templateUrl: './manage-meeting.component.html',
-    styleUrls:['manage-meeting.component.css']
+    styleUrls: ['manage-meeting.component.css']
 })
 export class ManageMeetingComponent {
+    popoverTitle: string = 'Are you sure?';
+    popoverMessage: string = 'Are you really <b>sure</b> you want to do this?';
+    confirmText: string = 'Yes <i class="glyphicon glyphicon-ok"></i>';
+    cancelText: string = 'No <i class="glyphicon glyphicon-remove"></i>';
+    confirmDenyText: string = 'Deny <i class="glyphicon glyphicon-ok"></i>';
+    confirmAcceptText: string = 'Accept <i class="glyphicon glyphicon-ok"></i>';
+    confirmClicked: boolean = false;
+    cancelClicked: boolean = false;
+
     checkedMeetings: Meeting[] = [];
     waitingMeetings: Meeting[] = [];
     roleCookie: number;
     constructor(private router: Router,
-        private meetingService: MeetingService, private cookieService: CookieService) { }
+        private meetingService: MeetingService, private cookieService: CookieService, private notificationService: NotificationService) { }
 
     ngOnInit() {
         this.roleCookie = +this.cookieService.get("Auth-RoleId");
@@ -59,9 +69,34 @@ export class ManageMeetingComponent {
         this.router.navigate(['/main/meeting-detail', meeting.meetingId]);
     }
 
-    delete(meeting: Meeting) {
-        this.meetingService.deleteMeeting(meeting.meetingId).then(() => {
+    switchStatusCheckedMeetings(meeting: Meeting) {
+        if (meeting.status == 2) {
+            meeting.status = 3;
+        } else {
+            meeting.status = 2;
+        }
+        this.meetingService.updateMeeting(meeting).then(() => {
+            this.notificationService.success("Success");
+            this.loadChecked();
+            this.loadWaiting();
+        });
+    }
 
+    denyWaitingMeetings(meeting: Meeting) {
+        meeting.status = 3;
+        this.meetingService.updateMeeting(meeting).then(() => {
+            this.notificationService.success("Success");
+            this.loadChecked();
+            this.loadWaiting();
+        });
+    }
+
+    acceptWaitingMeetings(meeting: Meeting) {
+        meeting.status = 2;
+        this.meetingService.updateMeeting(meeting).then(() => {
+            this.notificationService.success("Success");
+            this.loadChecked();
+            this.loadWaiting();
         });
     }
 }

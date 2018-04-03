@@ -13,36 +13,48 @@
                         Basic validation will display a label with the error after the form control.
                     </p> -->
             </header>
-            <div class="panel-body">
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Notification name
-                        <span class="required">*</span>
-                    </label>
-                    <div class="col-sm-7">
-                        <input type="text" [(ngModel)]="notification.notificationName" class="form-control" required/>
+            <form [formGroup]="form" (ngSubmit)="onFormSubmit(form.value)">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Notification name
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-7">
+                            <input type="text" formControlName="notificationName" class="form-control" required/>
+                            <div class="form-control-feedback" *ngIf="notificationName.invalid && (notificationName.dirty || notificationName.touched)"
+                                class="alert alert-danger" style="margin-top: 10px">
+                                <strong *ngIf="notificationName.errors.required">Name is required.</strong>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="col-md-3 control-label" for="textareaDefault">Content</label>
-                    <div class="col-md-7">
-                        <textarea class="form-control" [(ngModel)]="notification.content" rows="3" id="textareaDefault"></textarea>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="textareaDefault">Content
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-md-7">
+                            <textarea class="form-control" formControlName="content" rows="3" id="textareaDefault"></textarea>
+                            <div class="form-control-feedback" *ngIf="content.invalid && (content.dirty || content.touched)" class="alert alert-danger"
+                                style="margin-top: 10px">
+                                <strong *ngIf="content.errors.required">Content is required.</strong>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-            </div>
-            <footer class="panel-footer">
-                <div class="row">
-                    <div class="col-sm-9 col-sm-offset-3">
-                        <button class="btn btn-primary" (click)="save()">
-                            <i class="fa fa-floppy-o"></i>
-                            Save</button>
-                        <button class="btn btn-default" (click)="back()">
-                            <i class="fa fa-undo"></i>
-                            Back</button>
-                    </div>
                 </div>
-            </footer>
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-9 col-sm-offset-3">
+                            <button class="btn btn-primary" [disabled]="!form.valid">
+                                <i class="fa fa-floppy-o"></i>
+                                Save</button>
+                            <button class="btn btn-default" (click)="back()">
+                                <i class="fa fa-undo"></i>
+                                Back</button>
+                        </div>
+                    </div>
+                </footer>
+            </form>
         </section>
     </div>
 </div>

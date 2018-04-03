@@ -29,10 +29,6 @@ import { MissionListComponent } from './main/mission/mission-list.component';
 import { ManageMissionComponent } from './main/mission/manage-mission.component';
 import { MissionDetailComponent } from './main/mission/mission-detail.component';
 import { MissionService } from './main/mission/service/mission.service';
-import { MeetingListComponent } from './main/meetting/meeting-list.component';
-import { MeetingDetailComponent } from './main/meetting/meeting-detail.component';
-import { ManageMeetingComponent } from './main/meetting/manage-meeting.component';
-import { MeetingService } from './main/meetting/service/meeting.service';
 import { ArticleListComponent } from './main/article/article-list.component';
 import { ArticleDetailComponent } from './main/article/article-detail.component';
 import { ArticleService } from './main/article/service/article.service';
@@ -69,6 +65,12 @@ import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { CheckShiftScheduleComponent } from './main/shiftScheduler/check-shiftSchedule.component';
 import { ManagecategoryComponent } from './main/managecategory/managecategory.component';
 import { AddCategoryComponent } from './main/managecategory/add-category/add-category.component';
+import { PageNotFoundComponent } from './main/404/pageNotFound.component';
+import { MeetingListComponent } from './main/meetting/meeting-list.component';
+import { ManageMeetingComponent } from './main/meetting/manage-meeting.component';
+import { MeetingDetailComponent } from './main/meetting/meeting-detail.component';
+import { MeetingService } from './main/meetting/service/meeting.service';
+import { UploadShiftScheduleComponent } from './main/shiftScheduler/upload-shiftSchedule.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home/main', pathMatch: 'full' },
@@ -108,7 +110,8 @@ const routes: Routes = [
       { path: 'manage-category/:id', component: AddCategoryComponent },
       { path: 'manage-category', component: AddCategoryComponent },
       { path: 'setting', component: SettingComponent },
-      { path: 'check-shiftSchedule', component: CheckShiftScheduleComponent }
+      { path: 'check-shiftSchedule', component: CheckShiftScheduleComponent },
+      { path: 'upload-shiftSchedule', component: UploadShiftScheduleComponent }
     ]
   },
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
@@ -122,7 +125,8 @@ const routes: Routes = [
       { path: 'main', component: HomeMainComponent },
       { path: 'introduce/:id', component: IntroduceComponent },
     ]
-  }
+  },
+  { path: '**', component: PageNotFoundComponent, pathMatch: 'full' }
 ];
 
 
@@ -170,7 +174,9 @@ const routes: Routes = [
     IntroduceComponent,
     CheckShiftScheduleComponent,
     ManagecategoryComponent,
-    AddCategoryComponent
+    AddCategoryComponent,
+    PageNotFoundComponent,
+    UploadShiftScheduleComponent
   ],
   imports: [
     BrowserModule,

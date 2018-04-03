@@ -29,7 +29,7 @@ export class RoomService {
     updateRoom(room: Room){
         return new Promise((resolve, reject) => {
             this.apiService.post('updateRoom', room).then(res => {
-                resolve();
+                resolve(res.text());
             }).catch(err => {
                 reject(err);
             });
@@ -39,7 +39,7 @@ export class RoomService {
     createRoom(room: Room){
         return new Promise((resolve, reject) => {
             this.apiService.post('createRoom', room).then(res => {
-                resolve();
+                resolve(res.text());
             }).catch(err => {
                 reject(err);
             });
