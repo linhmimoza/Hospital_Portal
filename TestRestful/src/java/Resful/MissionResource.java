@@ -39,16 +39,32 @@ public class MissionResource {
     }
  @Path("/getListMission")
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces()
     public List<Mission> getListMission() throws SQLException, ClassNotFoundException {
     MissionDAO dao = new MissionDAO();
             List<Mission> listMission = dao.getMissions();         
             return listMission;
     }
+    @Path("/getWaitingMissions")
+    @GET
+    @Produces()
+    public List<Mission> getWaitingMissions() throws SQLException, ClassNotFoundException {
+    MissionDAO dao = new MissionDAO();
+            List<Mission> listMission = dao.getWaitingMissions();         
+            return listMission;
+    }
+     @Path("/getCheckedMissions")
+    @GET
+    @Produces()
+    public List<Mission> getCheckedMissions() throws SQLException, ClassNotFoundException {
+    MissionDAO dao = new MissionDAO();
+            List<Mission> listMission = dao.getCheckedMissions();         
+            return listMission;
+    }
     
  @Path("/getMissionById/{missionId}")
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces()
     public Mission getMissionById(@PathParam("missionId") int missionId) throws SQLException, ClassNotFoundException {
     MissionDAO dao = new MissionDAO();                    
           Mission mission = dao.getMissionById(missionId);        
@@ -71,7 +87,7 @@ public class MissionResource {
    }
    @Path("/geMissionByUser/{userId}")
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces()
     public List<Mission> geMissionByUser(@PathParam("userId") int missionId) throws SQLException, ClassNotFoundException {
     MissionDAO dao = new MissionDAO();
             List<Mission> listMission = dao.getMissionByUser(missionId);         

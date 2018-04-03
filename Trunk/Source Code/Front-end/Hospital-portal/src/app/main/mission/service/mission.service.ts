@@ -16,6 +16,24 @@ export class MissionService {
             });
         });
     }
+    getWaitingMissions() {
+        return new Promise((resolve, reject) => {
+            this.apiService.get('getWaitingMissions').then(res => {
+                resolve(res.json());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
+    getCheckedMissions() {
+        return new Promise((resolve, reject) => {
+            this.apiService.get('getCheckedMissions').then(res => {
+                resolve(res.json());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
     getByUser(userId) {
         return new Promise((resolve, reject) => {
             this.apiService.get('geMissionByUser/' + userId).then(res => {

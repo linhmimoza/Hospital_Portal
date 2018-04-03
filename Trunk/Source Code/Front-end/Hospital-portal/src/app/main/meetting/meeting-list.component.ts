@@ -67,7 +67,6 @@ export class MeetingListComponent {
     view(meet) {
         this.loadScrip();
         this.selectMeeting = meet;
-        console.log(this.selectMeeting);
         this.loadScrip();
     }
     loadPass() {

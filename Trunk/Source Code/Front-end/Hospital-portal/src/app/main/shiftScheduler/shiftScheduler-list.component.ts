@@ -35,16 +35,11 @@ export class ShiftSchedulerListComponent {
         private manageService: ManageService) { }
 
     ngOnInit() {
-        this.manage = this.manageService.getSelect();
-        if (this.manage.departmentId > 0)        {
-            this.toDate = this.manage.week;
-            this.department = this.manage.departmentId;
-            this.search(this.manage.week, this.manage.departmentId);
-        }
-        this.shiftSchedulerService.getThisWeek();
+
         this.roleCookie = +this.cookieService.get('Auth-RoleId');
         if (this.roleCookie === 2 || this.roleCookie === 3 || this.roleCookie === 5 || this.roleCookie === 1 ||
             this.roleCookie === 4 || this.roleCookie === 6) {
+                this.loadSelect();
             this.loadDepartment();
             this.userService.getList().then((users: User[]) => {
                 this.users = users;
@@ -69,7 +64,14 @@ export class ShiftSchedulerListComponent {
             this.router.navigate(['/main/hospital-portal']);
         }
     }
-
+loadSelect() {
+    this.manage = this.manageService.getSelect();
+    if (this.manage.departmentId > 0)        {
+        this.toDate = this.manage.week;
+        this.department = this.manage.departmentId;
+        this.search(this.manage.week, this.manage.departmentId);
+    }
+}
     printDate(date: String) {
         console.log(date);
     }

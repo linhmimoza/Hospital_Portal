@@ -19,8 +19,8 @@ export class ManageMissionComponent {
     confirmAcceptText: string = 'Accept <i class="glyphicon glyphicon-ok"></i>';
     confirmClicked: boolean = false;
     cancelClicked: boolean = false;
-
-    missions: Mission[] = [];
+    waitingMissions: Mission[] = [];
+    checkedMissons: Mission[] = [];
     roleCookie: number;
     constructor(private router: Router,
         private missionService: MissionService, private cookieService: CookieService,
@@ -31,23 +31,31 @@ export class ManageMissionComponent {
         this.roleCookie = +this.cookieService.get("Auth-RoleId");
         if (this.roleCookie == 2 || this.roleCookie == 3 || this.roleCookie == 5) {
             // this.loadingService.start();
-            this.missionService.getList().then((res: Mission[]) => {
-                this.missions = res;
-            }).catch(err => {
-                alert(err);
-                // this.loadingService.stop();
-            });
+          this.reload();
 
         } else if (isNaN(this.roleCookie)) {
-            alert("You don't have permission to view this page!");
+            alert('You don\'t have permission to view this page!');
             this.router.navigate(['/login']);
         } else {
-            alert("You don't have permission to view this page!");
+            alert('You don\'t have permission to view this page!');
             this.router.navigate(['/main/hospital-portal']);
         }
     }
 
+reload() {
+        this.missionService.getWaitingMissions().then((res: Mission[]) => {
+            this.waitingMissions = res;
+        }).catch(err => {
+            alert(err);
+        });
+        this.missionService.getCheckedMissions().then((res: Mission[]) => {
+            this.checkedMissons = res;
+        }).catch(err => {
+            alert(err);
+        });
+        
 
+}
     ngAfterViewInit() {
 
     }
@@ -63,36 +71,24 @@ export class ManageMissionComponent {
             mission.status = 2;
         }
         this.missionService.updateMission(mission).then(() => {
-            this.notificationService.success("Success");
-            this.missionService.getList().then((res: Mission[]) => {
-                this.missions = res;
-            }).catch(err => {
-                alert(err);
-            });
+            this.notificationService.success('Success');
+            this.reload();
         });
     }
 
     deny(mission: Mission) {
         mission.status = 3;
         this.missionService.updateMission(mission).then(() => {
-            this.notificationService.success("Success");
-            this.missionService.getList().then((res: Mission[]) => {
-                this.missions = res;
-            }).catch(err => {
-                alert(err);
-            });
+            this.notificationService.success('Success');
+            this.reload();
         });
     }
 
     accept(mission: Mission) {
         mission.status = 2;
         this.missionService.updateMission(mission).then(() => {
-            this.notificationService.success("Success");
-            this.missionService.getList().then((res: Mission[]) => {
-                this.missions = res;
-            }).catch(err => {
-                alert(err);
-            });
+            this.notificationService.success('Success');
+            this.reload();
         });
     }
 }

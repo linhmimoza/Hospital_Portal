@@ -359,7 +359,7 @@ public String createMeeting(Meeting meeting) {
 "Content,Note,CreateBy,CreateDate,UpdateBy,UpdateDate,Status)\n" +
 "Values("+meeting.getRoomId()+",'"+meeting.getMeetingName().trim()+"',"
                         + "'"+meeting.getStartTime()+"','"+meeting.getDuration()+"','"+meeting.getDate()+"'"
-                        + ",'"+meeting.getContent().trim()+"','"+meeting.getNote().trim()+"',"+meeting.getCreateBy()+","
+                        + ",'"+meeting.getContent().trim()+"','"+meeting.getNote()+"',"+meeting.getCreateBy()+","
                         + "'"+time.getTime()+"',"+meeting.getUpdateBy()+",'"+time.getTime()+"',1)" ;     
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
@@ -381,7 +381,7 @@ public String updateMeeting(Meeting meeting) {
                    TimeEditor time= new TimeEditor();
                 String sql = "update Meeting set RoomId="+meeting.getRoomId()+", MeetingName='"+meeting.getMeetingName().trim()+"'"
                         + ", StartTime='"+meeting.getStartTime()+"', Duration='"+meeting.getDuration()+"',\n" +
-"Date='"+meeting.getDate()+"', Content='"+meeting.getContent().trim()+"', Note='"+meeting.getNote().trim()+"', \n" +
+"Date='"+meeting.getDate()+"', Content='"+meeting.getContent().trim()+"', Note='"+meeting.getNote()+"', \n" +
 "UpdateBy="+meeting.getUpdateBy()+",UpdateDate='"+time.getTime()+"', Status="+meeting.getStatus()+" where MeetingId="+meeting.getMeetingId() ;     
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();

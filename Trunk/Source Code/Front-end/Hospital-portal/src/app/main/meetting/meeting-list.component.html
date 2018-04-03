@@ -91,10 +91,7 @@
                     <span>
                       <i class="fa fa-hourglass"></i> Duration: {{meeting.duration}}
                     </span>
-                    <span>
-                      <i class="fa fa-comments"></i>
-                      <a href="#">5652 Comments</a>
-                    </span>
+                 
                   </div>
                 </div>
               </li>
@@ -104,7 +101,9 @@
           </div>
         </div>
 
-        <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block" (click)="loadFuture()">Show more</button>
+        <button  [ngClass]="{'hidden':(futureMeetings.length<(fPage*3))}" 
+        class="hidden mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block"
+         (click)="loadFuture()"> Show more</button>
 
 
       </div>
@@ -157,10 +156,7 @@
                     <span>
                       <i class="fa fa-hourglass"></i> Duration: {{meeting.duration}}
                     </span>
-                    <span>
-                      <i class="fa fa-comments"></i>
-                      <a href="#">5652 Comments</a>
-                    </span>
+
                   </div>
                 </div>
               </li>
@@ -203,10 +199,7 @@
                     <span>
                       <i class="fa fa-hourglass"></i> Duration: {{meeting.duration}}
                     </span>
-                    <span>
-                      <i class="fa fa-comments"></i>
-                      <a href="#">5652 Comments</a>
-                    </span>
+               
                   </div>
                 </div>
               </li>
@@ -215,7 +208,7 @@
             </ol>
           </div>
         </div>
-        <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block" (click)="loadPass()">Show more</button>
+        <button type="button" class=" mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block" (click)="loadPass()">Show more</button>
 
       </div>
 

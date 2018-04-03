@@ -50,8 +50,7 @@ export class CheckShiftScheduleComponent{
         }
         this.shiftSchedulerService.getThisWeek();
         this.roleCookie = +this.cookieService.get('Auth-RoleId');
-        if (this.roleCookie === 2 || this.roleCookie === 3 || this.roleCookie === 5 || this.roleCookie === 1 ||
-            this.roleCookie === 4 || this.roleCookie === 6) {
+        if (this.roleCookie === 2 ) {
             this.loadDepartment();
             // this.loadingService.start();
             this.userService.getList().then((users: User[]) => {
