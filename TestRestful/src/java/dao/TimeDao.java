@@ -67,7 +67,7 @@ public class TimeDao {
     public boolean bookingSuccess(int timeId) {
         boolean check = false;
         try {
-            String sql = "Update Time set Amount=Amount-1 where TimeId=?";
+            String sql = "Update Time set Amount=Amount+1 where TimeId=?";
            con = DBUtils.makeConnection();
             stm = con.prepareStatement(sql);
             stm.setInt(1, timeId);
@@ -83,7 +83,7 @@ public class TimeDao {
     public boolean checkAvailable() {
         boolean check = false;
         try {
-            String sql = "Update Time set Available=0 where Amount=0";
+            String sql = "Update Time set Available=0 where Amount=Limit";
              con = DBUtils.makeConnection();
             stm = con.prepareStatement(sql);
             check = stm.executeUpdate() > 0;
@@ -94,12 +94,12 @@ public class TimeDao {
         }
         return check;
     }
-    public String updateAmountTime(int Amount,String date) {
+    public String updateLimitAmountTime(int Limit,String date) {
         String result = "Success";
         try {
    con = DBUtils.makeConnection();
             if (con != null) {
-                String sql = "update Time set Amount="+Amount+""
+                String sql = "update Time set Limit="+Limit+""
                         + "where Date >= '"+date+"'";
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();

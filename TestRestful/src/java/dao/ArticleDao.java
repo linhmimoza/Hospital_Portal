@@ -39,6 +39,43 @@ public class ArticleDao {
             e.printStackTrace();
         }
     }
+    public List<Article> getAllListArticle(int categoryId) throws SQLException, ClassNotFoundException {
+        List<Article> listArticle = new ArrayList<>();
+        try {
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "Select a.*, u.FullName as uploadByUser, u1.FullName as updateByUser\n"
+                        + "from Article a\n"
+                        + "left outer join [User] u on u.UserId = a.UploadBy\n"
+                        + "left outer join [User] u1 on u1.UserId = a.UpdateBy \n"
+                        + "where a.CategoryId=?";
+                //select * from Article order by id desc limit 5;
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, categoryId);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    Integer id = rs.getInt("ArticleId");
+                    String title = rs.getString("Title");
+                    Integer uploadBy = rs.getInt("UploadBy");
+                    String uploadDate = rs.getString("UploadDate");
+                    Integer updateBy = rs.getInt("UpdateBy");
+                    String updateDate = rs.getString("UpdateDate");
+                    Integer status = rs.getInt("Status");
+                    String link = rs.getString("Link");
+                    String describe = rs.getString("Describe");
+                    String uploadByName = rs.getString("uploadByUser");
+                    String updateByName = rs.getString("updateByUser");
+                    Article a = new Article(id, categoryId, uploadBy, updateBy, status, title, uploadDate, updateDate, link, describe, uploadByName, updateByName);
+                    listArticle.add(a);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        return listArticle;
+    }
 
     public List<Article> getListArticle(int categoryId) throws SQLException, ClassNotFoundException {
         List<Article> listArticle = new ArrayList<>();
@@ -97,6 +134,43 @@ public class ArticleDao {
                     String title = rs.getString("Title");
                     Integer uploadBy = rs.getInt("UploadBy");
                     String uploadDate = rs.getString("UploadDate");
+                    Integer updateBy = rs.getInt("UpdateBy");
+                    String updateDate = rs.getString("UpdateDate");
+                    Integer status = rs.getInt("Status");
+                    String link = rs.getString("Link");
+                    String describe = rs.getString("Describe");
+                    String uploadByName = rs.getString("uploadByUser");
+                    String updateByName = rs.getString("updateByUser");
+                    Article a = new Article(id, categoryId, uploadBy, updateBy, status, title, uploadDate, updateDate, link, describe, uploadByName, updateByName);
+                    listArticle.add(a);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        return listArticle;
+    }
+    public List<Article> getListArticleByTitle(String Title) throws SQLException, ClassNotFoundException {
+        List<Article> listArticle = new ArrayList<>();
+        try {
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "Select a.*, u.FullName as uploadByUser, u1.FullName as updateByUser\n"
+                        + "from Article a\n"
+                        + "left outer join [User] u on u.UserId = a.UploadBy\n"
+                        + "left outer join [User] u1 on u1.UserId = a.UpdateBy \n"
+                        + "where Title=?";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, Title);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    Integer categoryId = rs.getInt("CategoryId");
+                    Integer id = rs.getInt("ArticleId");
+                    Integer uploadBy = rs.getInt("UploadBy");
+                    String uploadDate = rs.getString("UploadDate");
+                    String title = rs.getString("Title");
                     Integer updateBy = rs.getInt("UpdateBy");
                     String updateDate = rs.getString("UpdateDate");
                     Integer status = rs.getInt("Status");

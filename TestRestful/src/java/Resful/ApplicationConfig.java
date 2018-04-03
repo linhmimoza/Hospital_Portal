@@ -46,6 +46,7 @@ public class ApplicationConfig extends Application {
         resources.add(Resful.ServiceResource.class);
         resources.add(Resful.ShiftSchedulerResource.class);
         resources.add(Resful.TimeResource.class);
+        resources.add(Resful.UploadFileResource.class);
         resources.add(Resful.UserResource.class);
     }
     

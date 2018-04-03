@@ -87,5 +87,15 @@ public class MedicalBookingResource {
         List<MedicalBooking> listMb = dao.getListMb(guestIdentity);
         return listMb;
     }
+    @Path("/createBookingNumber")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String createBookingNumber(
+            @QueryParam("BookingId") int BookingId,
+            @QueryParam("date") String date) throws SQLException {
+        MedicalBookingDao dao = new MedicalBookingDao();
+        return dao.createBookingNumber(BookingId,date);
+    }
+    
 
 }

@@ -26,7 +26,7 @@ import javax.ws.rs.core.Response.ResponseBuilder;
  */
 @Path("DownloadFile")
 public class DownloadFileResource {
-    private static final String FILE_PATH = "d:\\";  
+    private static final String FILE_PATH = "D://std//doan//FileUpload//";  
 
     @Context
     private UriInfo context;
@@ -56,7 +56,7 @@ public class DownloadFileResource {
         File file = new File(FILE_PATH + filename);  
    
         ResponseBuilder response = Response.ok((Object) file);  
-        response.header("Content-Disposition","attachment; filename=\"download.doc\"");  
+        response.header("Content-Disposition","attachment; filename=\""+filename+"\"");  
         return response.build();  
    
     }  

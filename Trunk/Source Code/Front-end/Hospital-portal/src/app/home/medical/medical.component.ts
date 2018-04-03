@@ -49,13 +49,14 @@ export class MedicalComponent implements OnInit, AfterViewInit {
   }
 
   submitBooking() {
-    let param = `SpecialistId=${this.data.SpecialistId}&ServiceId=${this.data.ServiceId}&TimeId=${this.data.TimeId}&CreateDate=${moment().format('YYYY-MM-DD')}&GuestName=${this.data.GuestName}&GuestPhone=${this.data.GuestPhone}&GuestEmail=${this.data.GuestEmail}&GuestAddress=${this.data.GuestAddress}&GuestIdentity=${this.data.GuestIdentity}&Note=${this.data.Note}`;
+    const now = moment().format('YYYY-MM-DD');
+    let param = `SpecialistId=${this.data.SpecialistId}&ServiceId=${this.data.ServiceId}&TimeId=${this.data.TimeId}&CreateDate=${now}&GuestName=${this.data.GuestName}&GuestPhone=${this.data.GuestPhone}&GuestEmail=${this.data.GuestEmail}&GuestAddress=${this.data.GuestAddress}&GuestIdentity=${this.data.GuestIdentity}&Note=${this.data.Note}`;
     this._medicalSrv.submitBooking(param)
       .flatMap(res => {
         return this._medicalSrv.getBookingId();
       })
       .flatMap(res => {
-        return this._medicalSrv.createBookingNumber(res);
+        return this._medicalSrv.createBookingNumber(res, now);
       })
       .flatMap(res => {
         return  this._medicalSrv.bookingSuccess(this.data.TimeId);

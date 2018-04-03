@@ -47,6 +47,15 @@ public class ServiceResource {
         throw new UnsupportedOperationException();
     }
     
+    @Path("/getAllListService")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Service> getAllListSService( @QueryParam("DepartmentId") int departmentId) throws SQLException, ClassNotFoundException {
+            ServiceDao dao = new ServiceDao();
+            List<Service> listService = dao.getAllListService(departmentId);        
+            return listService;
+    }
+    
     @Path("/getListService")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -61,6 +70,14 @@ public class ServiceResource {
     public List<Service> getListSServiceById( @QueryParam("ServiceId") int serviceId) throws SQLException, ClassNotFoundException {
             ServiceDao dao = new ServiceDao();
             List<Service> listService = dao.getListServiceById(serviceId);        
+            return listService;
+    }
+    @Path("/getListServiceByName")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Service> getListSServiceByName( @QueryParam("ServiceName") String ServiceName) throws SQLException, ClassNotFoundException {
+            ServiceDao dao = new ServiceDao();
+            List<Service> listService = dao.getListServiceByName(ServiceName);        
             return listService;
     }
     @Path("/createService")

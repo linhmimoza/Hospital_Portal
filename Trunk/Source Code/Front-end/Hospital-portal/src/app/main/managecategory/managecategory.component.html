@@ -1,20 +1,20 @@
 <div class="container" style="width: 100%">
   <header class="page-header">
-    <h2>Service</h2>
+    <h2>Category</h2>
   </header>
   <div class="row">
 
-    <div class="col-md-12" *ngIf="listService?.length">
+    <div class="col-md-12" >
 
       <section class="panel">
         <header class="panel-heading">
-          <h2 class="panel-title">Service</h2>
+          <h2 class="panel-title">Category</h2>
         </header>
         <div class="panel-body">
             <div class="row">
                 <div class="col-sm-6">
                     <div class="mb-md">
-                        <button class="btn btn-primary" [routerLink]="['/main/manage-service/-1']" >Add
+                        <button class="btn btn-primary" [routerLink]="['/main/manage-category']" >Add
                             <i class="fa fa-plus"></i>
                         </button>
                     </div>
@@ -29,25 +29,9 @@
                     </label>
                     <div class="col-sm-9">
                         <div class="mb-md">
-                            <input type="text" class="form-control" (input)="searchService($event.target.value)">
+                            <input type="text" class="form-control" (input)="searchCategory($event.target.value)">
                         </div>
                     </div>
-                </div>
-    
-                <div class="col-md-6 col-md-offset-2">
-                    <label class="col-sm-3 control-label">
-                        <h5>
-                            <strong>Department: </strong>
-                        </h5>
-                    </label>
-                    <div class="col-sm-7">
-                        <select class="form-control" name="id" [(ngModel)]="id" *ngIf="departmentList?.length" (change)="getService($event.target.value)">
-                          
-                            <option *ngFor="let option of departmentList" value="{{option.departmentId}}">{{option.departmentName}}</option>
-                          </select>
-    
-                    </div>
-    
                 </div>
             </div>
           
@@ -67,10 +51,10 @@
                   <th>Update</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr *ngFor="let item of listService | filter:term | paginate: { itemsPerPage: 10, currentPage: p }" class="gradeX">
+              <tbody *ngIf="listCategory?.length">
+                <tr *ngFor="let item of listCategory | filter:term | paginate: { itemsPerPage: 10, currentPage: p }" class="gradeX">
                  
-                  <td>{{item.serviceName}}</td>
+                  <td>{{item.categoryName}}</td>
                   <td>{{item.description}}</td>
                   <td class="text-center">
                     <!-- <span [ngClass]="{'bg-primary':user.IsActived,'bg-danger':!user.IsActived}">  -->
@@ -85,7 +69,7 @@
                     <!-- <a [routerLink]="['/main/manage-service', item.serviceId]">
                       <i class="fa fa-pencil" style="display: inline-block"></i>
                     </a> -->
-                    <a [routerLink]="['/main/manage-service', item.serviceId]">
+                    <a [routerLink]="['/main/manage-category', item.categoryId]">
                         <i style="cursor:pointer" class="fa fa-pencil-square-o"></i>
                     </a>
                   </td>

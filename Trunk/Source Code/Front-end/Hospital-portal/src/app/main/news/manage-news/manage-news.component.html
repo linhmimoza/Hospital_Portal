@@ -16,10 +16,15 @@
         </header>
         <div class="panel-body">
           <div class="form-group">
-            <select class="form-control input-lg mb-md" name="serviceId" [(ngModel)]="categoryId" *ngIf="categoryList?.length" (change)="setCategoryId($event.target.value)">
-              <option value="" selected>Please select</option>
-              <option *ngFor="let option of categoryList" value="{{option.categoryId}}">{{option.categoryName}}</option>
-            </select>
+            <label class="col-md-3 control-label" for="inputDefault">Category
+              <span class="required">*</span>
+            </label>
+            <div class="col-md-6">
+              <select class="form-control input-lg mb-md " name="serviceId" [(ngModel)]="categoryId" *ngIf="categoryList?.length" (change)="setCategoryId($event.target.value)">
+                <option value="" selected>Please select</option>
+                <option *ngFor="let option of categoryList" value="{{option.categoryId}}">{{option.categoryName}}</option>
+              </select>
+            </div>
           </div>
           <div class="form-group">
             <label class="col-md-3 control-label" for="inputDefault">Title
@@ -29,11 +34,18 @@
               <input type="text" class="form-control" id="inputDefault" name="title" [(ngModel)]="news.title" required>
             </div>
           </div>
-          
+
           <div class="form-group">
             <label class="col-md-3 control-label" for="textareaDefault">Description</label>
             <div class="col-md-7">
               <textarea class="form-control" name="describe" [(ngModel)]="news.describe" rows="3" id="textareaDefault"></textarea>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="textareaDefault">File Upload</label>
+            <div class="col-md-7">
+              <input type="file" class="form-control" name="upload" accept=".docx, .pdf" (change)="filechange($event)" />
             </div>
           </div>
 

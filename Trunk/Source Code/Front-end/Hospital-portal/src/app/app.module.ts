@@ -61,13 +61,14 @@ import { SettingComponent } from './main/setting/setting.component';
 import { NewsComponent } from './home/news/news.component';
 import { HomeMainComponent } from './home/home-main/home-main.component';
 import { NewsDetailComponent } from './home/news/news-detail/news-detail.component';
-import { ActiveServiceComponent } from './main/service/active-service/active-service.component';
 import { HomeComponent } from './home/home.component';
 import { MedicalComponent } from './home/medical/medical.component';
 import { MedicalDetailComponent } from './home/medical/medical-detail/medical-detail.component';
 import { IntroduceComponent } from './home/introduce/introduce.component';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { CheckShiftScheduleComponent } from './main/shiftScheduler/check-shiftSchedule.component';
+import { ManagecategoryComponent } from './main/managecategory/managecategory.component';
+import { AddCategoryComponent } from './main/managecategory/add-category/add-category.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home/main', pathMatch: 'full' },
@@ -100,8 +101,12 @@ const routes: Routes = [
       { path: 'manage-shiftSchedule', component: ManageShiftSchedulerComponent },
       { path: 'news', component: AdminNewsComponent },
       { path: 'manage-news/:id', component: ManageNewsComponent },
+      { path: 'manage-news', component: ManageNewsComponent },
       { path: 'manage-service/:id', component: ManageServiceComponent },
       { path: 'service', component: AdminServiceComponent },
+      { path: 'category', component: ManagecategoryComponent },
+      { path: 'manage-category/:id', component: AddCategoryComponent },
+      { path: 'manage-category', component: AddCategoryComponent },
       { path: 'setting', component: SettingComponent },
       { path: 'check-shiftSchedule', component: CheckShiftScheduleComponent }
     ]
@@ -162,9 +167,10 @@ const routes: Routes = [
     AdminServiceComponent,
     ManageServiceComponent,
     SettingComponent,
-    ActiveServiceComponent,
     IntroduceComponent,
-    CheckShiftScheduleComponent
+    CheckShiftScheduleComponent,
+    ManagecategoryComponent,
+    AddCategoryComponent
   ],
   imports: [
     BrowserModule,

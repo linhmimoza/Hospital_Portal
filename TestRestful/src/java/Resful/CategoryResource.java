@@ -16,6 +16,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -53,5 +54,64 @@ public class CategoryResource {
             CategoryDao dao = new CategoryDao();
             List<Category> listCategory = dao.getCategory();        
             return listCategory;
+    }
+    @Path("/getAllListCategory")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Category> getAllListCategory() throws SQLException, ClassNotFoundException {
+            CategoryDao dao = new CategoryDao();
+            List<Category> listCategory = dao.getAllCategory();        
+            return listCategory;
+    }
+    @Path("/getListCategoryById")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Category> getListCategoryById( @QueryParam("CategoryId") int CategoryId) throws SQLException, ClassNotFoundException {
+            CategoryDao dao = new CategoryDao();
+            List<Category> listCategory = dao.getListCategoryById(CategoryId);        
+            return listCategory;
+    }
+    @Path("/getListCategoryByName")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Category> getListCategoryByName( @QueryParam("CategoryName") String CategoryName) throws SQLException, ClassNotFoundException {
+            CategoryDao dao = new CategoryDao();
+            List<Category> listCategory = dao.getListCategoryByName(CategoryName);        
+            return listCategory;
+    }
+    @Path("/createCategory")
+    @GET
+    @Produces()
+    public String createCategory(
+            @QueryParam("CategoryName") String CategoryName,
+            @QueryParam("Description") String Description) throws SQLException {
+        CategoryDao dao = new CategoryDao();
+        return dao.createCategory(CategoryName, Description);
+    }
+    @Path("/updateCategory")
+    @GET
+    @Produces()
+    public String updateCategory(
+            @QueryParam("CategoryId") int CategoryId,
+            @QueryParam("CategoryName") String CategoryName,
+            @QueryParam("Description") String Description) throws SQLException {
+        CategoryDao dao = new CategoryDao();
+        return dao.updateCategory(CategoryId, CategoryName, Description);
+    }
+    @Path("/disableCategory")
+    @GET
+    @Produces()
+    public String disableCategory(
+            @QueryParam("CategoryId") int CategoryId) throws SQLException {
+        CategoryDao dao = new CategoryDao();
+        return dao.disableCategory(CategoryId);
+    }
+    @Path("/activeCategory")
+    @GET
+    @Produces()
+    public String activeCategory(
+            @QueryParam("CategoryId") int CategoryId) throws SQLException {
+        CategoryDao dao = new CategoryDao();
+        return dao.activeCategory(CategoryId);
     }
 }
