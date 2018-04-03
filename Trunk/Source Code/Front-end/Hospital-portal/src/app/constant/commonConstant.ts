@@ -1,5 +1,5 @@
 import { Headers, RequestOptions } from '@angular/http';
-import {ApiService} from '../api.service';
+import { ApiService } from '../api.service';
 
 
 
@@ -8,7 +8,9 @@ const SERVER = 'http://localhost:8080/TestRestful/webresources/';
 const headers = new Headers({ 'Content-Type': 'application/json' });
 const OPTIONS = new RequestOptions({ headers });
 const SUCCESS = 'Success';
+const DISABLE = 0;
+const ACTIVE = 1;
+const WAITING = 2;
+const EXISTED = 'Name exited';
 
-export { DOWNLOAD_LINK, SERVER, OPTIONS, SUCCESS
-
-};
+export { DOWNLOAD_LINK, SERVER, OPTIONS, SUCCESS, DISABLE, ACTIVE, EXISTED, WAITING };

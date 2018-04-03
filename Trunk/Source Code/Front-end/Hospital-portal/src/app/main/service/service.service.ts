@@ -16,12 +16,24 @@ export class ServicesService {
         return this._http.get(`${SERVER}service/createService?${data}`).map(res => res);
     }
 
+    getListAll(id): Observable<any> {
+        return this._http.get(`${SERVER}service/getAllListService?DepartmentId=${id}`).map(res => res.json());
+    }
+
+    searchByName(searchText): Observable<any> {
+        return this._http.get(`${SERVER}service/getListServiceByName?ServiceName=${searchText}`).map(res => res.json());
+    }
+
     updateService(data): Observable<any> {
         return this._http.get(`${SERVER}service/updateService?${data}`).map(res => res);
     }
 
     disableService(id): Observable<any> {
         return this._http.get(`${SERVER}service/disableService?ServiceId=${id}`, OPTIONS).map(res => res);
+    }
+
+    activeService(id): Observable<any> {
+        return this._http.get(`${SERVER}service/activeService?ServiceId=${id}`, OPTIONS).map(res => res);
     }
 
     detail(id): Observable<any> {

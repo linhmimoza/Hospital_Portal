@@ -10,7 +10,7 @@ package Models;
  * @author Tung
  */
 public class Service {
-    int serviceId,departmentId;
+    int serviceId,departmentId,status;
     String serviceName,description;
 
     public Service() {
@@ -22,6 +22,25 @@ public class Service {
         this.serviceName = serviceName;
         this.description = description;
     }
+
+    public Service(int serviceId, int departmentId, int status, String serviceName, String description) {
+        this.serviceId = serviceId;
+        this.departmentId = departmentId;
+        this.status = status;
+        this.serviceName = serviceName;
+        this.description = description;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+   
+    
 
     
 

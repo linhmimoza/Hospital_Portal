@@ -47,6 +47,14 @@ public class ArticleResource {
         //TODO return proper representation object
         throw new UnsupportedOperationException();
     }
+    @Path("/getAllListArticle")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Article> getAllListArticle(@QueryParam("CategoryId") int categoryId) throws SQLException, ClassNotFoundException {
+        ArticleDao dao = new ArticleDao();
+        List<Article> listArticle = dao.getAllListArticle(categoryId);
+        return listArticle;
+    }
 
     @Path("/getListArticle")
     @GET
@@ -69,9 +77,18 @@ public class ArticleResource {
     @Path("/getListArticleById")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Article> getListArticle(@QueryParam("Id") int id) throws SQLException, ClassNotFoundException {
+    public List<Article> getListArticleById(@QueryParam("Id") int id) throws SQLException, ClassNotFoundException {
         ArticleDao dao = new ArticleDao();
         List<Article> listArticle = dao.getListArticleById(id);
+        return listArticle;
+    }
+    
+    @Path("/getListArticleByTitle")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Article> getListArticleByTitle(@QueryParam("Title") String Title) throws SQLException, ClassNotFoundException {
+        ArticleDao dao = new ArticleDao();
+        List<Article> listArticle = dao.getListArticleByTitle(Title);
         return listArticle;
     }
 

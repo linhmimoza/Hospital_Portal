@@ -12,7 +12,7 @@ export class MedicalService {
     private opts: any;
     constructor(private _http: Http) { }
 
-    getSpecialList(): Observable<any> {
+        getSpecialList(): Observable<any> {
         return this._http.get(`${SERVER}Department/getListDepartment`, OPTIONS).map(res => res.json());
     }
 
@@ -36,8 +36,8 @@ export class MedicalService {
         return this._http.get(`${SERVER}MedicalBooking/getBookingId`, OPTIONS).map(res => res.json());
     }
 
-    createBookingNumber(id): Observable<any> {
-        return this._http.get(`${SERVER}BookingNumber/createBookingNumber?BookingId=${id}`, OPTIONS).map(res => res);
+    createBookingNumber(id, date): Observable<any> {
+        return this._http.get(`${SERVER}MedicalBooking/createBookingNumber?BookingId=${id}&date=${date}`, OPTIONS).map(res => res);
     }
 
     bookingSuccess(timeId): Observable<any> {

@@ -15,8 +15,16 @@ export class AdminNewsService {
         this.opts = new RequestOptions({ headers });
     }
 
+    activeNews(id): Observable<any> {
+        return this._http.get(`${SERVER}Article/activeArticle?ArticleId=${id}`, OPTIONS).map(res => res);
+    }
+
     createNews(data): Observable<any> {
         return this._http.get(`${SERVER}Article/createArticle?${data}`, OPTIONS).map(res => res);
+    }
+
+    disableNews(id): Observable<any> {
+        return this._http.get(`${SERVER}Article/disableArticle?ArticleId=${id}`, OPTIONS).map(res => res);
     }
 
     download(name): Observable<any> {
@@ -25,6 +33,10 @@ export class AdminNewsService {
 
     getNewsList(categoryId): Observable<any> {
         return this._http.get(`${SERVER}Article/getListArticle?CategoryId=${categoryId}`, this.opts).map(res => res.json());
+    }
+
+    getAllNewsList(categoryId): Observable<any> {
+        return this._http.get(`${SERVER}Article/getAllListArticle?CategoryId=${categoryId}`, this.opts).map(res => res.json());
     }
 
     getDetail(id): Observable<any> {
@@ -39,7 +51,8 @@ export class AdminNewsService {
         return this._http.get(`${SERVER}Article/updateArticle?${data}`, OPTIONS).map(res => res);
     }
 
-    disableNews(id): Observable<any> {
-        return this._http.get(`${SERVER}Article/disableArticle?ArticleId=${id}`, OPTIONS).map(res => res);
+    uploadFile(data): Observable<any> {
+        return this._http.post(`${SERVER}UploadFile/upload`, data).map(res => res);
     }
+    
 }

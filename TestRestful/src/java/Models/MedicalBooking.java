@@ -10,7 +10,7 @@ package Models;
  * @author Tung
  */
 public class MedicalBooking {
-    int bookingId,departmentId,serviceId,timeId,GuestIdentity;
+    int bookingId,departmentId,serviceId,timeId,GuestIdentity,bookingNumber;
     String createDate,guestName,GuestPhone,guestEmail,guestAddress,note;
     String DepartmentName,ServiceName,Time,Date;
 
@@ -53,6 +53,15 @@ public class MedicalBooking {
         this.note = note;
     }
 
+    public int getBookingNumber() {
+        return bookingNumber;
+    }
+
+    public void setBookingNumber(int bookingNumber) {
+        this.bookingNumber = bookingNumber;
+    }
+
+    
     public int getDepartmentId() {
         return departmentId;
     }
