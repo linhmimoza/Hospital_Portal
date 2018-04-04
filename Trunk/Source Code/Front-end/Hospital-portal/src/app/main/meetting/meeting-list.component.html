@@ -3,8 +3,51 @@
   <!-- Modal LG -->
 
 
-  <div id="modalLG" class="modal-block modal-block-md mfp-hide">
-    <section class="panel">
+  <div id="modalLG" class="modal modal-block modal-block-md">
+      <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <div class="modal-wrapper">
+                    <div class="modal-text">
+                      <div class="form-group">
+                        <h4>
+                          <p>
+                            <strong>Time :</strong> {{selectMeeting.startTime}} (
+                            <strong>Duration :</strong> {{selectMeeting.duration}})</p>
+                        </h4>
+                        <h4>
+                          <p>
+                            <strong>Date :</strong> {{selectMeeting.date}}</p>
+                        </h4>
+                        <h4>
+                          <p>
+                            <strong>At room :</strong> {{selectMeeting.roomName}}</p>
+                        </h4>
+                        <h4>
+                          <p>
+                            <strong>Content :</strong> {{selectMeeting.content}}</p>
+                        </h4>
+          
+                      </div>
+                    </div>
+                  </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+          
+                      <button class="btn btn-default modal-dismiss">Close</button>
+                    </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+    <!-- <section class="panel">
       <header class="panel-heading">
         <h2 class="panel-title">{{selectMeeting.meetingName}}</h2>
       </header>
@@ -42,7 +85,7 @@
           </div>
         </div>
       </footer>
-    </section>
+    </section> -->
   </div>
 
 
@@ -82,7 +125,7 @@
                       <p>
                         {{meeting.content}}
                       </p>
-                      <a class="mb-xs mt-xs mr-xs modal-sizes btn btn-default" (click)="view(meeting)" href="#modalLG">View</a>
+                      <a class="mb-xs mt-xs mr-xs modal-sizes btn btn-default" (click)="view(meeting)">View</a>
                     </div>
                     <span>
                       <i class="glyphicon glyphicon-map-marker"></i> At:

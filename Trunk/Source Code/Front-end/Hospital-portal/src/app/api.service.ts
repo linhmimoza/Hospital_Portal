@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-
+declare var $: any;
 @Injectable()
 export class ApiService {
     host: string = 'http://localhost:8080/TestRestful/webresources/generic/';
     token: string = "none";
     constructor(private router: Router, private http: Http, private cookieService: CookieService) {
-
+        $.browser.device = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
+      if ( $.browser.device){
+        this.host = 'http://10.0.2.2:8080/TestRestful/webresources/generic/';
+      }
     }
 
     post(url: string, data: any) {
@@ -33,7 +36,6 @@ export class ApiService {
     get(url: string) {
         return new Promise<Response>((resolve, reject) => {
             let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-           
             this.http.get(this.host + url, { headers: headers })
                 .toPromise()
                 .then(res => {

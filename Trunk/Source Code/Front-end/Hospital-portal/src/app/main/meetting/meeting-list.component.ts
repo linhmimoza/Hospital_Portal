@@ -46,13 +46,13 @@ export class MeetingListComponent {
         this.loadScrip();
     }
     loadScrip() {
-        $.getScript('assets/porto/javascripts/theme.init.js', function () {
-            $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
-                $.getScript('assets/porto/javascripts/ui-elements/examples.modals.js', function () {
+        // $.getScript('assets/porto/javascripts/theme.init.js', function () {
+        //     $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
+        //         $.getScript('assets/porto/javascripts/ui-elements/examples.modals.js', function () {
 
-                });
-            });
-        });
+        //         });
+        //     });
+        // });
     }
     loadFuture() {
         this.loadScrip();
@@ -66,7 +66,9 @@ export class MeetingListComponent {
     }
     view(meet) {
         this.loadScrip();
+        
         this.selectMeeting = meet;
+        $('#modalLG').modal('show');
         this.loadScrip();
     }
     loadPass() {

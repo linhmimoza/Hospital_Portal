@@ -9,7 +9,7 @@ import { DepartmentService } from '../department/service/department.service';
 import { Department } from '../department/shared/department.model';
 import { LoadingService } from '../extra/loading.service';
 import { NotificationService } from '../extra/notification.service';
-import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
 import { forbiddenNameValidator } from './user-detail.validate';
 import { CookieService } from 'ngx-cookie-service';
 declare var $: any;
@@ -39,6 +39,44 @@ export class UserDetailComponent {
     }
 
     ngOnInit() {
+        const temp = (input: FormControl) => {
+            if (input.value) {
+                const currentDate = new Date();
+                const date = new Date(input.value);
+                console.log(date);
+                if (date > currentDate) {
+                    console.log('date');
+                    return { temp: { value: input.value } };
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+            // const hasExclamation = input.value.indexOf('!') >= 0;
+            // return hasExclamation ? null : { needsExclamation: true };
+        }
+        // const temp = (): ValidatorFn => {
+        //     return (control: AbstractControl): { [key: string]: any } => {
+        //         console.log(control.value);
+        //         if (control.value) {
+        //             const currentDate = new Date();
+        //             const date = new Date(control.value);
+        //             console.log(date);
+        //             if (date > currentDate) {
+        //                 console.log('date');
+        //                 return { 'error': { value: control.value } };
+        //             } else {
+        //                 return null;
+        //             }
+        //         } else {
+        //             return null;
+        //         }
+
+        //         //   const forbidden = nameRe.test(control.value);
+        //         //   return forbidden ? {'forbiddenName': {value: control.value}} : null;
+        //     };
+        // };
         this.roleCookie = +this.cookieService.get("Auth-RoleId");
         if (this.roleCookie == 1) {
             this.form = new FormGroup({
@@ -55,7 +93,8 @@ export class UserDetailComponent {
                 ]),
                 sex: new FormControl(),
                 dayOfBirth: new FormControl('', [
-                    Validators.required
+                    Validators.required,
+                    temp
                 ]),
                 phone: new FormControl('', [
                     Validators.required,
