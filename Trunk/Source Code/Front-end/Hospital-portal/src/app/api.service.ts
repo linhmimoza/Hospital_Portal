@@ -9,9 +9,9 @@ export class ApiService {
     token: string = "none";
     constructor(private router: Router, private http: Http, private cookieService: CookieService) {
         $.browser.device = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
-      if ( $.browser.device){
-        this.host = 'http://10.0.2.2:8080/TestRestful/webresources/generic/';
-      }
+        if ($.browser.device) {
+            this.host = 'http://10.0.2.2:8080/TestRestful/webresources/generic/';
+        }
     }
 
     post(url: string, data: any) {
@@ -20,8 +20,7 @@ export class ApiService {
             this.http.post(this.host + url, data, { headers: headers })
                 .toPromise()
                 .then(res => {
-                    if (res.status == 200) {
-                        // || res.status == 204) {
+                    if (res.status == 200 || res.status == 204) {
                         resolve(res);
                     } else {
                         reject("Có lỗi xảy ra");
@@ -39,8 +38,7 @@ export class ApiService {
             this.http.get(this.host + url, { headers: headers })
                 .toPromise()
                 .then(res => {
-                    if (res.status == 200) {
-                        // || res.status == 204) {
+                    if (res.status == 200 || res.status == 204) {
                         resolve(res);
                     } else {
                         reject("Có lỗi xảy ra");

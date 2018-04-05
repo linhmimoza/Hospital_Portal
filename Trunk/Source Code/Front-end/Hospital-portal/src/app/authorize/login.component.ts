@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from './service/login.service';
+import { NotificationService } from '../main/extra/notification.service';
 
 @Component({
     selector: 'login',
@@ -11,7 +12,7 @@ export class LoginComponent {
     username: string;
     password: string;
 
-    constructor(private router: Router, private loginService:LoginService) {
+    constructor(private router: Router, private loginService: LoginService, private notificationaService: NotificationService) {
 
     }
 
@@ -19,7 +20,7 @@ export class LoginComponent {
         this.loginService.login(this.username, this.password).then(() => {
             this.router.navigate(["main"]);
         }).catch(err => {
-            alert(err);
+            this.notificationaService.error("Invalid username or password!");
         });
     }
 }

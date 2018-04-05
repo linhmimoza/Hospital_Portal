@@ -26,9 +26,9 @@
 
                                 <div class="form-control-feedback" *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="alert alert-danger"
                                     style="margin-top: 10px">
-                                    <strong *ngIf="userName.errors.required">Name is required.</strong>
-                                    <strong *ngIf="userName.errors.minlength">Name must be at least 4 characters long.</strong>
-                                    <strong *ngIf="userName.errors.forbiddenName">Name cannot be Bob.</strong>
+                                    <strong *ngIf="userName.errors.required">Username is required.</strong>
+                                    <strong *ngIf="userName.errors.minlength">Username must be at least 4 characters long.</strong>
+                                    <strong *ngIf="userName.errors.forbiddenName">Username cannot be Bob.</strong>
                                 </div>
                             </div>
                         </div>

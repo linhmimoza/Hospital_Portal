@@ -37,21 +37,25 @@ export class NotificationService {
 
     }
 
+    error(msg: string) {
+        return new Promise(resolve => {
+            swal({
+                type: 'error',
+                title: 'Oops...',
+                text: msg
+            })
+        });
+    }
+
     fail(msg: string) {
         return new Promise(resolve => {
-            $('body').append(`<div class="alert alert-danger" id="notificationFail" style="
-            position:fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 99999;
-            "><strong>Fail:</strong> ${msg}</div>`);
-            $('#notificationFail').fadeIn(1000);
-            setTimeout(() => {
-                $('#notificationFail').fadeOut(1000);
-                setTimeout(() => {
-                    resolve();
-                }, 1000);
-            }, 1000);
+            swal({
+                position: 'bottom-end',
+                type: 'error',
+                title: msg,
+                showConfirmButton: false,
+                timer: 1500
+            })
         });
     }
 }
