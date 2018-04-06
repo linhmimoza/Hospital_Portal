@@ -14,6 +14,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
@@ -81,25 +82,18 @@ public class ServiceResource {
             return listService;
     }
     @Path("/createService")
-    @GET
+    @POST
     @Produces()
-    public String createService(
-            @QueryParam("ServiceName") String ServiceName,
-            @QueryParam("Description") String Description,
-            @QueryParam("DepartmentId") int DepartmentId) throws SQLException {
+    public String createService(Service service) throws SQLException {
         ServiceDao dao = new ServiceDao();
-        return dao.createService(ServiceName, Description, DepartmentId);
+        return dao.createService(service);
     }
     @Path("/updateService")
-    @GET
+    @POST
     @Produces()
-    public String updateService(
-            @QueryParam("ServiceId") int ServiceId,
-            @QueryParam("ServiceName") String ServiceName,
-            @QueryParam("Description") String Description,
-            @QueryParam("DepartmentId") int DepartmentId) throws SQLException {
+    public String updateService(Service service) throws SQLException {
         ServiceDao dao = new ServiceDao();
-        return dao.updateService(ServiceId, ServiceName, Description, DepartmentId);
+        return dao.updateService(service);
     }
     @Path("/disableService")
     @GET

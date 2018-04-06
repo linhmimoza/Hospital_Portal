@@ -13,19 +13,19 @@ export class ServicesService {
     }
 
     createService(data): Observable<any> {
-        return this._http.get(`${SERVER}service/createService?${data}`).map(res => res);
+        return this._http.post(`${SERVER}service/createService`, data, OPTIONS).map(res => res);
     }
-
+    
+    updateService(data): Observable<any> {
+        return this._http.post(`${SERVER}service/updateService`, data, OPTIONS).map(res => res);
+    }
+    
     getListAll(id): Observable<any> {
         return this._http.get(`${SERVER}service/getAllListService?DepartmentId=${id}`).map(res => res.json());
     }
 
     searchByName(searchText): Observable<any> {
         return this._http.get(`${SERVER}service/getListServiceByName?ServiceName=${searchText}`).map(res => res.json());
-    }
-
-    updateService(data): Observable<any> {
-        return this._http.get(`${SERVER}service/updateService?${data}`).map(res => res);
     }
 
     disableService(id): Observable<any> {

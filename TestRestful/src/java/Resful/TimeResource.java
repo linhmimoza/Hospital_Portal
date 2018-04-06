@@ -97,5 +97,12 @@ public class TimeResource {
         TimeDao dao = new TimeDao();
         return dao.updateLimitAmountTime(Amount, date);
     }
+    @Path("/createTime")
+    @POST
+    @Produces()
+    public String createTime(Time time) throws SQLException {
+        TimeDao dao = new TimeDao();
+        return dao.createTime(time);
+    }
 
 }

@@ -12,7 +12,7 @@ export class MedicalService {
     private opts: any;
     constructor(private _http: Http) { }
 
-        getSpecialList(): Observable<any> {
+    getSpecialList(): Observable<any> {
         return this._http.get(`${SERVER}Department/getListDepartment`, OPTIONS).map(res => res.json());
     }
 
@@ -28,8 +28,8 @@ export class MedicalService {
         return this._http.get(`${SERVER}MedicalBooking/getListMedicalBooking?GuestIdentity=${identity}`, OPTIONS).map(res => res.json());
     }
 
-    submitBooking(param): Observable<any> {
-        return this._http.get(`${SERVER}MedicalBooking/createMedicalBooking?${param}`, OPTIONS).map(res => res);
+    submitBooking(data): Observable<any> {
+        return this._http.post(`${SERVER}MedicalBooking/createMedicalBooking`, data, OPTIONS).map(res => res);
     }
 
     getBookingId(): Observable<any> {
@@ -47,5 +47,10 @@ export class MedicalService {
     checkAvailable(): Observable<any> {
         return this._http.get(`${SERVER}time/checkAvailable`, OPTIONS).map(res => res.json());
     }
+
+    createIntendTime(id): Observable<any> {
+        return this._http.get(`${SERVER}MedicalBooking/createIntendTime?BookingId=${id}`, OPTIONS).map(res => res.json());
+    }
+
 
 }

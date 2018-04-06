@@ -51,21 +51,11 @@ public class MedicalBookingResource {
     }
 
     @Path("/createMedicalBooking")
-    @GET
+    @POST
     @Produces()
-    public String createMedicalBooking(
-            @QueryParam("DepartmentId") int DepartmentId,
-            @QueryParam("ServiceId") int ServiceId,
-            @QueryParam("TimeId") int TimeId,
-            @QueryParam("CreateDate") String CreateDate,
-            @QueryParam("GuestName") String GuestName,
-            @QueryParam("GuestPhone") String GuestPhone,
-            @QueryParam("GuestEmail") String GuestEmail,
-            @QueryParam("GuestAddress") String GuestAddress,
-            @QueryParam("GuestIdentity") int GuestIdentity,
-            @QueryParam("Note") String Note) throws SQLException {
+    public String createMedicalBooking(MedicalBooking mb) throws SQLException {
         MedicalBookingDao dao = new MedicalBookingDao();
-        return dao.createMedicalBooking(DepartmentId, ServiceId, TimeId, CreateDate, GuestName, GuestPhone, GuestEmail, GuestAddress, GuestIdentity, Note);
+        return dao.createMedicalBooking(mb);
     }
 
     @Path("/getBookingId")
@@ -82,9 +72,25 @@ public class MedicalBookingResource {
     @Path("/getListMedicalBooking")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<MedicalBooking> getListMb(@QueryParam("GuestIdentity") int guestIdentity) throws SQLException, ClassNotFoundException {
+    public List<MedicalBooking> getListMb(@QueryParam("GuestIdentity") String guestIdentity) throws SQLException, ClassNotFoundException {
         MedicalBookingDao dao = new MedicalBookingDao();
         List<MedicalBooking> listMb = dao.getListMb(guestIdentity);
+        return listMb;
+    }
+    @Path("/getListMedicalBookingAdmin")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<MedicalBooking> getListMbAdmin() throws SQLException, ClassNotFoundException {
+        MedicalBookingDao dao = new MedicalBookingDao();
+        List<MedicalBooking> listMb = dao.getListMbAdmin();
+        return listMb;
+    }
+    @Path("/getListMbAdminByName")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<MedicalBooking> getListMbAdminByName(@QueryParam("GuestName") String GuestName) throws SQLException, ClassNotFoundException {
+        MedicalBookingDao dao = new MedicalBookingDao();
+        List<MedicalBooking> listMb = dao.getListMbAdminByName(GuestName);
         return listMb;
     }
     @Path("/createBookingNumber")
@@ -95,6 +101,13 @@ public class MedicalBookingResource {
             @QueryParam("date") String date) throws SQLException {
         MedicalBookingDao dao = new MedicalBookingDao();
         return dao.createBookingNumber(BookingId,date);
+    }
+    @Path("/createIntendTime")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String createIntendTime(@QueryParam("BookingId") int BookingId) throws SQLException {
+        MedicalBookingDao dao = new MedicalBookingDao();
+        return dao.createIntendTime(BookingId);
     }
     
 

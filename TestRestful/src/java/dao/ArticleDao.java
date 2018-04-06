@@ -229,7 +229,7 @@ public class ArticleDao {
         return listArticle;
     }
 
-    public String createArticle(String Title, int CategoryId, int UploadBy, String UploadDate, String Link, String Describe) throws SQLException, ClassNotFoundException {
+    public String createArticle(Article article) throws SQLException, ClassNotFoundException {
 
         String result = "Success";
         try {
@@ -237,15 +237,15 @@ public class ArticleDao {
             if (con != null) {
                 String sql = "insert into Article(Title,CategoryId,UpdateBy,UpdateDate,UploadBy,UploadDate,Status,Link,Describe)values(?,?,?,?,?,?,?,?,?)";
                 stm = con.prepareStatement(sql);
-                stm.setString(1, Title);
-                stm.setInt(2, CategoryId);
-                stm.setInt(3, UploadBy);
-                stm.setString(4, UploadDate);
-                stm.setInt(5, UploadBy);
-                stm.setString(6, UploadDate);
+                stm.setString(1, article.getTitle());
+                stm.setInt(2, article.getCategoryId());
+                stm.setInt(3, article.getUploadBy());
+                stm.setString(4, article.getUploadDate());
+                stm.setInt(5, article.getUploadBy());
+                stm.setString(6, article.getUploadDate());
                 stm.setInt(7, 2);
-                stm.setString(8, Link);
-                stm.setString(9, Describe);
+                stm.setString(8, article.getLink());
+                stm.setString(9, article.getDescribe());
                 stm.executeUpdate();
             }
         } catch (SQLException e) {
@@ -257,14 +257,14 @@ public class ArticleDao {
         return result;
     }
 
-    public String updateArticle(int id, String Title, String Describe, int UpdateBy, String UpdateDate) {
+    public String updateArticle(Article article) {
         String result = "Success";
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
-                String sql = "update Article set Title='" + Title + "'"
-                        + ",UpdateBy=" + UpdateBy + " ,UpdateDate='" + UpdateDate + "' ,Describe='" + Describe
-                        + "' where ArticleId=" + id;
+                String sql = "update Article set Title='" + article.getTitle() + "'"
+                        + ",UpdateBy=" + article.getUpdateBy() + " ,UpdateDate='" + article.getUpdateDate() + "' ,Describe='" + article.getDescribe()
+                        + "' where ArticleId=" + article.getArticleId();
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
 

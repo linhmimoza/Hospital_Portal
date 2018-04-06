@@ -14,6 +14,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
@@ -93,31 +94,20 @@ public class ArticleResource {
     }
 
     @Path("/createArticle")
-    @GET
+    @POST
     @Produces()
-    public String createArticle(
-            @QueryParam("Title") String Title,
-            @QueryParam("CategoryId") int CategoryId,
-            @QueryParam("UploadBy") int UploadBy,
-            @QueryParam("UploadDate") String UploadDate,
-            @QueryParam("Link") String Link,
-            @QueryParam("Describe") String Describe) throws SQLException, ClassNotFoundException {
+    public String createArticle(Article article) throws SQLException, ClassNotFoundException {
         ArticleDao dao = new ArticleDao();
-        return dao.createArticle(Title, CategoryId, UploadBy, UploadDate, Link, Describe);
+        return dao.createArticle(article);
     }
 
     @Path("/updateArticle")
-    @GET
+    @POST
     @Produces()
-    public String updateArticle(
-            @QueryParam("ArticleId") int id,
-            @QueryParam("Title") String Title,
-            @QueryParam("Describe") String Describe,
-            @QueryParam("UpdateBy") int UpdateBy,
-            @QueryParam("UpdateDate") String UpdateDate) throws SQLException {
+    public String updateArticle(Article article) throws SQLException {
         
         ArticleDao dao = new ArticleDao();
-        return dao.updateArticle(id, Title, Describe, UpdateBy, UpdateDate);
+        return dao.updateArticle(article);
     }
 
     @Path("/disableArticle")

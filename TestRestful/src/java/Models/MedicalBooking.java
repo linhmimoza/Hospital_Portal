@@ -10,28 +10,49 @@ package Models;
  * @author Tung
  */
 public class MedicalBooking {
-    int bookingId,departmentId,serviceId,timeId,GuestIdentity,bookingNumber;
-    String createDate,guestName,GuestPhone,guestEmail,guestAddress,note;
+    int bookingId,departmentId,serviceId,timeId,bookingNumber;
+    String createDate,guestName,guestPhone,guestEmail,guestAddress,note,GuestIdentity;
     String DepartmentName,ServiceName,Time,Date;
 
     public MedicalBooking() {
     }
 
-    public MedicalBooking(String DepartmentName, String ServiceName, String Time, String Date) {
+    public MedicalBooking(int bookingNumber, String createDate, String guestName, String guestPhone, String guestEmail, String guestAddress, String note, String DepartmentName, String ServiceName, String Time, String Date, String GuestIdentity) {
+        this.bookingNumber = bookingNumber;
+        this.createDate = createDate;
+        this.guestName = guestName;
+        this.guestPhone = guestPhone;
+        this.guestEmail = guestEmail;
+        this.guestAddress = guestAddress;
+        this.note = note;
+        this.DepartmentName = DepartmentName;
+        this.ServiceName = ServiceName;
+        this.Time = Time;
+        this.Date = Date;
+        this.GuestIdentity = GuestIdentity;
+    }
+    
+    
+
+    public MedicalBooking(int bookingNumber, String guestName, String DepartmentName, String ServiceName, String Time, String Date) {
+        this.bookingNumber = bookingNumber;
+        this.guestName = guestName;
         this.DepartmentName = DepartmentName;
         this.ServiceName = ServiceName;
         this.Time = Time;
         this.Date = Date;
     }
 
+    
+
       
 
-    public MedicalBooking(int bookingId, int departmentId, int serviceId, int timeId, String GuestPhone, int GuestIdentity, String createDate, String guestName, String guestEmail, String guestAddress, String note) {
+    public MedicalBooking(int bookingId, int departmentId, int serviceId, int timeId, String guestPhone, String GuestIdentity, String createDate, String guestName, String guestEmail, String guestAddress, String note) {
         this.bookingId = bookingId;
         this.departmentId = departmentId;
         this.serviceId = serviceId;
         this.timeId = timeId;
-        this.GuestPhone = GuestPhone;
+        this.guestPhone = guestPhone;
         this.GuestIdentity = GuestIdentity;
         this.createDate = createDate;
         this.guestName = guestName;
@@ -40,11 +61,11 @@ public class MedicalBooking {
         this.note = note;
     }
 
-    public MedicalBooking(int departmentId, int serviceId, int timeId, String GuestPhone, int GuestIdentity, String createDate, String guestName, String guestEmail, String guestAddress, String note) {
+    public MedicalBooking(int departmentId, int serviceId, int timeId, String guestPhone, String GuestIdentity, String createDate, String guestName, String guestEmail, String guestAddress, String note) {
         this.departmentId = departmentId;
         this.serviceId = serviceId;
         this.timeId = timeId;
-        this.GuestPhone = GuestPhone;
+        this.guestPhone = guestPhone;
         this.GuestIdentity = GuestIdentity;
         this.createDate = createDate;
         this.guestName = guestName;
@@ -129,20 +150,21 @@ public class MedicalBooking {
     }
 
     public String getGuestPhone() {
-        return GuestPhone;
+        return guestPhone;
     }
 
-    public void setGuestPhone(String GuestPhone) {
-        this.GuestPhone = GuestPhone;
+    public void setGuestPhone(String guestPhone) {
+        this.guestPhone = guestPhone;
     }
 
-    public int getGuestIdentity() {
+    public String getGuestIdentity() {
         return GuestIdentity;
     }
 
-    public void setGuestIdentity(int GuestIdentity) {
+    public void setGuestIdentity(String GuestIdentity) {
         this.GuestIdentity = GuestIdentity;
     }
+    
 
     public String getCreateDate() {
         return createDate;

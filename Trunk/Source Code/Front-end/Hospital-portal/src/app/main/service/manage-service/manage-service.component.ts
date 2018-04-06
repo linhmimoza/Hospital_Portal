@@ -49,15 +49,12 @@ export class ManageServiceComponent implements OnInit {
   }
 
   setDepartment(id) {
-    this.data.DepartmentId = id;
+    this.data.departmentId = id;
   }
 
   save() {
     if (this.command === CREATE) {
-      const data = `ServiceName=${this.data.serviceName}&` +
-        `Description=${this.data.description}&` +
-        `DepartmentId=${this.data.DepartmentId}`;
-      this._serviceSrv.createService(data).subscribe(res => {
+      this._serviceSrv.createService(this.data).subscribe(res => {
         if (res._body === SUCCESS) {
           this.notificationService.success('Create Succeed!').then(() => {
             this._router.navigate(['/main/service']);
@@ -66,11 +63,7 @@ export class ManageServiceComponent implements OnInit {
       });
     }
     if (this.command === UPDATE) {
-      const data = `ServiceId=${this.data.serviceId}&` +
-        `ServiceName=${this.data.serviceName}&` +
-        `Description=${this.data.description}&` +
-        `DepartmentId=${this.data.departmentId}`;
-      this._serviceSrv.updateService(data).subscribe(res => {
+      this._serviceSrv.updateService(this.data).subscribe(res => {
         if (res._body === SUCCESS) {
           this.notificationService.success('Update Succeed!').then(() => {
             this._router.navigate(['/main/service']);
@@ -78,5 +71,8 @@ export class ManageServiceComponent implements OnInit {
         }
       });
     }
+  }
+  back() {
+    this._router.navigate(['/main/service']);
   }
 }

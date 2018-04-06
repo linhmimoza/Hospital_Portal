@@ -116,9 +116,8 @@ public class CategoryDao {
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
-                String sql = "Select CategoryId, CategoryName, Description, Status from Category where CategoryName like '%"+ CategoryName +"%'";
+                String sql = "Select CategoryId, CategoryName, Description, Status from Category where CategoryName like '%" + CategoryName + "%'";
                 stm = con.prepareStatement(sql);
-                stm.setString(1, CategoryName);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     Integer CategoryId = rs.getInt("CategoryId");
@@ -159,10 +158,10 @@ public class CategoryDao {
         return result;
     }
 
-    public String createCategory(String CategoryName, String Description) throws SQLException {
+    public String createCategory(Category category) throws SQLException {
 
         String result = "Success";
-        if (isNameExited(CategoryName)) {
+        if (isNameExited(category.getCategoryName()) == true) {
             result = "Name exited";
         } else {
             try {
@@ -170,8 +169,8 @@ public class CategoryDao {
                 if (con != null) {
                     String sql = "insert into Category(CategoryName,Description,Status)values(?,?,1)";
                     stm = con.prepareStatement(sql);
-                    stm.setString(1, CategoryName);
-                    stm.setString(2, Description);
+                    stm.setString(1, category.getCategoryName());
+                    stm.setString(2, category.getDescription());
                     stm.executeUpdate();
                 }
             } catch (Exception e) {
@@ -184,28 +183,25 @@ public class CategoryDao {
         return result;
     }
 
-    public String updateCategory(int id, String CategoryName, String Description) {
+    public String updateCategory(Category category) {
         String result = "Success";
-        if (isNameExited(CategoryName)) {
-            result = "Name existed";
-        } else {
-            try {
-                con = DBUtils.makeConnection();
-                if (con != null) {
-                    String sql = "update Category set CategoryName='" + CategoryName + "'"
-                            + ",Description='" + Description
-                            + "' where CategoryId=" + id;
-                    stm = con.prepareStatement(sql);
-                    stm.executeUpdate();
+        try {
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "update Category set CategoryName='" + category.getCategoryName() + "'"
+                        + ",Description='" + category.getDescription()
+                        + "' where CategoryId=" + category.getCategoryId();
+                stm = con.prepareStatement(sql);
+                stm.executeUpdate();
 
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                result = "Failed";
-            } finally {
-                closeConnection();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = "Failed";
+        } finally {
+            closeConnection();
         }
+
         return result;
     }
 
@@ -233,7 +229,7 @@ public class CategoryDao {
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
-                String sql = "update Service set Status=1 where CategoryId=" + id;
+                String sql = "update Category set Status=1 where CategoryId=" + id;
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
             }

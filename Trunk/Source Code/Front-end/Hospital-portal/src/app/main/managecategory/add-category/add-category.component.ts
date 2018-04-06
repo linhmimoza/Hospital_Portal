@@ -52,6 +52,9 @@ export class AddCategoryComponent implements OnInit {
       });
     }
   }
+  back() {
+    this._router.navigate(['/main/category']);
+  }
 
 }
 

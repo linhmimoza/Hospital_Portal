@@ -71,6 +71,7 @@ import { ManageMeetingComponent } from './main/meetting/manage-meeting.component
 import { MeetingDetailComponent } from './main/meetting/meeting-detail.component';
 import { MeetingService } from './main/meetting/service/meeting.service';
 import { UploadShiftScheduleComponent } from './main/shiftScheduler/upload-shiftSchedule.component';
+import { MedicalBookingComponent } from './main/medical-booking/medical-booking.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home/main', pathMatch: 'full' },
@@ -176,7 +177,8 @@ const routes: Routes = [
     ManagecategoryComponent,
     AddCategoryComponent,
     PageNotFoundComponent,
-    UploadShiftScheduleComponent
+    UploadShiftScheduleComponent,
+    MedicalBookingComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,96 @@
+<div class="container" style="width: 100%">
+    <header class="page-header">
+      <h2>Category</h2>
+    </header>
+    <div class="row">
+  
+      <div class="col-md-12" >
+  
+        <section class="panel">
+          <header class="panel-heading">
+            <h2 class="panel-title">List Category</h2>
+          </header>
+          <div class="panel-body">
+              <div class="row">
+                  <div class="col-sm-6">
+                      <div class="mb-md">
+                          <button class="btn btn-primary" [routerLink]="['/main/manage-category']" >Add
+                              <i class="fa fa-plus"></i>
+                          </button>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-4">
+                      <label class="col-sm-3 control-label">
+                          <h5>
+                              <strong>Search: </strong>
+                          </h5>
+                      </label>
+                      <div class="col-sm-9">
+                          <div class="mb-md">
+                              <input type="text" class="form-control" (input)="searchCategory($event.target.value)">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped mb-none display">
+                  <colgroup>
+                    <col width="150px" />
+                    <col width="850px" />
+                    <col width="150px" />
+                    <col width="50px" />
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th>createDate</th>
+                    <th>date</th>
+                    <th>departmentName</th>
+                    <th>guestAddress</th>
+                    <th>guestEmail</th>
+                    <th>guestIdentity</th>
+                    <th>guestName</th>
+                    <th>guestPhone</th>
+                    <th>note</th>
+                    <th>serviceName</th>
+                    <th>time</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="listCategory?.length">
+                  <tr *ngFor="let item of listCategory | filter:term | paginate: { itemsPerPage: 10, currentPage: p }" class="gradeX">
+                   
+                    <td>{{item.categoryName}}</td>
+                    <td>{{item.description}}</td>
+                    <td class="text-center">
+                      <!-- <span [ngClass]="{'bg-primary':user.IsActived,'bg-danger':!user.IsActived}">  -->
+                      <div class="grid-status" [ngClass]="{'bg-primary': item.status == 1, 'bg-danger': item.status == 0 }" mwlConfirmationPopover
+                        [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmText" [cancelText]="cancelText"
+                        [placement]="placement" (confirm)="switchStatus(item)" (cancel)="cancelClicked = true" confirmButtonType="danger"
+                        cancelButtonType="default" (click)="confirmClicked = false; cancelClicked = false" [appendToBody]="true">
+                        {{item.status == 1? 'Active' : 'Disable'}}
+                      </div>
+                    </td>
+                    <td align="center">
+                      <!-- <a [routerLink]="['/main/manage-service', item.serviceId]">
+                        <i class="fa fa-pencil" style="display: inline-block"></i>
+                      </a> -->
+                      <a [routerLink]="['/main/manage-category', item.categoryId]">
+                          <i style="cursor:pointer" class="fa fa-pencil-square-o"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="row">
+                  <div class="col-md-4 col-md-offset-8" style="padding-top: 20px;">
+                      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>

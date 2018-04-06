@@ -10,18 +10,18 @@ package Models;
  * @author Tung
  */
 public class Time {
-    int timeId,amount,available;
-    String date,time;
+    int timeId,amount,available,limit;
+    String date;
 
     public Time() {
     }
 
-    public Time(int timeId, int amount, int available, String date, String time) {
+    public Time(int timeId, int amount, int available, String date, int limit) {
         this.timeId = timeId;
         this.amount = amount;
         this.available = available;
         this.date = date;
-        this.time = time;
+        this.limit = limit;
     }
 
     public int getTimeId() {
@@ -56,13 +56,14 @@ public class Time {
         this.date = date;
     }
 
-    public String getTime() {
-        return time;
+    public int getLimit() {
+        return limit;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setLimit(int limit) {
+        this.limit = limit;
     }
+    
 
     
     

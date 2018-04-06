@@ -91,6 +91,9 @@ export class ManageNewsComponent implements OnInit {
       });
     }
   }
+  back() {
+    this._router.navigate(['/main/news']);
+  }
 
   setCategoryId(id) {
     this.news.CategoryId = id;
