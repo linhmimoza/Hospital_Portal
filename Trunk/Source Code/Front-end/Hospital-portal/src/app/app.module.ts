@@ -112,7 +112,8 @@ const routes: Routes = [
       { path: 'manage-category', component: AddCategoryComponent },
       { path: 'setting', component: SettingComponent },
       { path: 'check-shiftSchedule', component: CheckShiftScheduleComponent },
-      { path: 'upload-shiftSchedule', component: UploadShiftScheduleComponent }
+      { path: 'upload-shiftSchedule', component: UploadShiftScheduleComponent },
+      { path: 'medical-booking', component: MedicalBookingComponent }
     ]
   },
   { path: 'login', component: LoginComponent, pathMatch: 'full' },

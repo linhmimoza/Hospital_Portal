@@ -3,7 +3,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import 'rxjs/add/operator/mergeMap';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { MedicalService } from './medical.service';
 // import { forbiddenNameValidator } from '../../common/Validation';
@@ -35,25 +35,7 @@ export class MedicalComponent implements OnInit, AfterViewInit {
       }
     });
 
-    this.form = new FormGroup({
-      name: new FormControl('', [
-        Validators.required,
-        Validators.minLength(4),
-      ]),
-      guestEmail: new FormControl('', [
-        Validators.email
-      ]),
-      guestIdentity: new FormControl('', [
-        Validators.required
-      ]),
-      note: new FormControl(''),
-      guestAddress: new FormControl('', [
-        Validators.required
-      ]),
-      guestPhone: new FormControl('', [
-        Validators.required
-      ]),
-    });
+    this.initForm();
   }
 
   ngAfterViewInit() {
@@ -61,11 +43,31 @@ export class MedicalComponent implements OnInit, AfterViewInit {
       .done(() => console.log('load done!'));
   }
 
-  checkInput(input) {
-    if (!$(`${input}`).val()) {
-      this.form.setValue({ [input]: Object.assign({}, this.form.get(input), { touched: false }) });
-      console.log(this.form.get(input));
-    }
+  initForm() {
+    this.form = new FormGroup({
+      guestName: new FormControl('', [
+        Validators.required,
+        Validators.minLength(4),
+      ]),
+      guestEmail: new FormControl('', [
+        Validators.required,
+        Validators.email
+      ]),
+      guestIdentity: new FormControl('', [
+        Validators.required
+      ]),
+      note: new FormControl(''),
+      createDate: new FormControl(''),
+      departmentId: new FormControl(''),
+      serviceId: new FormControl(''),
+      time: new FormControl(''),
+      guestAddress: new FormControl('', [
+        Validators.required
+      ]),
+      guestPhone: new FormControl('', [
+        Validators.required
+      ]),
+    });
   }
 
   getServiceList(id) {
@@ -88,25 +90,26 @@ export class MedicalComponent implements OnInit, AfterViewInit {
     if (!this.form.valid) { return; }
     let bookingId;
     const now = moment().format('YYYY-MM-DD');
-    this.form.setValue({
+    this.form.patchValue({
       createDate: now,
       departmentId: this.data.departmentId,
       serviceId: this.data.serviceId,
       time: this.data.time
     });
-    this._medicalSrv.submitBooking(this.data)
+    console.log('form', this.form.value);
+    this._medicalSrv.submitBooking(this.form.value) // T co log ra console may gia tri se post ve server, check lai
       .flatMap(res => {
         return this._medicalSrv.getBookingId();
       })
       .flatMap(res => {
-        bookingId = res;
-        return this._medicalSrv.createBookingNumber(res, now);
+        bookingId = res._body;
+        return this._medicalSrv.createBookingNumber(bookingId, now);
       })
       .flatMap(res => {
         return this._medicalSrv.createIntendTime(bookingId);
       })
       .flatMap(res => {
-        return this._medicalSrv.bookingSuccess(this.data.TimeId);
+        return this._medicalSrv.bookingSuccess(this.data.TimeId); // TimeId bo r thi gio thay thanh gi?
       })
       .flatMap(res => {
         return this._medicalSrv.checkAvailable();
@@ -124,22 +127,22 @@ export class MedicalComponent implements OnInit, AfterViewInit {
 
   // #region getter
 
-  public get name() {
-    return this.form.get('name');
+  get guestName() {
+    return this.form.get('guestName');
   }
-  public get guestEmail() {
+  get guestEmail() {
     return this.form.get('guestEmail');
   }
-  public get guestIdentity() {
+  get guestIdentity() {
     return this.form.get('guestIdentity');
   }
-  public get guestAddress() {
+  get guestAddress() {
     return this.form.get('guestAddress');
   }
-  public get guestPhone() {
+  get guestPhone() {
     return this.form.get('guestPhone');
   }
-  public get note() {
+  get note() {
     return this.form.get('note');
   }
   // #endregion

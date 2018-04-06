@@ -18,4 +18,12 @@ export class MedicalBookingComponent implements OnInit {
   getList() {
     this._medicalSrv.getListAll().subscribe(res => this.medicalBookingList = res);
   }
+
+  search(value) {
+    if (value) {
+      this._medicalSrv.searchByName(value).subscribe(res => this.medicalBookingList = res);
+    } else {
+      this.getList();
+    }
+  }
 }

@@ -33,7 +33,7 @@ export class MedicalService {
     }
 
     getBookingId(): Observable<any> {
-        return this._http.get(`${SERVER}MedicalBooking/getBookingId`, OPTIONS).map(res => res.json());
+        return this._http.get(`${SERVER}MedicalBooking/getBookingId`, OPTIONS).map(res => res);
     }
 
     createBookingNumber(id, date): Observable<any> {
@@ -49,7 +49,7 @@ export class MedicalService {
     }
 
     createIntendTime(id): Observable<any> {
-        return this._http.get(`${SERVER}MedicalBooking/createIntendTime?BookingId=${id}`, OPTIONS).map(res => res.json());
+        return this._http.get(`${SERVER}MedicalBooking/createIntendTime?BookingId=${id}`, OPTIONS).map(res => res);
     }
 
 

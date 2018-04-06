@@ -55,7 +55,7 @@
           </ul>
         </div>
 
-        <form class="form-horizontal" novalidate="novalidate">
+        <!-- <form class="form-horizontal" novalidate="novalidate"> -->
           <div class="tab-content">
             <div id="w4-specialist" class="tab-pane active">
               <div class="form-group">
@@ -102,15 +102,15 @@
             </div>
             <div id="w4-confirm" class="tab-pane">
               <div class="panel-body">
-                <form [formGroup]="form" class="form-horizontal form-bordered">
+                <form [formGroup]="form" class="form-horizontal form-bordered" (ngSubmit)="submitBooking()">
                   <div class="form-group">
                     <label class="col-md-3 control-label">Full name
                       <span class="required">*</span>
                     </label>
                     <div class="col-md-6">
-                      <input type="text" id="name" formControleName="name" class="form-control" required (focusout)="checkInput('name')" />
-                      <div class="form-group" *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger" style="margin-top: 10px">
-                        <strong *ngIf="name.errors.required">Name is required.</strong>
+                      <input type="text" formControlName="guestName" class="form-control" required  />
+                      <div class="form-group" *ngIf="guestName.invalid && (guestName.dirty || guestName.touched)" class="alert alert-danger" style="margin-top: 10px">
+                        <strong *ngIf="guestName.errors.required">Name is required.</strong>
                       </div>
                     </div>
                   </div>
@@ -119,7 +119,7 @@
                       <span class="required">*</span>
                     </label>
                     <div class="col-md-6">
-                      <input formControleName="guestIdentity" type="text" class="form-control" required/>
+                      <input formControlName="guestIdentity" type="text" class="form-control" required/>
                       <div class="form-group" *ngIf="guestIdentity.invalid && (guestIdentity.dirty || guestIdentity.touched)" class="alert alert-danger"
                         style="margin-top: 10px">
                         <strong *ngIf="guestIdentity.errors.required">Identity is required.</strong>
@@ -131,7 +131,7 @@
                       <span class="required">*</span>
                     </label>
                     <div class="col-md-6">
-                      <input type="text" class="form-control" required /> 
+                      <input type="text" class="form-control" formControlName="guestPhone" required /> 
                       <div class="form-group" *ngIf="guestPhone.invalid && (guestPhone.dirty || guestPhone.touched)" class="alert alert-danger"
                         style="margin-top: 10px">
                         <strong *ngIf="guestPhone.errors.required">Phone is required.</strong>
@@ -143,7 +143,7 @@
                       <span class="required">*</span>
                     </label>
                     <div class="col-md-6">
-                      <input type="text" class="form-control" required />
+                      <input type="email" formControlName="guestEmail" class="form-control" required />
                       <div class="form-group" *ngIf="guestEmail.invalid && (guestEmail.dirty || guestEmail.touched)" class="alert alert-danger"
                         style="margin-top: 10px">
                         <strong *ngIf="guestEmail.errors.required">Email is required.</strong>
@@ -155,7 +155,7 @@
                       <span class="required">*</span>
                     </label>
                     <div class="col-md-6">
-                      <input type="text" class="form-control" required />
+                      <input type="text" formControlName="guestAddress" class="form-control" required />
                       <div class="form-group" *ngIf="guestAddress.invalid && (guestAddress.dirty || guestAddress.touched)" class="alert alert-danger"
                         style="margin-top: 10px">
                         <strong *ngIf="guestAddress.errors.required">Address is required.</strong>
@@ -172,7 +172,7 @@
               </div>
             </div>
           </div>
-        </form>
+        <!-- </form> -->
       </div>
       <div class="panel-footer">
         <ul class="pager">
