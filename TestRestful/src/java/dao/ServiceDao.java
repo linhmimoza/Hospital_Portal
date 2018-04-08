@@ -148,7 +148,7 @@ public class ServiceDao {
 
         String result = "Success";
         if (isNameExited(service.getServiceName()) == true) {
-            result = "Name exited";
+            result = "Existed";
         } else {
             try {
                 con = DBUtils.makeConnection();

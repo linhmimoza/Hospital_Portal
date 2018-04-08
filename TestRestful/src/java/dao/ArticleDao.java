@@ -6,6 +6,7 @@
 package dao;
 
 import DBUtils.DBUtils;
+import Function.TimeEditor;
 import Models.Article;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -352,5 +355,44 @@ public class ArticleDao {
             closeConnection();
         }
         return result;
+    }
+    public List<Article> getPageArticle(int page) {
+ int rows=3*page;
+        List<Article> listArticle = new ArrayList<>();
+        try {
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "Select a.*, u.FullName as uploadByUser, u1.FullName as updateByUser\n"
+                        + "  from Article a left outer join [User] u on u.UserId = a.UploadBy left outer join [User] u1 on u1.UserId = a.UpdateBy where  a.Status=1 ORDER BY UploadDate"
+                         + " OFFSET 0 ROWS\n"
+                        + "FETCH NEXT "+rows+" ROWS ONLY;";
+             
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    Integer id = rs.getInt("ArticleId");
+                    String title = rs.getString("Title");
+                    Integer categoryId = rs.getInt("CategoryId");
+                    Integer uploadBy = rs.getInt("UploadBy");
+                    String uploadDate = rs.getString("UploadDate");
+                    Integer updateBy = rs.getInt("UpdateBy");
+                    String updateDate = rs.getString("UpdateDate");
+                    Integer status = rs.getInt("Status");
+                    String link = rs.getString("Link");
+                    String describe = rs.getString("Describe");
+                    String uploadByName = rs.getString("uploadByUser");
+                    String updateByName = rs.getString("updateByUser");
+                    Article a = new Article(id, categoryId, uploadBy, updateBy, status, title, uploadDate, updateDate, link, describe, uploadByName, updateByName);
+                    listArticle.add(a);
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeConnection();
+        }
+        return listArticle;
     }
 }

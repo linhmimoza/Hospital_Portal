@@ -53,9 +53,15 @@ public class MedicalBookingResource {
     @Path("/createMedicalBooking")
     @POST
     @Produces()
-    public String createMedicalBooking(MedicalBooking mb) throws SQLException {
+    public Response createMedicalBooking(MedicalBooking mb) throws SQLException {
         MedicalBookingDao dao = new MedicalBookingDao();
-        return dao.createMedicalBooking(mb);
+        String result = dao.createMedicalBooking(mb);
+        if (result == "Failed") {
+            return Response.status(500).build();
+        } else if (result == "Existed") {
+            return Response.status(400).build();
+        }
+        return Response.status(200).build();
     }
 
     @Path("/getBookingId")
@@ -77,6 +83,7 @@ public class MedicalBookingResource {
         List<MedicalBooking> listMb = dao.getListMb(guestIdentity);
         return listMb;
     }
+
     @Path("/getListMedicalBookingAdmin")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -85,6 +92,7 @@ public class MedicalBookingResource {
         List<MedicalBooking> listMb = dao.getListMbAdmin();
         return listMb;
     }
+
     @Path("/getListMbAdminByName")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -93,6 +101,7 @@ public class MedicalBookingResource {
         List<MedicalBooking> listMb = dao.getListMbAdminByName(GuestName);
         return listMb;
     }
+
     @Path("/createBookingNumber")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
@@ -100,8 +109,9 @@ public class MedicalBookingResource {
             @QueryParam("BookingId") int BookingId,
             @QueryParam("date") String date) throws SQLException {
         MedicalBookingDao dao = new MedicalBookingDao();
-        return dao.createBookingNumber(BookingId,date);
+        return dao.createBookingNumber(BookingId, date);
     }
+
     @Path("/createIntendTime")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
@@ -109,6 +119,5 @@ public class MedicalBookingResource {
         MedicalBookingDao dao = new MedicalBookingDao();
         return dao.createIntendTime(BookingId);
     }
-    
 
 }

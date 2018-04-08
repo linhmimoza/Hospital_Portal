@@ -6,6 +6,8 @@ import 'rxjs/add/operator/mergeMap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { MedicalService } from './medical.service';
+import { NotificationService } from '../../main/extra/notification.service';
+import { EXISTED } from '../../constant/commonConstant';
 // import { forbiddenNameValidator } from '../../common/Validation';
 // import { ServicesService } from '../services/services.service';
 
@@ -24,6 +26,7 @@ export class MedicalComponent implements OnInit, AfterViewInit {
   constructor(
     private _medicalSrv: MedicalService,
     private _router: Router
+    , private notificationService: NotificationService
   ) {
     this.data = {};
   }
@@ -60,7 +63,7 @@ export class MedicalComponent implements OnInit, AfterViewInit {
       createDate: new FormControl(''),
       departmentId: new FormControl(''),
       serviceId: new FormControl(''),
-      time: new FormControl(''),
+      timeId: new FormControl(''),
       guestAddress: new FormControl('', [
         Validators.required
       ]),
@@ -80,10 +83,14 @@ export class MedicalComponent implements OnInit, AfterViewInit {
   moveStep(step) {
     $(`#step${step}`).css('visibility', 'visible');
     $(`#step${step}Click`).click();
+    if (step == 3) {
+      this.selectTime();
+    }
   }
 
   setTimeId(id) {
     this.data.TimeId = id;
+    this.moveStep(4);
   }
 
   submitBooking() {
@@ -94,7 +101,7 @@ export class MedicalComponent implements OnInit, AfterViewInit {
       createDate: now,
       departmentId: this.data.departmentId,
       serviceId: this.data.serviceId,
-      time: this.data.time
+      timeId: this.data.TimeId
     });
     console.log('form', this.form.value);
     this._medicalSrv.submitBooking(this.form.value) // T co log ra console may gia tri se post ve server, check lai
@@ -115,14 +122,22 @@ export class MedicalComponent implements OnInit, AfterViewInit {
         return this._medicalSrv.checkAvailable();
       })
       .subscribe(res => {
-        this._router.navigate(['home/main']);
-      }, err => console.log(err));
+        this.notificationService.success('Booking Succeed!').then(() => {
+          this._router.navigate(['home/main']);
+        });
+      }, err => {
+        if (err.status === 400) {
+          this.notificationService.fail('Identity existed!').then(() => { });
+        }
+
+        if (err.status === 500) {
+          this.notificationService.fail('Something went wrong! Please try again.').then(() => { });
+        }
+      });
   }
 
   selectTime() {
-    const date = moment(this.data.time).format('YYYY-MM-DD');
-    this._medicalSrv.getTimeList(date).subscribe(res => this.listTime = res);
-    this.moveStep(4);
+    this._medicalSrv.getTimeList().subscribe(res => this.listTime = res);
   }
 
   // #region getter

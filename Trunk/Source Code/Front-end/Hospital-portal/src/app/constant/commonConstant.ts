@@ -11,6 +11,6 @@ const SUCCESS = 'Success';
 const DISABLE = 0;
 const ACTIVE = 1;
 const WAITING = 2;
-const EXISTED = 'Name exited';
+const EXISTED = 'Existed';
 
 export { DOWNLOAD_LINK, SERVER, OPTIONS, SUCCESS, DISABLE, ACTIVE, EXISTED, WAITING };

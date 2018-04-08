@@ -46,7 +46,7 @@ public class MedicalBookingDao {
 
         String result = "Success";
         if (isIdentityExited(mb.getGuestIdentity()) == true) {
-            result = "Identity existed";
+            result = "Existed";
         } else {
             try {
                 con = DBUtils.makeConnection();

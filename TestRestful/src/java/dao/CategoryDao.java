@@ -162,7 +162,7 @@ public class CategoryDao {
 
         String result = "Success";
         if (isNameExited(category.getCategoryName()) == true) {
-            result = "Name exited";
+            result = "Existed";
         } else {
             try {
                 con = DBUtils.makeConnection();

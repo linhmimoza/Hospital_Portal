@@ -20,8 +20,8 @@ export class MedicalService {
         return this._http.get(`${SERVER}service/getListService?DepartmentId=${id}`, OPTIONS).map(res => res.json());
     }
 
-    getTimeList(date): Observable<any> {
-        return this._http.get(`${SERVER}time/getListTime?Date=${date}&Available=1`, OPTIONS).map(res => res.json());
+    getTimeList(): Observable<any> {
+        return this._http.get(`${SERVER}time/getListTimeAvailable`, OPTIONS).map(res => res.json());
     }
 
     getMedicalIdentity(identity): Observable<any> {

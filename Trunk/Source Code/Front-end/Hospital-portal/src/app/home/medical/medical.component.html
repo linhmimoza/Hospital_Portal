@@ -46,7 +46,7 @@
             </li>
             <li id="step3" style="visibility: hidden">
               <a id="step3Click" href="#w4-daytime" data-toggle="tab">
-                <span>3</span>Day&Time</a>
+                <span>3</span>Day</a>
             </li>
             <li id="step4" style="visibility: hidden">
               <a id="step4Click" href="#w4-confirm" data-toggle="tab">
@@ -81,12 +81,16 @@
               <div class="form-group">
                 <label class="col-md-3 control-label">Select day</label>
                 <div class="col-md-6">
-                  <div class="input-group">
+                  <!-- <div class="input-group">
                     <span class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </span>
                     <input type="date" class="form-control" [(ngModel)]="data.time" (change)="selectTime()" name="time">
-                  </div>
+                  </div> -->
+                  <select class="form-control input-lg mb-md" (change)="setTimeId($event.target.value)">
+                    <option value="">Please select</option>
+                    <option *ngFor="let option of listTime" value="{{option.timeId}}">{{option.date}}</option>
+                  </select>
                 </div>
               </div>
 

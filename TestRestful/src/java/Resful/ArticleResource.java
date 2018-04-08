@@ -136,4 +136,12 @@ public class ArticleResource {
         ArticleDao dao = new ArticleDao();
         return dao.activeArticle(ArticleId);
     }
+    @Path("/getPageArticle")
+    @GET
+    @Produces()
+    public List<Article> getPageArticle(@QueryParam("page") int page) throws SQLException, ClassNotFoundException {
+   ArticleDao dao = new ArticleDao();
+            List<Article> listArticle = dao.getPageArticle(page);        
+            return listArticle;
+    }
 }

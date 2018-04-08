@@ -55,6 +55,15 @@ public class TimeResource {
         //TODO return proper representation object
         throw new UnsupportedOperationException();
     }
+    
+    @Path("/getListTimeAvailable")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Time> getListTimeAvailable() throws SQLException, ClassNotFoundException {
+        TimeDao dao = new TimeDao();
+        List<Time> listTime = dao.getListTimeAvailable();
+        return listTime;
+    }
 
     @Path("/getListTime")
     @GET
