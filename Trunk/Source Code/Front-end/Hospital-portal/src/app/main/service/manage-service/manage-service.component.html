@@ -1,61 +1,68 @@
 <!-- This is User Detail Page
 <test-selector></test-selector> -->
 <div class="row">
-    <header class="page-header">
-        <h2>Service</h2>
-      </header>
-    <div class="col-lg-12">
-      <div action="forms-validation.html" class="form-horizontal">
-        <section class="panel">
-          <header class="panel-heading">
-  
-            <h2 class="panel-title">Manage Service</h2>
-            <!-- <p class="panel-subtitle">
+  <header class="page-header">
+    <h2>Service</h2>
+  </header>
+  <div class="col-lg-12">
+    <div action="forms-validation.html" class="form-horizontal">
+      <section class="panel">
+        <header class="panel-heading">
+
+          <h2 class="panel-title">Manage Service</h2>
+          <!-- <p class="panel-subtitle">
                           Basic validation will display a label with the error after the form control.
                       </p> -->
-          </header>
-          <div class="panel-body">
+        </header>
+        <div class="panel-body">
+          <form [formGroup]="form" class="form-horizontal form-bordered">
             <div class="form-group" *ngIf="command === 'CREATE'">
               <label class="col-md-3 control-label" for="inputDefault">Department
-                  <span class="required">*</span>
-                </label>
-                <div class="col-md-6">
-                  <select class="form-control input-lg mb-md " name="departmentId" [(ngModel)]="departmentId" *ngIf="departmentList?.length" (change)="setDepartment($event.target.value)">
-                    <option value="" selected>Please select</option>
-                    <option *ngFor="let option of departmentList" value="{{option.departmentId}}">{{option.departmentName}}</option>
-                  </select>
-                </div>
+                <span class="required">*</span>
+              </label>
+              <div class="col-md-6">
+                <select class="form-control input-lg mb-md " name="departmentId" formControlName="departmentId" *ngIf="departmentList?.length"
+                  (change)="setDepartment($event.target.value)">
+                  <option value="" selected>Please select</option>
+                  <option *ngFor="let option of departmentList" value="{{option.departmentId}}">{{option.departmentName}}</option>
+                </select>
+              </div>
             </div>
             <div class="form-group">
               <label class="col-md-3 control-label" for="inputDefault">Service name
                 <span class="required">*</span>
               </label>
               <div class="col-md-6">
-                <input type="text" class="form-control" id="inputDefault" name="name" [(ngModel)]="data.serviceName" required>
+                <input type="text" class="form-control" id="inputDefault" name="name" formControlName="serviceName" required>
+                <div class="form-group" *ngIf="serviceName.invalid && (serviceName.dirty || serviceName.touched)" class="alert alert-danger"
+                  style="margin-top: 10px">
+                  <strong *ngIf="serviceName.errors.required">Name is required.</strong>
+                </div>
               </div>
+
             </div>
-  
+
             <div class="form-group">
               <label class="col-md-3 control-label" for="textareaDefault">Description</label>
               <div class="col-md-7">
-                <textarea class="form-control" [(ngModel)]="data.description" rows="3" id="textareaDefault"></textarea>
+                <textarea class="form-control" formControlName="description" rows="3" id="textareaDefault"></textarea>
               </div>
             </div>
-  
+          </form>
+        </div>
+        <footer class="panel-footer">
+          <div class="row">
+            <div class="col-sm-9 col-sm-offset-3" *ngIf="form.valid">
+              <button class="btn btn-primary" (click)="save()">
+                <i class="fa fa-floppy-o"></i>
+                Save</button>
+              <button class="btn btn-default" (click)="back()">
+                <i class="fa fa-undo"></i>
+                Back</button>
+            </div>
           </div>
-          <footer class="panel-footer">
-            <div class="row">
-              <div class="col-sm-9 col-sm-offset-3">
-                <button class="btn btn-primary" (click)="save()">
-                  <i class="fa fa-floppy-o"></i>
-                  Save</button>
-                <button class="btn btn-default" (click)="back()">
-                  <i class="fa fa-undo"></i>
-                  Back</button>
-              </div>
-            </div>
-          </footer>
-        </section>
-      </div>
+        </footer>
+      </section>
     </div>
   </div>
+</div>

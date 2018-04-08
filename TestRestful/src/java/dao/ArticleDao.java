@@ -12,7 +12,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -232,20 +236,26 @@ public class ArticleDao {
         return listArticle;
     }
 
-    public String createArticle(Article article) throws SQLException, ClassNotFoundException {
+    public String createArticle(Article article) throws SQLException, ClassNotFoundException, ParseException {
 
         String result = "Success";
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
+                DateFormat inputFormat = new SimpleDateFormat("yyyy/MM/dd");
+                TimeEditor time = new TimeEditor();
+                String now = time.getDate();
+                Date dateparse = inputFormat.parse(now);
+                SimpleDateFormat outputFormat  = new SimpleDateFormat("yyyy-MM-dd");
+                String outputText = outputFormat.format(dateparse);
                 String sql = "insert into Article(Title,CategoryId,UpdateBy,UpdateDate,UploadBy,UploadDate,Status,Link,Describe)values(?,?,?,?,?,?,?,?,?)";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, article.getTitle());
                 stm.setInt(2, article.getCategoryId());
                 stm.setInt(3, article.getUploadBy());
-                stm.setString(4, article.getUploadDate());
+                stm.setString(4, outputText);
                 stm.setInt(5, article.getUploadBy());
-                stm.setString(6, article.getUploadDate());
+                stm.setString(6, outputText);
                 stm.setInt(7, 2);
                 stm.setString(8, article.getLink());
                 stm.setString(9, article.getDescribe());

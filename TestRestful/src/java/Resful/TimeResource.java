@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -59,7 +60,7 @@ public class TimeResource {
     @Path("/getListTimeAvailable")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Time> getListTimeAvailable() throws SQLException, ClassNotFoundException {
+    public List<Time> getListTimeAvailable() throws SQLException, ClassNotFoundException, ParseException {
         TimeDao dao = new TimeDao();
         List<Time> listTime = dao.getListTimeAvailable();
         return listTime;

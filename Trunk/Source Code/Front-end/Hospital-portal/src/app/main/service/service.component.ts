@@ -1,9 +1,12 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import 'rxjs/add/operator/mergeMap';
 
 import { MedicalService } from './../../home/medical/medical.service';
 import { ServicesService } from './service.service';
-import { SUCCESS } from '../../constant/commonConstant';
+import { REQUEST_RESULTS, ROLE_ID, ROLES } from '../../constant/commonConstant';
+import { CookieService } from 'ngx-cookie-service';
+import { NotificationService } from '../extra/notification.service';
 
 const DISABLE = 0;
 const ACTIVE = 1;
@@ -23,26 +26,37 @@ export class AdminServiceComponent implements OnInit {
   public cancelText = 'No <i class="glyphicon glyphicon-remove"></i>';
   public confirmClicked = false;
   public cancelClicked = false;
+  public roleId: number;
 
-  constructor(private _medicalSrv: MedicalService, private _serviceSrv: ServicesService) {
+  constructor(private _medicalSrv: MedicalService
+    , private _serviceSrv: ServicesService
+    , private _cookieSrv: CookieService
+    , private notificationService: NotificationService
+    , private _router: Router
+  ) {
   }
 
   ngOnInit() {
-    this._medicalSrv.getSpecialList()
-      .flatMap(res => {
-        this.departmentList = res;
-        const deptId = this.departmentList[0].departmentId;
-        return this._serviceSrv.getListAll(deptId);
-      }).subscribe(res => {
-        this.listService = res;
-      });
+    this.roleId = parseInt(this._cookieSrv.get(ROLE_ID), 10);
+    if (this.roleId && this.roleId == ROLES.Admin) {
+      this._medicalSrv.getSpecialList()
+        .flatMap(res => {
+          this.departmentList = res;
+          const deptId = this.departmentList[0].departmentId;
+          return this._serviceSrv.getListAll(deptId);
+        }).subscribe(res => {
+          this.listService = res;
+        });
+    } else {
+      this.notificationService.fail('Access denied!').then(() => this._router.navigate(['/main']));
+    }
   }
 
   switchStatus(item) {
     switch (item.status) {
       case DISABLE:
         this._serviceSrv.activeService(item.serviceId).subscribe(res => {
-          if (res._body === SUCCESS) {
+          if (res._body === REQUEST_RESULTS.Success) {
             const index = this.listService.findIndex(el => el.serviceId == item.serviceId);
             this.listService[index].status = ACTIVE;
           }
@@ -50,7 +64,7 @@ export class AdminServiceComponent implements OnInit {
         return;
       case ACTIVE:
         this._serviceSrv.disableService(item.serviceId).subscribe(res => {
-          if (res._body === SUCCESS) {
+          if (res._body === REQUEST_RESULTS.Success) {
             const index = this.listService.findIndex(el => el.serviceId == item.serviceId);
             this.listService[index].status = DISABLE;
           }
@@ -61,7 +75,7 @@ export class AdminServiceComponent implements OnInit {
 
   searchService(name) {
     this._serviceSrv.searchByName(name).subscribe(res => this.listService = res);
-    // CASE: Once result return empty set list as the the first list. 
+    // CASE: Once result return empty set list as the the first list.
     // if (res && res.length) {
     //   this.listService = res;
     // } else {
@@ -69,5 +83,9 @@ export class AdminServiceComponent implements OnInit {
     //   this._serviceSrv.getListAll(deptId).subscribe(servList => this.listService = servList);
     // }
   }
+
+  getService(id) {
+    this._serviceSrv.getListAll(id).subscribe(res => this.listService = res);
+}
 
 }

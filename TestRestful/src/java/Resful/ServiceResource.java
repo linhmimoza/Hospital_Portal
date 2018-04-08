@@ -19,6 +19,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * REST Web Service
@@ -84,16 +85,26 @@ public class ServiceResource {
     @Path("/createService")
     @POST
     @Produces()
-    public String createService(Service service) throws SQLException {
+    public Response createService(Service service) throws SQLException {
         ServiceDao dao = new ServiceDao();
-        return dao.createService(service);
+        String result = dao.createService(service);
+        if (result == "Failed") {
+            return Response.status(500).build();
+        } else if (result == "Existed") {
+            return Response.status(400).build();
+        }
+        return Response.status(200).build();
     }
     @Path("/updateService")
     @POST
     @Produces()
-    public String updateService(Service service) throws SQLException {
+    public Response updateService(Service service) throws SQLException {
         ServiceDao dao = new ServiceDao();
-        return dao.updateService(service);
+        String result = dao.updateService(service);
+        if (result == "Failed") {
+            return Response.status(500).build();
+        }
+        return Response.status(200).build();
     }
     @Path("/disableService")
     @GET

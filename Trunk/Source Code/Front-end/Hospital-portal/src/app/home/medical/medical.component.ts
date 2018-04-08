@@ -6,8 +6,8 @@ import 'rxjs/add/operator/mergeMap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { MedicalService } from './medical.service';
-import { EXISTED } from '../../constant/commonConstant';
-import { NotiService } from '../../common/notification';
+import { NotificationService } from '../../main/extra/notification.service';
+// import { NotiService } from '../../common/notification';
 // import { forbiddenNameValidator } from '../../common/Validation';
 // import { ServicesService } from '../services/services.service';
 
@@ -26,7 +26,7 @@ export class MedicalComponent implements OnInit, AfterViewInit {
   constructor(
     private _medicalSrv: MedicalService,
     private _router: Router
-    , private notificationService: NotiService
+    , private notificationService: NotificationService
   ) {
     this.data = {};
   }

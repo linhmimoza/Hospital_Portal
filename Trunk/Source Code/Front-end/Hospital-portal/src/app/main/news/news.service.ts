@@ -20,7 +20,7 @@ export class AdminNewsService {
     }
 
     createNews(data): Observable<any> {
-        return this._http.get(`${SERVER}Article/createArticle?${data}`, OPTIONS).map(res => res);
+        return this._http.post(`${SERVER}Article/createArticle`, data, OPTIONS).map(res => res);
     }
 
     disableNews(id): Observable<any> {
@@ -54,5 +54,5 @@ export class AdminNewsService {
     uploadFile(data): Observable<any> {
         return this._http.post(`${SERVER}UploadFile/upload`, data).map(res => res);
     }
-    
+
 }

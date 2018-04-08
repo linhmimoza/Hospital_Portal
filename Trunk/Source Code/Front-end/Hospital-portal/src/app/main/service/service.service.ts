@@ -9,17 +9,16 @@ import { SERVER, OPTIONS } from '../../constant/commonConstant';
 
 @Injectable()
 export class ServicesService {
-    constructor(private _http: Http) {
-    }
+    constructor(private _http: Http) { }
 
     createService(data): Observable<any> {
         return this._http.post(`${SERVER}service/createService`, data, OPTIONS).map(res => res);
     }
-    
+
     updateService(data): Observable<any> {
         return this._http.post(`${SERVER}service/updateService`, data, OPTIONS).map(res => res);
     }
-    
+
     getListAll(id): Observable<any> {
         return this._http.get(`${SERVER}service/getAllListService?DepartmentId=${id}`).map(res => res.json());
     }

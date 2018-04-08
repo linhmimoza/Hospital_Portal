@@ -5,22 +5,18 @@ package Resful;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
-
-
-import java.io.File;  
-import java.io.FileOutputStream;  
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;  
+import java.io.InputStream;
 import javax.servlet.annotation.MultipartConfig;
-import javax.ws.rs.Consumes;  
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;  
-import javax.ws.rs.Path;  
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;  
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import javax.servlet.ServletContext;
 import javax.ws.rs.core.Response;
@@ -35,9 +31,10 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 @Path("UploadFile")
 @MultipartConfig
 public class UploadFileResource {
+
     @Context
     private UriInfo context;
-    
+
     @Context
     private ServletContext application;
 
@@ -96,27 +93,34 @@ public class UploadFileResource {
 //                + "</result>";
 //        return rs;
 //    }
-    @POST  
-    @Path("/upload")  
-    @Consumes(MediaType.MULTIPART_FORM_DATA)  
+
+    @POST
+    @Path("/upload")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces()
-    public String uploadFile(  
-            @FormDataParam("file") InputStream uploadedInputStream,  
-            @FormDataParam("file") FormDataContentDisposition fileDetail) {  
-            String fileLocation = "D://std//doan//FileUpload//" + fileDetail.getFileName();  
-                    //saving file  
-            try {  
-                FileOutputStream out = new FileOutputStream(new File(fileLocation));  
-                int read = 0;  
-                byte[] bytes = new byte[1024];  
-                out = new FileOutputStream(new File(fileLocation));  
-                while ((read = uploadedInputStream.read(bytes)) != -1) {  
-                    out.write(bytes, 0, read);  
-                }  
-                out.flush();  
-                out.close();  
-            } catch (IOException e) {e.printStackTrace();}  
+    public String uploadFile(
+            @FormDataParam("file") InputStream uploadedInputStream,
+            @FormDataParam("file") FormDataContentDisposition fileDetail) {
+//        String fileLocation = "D://std//doan//FileUpload//" + fileDetail.getFileName();
+        File filename = new File("Hospital_Portal//FileUpload//" + fileDetail.getFileName());
+        String fileLocation = filename.getAbsolutePath();
+        File file = new File(fileLocation);
+        file.getParentFile().mkdirs();
+        //saving file  
+        try {
+            FileOutputStream out = new FileOutputStream(new File(fileLocation));
+            int read = 0;
+            byte[] bytes = new byte[1024];
+            out = new FileOutputStream(new File(fileLocation));
+            while ((read = uploadedInputStream.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 //            String output = "File successfully uploaded to : " + fileLocation;  
-            return fileDetail.getFileName();  
-        }  
+        return fileDetail.getFileName();
+    }
 }
