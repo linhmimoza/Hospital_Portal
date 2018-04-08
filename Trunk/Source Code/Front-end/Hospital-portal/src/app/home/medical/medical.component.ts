@@ -6,8 +6,8 @@ import 'rxjs/add/operator/mergeMap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { MedicalService } from './medical.service';
-import { NotificationService } from '../../main/extra/notification.service';
 import { EXISTED } from '../../constant/commonConstant';
+import { NotiService } from '../../common/notification';
 // import { forbiddenNameValidator } from '../../common/Validation';
 // import { ServicesService } from '../services/services.service';
 
@@ -26,7 +26,7 @@ export class MedicalComponent implements OnInit, AfterViewInit {
   constructor(
     private _medicalSrv: MedicalService,
     private _router: Router
-    , private notificationService: NotificationService
+    , private notificationService: NotiService
   ) {
     this.data = {};
   }
@@ -116,22 +116,23 @@ export class MedicalComponent implements OnInit, AfterViewInit {
         return this._medicalSrv.createIntendTime(bookingId);
       })
       .flatMap(res => {
-        return this._medicalSrv.bookingSuccess(this.data.TimeId); // TimeId bo r thi gio thay thanh gi?
+        return this._medicalSrv.bookingSuccess(this.data.TimeId);
       })
       .flatMap(res => {
         return this._medicalSrv.checkAvailable();
       })
       .subscribe(res => {
-        this.notificationService.success('Booking Succeed!').then(() => {
-          this._router.navigate(['home/main']);
-        });
+        this.notificationService.success('Booking Succeed!');
+        setTimeout(() => this._router.navigate(['home/main']), 3000);
       }, err => {
         if (err.status === 400) {
-          this.notificationService.fail('Identity existed!').then(() => { });
+          this.notificationService.fail('Identity existed!');
+          console.log(err);
         }
 
         if (err.status === 500) {
-          this.notificationService.fail('Something went wrong! Please try again.').then(() => { });
+          this.notificationService.fail('Something went wrong! Please try again.');
+          console.log(err);
         }
       });
   }

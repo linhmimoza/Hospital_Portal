@@ -5,7 +5,7 @@ import { Params } from '@angular/router/src/shared';
 import { MedicalService } from './../../../home/medical/medical.service';
 import { ServicesService } from '../service.service';
 import { SUCCESS } from '../../../constant/commonConstant';
-import { NotificationService } from '../../extra/notification.service';
+import { NotiService } from '../../../common/notification';
 
 const CREATE = 'CREATE';
 const UPDATE = 'UPDATE';
@@ -24,7 +24,7 @@ export class ManageServiceComponent implements OnInit {
     , private _serviceSrv: ServicesService
     , private activatedRoute: ActivatedRoute
     , private _router: Router
-    , private notificationService: NotificationService
+    , private notificationService: NotiService
   ) {
     this.data = {};
   }
@@ -56,18 +56,16 @@ export class ManageServiceComponent implements OnInit {
     if (this.command === CREATE) {
       this._serviceSrv.createService(this.data).subscribe(res => {
         if (res._body === SUCCESS) {
-          this.notificationService.success('Create Succeed!').then(() => {
-            this._router.navigate(['/main/service']);
-          });
+          this.notificationService.success('Create Succeed!');
+          setTimeout(() => this._router.navigate(['/main/service']), 3000);
         }
       });
     }
     if (this.command === UPDATE) {
       this._serviceSrv.updateService(this.data).subscribe(res => {
         if (res._body === SUCCESS) {
-          this.notificationService.success('Update Succeed!').then(() => {
-            this._router.navigate(['/main/service']);
-          });
+          this.notificationService.success('Update Succeed!');
+          setTimeout(() => this._router.navigate(['/main/service']), 3000);
         }
       });
     }

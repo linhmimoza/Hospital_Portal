@@ -72,6 +72,7 @@ import { MeetingDetailComponent } from './main/meetting/meeting-detail.component
 import { MeetingService } from './main/meetting/service/meeting.service';
 import { UploadShiftScheduleComponent } from './main/shiftScheduler/upload-shiftSchedule.component';
 import { MedicalBookingComponent } from './main/medical-booking/medical-booking.component';
+import { NotiService } from './common/notification';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home/main', pathMatch: 'full' },
@@ -200,6 +201,7 @@ const routes: Routes = [
     NotificationService, LoadingService, LoginService, AccountService, ApiService, UserService,
     DepartmentService, RoleService, CategoryService, RoomService, MissionService,
     ShiftSchedulerService, ManageService, MeetingService, ArticleService, CookieService, SelectService, NotificationComponentService
+    , NotiService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,9 +1,12 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import 'rxjs/add/operator/mergeMap';
+import { CookieService } from 'ngx-cookie-service';
 
 import { MedicalService } from './../../home/medical/medical.service';
 import { CategoryService } from './managecategory.service';
-import { SUCCESS, DISABLE, ACTIVE } from '../../constant/commonConstant';
+import { SUCCESS, DISABLE, ACTIVE, ROLE_ID } from '../../constant/commonConstant';
+import { NotiService } from '../../common/notification';
 
 
 
@@ -22,13 +25,25 @@ export class ManagecategoryComponent implements OnInit {
   public cancelText = 'No <i class="glyphicon glyphicon-remove"></i>';
   public confirmClicked = false;
   public cancelClicked = false;
-  constructor(private _categorySrv: CategoryService) { }
+  public roleId: number;
+
+  constructor(private _categorySrv: CategoryService
+    , private _cookieSrv: CookieService
+    , private notificationService: NotiService
+    , private _router: Router
+  ) { }
 
   ngOnInit() {
-    this._categorySrv.getListAll()
-      .subscribe(res => {
-        this.listCategory = res;
-      });
+    this.roleId = parseInt(this._cookieSrv.get(ROLE_ID), 10);
+    if (this.roleId === 1) {
+      this._categorySrv.getListAll()
+        .subscribe(res => {
+          this.listCategory = res;
+        });
+    } else {
+      this.notificationService.fail('Access denied!');
+      setTimeout(() => this._router.navigate(['/main']), 3000);
+    }
   }
   switchStatus(item) {
     switch (item.status) {

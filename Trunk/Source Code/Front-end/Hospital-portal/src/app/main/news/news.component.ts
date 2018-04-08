@@ -1,11 +1,12 @@
+import { Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
+
 import { AdminNewsService } from './news.service';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { HomeService } from '../../home/home.service';
 import { NewsService } from '../../home/news/news.service';
-import { SUCCESS, DISABLE, ACTIVE, WAITING } from '../../constant/commonConstant';
-import { Observable } from 'rxjs';
-import { CookieService } from 'ngx-cookie-service';
-import { Router } from '@angular/router';
+import { SUCCESS, DISABLE, ACTIVE, WAITING, ROLE_ID } from '../../constant/commonConstant';
 
 @Component({
   selector: 'app-news',
@@ -31,7 +32,7 @@ export class AdminNewsComponent implements OnInit, AfterViewInit {
     , private _cookieSrv: CookieService
     , private _router: Router
   ) {
-    const roleCookie = this._cookieSrv.get('Auth-RoleId');
+    const roleCookie = this._cookieSrv.get(ROLE_ID);
     roleCookie ? this.roleId = parseInt(roleCookie, 10) : this._router.navigate(['/login']);
   }
 
