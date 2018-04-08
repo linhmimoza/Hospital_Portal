@@ -32,7 +32,7 @@ export class MeetingListComponent {
             this.fromDate = this.toDay.toUTCString;
             this.loadFuture();
             this.loadPass();
-            this.loadScrip();
+            // this.loadScrip();
         } else if (isNaN(this.roleCookie)) {
             alert("You don't have permission to view this page!");
             this.router.navigate(['/login']);
@@ -43,43 +43,42 @@ export class MeetingListComponent {
     }
 
     ngAfterViewInit() {
-        this.loadScrip();
+        // this.loadScrip();
     }
-    loadScrip() {
-        $.getScript('assets/porto/javascripts/theme.init.js', function () {
-            $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
-                $.getScript('assets/porto/javascripts/ui-elements/examples.modals.js', function () {
+    // loadScrip() {
+        // $.getScript('assets/porto/javascripts/theme.init.js', function () {
+        //     $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
+        //         $.getScript('assets/porto/javascripts/ui-elements/examples.modals.js', function () {
 
-                });
-            });
-        });
-    }
+        //         });
+        //     });
+        // });
+    // }
     loadFuture() {
-        this.loadScrip();
+        // this.loadScrip();
         this.fPage = this.fPage + 1;
         this.meetingService.getFutureMeeting(this.fPage).then((res: Meeting[]) => {
             this.futureMeetings = res;
         }).catch(err => {
             alert(err);
         });
-        this.loadScrip();
+        // this.loadScrip();
     }
     view(meet) {
-        this.loadScrip();
+        // this.loadScrip()  
         this.selectMeeting = meet;
-        console.log(this.selectMeeting);
-        this.loadScrip();
+        $('#modalLG').modal('show');
+        // this.loadScrip();
     }
     loadPass() {
-        this.loadScrip();
+        // this.loadScrip();
         this.pPage = this.pPage + 1;
         this.meetingService.getPassMeeting(this.pPage).then((res: Meeting[]) => {
             this.passMeetings = res;
         }).catch(err => {
             alert(err);
-
         });
-        this.loadScrip();
+        // this.loadScrip();
     }
 
     detail(meeting: Meeting) {
@@ -94,23 +93,23 @@ export class MeetingListComponent {
 
     }
     from() {
-        this.loadScrip();
+        // this.loadScrip();
         if (this.fromDate > this.toDate) {
             this.toDate = this.fromDate;
 
         }
-        this.loadScrip();
+        // this.loadScrip();
     }
     to() {
-        this.loadScrip();
+        // this.loadScrip();
         if (this.fromDate > this.toDate) {
             this.fromDate = this.toDate;
 
         }
-        this.loadScrip();
+        // this.loadScrip();
     }
     search() {
-        this.loadScrip();
+        // this.loadScrip();
         if (this.fromDate < '99/99/9999' && this.toDate < '99/99/9999') {
             this.meetingService.getInRange(this.fromDate, this.toDate).then((res: Meeting[]) => {
                 this.meetingInRange = res;
@@ -120,9 +119,7 @@ export class MeetingListComponent {
             });
 
         }
-        this.loadScrip();
+        // this.loadScrip();
     }
-
-
 
 }

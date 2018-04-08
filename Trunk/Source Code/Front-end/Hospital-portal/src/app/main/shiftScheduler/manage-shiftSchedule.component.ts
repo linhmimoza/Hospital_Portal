@@ -29,7 +29,7 @@ export class ManageShiftSchedulerComponent {
         private departmentService: DepartmentService, private cookieService: CookieService) { }
     ngOnInit() {
         this.roleCookie = +this.cookieService.get("Auth-RoleId");
-        if (this.roleCookie == 2) {
+        if ((this.roleCookie >= 2) && (this.roleCookie <= 5)) {
             this.loadDepartment();
             this.loadPage();
         } else if (isNaN(this.roleCookie)) {
@@ -59,7 +59,7 @@ export class ManageShiftSchedulerComponent {
         });
     }
     check(manage: ShiftSchedulerManager) {
-        if (manage.waiting > 0) {
+        if ((manage.waiting > 0) && (this.roleCookie === 2)) {
             this.manageService.setSelect(manage);
             this.router.navigate(['/main/check-shiftSchedule']);
         }

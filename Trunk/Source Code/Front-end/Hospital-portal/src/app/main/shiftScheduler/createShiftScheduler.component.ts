@@ -48,7 +48,7 @@ export class CreateShiftSchedulerComponent {
         if (this.roleCookie == 2 || this.roleCookie == 3 || this.roleCookie == 5) {
             this.loadDepartment();
             this.createMember();
-            this.loadUser();
+            
         } else if (isNaN(this.roleCookie)) {
             alert("You don't have permission to view this page!");
             this.router.navigate(['/login']);
@@ -66,14 +66,16 @@ export class CreateShiftSchedulerComponent {
     }
 
     loadUser() {
-        this.userService.getList().then((users: User[]) => {
+        this.userService.loadUsersByDept(this.department).then((users: User[]) => {
             this.users = users;
+            console.log(users + 'aa' + this.department);
             this.selectService.userSelect(users, this.dropdownList);
             // console.log(users);
         });
     }
 
     addShift() {
+        this.loadUser();
         if (!((this.star >= this.end) || (this.star < this.last) || (this.star == null) || (this.end == null))) {
             this.shiftSchedulerService.addShiftToALLDay(this.shiftScheduler.shiftDayList,
                 this.star, this.end);

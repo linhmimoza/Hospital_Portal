@@ -67,18 +67,18 @@ public class IntroduceResource {
         IntroduceDao dao = new IntroduceDao();
         return dao.createIntroduce(Title, content, uploadBy, uploadDay);
     }
-    @Path("/updateIntroduce")
-    @GET
-    @Produces()
-    public String updateIntroduce(
-            @QueryParam("Id") int Id,
-            @QueryParam("Title") String Title,
-            @QueryParam("content") String content,
-            @QueryParam("updateBy") int updateBy,
-            @QueryParam("updateDay") String updateDay) throws SQLException {
-        IntroduceDao dao = new IntroduceDao();
-        return dao.updateIntroduce(Id, Title, content, updateBy, updateDay);
-    }
+//    @Path("/updateIntroduce")
+//    @GET
+//    @Produces()
+//    public String updateIntroduce(
+//            @QueryParam("Id") int Id,
+//            @QueryParam("Title") String Title,
+//            @QueryParam("content") String content,
+//            @QueryParam("updateBy") int updateBy,
+//            @QueryParam("updateDay") String updateDay) throws SQLException {
+//        IntroduceDao dao = new IntroduceDao();
+//        return dao.updateIntroduce(Id, Title, content, updateBy, updateDay);
+//    }
     @Path("/disableIntroduce")
     @GET
     @Produces()

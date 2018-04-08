@@ -26,9 +26,9 @@
 
                                 <div class="form-control-feedback" *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="alert alert-danger"
                                     style="margin-top: 10px">
-                                    <strong *ngIf="userName.errors.required">Name is required.</strong>
-                                    <strong *ngIf="userName.errors.minlength">Name must be at least 4 characters long.</strong>
-                                    <strong *ngIf="userName.errors.forbiddenName">Name cannot be Bob.</strong>
+                                    <strong *ngIf="userName.errors.required">Username is required.</strong>
+                                    <strong *ngIf="userName.errors.minlength">Username must be at least 4 characters long.</strong>
+                                    <strong *ngIf="userName.errors.forbiddenName">Username cannot be Bob.</strong>
                                 </div>
                             </div>
                         </div>
@@ -80,8 +80,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-3 control-label">Day of birth</label>
-                            <div class="col-md-7">
+                            <label class="col-sm-3 control-label">Day of birth</label>
+                            <div class="col-sm-7">
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
@@ -91,6 +91,7 @@
                                 <div class="form-group" *ngIf="dayOfBirth.invalid && (dayOfBirth.dirty || dayOfBirth.touched)" class="alert alert-danger"
                                     style="margin-top: 10px">
                                     <strong *ngIf="dayOfBirth.errors.required">Day of birth is required.</strong>
+                                    <strong *ngIf="dayOfBirth.errors.temp">Invalid Date</strong>
                                 </div>
                             </div>
                         </div>

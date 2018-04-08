@@ -207,14 +207,14 @@ public class UserDAO implements Serializable {
         }
         return user;
     }
-    public boolean isUsernameExited(String userName){
+    public boolean isUsernameExited(String userName, int id){
         boolean result=false;
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                String sql = "select UserId from [User] where UserName='"+userName+"'";
+                String sql = "select UserId from [User] where UserName='"+userName.trim()+"' and UserId<>"+id;
+                System.out.println(sql);
                 stm = con.prepareStatement(sql);
-     
                 rs = stm.executeQuery();
                 if (rs.next()) {
                     result = true;
@@ -228,12 +228,12 @@ public class UserDAO implements Serializable {
         }
         return result;
     }
-public boolean isEmailExited(String email){
+public boolean isEmailExited(String email, int id){
         boolean result=false;
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                String sql = "select UserId from [User] where Email='"+email+"'";
+                String sql = "select UserId from [User] where Email='"+email.trim()+"'and UserId<>"+id;
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 if (rs.next()) {
@@ -250,6 +250,9 @@ public boolean isEmailExited(String email){
     }
     public String updateUser(User user) {
         String result = "Success";
+         if (isEmailExited(user.getEmail(),user.getUserId())){
+        result="Email is exited";
+         }else{     
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
@@ -269,19 +272,19 @@ public boolean isEmailExited(String email){
             result = "Failed";
         } finally {
             closeConnection();
-        }
+        }}
         return result;
     }
     
     public String createUser(User user) {
         String result = "Success";
-        if (isEmailExited(user.getEmail())){
-            if (isUsernameExited(user.getUserName())){
+        if (isEmailExited(user.getEmail(),user.getUserId())){
+            if (isUsernameExited(user.getUserName(),user.getUserId())){
                 result="Username and email exited";
             }
             else result="Email exited";
         }else{
-            if (isUsernameExited(user.getUserName())){
+            if (isUsernameExited(user.getUserName(),user.getUserId())){
                 result="Username exited";
             }
             else{     

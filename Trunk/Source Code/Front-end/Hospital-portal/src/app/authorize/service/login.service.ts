@@ -25,7 +25,6 @@ export class LoginService {
                     //     reject(err);
                     // });
                 }).catch(err => {
-                    alert("Invalid username or password");
                     reject(err);
                 });
         });

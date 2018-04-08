@@ -1,10 +1,44 @@
 <section class="panel">
-
   <!-- Modal LG -->
-
-
-  <div id="modalLG" class="modal-block modal-block-md mfp-hide">
-    <section class="panel">
+  <div id="modalLG" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <div class="modal-wrapper">
+            <div class="modal-text">
+              <div class="form-group">
+                <h4>
+                  <p>
+                    <strong>Time :</strong> {{selectMeeting.startTime}} (
+                    <strong>Duration :</strong> {{selectMeeting.duration}})</p>
+                </h4>
+                <h4>
+                  <p>
+                    <strong>Date :</strong> {{selectMeeting.date}}</p>
+                </h4>
+                <h4>
+                  <p>
+                    <strong>At room :</strong> {{selectMeeting.roomName}}</p>
+                </h4>
+                <h4>
+                  <p>
+                    <strong>Content :</strong> {{selectMeeting.content}}</p>
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+        </div>
+      </div>
+    </div>
+    <!-- <section class="panel">
       <header class="panel-heading">
         <h2 class="panel-title">{{selectMeeting.meetingName}}</h2>
       </header>
@@ -42,7 +76,7 @@
           </div>
         </div>
       </footer>
-    </section>
+    </section> -->
   </div>
 
 
@@ -82,7 +116,7 @@
                       <p>
                         {{meeting.content}}
                       </p>
-                      <a class="mb-xs mt-xs mr-xs modal-sizes btn btn-default" (click)="view(meeting)" href="#modalLG">View</a>
+                      <a class="mb-xs mt-xs mr-xs modal-sizes btn btn-default" (click)="view(meeting)">View</a>
                     </div>
                     <span>
                       <i class="glyphicon glyphicon-map-marker"></i> At:
@@ -91,10 +125,7 @@
                     <span>
                       <i class="fa fa-hourglass"></i> Duration: {{meeting.duration}}
                     </span>
-                    <span>
-                      <i class="fa fa-comments"></i>
-                      <a href="#">5652 Comments</a>
-                    </span>
+
                   </div>
                 </div>
               </li>
@@ -104,7 +135,8 @@
           </div>
         </div>
 
-        <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block" (click)="loadFuture()">Show more</button>
+        <button [ngClass]="{'hidden':(futureMeetings.length<(fPage*3))}" class="hidden mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block"
+          (click)="loadFuture()"> Show more</button>
 
 
       </div>
@@ -114,18 +146,18 @@
           <label class="col-md-3 control-label"></label>
           <div class="col-md-6 panel-body">
             <div class="input-group " style="padding: 10px">
-              <span class="input-group-addon">
+              <span style="width: 70px;" class="input-group-addon">
                 from
               </span>
               <input type="date" class="form-control" [(ngModel)]="fromDate" (change)="from()">
             </div>
             <div class="input-group" style="padding: 10px">
-              <span class="input-group-addon">
+              <span style="width: 70px;" class="input-group-addon">
                 to
               </span>
               <input type="date" class="form-control" [(ngModel)]="toDate" (change)="to()">
             </div>
-            <button class="" (click)=search()>Search</button>
+            <button type="button" class="btn btn-primary" style="margin-left: 10px;" (click)=search()>Search</button>
           </div>
         </div>
         <div class="timeline">
@@ -148,7 +180,7 @@
                       <p>
                         {{meeting.content}}
                       </p>
-                      <a class="mb-xs mt-xs mr-xs modal-sizes btn btn-default" (click)="view(meeting)" href="#modalLG">View</a>
+                      <a class="mb-xs mt-xs mr-xs modal-sizes btn btn-default" (click)="view(meeting)">View</a>
                     </div>
                     <span>
                       <i class="glyphicon glyphicon-map-marker"></i> At:
@@ -157,10 +189,7 @@
                     <span>
                       <i class="fa fa-hourglass"></i> Duration: {{meeting.duration}}
                     </span>
-                    <span>
-                      <i class="fa fa-comments"></i>
-                      <a href="#">5652 Comments</a>
-                    </span>
+
                   </div>
                 </div>
               </li>
@@ -194,7 +223,7 @@
                       <p>
                         {{meeting.content}}
                       </p>
-                      <a class="mb-xs mt-xs mr-xs modal-sizes btn btn-default" (click)="view(meeting)" href="#modalLG">View</a>
+                      <a class="mb-xs mt-xs mr-xs modal-sizes btn btn-default" (click)="view(meeting)">View</a>
                     </div>
                     <span>
                       <i class="glyphicon glyphicon-map-marker"></i> At:
@@ -203,10 +232,7 @@
                     <span>
                       <i class="fa fa-hourglass"></i> Duration: {{meeting.duration}}
                     </span>
-                    <span>
-                      <i class="fa fa-comments"></i>
-                      <a href="#">5652 Comments</a>
-                    </span>
+
                   </div>
                 </div>
               </li>
@@ -215,7 +241,7 @@
             </ol>
           </div>
         </div>
-        <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block" (click)="loadPass()">Show more</button>
+        <button type="button" class=" mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block" (click)="loadPass()">Show more</button>
 
       </div>
 
