@@ -14,10 +14,12 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * REST Web Service
@@ -81,25 +83,28 @@ public class ServiceResource {
             return listService;
     }
     @Path("/createService")
-    @GET
+    @POST
     @Produces()
-    public String createService(
-            @QueryParam("ServiceName") String ServiceName,
-            @QueryParam("Description") String Description,
-            @QueryParam("DepartmentId") int DepartmentId) throws SQLException {
+    public Response createService(Service service) throws SQLException {
         ServiceDao dao = new ServiceDao();
-        return dao.createService(ServiceName, Description, DepartmentId);
+        String result = dao.createService(service);
+        if (result == "Failed") {
+            return Response.status(500).build();
+        } else if (result == "Existed") {
+            return Response.status(400).build();
+        }
+        return Response.status(200).build();
     }
     @Path("/updateService")
-    @GET
+    @POST
     @Produces()
-    public String updateService(
-            @QueryParam("ServiceId") int ServiceId,
-            @QueryParam("ServiceName") String ServiceName,
-            @QueryParam("Description") String Description,
-            @QueryParam("DepartmentId") int DepartmentId) throws SQLException {
+    public Response updateService(Service service) throws SQLException {
         ServiceDao dao = new ServiceDao();
-        return dao.updateService(ServiceId, ServiceName, Description, DepartmentId);
+        String result = dao.updateService(service);
+        if (result == "Failed") {
+            return Response.status(500).build();
+        }
+        return Response.status(200).build();
     }
     @Path("/disableService")
     @GET

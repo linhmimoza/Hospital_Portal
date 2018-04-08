@@ -71,6 +71,8 @@ import { ManageMeetingComponent } from './main/meetting/manage-meeting.component
 import { MeetingDetailComponent } from './main/meetting/meeting-detail.component';
 import { MeetingService } from './main/meetting/service/meeting.service';
 import { UploadShiftScheduleComponent } from './main/shiftScheduler/upload-shiftSchedule.component';
+import { MedicalBookingComponent } from './main/medical-booking/medical-booking.component';
+import { NotiService } from './common/notification';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home/main', pathMatch: 'full' },
@@ -111,7 +113,8 @@ const routes: Routes = [
       { path: 'manage-category', component: AddCategoryComponent },
       { path: 'setting', component: SettingComponent },
       { path: 'check-shiftSchedule', component: CheckShiftScheduleComponent },
-      { path: 'upload-shiftSchedule', component: UploadShiftScheduleComponent }
+      { path: 'upload-shiftSchedule', component: UploadShiftScheduleComponent },
+      { path: 'medical-booking', component: MedicalBookingComponent }
     ]
   },
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
@@ -176,7 +179,8 @@ const routes: Routes = [
     ManagecategoryComponent,
     AddCategoryComponent,
     PageNotFoundComponent,
-    UploadShiftScheduleComponent
+    UploadShiftScheduleComponent,
+    MedicalBookingComponent
   ],
   imports: [
     BrowserModule,
@@ -197,6 +201,7 @@ const routes: Routes = [
     NotificationService, LoadingService, LoginService, AccountService, ApiService, UserService,
     DepartmentService, RoleService, CategoryService, RoomService, MissionService,
     ShiftSchedulerService, ManageService, MeetingService, ArticleService, CookieService, SelectService, NotificationComponentService
+    , NotiService
   ],
   bootstrap: [AppComponent]
 })

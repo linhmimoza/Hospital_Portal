@@ -7,10 +7,24 @@ const DOWNLOAD_LINK = 'http://localhost:8080/TestRestful/webresources/DownloadFi
 const SERVER = 'http://localhost:8080/TestRestful/webresources/';
 const headers = new Headers({ 'Content-Type': 'application/json' });
 const OPTIONS = new RequestOptions({ headers });
-const SUCCESS = 'Success';
-const DISABLE = 0;
-const ACTIVE = 1;
-const WAITING = 2;
-const EXISTED = 'Name exited';
+const REQUEST_RESULTS = {
+    Success:  'Success',
+    Existed: 'Existed'
+};
 
-export { DOWNLOAD_LINK, SERVER, OPTIONS, SUCCESS, DISABLE, ACTIVE, EXISTED, WAITING };
+const STATUS = {
+    Disable: 0,
+    Active: 1,
+    Waiting: 2
+};
+const ROLE_ID = 'Auth-RoleId';
+
+const ROLES = {
+    Admin: 1,
+    Manager: 2,
+    Scheduler: 3,
+    Poster: 4,
+    SchedulerPoster: 5
+};
+
+export { DOWNLOAD_LINK, SERVER, OPTIONS, REQUEST_RESULTS, STATUS, ROLE_ID, ROLES };

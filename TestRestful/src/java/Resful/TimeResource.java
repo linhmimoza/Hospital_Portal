@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -54,6 +55,15 @@ public class TimeResource {
     public String getText() {
         //TODO return proper representation object
         throw new UnsupportedOperationException();
+    }
+    
+    @Path("/getListTimeAvailable")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Time> getListTimeAvailable() throws SQLException, ClassNotFoundException, ParseException {
+        TimeDao dao = new TimeDao();
+        List<Time> listTime = dao.getListTimeAvailable();
+        return listTime;
     }
 
     @Path("/getListTime")
@@ -96,6 +106,13 @@ public class TimeResource {
             @QueryParam("date") String date) throws SQLException {
         TimeDao dao = new TimeDao();
         return dao.updateLimitAmountTime(Amount, date);
+    }
+    @Path("/createTime")
+    @POST
+    @Produces()
+    public String createTime(Time time) throws SQLException {
+        TimeDao dao = new TimeDao();
+        return dao.createTime(time);
     }
 
 }

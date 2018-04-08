@@ -42,27 +42,27 @@ public class MedicalBookingDao {
         }
     }
 
-    public String createMedicalBooking(int DepartmentId, int ServiceId, int TimeId, String CreateDate, String GuestName, String GuestPhone, String GuestEmail, String GuestAddress, int GuestIdentity, String Note) throws SQLException {
+    public String createMedicalBooking(MedicalBooking mb) throws SQLException {
 
         String result = "Success";
-        if (isIdentityExited(GuestIdentity)) {
-            result = "Identity existed";
+        if (isIdentityExited(mb.getGuestIdentity()) == true) {
+            result = "Existed";
         } else {
             try {
                 con = DBUtils.makeConnection();
                 if (con != null) {
                     String sql = "insert into MedicalBooking(DepartmentId,ServiceId,TimeId,CreateDate,GuestName,GuestPhone,GuestEmail,GuestAddress,GuestIdentity,Note)values(?,?,?,?,?,?,?,?,?,?)";
                     stm = con.prepareStatement(sql);
-                    stm.setInt(1, DepartmentId);
-                    stm.setInt(2, ServiceId);
-                    stm.setInt(3, TimeId);
-                    stm.setString(4, CreateDate);
-                    stm.setString(5, GuestName);
-                    stm.setString(6, GuestPhone);
-                    stm.setString(7, GuestEmail);
-                    stm.setString(8, GuestAddress);
-                    stm.setInt(9, GuestIdentity);
-                    stm.setString(10, Note);
+                    stm.setInt(1, mb.getDepartmentId());
+                    stm.setInt(2, mb.getServiceId());
+                    stm.setInt(3, mb.getTimeId());
+                    stm.setString(4, mb.getCreateDate());
+                    stm.setString(5, mb.getGuestName());
+                    stm.setString(6, mb.getGuestPhone());
+                    stm.setString(7, mb.getGuestEmail());
+                    stm.setString(8, mb.getGuestAddress());
+                    stm.setString(9, mb.getGuestIdentity());
+                    stm.setString(10, mb.getNote());
                     stm.executeUpdate();
                 }
             } catch (Exception e) {
@@ -93,23 +93,95 @@ public class MedicalBookingDao {
         return id;
     }
 
-    public List<MedicalBooking> getListMb(int guestIdentity) throws SQLException, ClassNotFoundException {
+    public List<MedicalBooking> getListMb(String guestIdentity) throws SQLException, ClassNotFoundException {
         List<MedicalBooking> listMb = new ArrayList<>();
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
-                String sql = "Select d.DepartmentName,s.ServiceName,t.Time,t.Date \n"
+                String sql = "Select d.DepartmentName,s.ServiceName,t.Date,m.GuestName,m.BookingNumber,m.IntendTime \n"
                         + "from Service s,Time t,Department d,MedicalBooking m \n"
                         + "where m.GuestIdentity=? and s.ServiceId=m.ServiceId and t.TimeId=m.TimeId and d.DepartmentId=m.DepartmentId";
                 stm = con.prepareStatement(sql);
-                stm.setInt(1, guestIdentity);
+                stm.setString(1, guestIdentity);
                 rs = stm.executeQuery();
                 while (rs.next()) {
+                    int bookingNumber = rs.getInt("BookingNumber");
+                    String guestName = rs.getString("GuestName");
                     String DepartmentName = rs.getString("DepartmentName");
                     String ServiceName = rs.getString("ServiceName");
-                    String Time = rs.getString("Time");
+                    String Time = rs.getString("IntendTime");
                     String Date = rs.getString("Date");
-                    MedicalBooking mb = new MedicalBooking(DepartmentName, ServiceName, Time, Date);
+                    MedicalBooking mb = new MedicalBooking( bookingNumber, guestName, DepartmentName, ServiceName, Time, Date );
+                    listMb.add(mb);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        return listMb;
+    }
+    
+    public List<MedicalBooking> getListMbAdmin() throws SQLException, ClassNotFoundException {
+        List<MedicalBooking> listMb = new ArrayList<>();
+        try {
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "Select d.DepartmentName,s.ServiceName,t.Date,m.GuestName,m.BookingNumber,m.IntendTime,m.CreateDate,m.GuestPhone,m.GuestEmail,m.GuestAddress,m.Note,m.GuestIdentity \n"
+                        + "from Service s,Time t,Department d,MedicalBooking m \n"
+                        + "where s.ServiceId=m.ServiceId and t.TimeId=m.TimeId and d.DepartmentId=m.DepartmentId";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int bookingNumber = rs.getInt("BookingNumber");
+                    String createDate = rs.getString("CreateDate");
+                    String guestName = rs.getString("GuestName");
+                    String guestPhone = rs.getString("GuestPhone");
+                    String guestEmail = rs.getString("GuestEmail");
+                    String guestAddress = rs.getString("GuestAddress");
+                    String guestIdentity = rs.getString("GuestIdentity");
+                    String note = rs.getString("Note");
+                    String DepartmentName = rs.getString("DepartmentName");
+                    String ServiceName = rs.getString("ServiceName");
+                    String Time = rs.getString("IntendTime");
+                    String Date = rs.getString("Date");
+                    MedicalBooking mb = new MedicalBooking( bookingNumber, createDate, guestName, guestPhone, guestEmail, guestAddress, note, DepartmentName, ServiceName, Time, Date, guestIdentity );
+                    listMb.add(mb);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        return listMb;
+    }
+    
+    public List<MedicalBooking> getListMbAdminByName(String GuestName) throws SQLException, ClassNotFoundException {
+        List<MedicalBooking> listMb = new ArrayList<>();
+        try {
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "Select d.DepartmentName,s.ServiceName,t.Date,m.GuestName,m.BookingNumber,m.IntendTime,m.CreateDate,m.GuestPhone,m.GuestEmail,m.GuestAddress,m.Note,m.GuestIdentity \n"
+                        + "from Service s,Time t,Department d,MedicalBooking m \n"
+                        + "where m.GuestName like '%"+ GuestName.trim() +"%' and s.ServiceId=m.ServiceId and t.TimeId=m.TimeId and d.DepartmentId=m.DepartmentId";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int bookingNumber = rs.getInt("BookingNumber");
+                    String createDate = rs.getString("CreateDate");
+                    String guestName = rs.getString("GuestName");
+                    String guestPhone = rs.getString("GuestPhone");
+                    String guestEmail = rs.getString("GuestEmail");
+                    String guestAddress = rs.getString("GuestAddress");
+                    String guestIdentity = rs.getString("GuestIdentity");
+                    String note = rs.getString("Note");
+                    String DepartmentName = rs.getString("DepartmentName");
+                    String ServiceName = rs.getString("ServiceName");
+                    String Time = rs.getString("IntendTime");
+                    String Date = rs.getString("Date");
+                    MedicalBooking mb = new MedicalBooking( bookingNumber, createDate, guestName, guestPhone, guestEmail, guestAddress, note, DepartmentName, ServiceName, Time, Date, guestIdentity );
                     listMb.add(mb);
                 }
             }
@@ -121,12 +193,12 @@ public class MedicalBookingDao {
         return listMb;
     }
 
-    public boolean isIdentityExited(int Identity) {
+    public boolean isIdentityExited(String Identity) {
         boolean result = false;
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
-                String sql = "select BookingId from MedicalBooking where  GuestIdentity=" + Identity;
+                String sql = "select BookingId from MedicalBooking where  GuestIdentity='" + Identity + "'";
                 stm = con.prepareStatement(sql);
                 System.out.println(sql);
                 rs = stm.executeQuery();
@@ -173,6 +245,56 @@ public class MedicalBookingDao {
                 String sql = "update MedicalBooking set BookingNumber=? where BookingId=?";
                 stm = con.prepareStatement(sql);
                 stm.setInt(1, BookingNumber);
+                stm.setInt(2, BookingId);
+                stm.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = "Failed";
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
+    public String createIntendTime(int BookingId) throws SQLException {
+        String result = "Success";
+        int BookingNumber= 0;
+        String IntendTime = null;
+        try {
+            con = DBUtils.makeConnection();
+            String sql = "Select BookingNumber from MedicalBooking where BookingId=?";
+            stm = con.prepareStatement(sql);
+            stm.setInt(1, BookingId);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                BookingNumber = rs.getInt("BookingNumber");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        try {
+            if(BookingNumber <= 20){
+                IntendTime="06:00:00";
+            }
+            else if(BookingNumber <= 40){
+                IntendTime="08:00:00";
+            }
+            else if(BookingNumber <= 60){
+                IntendTime="10:00:00";
+            }
+            else if(BookingNumber <= 80){
+                IntendTime="13:00:00";
+            }
+            else if(BookingNumber <= 100){
+                IntendTime="15:00:00";
+            }
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "update MedicalBooking set IntendTime=? where BookingId=?";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, IntendTime);
                 stm.setInt(2, BookingId);
                 stm.executeUpdate();
             }

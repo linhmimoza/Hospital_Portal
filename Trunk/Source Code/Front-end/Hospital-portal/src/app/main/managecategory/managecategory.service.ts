@@ -12,7 +12,7 @@ export class CategoryService {
     }
 
     createCategory(data): Observable<any> {
-        return this._http.get(`${SERVER}Category/createCategory?${data}`).map(res => res);
+        return this._http.post(`${SERVER}Category/createCategory`, data, OPTIONS).map(res => res);
     }
 
     getListAll(): Observable<any> {
@@ -24,7 +24,7 @@ export class CategoryService {
     }
 
     updateCategory(data): Observable<any> {
-        return this._http.get(`${SERVER}Category/updateCategory?${data}`).map(res => res);
+        return this._http.post(`${SERVER}Category/updateCategory`, data, OPTIONS).map(res => res);
     }
 
     disableCategory(id): Observable<any> {

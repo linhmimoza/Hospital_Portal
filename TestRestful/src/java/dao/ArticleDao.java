@@ -6,13 +6,20 @@
 package dao;
 
 import DBUtils.DBUtils;
+import Function.TimeEditor;
 import Models.Article;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -229,23 +236,29 @@ public class ArticleDao {
         return listArticle;
     }
 
-    public String createArticle(String Title, int CategoryId, int UploadBy, String UploadDate, String Link, String Describe) throws SQLException, ClassNotFoundException {
+    public String createArticle(Article article) throws SQLException, ClassNotFoundException, ParseException {
 
         String result = "Success";
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
+                DateFormat inputFormat = new SimpleDateFormat("yyyy/MM/dd");
+                TimeEditor time = new TimeEditor();
+                String now = time.getDate();
+                Date dateparse = inputFormat.parse(now);
+                SimpleDateFormat outputFormat  = new SimpleDateFormat("yyyy-MM-dd");
+                String outputText = outputFormat.format(dateparse);
                 String sql = "insert into Article(Title,CategoryId,UpdateBy,UpdateDate,UploadBy,UploadDate,Status,Link,Describe)values(?,?,?,?,?,?,?,?,?)";
                 stm = con.prepareStatement(sql);
-                stm.setString(1, Title);
-                stm.setInt(2, CategoryId);
-                stm.setInt(3, UploadBy);
-                stm.setString(4, UploadDate);
-                stm.setInt(5, UploadBy);
-                stm.setString(6, UploadDate);
+                stm.setString(1, article.getTitle());
+                stm.setInt(2, article.getCategoryId());
+                stm.setInt(3, article.getUploadBy());
+                stm.setString(4, outputText);
+                stm.setInt(5, article.getUploadBy());
+                stm.setString(6, outputText);
                 stm.setInt(7, 2);
-                stm.setString(8, Link);
-                stm.setString(9, Describe);
+                stm.setString(8, article.getLink());
+                stm.setString(9, article.getDescribe());
                 stm.executeUpdate();
             }
         } catch (SQLException e) {
@@ -257,14 +270,14 @@ public class ArticleDao {
         return result;
     }
 
-    public String updateArticle(int id, String Title, String Describe, int UpdateBy, String UpdateDate) {
+    public String updateArticle(Article article) {
         String result = "Success";
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
-                String sql = "update Article set Title='" + Title + "'"
-                        + ",UpdateBy=" + UpdateBy + " ,UpdateDate='" + UpdateDate + "' ,Describe='" + Describe
-                        + "' where ArticleId=" + id;
+                String sql = "update Article set Title='" + article.getTitle() + "'"
+                        + ",UpdateBy=" + article.getUpdateBy() + " ,UpdateDate='" + article.getUpdateDate() + "' ,Describe='" + article.getDescribe()
+                        + "' where ArticleId=" + article.getArticleId();
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
 
@@ -352,5 +365,44 @@ public class ArticleDao {
             closeConnection();
         }
         return result;
+    }
+    public List<Article> getPageArticle(int page) {
+ int rows=3*page;
+        List<Article> listArticle = new ArrayList<>();
+        try {
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "Select a.*, u.FullName as uploadByUser, u1.FullName as updateByUser\n"
+                        + "  from Article a left outer join [User] u on u.UserId = a.UploadBy left outer join [User] u1 on u1.UserId = a.UpdateBy where  a.Status=1 ORDER BY UploadDate"
+                         + " OFFSET 0 ROWS\n"
+                        + "FETCH NEXT "+rows+" ROWS ONLY;";
+             
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    Integer id = rs.getInt("ArticleId");
+                    String title = rs.getString("Title");
+                    Integer categoryId = rs.getInt("CategoryId");
+                    Integer uploadBy = rs.getInt("UploadBy");
+                    String uploadDate = rs.getString("UploadDate");
+                    Integer updateBy = rs.getInt("UpdateBy");
+                    String updateDate = rs.getString("UpdateDate");
+                    Integer status = rs.getInt("Status");
+                    String link = rs.getString("Link");
+                    String describe = rs.getString("Describe");
+                    String uploadByName = rs.getString("uploadByUser");
+                    String updateByName = rs.getString("updateByUser");
+                    Article a = new Article(id, categoryId, uploadBy, updateBy, status, title, uploadDate, updateDate, link, describe, uploadByName, updateByName);
+                    listArticle.add(a);
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeConnection();
+        }
+        return listArticle;
     }
 }

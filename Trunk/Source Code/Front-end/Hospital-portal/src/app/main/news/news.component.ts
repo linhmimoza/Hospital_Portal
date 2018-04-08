@@ -1,11 +1,13 @@
+import { Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
+
 import { AdminNewsService } from './news.service';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { HomeService } from '../../home/home.service';
 import { NewsService } from '../../home/news/news.service';
-import { SUCCESS, DISABLE, ACTIVE, WAITING } from '../../constant/commonConstant';
-import { Observable } from 'rxjs';
-import { CookieService } from 'ngx-cookie-service';
-import { Router } from '@angular/router';
+import { REQUEST_RESULTS, STATUS, ROLE_ID, ROLES } from '../../constant/commonConstant';
+import { NotificationService } from '../extra/notification.service';
 
 @Component({
   selector: 'app-news',
@@ -30,13 +32,19 @@ export class AdminNewsComponent implements OnInit, AfterViewInit {
     , private _newsSrv: AdminNewsService
     , private _cookieSrv: CookieService
     , private _router: Router
+    , private notificationService: NotificationService
   ) {
-    const roleCookie = this._cookieSrv.get('Auth-RoleId');
+    const roleCookie = this._cookieSrv.get(ROLE_ID);
     roleCookie ? this.roleId = parseInt(roleCookie, 10) : this._router.navigate(['/login']);
   }
 
   ngOnInit() {
-    this._homeSrv.getCategoryList().subscribe(res => this.categoryList = res);
+    if (this.roleId && (this.roleId == ROLES.Manager || this.roleId == ROLES.SchedulerPoster || this.roleId == ROLES.Poster)) {
+      this._homeSrv.getCategoryList().subscribe(res => this.categoryList = res);
+    } else {
+      this.notificationService.fail('Access denied!');
+      setTimeout(() => this._router.navigate(['/main']), 3000);
+    }
   }
 
   ngAfterViewInit() {
@@ -47,50 +55,54 @@ export class AdminNewsComponent implements OnInit, AfterViewInit {
   }
 
   switchStatus(item, command) {
-    switch (item.status) {
-      case DISABLE:
-        if (command === 'yes') {
-          this._newsSrv.activeNews(item.articleId).subscribe(res => {
-            if (res._body === SUCCESS) {
-              const index = this.listNews.findIndex(el => el.articleId == item.articleId);
-              this.listNews[index].status = ACTIVE;
-            }
-          });
-          return;
-        } else {
-          return;
-        }
-      case ACTIVE:
-        if (command === 'yes') {
-          this._newsSrv.disableNews(item.articleId).subscribe(res => {
-            if (res._body === SUCCESS) {
-              const index = this.listNews.findIndex(el => el.articleId == item.articleId);
-              this.listNews[index].status = DISABLE;
-            }
-          });
-          return;
-        } else {
-          return;
-        }
-      case WAITING:
-        if (command === 'yes') {
-          this._newsSrv.activeNews(item.articleId).subscribe(res => {
-            if (res._body === SUCCESS) {
-              const index = this.listNews.findIndex(el => el.articleId == item.articleId);
-              this.listNews[index].status = ACTIVE;
-            }
-          });
-          return;
-        }
-        if (command === 'no') {
-          this._newsSrv.disableNews(item.articleId).subscribe(res => {
-            if (res._body === SUCCESS) {
-              const index = this.listNews.findIndex(el => el.articleId == item.articleId);
-              this.listNews[index].status = DISABLE;
-            }
-          });
-          return;
-        }
+    if (this.roleId === ROLES.Manager) {
+      switch (item.status) {
+        case STATUS.Disable:
+          if (command === 'yes') {
+            this._newsSrv.activeNews(item.articleId).subscribe(res => {
+              if (res._body === REQUEST_RESULTS.Success) {
+                const index = this.listNews.findIndex(el => el.articleId == item.articleId);
+                this.listNews[index].status = STATUS.Active;
+              }
+            });
+            return;
+          } else {
+            return;
+          }
+        case STATUS.Active:
+          if (command === 'yes') {
+            this._newsSrv.disableNews(item.articleId).subscribe(res => {
+              if (res._body === REQUEST_RESULTS.Success) {
+                const index = this.listNews.findIndex(el => el.articleId == item.articleId);
+                this.listNews[index].status = STATUS.Disable;
+              }
+            });
+            return;
+          } else {
+            return;
+          }
+        case STATUS.Waiting:
+          if (command === 'yes') {
+            this._newsSrv.activeNews(item.articleId).subscribe(res => {
+              if (res._body === REQUEST_RESULTS.Success) {
+                const index = this.listNews.findIndex(el => el.articleId == item.articleId);
+                this.listNews[index].status = STATUS.Active;
+              }
+            });
+            return;
+          }
+          if (command === 'no') {
+            this._newsSrv.disableNews(item.articleId).subscribe(res => {
+              if (res._body === REQUEST_RESULTS.Success) {
+                const index = this.listNews.findIndex(el => el.articleId == item.articleId);
+                this.listNews[index].status = STATUS.Disable;
+              }
+            });
+            return;
+          }
+      }
+    } else {
+      this.notificationService.fail('Access denied!');
     }
   }
 

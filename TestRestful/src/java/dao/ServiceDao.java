@@ -5,7 +5,6 @@
  */
 package dao;
 
-
 import DBUtils.DBUtils;
 import Models.Service;
 import java.sql.Connection;
@@ -20,32 +19,37 @@ import java.util.List;
  * @author Tung
  */
 public class ServiceDao {
+
     private PreparedStatement stm;
     private Connection con;
     private ResultSet rs;
-    private void closeConnection(){
-        try{
-            if(rs!=null){
+
+    private void closeConnection() {
+        try {
+            if (rs != null) {
                 rs.close();
-            }if(stm!=null){
+            }
+            if (stm != null) {
                 stm.close();
-            }if(con!=null){
+            }
+            if (con != null) {
                 con.close();
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     public List<Service> getAllListService(int departmentId) throws SQLException, ClassNotFoundException {
         List<Service> listService = new ArrayList<>();
         try {
-     con = DBUtils.makeConnection();
-            if (con != null){
+            con = DBUtils.makeConnection();
+            if (con != null) {
                 String sql = "Select ServiceId, ServiceName, Description, Status from Service where DepartmentId=?";
                 stm = con.prepareStatement(sql);
                 stm.setInt(1, departmentId);
                 rs = stm.executeQuery();
-                while (rs.next()){
+                while (rs.next()) {
                     Integer id = rs.getInt("ServiceId");
                     String name = rs.getString("ServiceName");
                     String description = rs.getString("Description");
@@ -54,23 +58,24 @@ public class ServiceDao {
                     listService.add(ser);
                 }
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println("error");
-        }finally {
+        } finally {
             closeConnection();
         }
         return listService;
     }
+
     public List<Service> getListService(int departmentId) throws SQLException, ClassNotFoundException {
         List<Service> listService = new ArrayList<>();
         try {
-     con = DBUtils.makeConnection();
-            if (con != null){
+            con = DBUtils.makeConnection();
+            if (con != null) {
                 String sql = "Select ServiceId, ServiceName, Description from Service where DepartmentId=? AND Status=1";
                 stm = con.prepareStatement(sql);
                 stm.setInt(1, departmentId);
                 rs = stm.executeQuery();
-                while (rs.next()){
+                while (rs.next()) {
                     Integer id = rs.getInt("ServiceId");
                     String name = rs.getString("ServiceName");
                     String description = rs.getString("Description");
@@ -78,23 +83,24 @@ public class ServiceDao {
                     listService.add(ser);
                 }
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println("error");
-        }finally {
+        } finally {
             closeConnection();
         }
         return listService;
     }
+
     public List<Service> getListServiceById(int ServiceId) throws SQLException, ClassNotFoundException {
         List<Service> listService = new ArrayList<>();
         try {
-  con = DBUtils.makeConnection();
-            if (con != null){
+            con = DBUtils.makeConnection();
+            if (con != null) {
                 String sql = "Select DepartmentId, ServiceName, Description from Service where ServiceId=?";
                 stm = con.prepareStatement(sql);
                 stm.setInt(1, ServiceId);
                 rs = stm.executeQuery();
-                while (rs.next()){
+                while (rs.next()) {
                     Integer departmentId = rs.getInt("DepartmentId");
                     String name = rs.getString("ServiceName");
                     String description = rs.getString("Description");
@@ -102,22 +108,23 @@ public class ServiceDao {
                     listService.add(ser);
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             closeConnection();
         }
         return listService;
     }
+
     public List<Service> getListServiceByName(String ServiceName) throws SQLException, ClassNotFoundException {
         List<Service> listService = new ArrayList<>();
         try {
-  con = DBUtils.makeConnection();
-            if (con != null){
-                String sql = "Select DepartmentId, ServiceId, Description, Status, ServiceName from Service where ServiceName like '%"+ ServiceName +"%'";
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "Select DepartmentId, ServiceId, Description, Status, ServiceName from Service where ServiceName like '%" + ServiceName + "%'";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
-                while (rs.next()){
+                while (rs.next()) {
                     Integer departmentId = rs.getInt("DepartmentId");
                     int ServiceId = rs.getInt("ServiceId");
                     String description = rs.getString("Description");
@@ -127,68 +134,69 @@ public class ServiceDao {
                     listService.add(ser);
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             closeConnection();
         }
         return listService;
     }
-    public String createService(String ServiceName,String Description,int DepartmentId) throws SQLException {
-        
+
+    public String createService(Service service
+    //            String ServiceName, String Description, int DepartmentId
+    ) throws SQLException {
+
         String result = "Success";
-        if (isNameExited(ServiceName)){
-                result="Name exited";
+        if (isNameExited(service.getServiceName()) == true) {
+            result = "Existed";
+        } else {
+            try {
+                con = DBUtils.makeConnection();
+                if (con != null) {
+                    String sql = "insert into Service(ServiceName,Description,DepartmentId,Status)values(?,?,?,1)";
+                    stm = con.prepareStatement(sql);
+                    stm.setString(1, service.getServiceName());
+                    stm.setString(2, service.getDescription());
+                    stm.setInt(3, service.getDepartmentId());
+                    stm.executeUpdate();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                result = "Failed";
+            } finally {
+                closeConnection();
             }
-            else{  
-        try {
-  con = DBUtils.makeConnection();
-            if (con != null) {
-                String sql = "insert into Service(ServiceName,Description,DepartmentId,Status)values(?,?,?,1)";
-                stm = con.prepareStatement(sql);
-                stm.setString(1, ServiceName);
-                stm.setString(2, Description);
-                stm.setInt(3, DepartmentId);
-                stm.executeUpdate();
-            }
-        } catch(Exception e){
-            e.printStackTrace();
-            result= "Failed";
-        } finally {
-            closeConnection();
-        }}
+        }
+
         return result;
     }
-    public String updateService(int id,String ServiceName,String Description,int DepartmentId) {
+
+    public String updateService(Service service) {
         String result = "Success";
-        if (isNameExited(ServiceName)){
-                result="Name existed";
-            }
-            else{  
         try {
-      con = DBUtils.makeConnection();
+            con = DBUtils.makeConnection();
             if (con != null) {
-                String sql = "update Service set ServiceName='"+ServiceName+"'"
-                        + ",Description='"+Description+"' ,DepartmentId='"+DepartmentId
-                        + "' where ServiceId="+id;           
+                String sql = "update Service set ServiceName='" + service.getServiceName() + "'"
+                        + ",Description='" + service.getDescription() + "' ,DepartmentId='" + service.getDepartmentId()
+                        + "' where ServiceId=" + service.getServiceId();
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
-
             }
         } catch (Exception e) {
             e.printStackTrace();
             result = "Failed";
         } finally {
             closeConnection();
-        }}
+        }
         return result;
     }
+
     public String disableService(int id) {
         String result = "Success";
         try {
-       con = DBUtils.makeConnection();
+            con = DBUtils.makeConnection();
             if (con != null) {
-                String sql = "update Service set Status=0 where ServiceId="+id;           
+                String sql = "update Service set Status=0 where ServiceId=" + id;
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
 
@@ -201,16 +209,17 @@ public class ServiceDao {
         }
         return result;
     }
+
     public List<Service> getListServiceByStatus(int status) throws SQLException, ClassNotFoundException {
         List<Service> listService = new ArrayList<>();
         try {
-          con = DBUtils.makeConnection();
-            if (con != null){
+            con = DBUtils.makeConnection();
+            if (con != null) {
                 String sql = "select * from Service where Status=?";
                 stm = con.prepareStatement(sql);
                 stm.setInt(1, status);
                 rs = stm.executeQuery();
-                while (rs.next()){
+                while (rs.next()) {
                     Integer ServiceId = rs.getInt("ServiceId");
                     Integer departmentId = rs.getInt("DepartmentId");
                     String name = rs.getString("ServiceName");
@@ -224,12 +233,13 @@ public class ServiceDao {
         }
         return listService;
     }
+
     public String activeService(int id) {
         String result = "Success";
         try {
-   con = DBUtils.makeConnection();
+            con = DBUtils.makeConnection();
             if (con != null) {
-                String sql = "update Service set Status=1 where ServiceId="+id;           
+                String sql = "update Service set Status=1 where ServiceId=" + id;
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
 
@@ -242,12 +252,13 @@ public class ServiceDao {
         }
         return result;
     }
-    public boolean isNameExited(String ServiceName){
-        boolean result=false;
+
+    public boolean isNameExited(String ServiceName) {
+        boolean result = false;
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
-                 String sql="select ServiceId from Service where  ServiceName='"+ServiceName.trim()+"'";
+                String sql = "select ServiceId from Service where  ServiceName='" + ServiceName + "'";
                 stm = con.prepareStatement(sql);
                 System.out.println(sql);
                 rs = stm.executeQuery();
@@ -257,7 +268,7 @@ public class ServiceDao {
             }
         } catch (ClassNotFoundException | SQLException ex) {
             ex.printStackTrace();
-         
+
         } finally {
             closeConnection();
         }

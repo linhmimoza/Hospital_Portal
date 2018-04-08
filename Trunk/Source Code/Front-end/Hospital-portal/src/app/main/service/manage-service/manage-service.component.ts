@@ -4,7 +4,8 @@ import { Params } from '@angular/router/src/shared';
 
 import { MedicalService } from './../../../home/medical/medical.service';
 import { ServicesService } from '../service.service';
-import { SUCCESS } from '../../../constant/commonConstant';
+import { REQUEST_RESULTS } from '../../../constant/commonConstant';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NotificationService } from '../../extra/notification.service';
 
 const CREATE = 'CREATE';
@@ -20,6 +21,8 @@ export class ManageServiceComponent implements OnInit {
   public data: any;
   public departmentList: any[];
   public command: any;
+  public form: FormGroup;
+
   constructor(private _medicalSrv: MedicalService
     , private _serviceSrv: ServicesService
     , private activatedRoute: ActivatedRoute
@@ -33,50 +36,91 @@ export class ManageServiceComponent implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
       const serviceId = params['id'];
       if (serviceId >= 0) {
-        this._serviceSrv.detail(serviceId).subscribe(res => {
-          [this.data] = res;
-        });
         this.command = UPDATE;
+        this.initForm();
+        this._serviceSrv.detail(serviceId).subscribe(([res]) => {
+          this.patchForm(res);
+        });
       } else {
         this.command = CREATE;
+        this.initForm();
       }
     });
     this.getDepartment();
+  }
+
+  initForm() {
+    this.form = new FormGroup({
+      serviceId: new FormControl(),
+      serviceName: new FormControl('', [
+        Validators.required
+      ]),
+      description: new FormControl(),
+      departmentId: new FormControl('', [
+        Validators.required
+      ]),
+    });
+  }
+
+  patchForm(data) {
+    this.form.patchValue({
+      serviceId: data.serviceId,
+      serviceName: data.serviceName,
+      description: data.description,
+      departmentId: data.departmentId
+    });
   }
 
   getDepartment() {
     this._medicalSrv.getSpecialList().subscribe(res => this.departmentList = res);
   }
 
-  setDepartment(id) {
-    this.data.DepartmentId = id;
+  setDepartment(departmentId) {
+    this.form.patchValue({ departmentId });
   }
 
   save() {
     if (this.command === CREATE) {
-      const data = `ServiceName=${this.data.serviceName}&` +
-        `Description=${this.data.description}&` +
-        `DepartmentId=${this.data.DepartmentId}`;
-      this._serviceSrv.createService(data).subscribe(res => {
-        if (res._body === SUCCESS) {
-          this.notificationService.success('Create Succeed!').then(() => {
-            this._router.navigate(['/main/service']);
-          });
+      this.form.removeControl('serviceId');
+      this._serviceSrv.createService(this.form.value).subscribe(res => {
+        this.notificationService.success('Create Succeed!');
+        setTimeout(() => this._router.navigate(['/main/service']), 3000);
+      }, err => {
+        if (err.status === 400) {
+          this.notificationService.error('Name existed!');
+        }
+
+        if (err.status === 500) {
+          this.notificationService.error('Create failed!');
+          console.log(err);
         }
       });
     }
     if (this.command === UPDATE) {
-      const data = `ServiceId=${this.data.serviceId}&` +
-        `ServiceName=${this.data.serviceName}&` +
-        `Description=${this.data.description}&` +
-        `DepartmentId=${this.data.departmentId}`;
-      this._serviceSrv.updateService(data).subscribe(res => {
-        if (res._body === SUCCESS) {
-          this.notificationService.success('Update Succeed!').then(() => {
-            this._router.navigate(['/main/service']);
-          });
+      this._serviceSrv.updateService(this.form.value).subscribe(res => {
+        this.notificationService.success('Update Succeed!');
+        setTimeout(() => this._router.navigate(['/main/service']), 3000);
+      }, err => {
+        if (err.status === 500) {
+          this.notificationService.error('Update failed!');
+          console.log(err);
         }
       });
     }
+  }
+  back() {
+    this._router.navigate(['/main/service']);
+  }
+
+  public get serviceName() {
+    return this.form.get('serviceName');
+  }
+
+  public get description() {
+    return this.form.get('description');
+  }
+
+  public get departmentId() {
+    return this.form.get('departmentId');
   }
 }

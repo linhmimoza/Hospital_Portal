@@ -1,9 +1,13 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import 'rxjs/add/operator/mergeMap';
+import { CookieService } from 'ngx-cookie-service';
 
 import { MedicalService } from './../../home/medical/medical.service';
 import { CategoryService } from './managecategory.service';
-import { SUCCESS, DISABLE, ACTIVE } from '../../constant/commonConstant';
+import { REQUEST_RESULTS, ROLES, ROLE_ID, STATUS } from '../../constant/commonConstant';
+// import { NotiService } from '../../common/notification';
+import { NotificationService } from '../extra/notification.service';
 
 
 
@@ -22,29 +26,43 @@ export class ManagecategoryComponent implements OnInit {
   public cancelText = 'No <i class="glyphicon glyphicon-remove"></i>';
   public confirmClicked = false;
   public cancelClicked = false;
-  constructor(private _categorySrv: CategoryService) { }
+  public roleId: number;
+
+  constructor(private _categorySrv: CategoryService
+    , private _cookieSrv: CookieService
+    , private notificationService: NotificationService
+    , private _router: Router
+  ) { }
 
   ngOnInit() {
-    this._categorySrv.getListAll()
-      .subscribe(res => {
-        this.listCategory = res;
-      });
+    this.roleId = parseInt(this._cookieSrv.get(ROLE_ID), 10);
+    if (this.roleId === ROLES.Admin) {
+      this._categorySrv.getListAll()
+        .subscribe(res => {
+          this.listCategory = res;
+        });
+    } else {
+      this.notificationService.fail('Access denied!');
+      setTimeout(() => {
+        this._router.navigate(['/main']);
+      }, 3000);
+    }
   }
   switchStatus(item) {
     switch (item.status) {
-      case DISABLE:
+      case STATUS.Disable:
         this._categorySrv.activeCategory(item.categoryId).subscribe(res => {
-          if (res._body === SUCCESS) {
+          if (res._body === REQUEST_RESULTS.Success) {
             const index = this.listCategory.findIndex(el => el.categoryId == item.categoryId);
-            this.listCategory[index].status = ACTIVE;
+            this.listCategory[index].status = STATUS.Active;
           }
         });
         return;
-      case ACTIVE:
+      case STATUS.Active:
         this._categorySrv.disableCategory(item.categoryId).subscribe(res => {
-          if (res._body === SUCCESS) {
+          if (res._body === REQUEST_RESULTS.Success) {
             const index = this.listCategory.findIndex(el => el.categoryId == item.categoryId);
-            this.listCategory[index].status = DISABLE;
+            this.listCategory[index].status = STATUS.Disable;
           }
         });
         return;

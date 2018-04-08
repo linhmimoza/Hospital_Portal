@@ -14,10 +14,12 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * REST Web Service
@@ -80,23 +82,28 @@ public class CategoryResource {
             return listCategory;
     }
     @Path("/createCategory")
-    @GET
+    @POST
     @Produces()
-    public String createCategory(
-            @QueryParam("CategoryName") String CategoryName,
-            @QueryParam("Description") String Description) throws SQLException {
+    public Response createCategory(Category category) throws SQLException {
         CategoryDao dao = new CategoryDao();
-        return dao.createCategory(CategoryName, Description);
+        String result = dao.createCategory(category);
+        if (result == "Failed") {
+            return Response.status(500).build();
+        } else if (result == "Existed") {
+            return Response.status(400).build();
+        }
+        return Response.status(200).build();
     }
     @Path("/updateCategory")
-    @GET
+    @POST
     @Produces()
-    public String updateCategory(
-            @QueryParam("CategoryId") int CategoryId,
-            @QueryParam("CategoryName") String CategoryName,
-            @QueryParam("Description") String Description) throws SQLException {
+    public Response updateCategory(Category category) throws SQLException {
         CategoryDao dao = new CategoryDao();
-        return dao.updateCategory(CategoryId, CategoryName, Description);
+        String result = dao.updateCategory(category);
+        if (result == "Failed") {
+            return Response.status(500).build();
+        }
+        return Response.status(200).build();
     }
     @Path("/disableCategory")
     @GET

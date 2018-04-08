@@ -26,7 +26,8 @@ import javax.ws.rs.core.Response.ResponseBuilder;
  */
 @Path("DownloadFile")
 public class DownloadFileResource {
-    private static final String FILE_PATH = "D://std//doan//FileUpload//";  
+
+    private static final String FILE_PATH = "D://std//doan//FileUpload//";
 
     @Context
     private UriInfo context;
@@ -39,6 +40,7 @@ public class DownloadFileResource {
 
     /**
      * Retrieves representation of an instance of restful.DownloadFileResource
+     *
      * @return an instance of java.lang.String
      */
     @GET
@@ -48,16 +50,25 @@ public class DownloadFileResource {
         throw new UnsupportedOperationException();
     }
 
-    @GET  
-    @Path("DownloadFile")  
-    @Produces("text/plain")  
+    @GET
+    @Path("DownloadFile")
+    @Produces("text/plain")
     public Response getFile(@QueryParam("FileName") String filename) {
+        try {
+            File path = new File("Hospital_Portal//FileUpload//" + filename);            
+            String fileLocation = path.getAbsolutePath();
+            File file = new File(fileLocation);
+            if(file.exists() == false) {
+                return Response.status(404).build();
+            }
+//        File file = new File(FILE_PATH + filename);  
 
-        File file = new File(FILE_PATH + filename);  
-   
-        ResponseBuilder response = Response.ok((Object) file);  
-        response.header("Content-Disposition","attachment; filename=\""+filename+"\"");  
-        return response.build();  
-   
-    }  
+            ResponseBuilder response = Response.ok((Object) file);
+            response.header("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+            return response.build();
+        } catch (Exception e) {
+            return Response.status(404).build();
+        }
+
+    }
 }

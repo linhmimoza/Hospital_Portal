@@ -4,11 +4,11 @@
   </header>
   <div class="row">
 
-    <div class="col-md-12" *ngIf="listService?.length">
+    <div class="col-md-12" >
 
       <section class="panel">
         <header class="panel-heading">
-          <h2 class="panel-title">Service</h2>
+          <h2 class="panel-title">List Service</h2>
         </header>
         <div class="panel-body">
             <div class="row">
@@ -51,7 +51,7 @@
                 </div>
             </div>
           
-          <div class="table-responsive">
+          <div class="table-responsive" *ngIf="listService?.length">
             <table class="table table-bordered table-striped mb-none display">
                 <colgroup>
                   <col width="150px" />
