@@ -16,10 +16,6 @@ export class NewsService {
         return this._http.get(`${SERVER}Article/getListArticle?CategoryId=${categoryId}`, OPTIONS).map(res => res.json());
     }
 
-    download(name): Observable<any> {
-        return this._http.get(`${SERVER}DownloadFile/DownloadFile?FileName=${name}`, OPTIONS).map(res => res.json());
-    }
-
     getDetail(id): Observable<any> {
         return this._http.get(`${SERVER}Article/getListArticleById?Id=${id}`, OPTIONS).map(res => res.json());
     }

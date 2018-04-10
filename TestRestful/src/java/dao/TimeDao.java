@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
-import java.time.LocalDate;
+import java.util.Calendar;
 
 /**
  *
@@ -45,7 +45,7 @@ public class TimeDao {
             e.printStackTrace();
         }
     }
-    
+
     public List<Time> getListTimeAvailable() throws SQLException, ClassNotFoundException, ParseException {
         List<Time> listTime = new ArrayList<>();
         try {
@@ -55,9 +55,9 @@ public class TimeDao {
                 TimeEditor time = new TimeEditor();
                 String now = time.getDate();
                 Date dateparse = inputFormat.parse(now);
-                SimpleDateFormat outputFormat  = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String outputText = outputFormat.format(dateparse);
-                String sql = "Select TimeId, Date, Limit, Amount, Available from Time where Available=1 and Date>='"+ outputText +"'";
+                String sql = "Select TimeId, Date, Limit, Amount, Available from Time where Available=1 and Date>='" + outputText + "'";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -67,6 +67,33 @@ public class TimeDao {
                     int limit = rs.getInt("Limit");
                     int amount = Integer.parseInt(rs.getString("Amount"));
                     Time t = new Time(id, amount, available, date, limit);
+                    listTime.add(t);
+                }
+            }
+        } finally {
+            closeConnection();
+        }
+        return listTime;
+    }
+    
+    public List<Time> getFirstAndLastDate() throws SQLException, ClassNotFoundException, ParseException {
+        List<Time> listTime = new ArrayList<>();
+        try {
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                DateFormat inputFormat = new SimpleDateFormat("yyyy/MM/dd");
+                TimeEditor time = new TimeEditor();
+                String now = time.getDate();
+                Date dateparse = inputFormat.parse(now);
+                SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String outputText = outputFormat.format(dateparse);
+                String sql = "SELECT top 1 Date FROM Time\n"
+                    + "order by Date desc";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String lastdate = rs.getString("Date");
+                    Time t = new Time(outputText, lastdate);
                     listTime.add(t);
                 }
             }
@@ -99,6 +126,28 @@ public class TimeDao {
         }
         return listTime;
     }
+    
+    public int checkDateAvailable(String date) throws SQLException, ClassNotFoundException {
+        int id=-1;
+        try {
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "Select * from Time where Date=? and Available=1";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, date);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    id = rs.getInt("TimeId");
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            closeConnection();
+        }
+        return id;
+    }
 
     public boolean bookingSuccess(int timeId) {
         boolean check = false;
@@ -130,7 +179,7 @@ public class TimeDao {
         }
         return check;
     }
-    
+
     public boolean enableAvailable() {
         boolean check = false;
         try {
@@ -146,13 +195,19 @@ public class TimeDao {
         return check;
     }
 
-    public String updateLimitAmountTime(int Limit, String date) {
+    public String updateLimitAmountTime(int Limit) {
         String result = "Success";
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
+                DateFormat inputFormat = new SimpleDateFormat("yyyy/MM/dd");
+                TimeEditor time = new TimeEditor();
+                String now = time.getDate();
+                Date dateparse = inputFormat.parse(now);
+                SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String outputText = outputFormat.format(dateparse);
                 String sql = "update Time set Limit=" + Limit + ""
-                        + "where Date = '" + date + "'";
+                        + "where Date >= '" + outputText + "'";
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
 
@@ -166,25 +221,56 @@ public class TimeDao {
         return result;
     }
 
-    public String createTime(Time time) throws SQLException {
-
+    public String createDate(String dateto, int limit) throws SQLException, ParseException {
+        String topdate = "";
         String result = "Success";
-            try {
-                con = DBUtils.makeConnection();
-                if (con != null) {
-                    String sql = "Insert into [Time]([Date],Amount,Available,Limit)values('"+ time.getDate() +"',0,1,"+ time.getLimit() +")";
-                    stm = con.prepareStatement(sql);
-                    stm.executeUpdate();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                result = "Failed";
-            } finally {
-                closeConnection();
+        try {
+            con = DBUtils.makeConnection();
+            String sql = "SELECT top 1 Date FROM Time\n"
+                    + "order by Date desc";
+            stm = con.prepareStatement(sql);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                topdate = rs.getString("Date");
             }
-        
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        try {
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                int success = 1;
+                DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = inputFormat.parse(topdate);
+                while (success == 1) {
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(date);
+                    c.add(Calendar.DATE, 1);
+                    date = c.getTime();
+                    SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    String outputText = outputFormat.format(date);
+                    String sql = "IF '"+ outputText +"'<='"+ dateto +"'\n"
+                            + "Begin\n"
+                            + "Insert into [Time]([Date],Amount,Available,Limit)\n"
+                            + "values('"+ outputText +"',0,1,"+ limit +")\n"
+                            + "End";
+                    stm = con.prepareStatement(sql);
+                    success = stm.executeUpdate();
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = "Failed";
+        } finally {
+            closeConnection();
+        }
+
         return result;
     }
+
     public boolean isDayExited(String Date) {
         boolean result = false;
         try {

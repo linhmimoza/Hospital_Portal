@@ -52,5 +52,12 @@ export class MedicalService {
         return this._http.get(`${SERVER}MedicalBooking/createIntendTime?BookingId=${id}`, OPTIONS).map(res => res);
     }
 
+    getTimeId(date): Observable<any> {
+        return this._http.get(`${SERVER}time/checkDateAvailable?date=${date}`, OPTIONS).map(res => res);
+    }
+
+    getMinMax(): Observable<any> {
+        return this._http.get(`${SERVER}time/getFirstAndLastDate`, OPTIONS).map(res => res.json());
+    }
 
 }

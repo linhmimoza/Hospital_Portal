@@ -11,7 +11,7 @@ package Models;
  */
 public class Time {
     int timeId,amount,available,limit;
-    String date;
+    String date,firstdate,lastdate;
 
     public Time() {
     }
@@ -24,6 +24,29 @@ public class Time {
         this.limit = limit;
     }
 
+    public Time(String firstdate, String lastdate) {
+        this.firstdate = firstdate;
+        this.lastdate = lastdate;
+    }
+    
+
+    public String getFirstdate() {
+        return firstdate;
+    }
+
+    public void setFirstdate(String firstdate) {
+        this.firstdate = firstdate;
+    }
+
+    public String getLastdate() {
+        return lastdate;
+    }
+
+    public void setLastdate(String lastdate) {
+        this.lastdate = lastdate;
+    }
+
+    
     public int getTimeId() {
         return timeId;
     }

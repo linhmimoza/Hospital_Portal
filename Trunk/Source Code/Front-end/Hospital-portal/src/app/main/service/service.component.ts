@@ -1,11 +1,11 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import 'rxjs/add/operator/mergeMap';
+import { CookieService } from 'ngx-cookie-service';
 
 import { MedicalService } from './../../home/medical/medical.service';
 import { ServicesService } from './service.service';
 import { REQUEST_RESULTS, ROLE_ID, ROLES } from '../../constant/commonConstant';
-import { CookieService } from 'ngx-cookie-service';
 import { NotificationService } from '../extra/notification.service';
 
 const DISABLE = 0;

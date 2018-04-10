@@ -148,7 +148,8 @@ public class ArticleDao {
                     String describe = rs.getString("Describe");
                     String uploadByName = rs.getString("uploadByUser");
                     String updateByName = rs.getString("updateByUser");
-                    Article a = new Article(id, categoryId, uploadBy, updateBy, status, title, uploadDate, updateDate, link, describe, uploadByName, updateByName);
+                    String oldName = rs.getString("OldName");
+                    Article a = new Article(id, categoryId, uploadBy, updateBy, status, title, uploadDate, updateDate, link, describe, uploadByName, updateByName, oldName);
                     listArticle.add(a);
                 }
             }
@@ -248,7 +249,7 @@ public class ArticleDao {
                 Date dateparse = inputFormat.parse(now);
                 SimpleDateFormat outputFormat  = new SimpleDateFormat("yyyy-MM-dd");
                 String outputText = outputFormat.format(dateparse);
-                String sql = "insert into Article(Title,CategoryId,UpdateBy,UpdateDate,UploadBy,UploadDate,Status,Link,Describe)values(?,?,?,?,?,?,?,?,?)";
+                String sql = "insert into Article(Title,CategoryId,UpdateBy,UpdateDate,UploadBy,UploadDate,Status,Link,Describe,OldName)values(?,?,?,?,?,?,?,?,?,?)";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, article.getTitle());
                 stm.setInt(2, article.getCategoryId());
@@ -259,6 +260,7 @@ public class ArticleDao {
                 stm.setInt(7, 2);
                 stm.setString(8, article.getLink());
                 stm.setString(9, article.getDescribe());
+                stm.setString(10, article.getOldName());
                 stm.executeUpdate();
             }
         } catch (SQLException e) {
@@ -275,8 +277,14 @@ public class ArticleDao {
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
+                DateFormat inputFormat = new SimpleDateFormat("yyyy/MM/dd");
+                TimeEditor time = new TimeEditor();
+                String now = time.getDate();
+                Date dateparse = inputFormat.parse(now);
+                SimpleDateFormat outputFormat  = new SimpleDateFormat("yyyy-MM-dd");
+                String outputText = outputFormat.format(dateparse);
                 String sql = "update Article set Title='" + article.getTitle() + "'"
-                        + ",UpdateBy=" + article.getUpdateBy() + " ,UpdateDate='" + article.getUpdateDate() + "' ,Describe='" + article.getDescribe()
+                        + ",UpdateBy=" + article.getUploadBy()+ " ,UpdateDate='" + outputText + "' ,Describe='" + article.getDescribe()
                         + "' where ArticleId=" + article.getArticleId();
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();

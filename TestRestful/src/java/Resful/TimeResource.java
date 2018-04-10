@@ -56,7 +56,7 @@ public class TimeResource {
         //TODO return proper representation object
         throw new UnsupportedOperationException();
     }
-    
+
     @Path("/getListTimeAvailable")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -64,6 +64,27 @@ public class TimeResource {
         TimeDao dao = new TimeDao();
         List<Time> listTime = dao.getListTimeAvailable();
         return listTime;
+    }
+    
+    @Path("/getFirstAndLastDate")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Time> getFirstAndLastDate() throws SQLException, ClassNotFoundException, ParseException {
+        TimeDao dao = new TimeDao();
+        List<Time> listTime = dao.getFirstAndLastDate();
+        return listTime;
+    }
+    @Path("/checkDateAvailable")
+    @GET
+    @Produces()
+    public Response checkDateAvailable(
+            @QueryParam("date") String date) throws SQLException, ClassNotFoundException {
+        TimeDao dao = new TimeDao();
+        int result = dao.checkDateAvailable(date);
+        if (result == -1) {
+            return Response.status(400).build();
+        }
+        return Response.ok(result).build();
     }
 
     @Path("/getListTime")
@@ -91,28 +112,30 @@ public class TimeResource {
         try {
             TimeDao dao = new TimeDao();
             dao.checkAvailable();
-            
+
         } catch (Exception e) {
             System.out.println("error");
             return Response.status(204).build();
         }
         return Response.status(204).build();
     }
+
     @Path("/updateLimitAmountTime")
     @GET
     @Produces()
     public String updateLimitAmountTime(
-            @QueryParam("Amount") int Amount,
-            @QueryParam("date") String date) throws SQLException {
+            @QueryParam("Limit") int Limit) throws SQLException {
         TimeDao dao = new TimeDao();
-        return dao.updateLimitAmountTime(Amount, date);
-    }
-    @Path("/createTime")
-    @POST
-    @Produces()
-    public String createTime(Time time) throws SQLException {
-        TimeDao dao = new TimeDao();
-        return dao.createTime(time);
+        return dao.updateLimitAmountTime(Limit);
     }
 
+    @Path("/createDate")
+    @GET
+    @Produces()
+    public String createDate(
+            @QueryParam("dateto") String dateto,
+            @QueryParam("limit") int limit) throws SQLException, ParseException {
+        TimeDao dao = new TimeDao();
+        return dao.createDate(dateto, limit);
+    }
 }

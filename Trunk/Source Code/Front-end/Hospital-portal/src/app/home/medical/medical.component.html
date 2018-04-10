@@ -23,10 +23,6 @@
 
     <section class="panel form-wizard" id="w4">
       <header class="panel-heading">
-        <div class="panel-actions">
-          <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-          <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
-        </div>
 
         <h2 class="panel-title">Please follow the steps below:</h2>
       </header>
@@ -56,45 +52,47 @@
         </div>
 
         <!-- <form class="form-horizontal" novalidate="novalidate"> -->
-          <div class="tab-content">
-            <div id="w4-specialist" class="tab-pane active">
-              <div class="form-group">
-                <div class="col-md-12">
-                  <select class="form-control input-lg mb-md" (change)="getServiceList($event.target.value)" name="id" [(ngModel)]="data.departmentId">
-                    <option value="" selected>Please select</option>
-                    <option *ngFor="let item of list" value="{{item.departmentId}}">{{item.departmentName}}</option>
-                  </select>
-                </div>
+        <div class="tab-content">
+          <div id="w4-specialist" class="tab-pane active">
+            <div class="form-group">
+              <label class="col-md-3 control-label">Select department</label>
+              <div class="col-md-6">
+                <select class="form-control input-lg mb-md" (change)="getServiceList($event.target.value)" name="id" [(ngModel)]="data.departmentId">
+                  <option value="" [selected]>Please select</option>
+                  <option *ngFor="let item of list" value="{{item.departmentId}}">{{item.departmentName}}</option>
+                </select>
               </div>
             </div>
-            <div id="w4-service" class="tab-pane">
-              <div class="form-group">
-                <div class="col-md-12">
-                  <select class="form-control input-lg mb-md" name="serviceId" [(ngModel)]="data.serviceId" *ngIf="serviceList?.length" (change)="moveStep(3)">
-                    <option value="" selected>Please select</option>
-                    <option *ngFor="let option of serviceList" value="{{option.serviceId}}">{{option.serviceName}}</option>
-                  </select>
-                </div>
+          </div>
+          <div id="w4-service" class="tab-pane">
+            <div class="form-group">
+              <label class="col-md-3 control-label">Select service</label>
+              <div class="col-md-6">
+                <select class="form-control input-lg mb-md" name="serviceId" [(ngModel)]="data.serviceId" *ngIf="serviceList?.length" (change)="moveStep(3)">
+                  <option value="" [selected]>Please select</option>
+                  <option *ngFor="let option of serviceList" value="{{option.serviceId}}">{{option.serviceName}}</option>
+                </select>
               </div>
             </div>
-            <div id="w4-daytime" class="tab-pane">
-              <div class="form-group">
-                <label class="col-md-3 control-label">Select day</label>
-                <div class="col-md-6">
-                  <!-- <div class="input-group">
-                    <span class="input-group-addon">
-                      <i class="fa fa-calendar"></i>
-                    </span>
-                    <input type="date" class="form-control" [(ngModel)]="data.time" (change)="selectTime()" name="time">
-                  </div> -->
-                  <select class="form-control input-lg mb-md" (change)="setTimeId($event.target.value)">
-                    <option value="">Please select</option>
-                    <option *ngFor="let option of listTime" value="{{option.timeId}}">{{option.date}}</option>
-                  </select>
+          </div>
+          <div id="w4-daytime" class="tab-pane">
+            <div class="form-group">
+              <label class="col-md-3 control-label">Select day</label>
+              <div class="col-md-6">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                  <input type="date" class="form-control" [(ngModel)]="data.time" (change)="selectTime()" name="time" id="dayTime">
                 </div>
+                <!-- <select class="form-control input-lg mb-md" (change)="setTimeId($event.target.value)">
+                  <option value="">Please select</option>
+                  <option *ngFor="let option of listTime" value="{{option.timeId}}">{{option.date}}</option>
+                </select> -->
               </div>
+            </div>
 
-              <!-- <div class="form-group">
+            <!-- <div class="form-group">
                 <label class="col-md-3 control-label" for="inputSuccess">Select time</label>
                 <div class="col-md-6">
                   <select class="form-control input-lg mb-md" (change)="setTimeId($event.target.value)">
@@ -103,79 +101,79 @@
                   </select>
                 </div>
               </div> -->
-            </div>
-            <div id="w4-confirm" class="tab-pane">
-              <div class="panel-body">
-                <form [formGroup]="form" class="form-horizontal form-bordered" (ngSubmit)="submitBooking()">
-                  <div class="form-group">
-                    <label class="col-md-3 control-label">Full name
-                      <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6">
-                      <input type="text" formControlName="guestName" class="form-control" required  />
-                      <div class="form-group" *ngIf="guestName.invalid && (guestName.dirty || guestName.touched)" class="alert alert-danger" style="margin-top: 10px">
-                        <strong *ngIf="guestName.errors.required">Name is required.</strong>
-                      </div>
+          </div>
+          <div id="w4-confirm" class="tab-pane">
+            <div class="panel-body">
+              <form [formGroup]="form" class="form-horizontal form-bordered" (ngSubmit)="submitBooking()">
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Full name
+                    <span class="required">*</span>
+                  </label>
+                  <div class="col-md-6">
+                    <input type="text" formControlName="guestName" class="form-control" required />
+                    <div class="form-group" *ngIf="guestName.invalid && (guestName.dirty || guestName.touched)" class="alert alert-danger" style="margin-top: 10px">
+                      <strong *ngIf="guestName.errors.required">Name is required.</strong>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label class="col-md-3 control-label">Identity number
-                      <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6">
-                      <input formControlName="guestIdentity" type="text" class="form-control" required/>
-                      <div class="form-group" *ngIf="guestIdentity.invalid && (guestIdentity.dirty || guestIdentity.touched)" class="alert alert-danger"
-                        style="margin-top: 10px">
-                        <strong *ngIf="guestIdentity.errors.required">Identity is required.</strong>
-                      </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Identity number
+                    <span class="required">*</span>
+                  </label>
+                  <div class="col-md-6">
+                    <input formControlName="guestIdentity" type="text" class="form-control" required/>
+                    <div class="form-group" *ngIf="guestIdentity.invalid && (guestIdentity.dirty || guestIdentity.touched)" class="alert alert-danger"
+                      style="margin-top: 10px">
+                      <strong *ngIf="guestIdentity.errors.required">Identity is required.</strong>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label class="col-md-3 control-label">Phone number
-                      <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6">
-                      <input type="text" class="form-control" formControlName="guestPhone" required /> 
-                      <div class="form-group" *ngIf="guestPhone.invalid && (guestPhone.dirty || guestPhone.touched)" class="alert alert-danger"
-                        style="margin-top: 10px">
-                        <strong *ngIf="guestPhone.errors.required">Phone is required.</strong>
-                      </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Phone number
+                    <span class="required">*</span>
+                  </label>
+                  <div class="col-md-6">
+                    <input type="text" class="form-control" formControlName="guestPhone" required />
+                    <div class="form-group" *ngIf="guestPhone.invalid && (guestPhone.dirty || guestPhone.touched)" class="alert alert-danger"
+                      style="margin-top: 10px">
+                      <strong *ngIf="guestPhone.errors.required">Phone is required.</strong>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label class="col-md-3 control-label">Email
-                      <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6">
-                      <input type="email" formControlName="guestEmail" class="form-control" required />
-                      <div class="form-group" *ngIf="guestEmail.invalid && (guestEmail.dirty || guestEmail.touched)" class="alert alert-danger"
-                        style="margin-top: 10px">
-                        <strong *ngIf="guestEmail.errors.required">Email is required.</strong>
-                      </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Email
+                    <span class="required">*</span>
+                  </label>
+                  <div class="col-md-6">
+                    <input type="email" formControlName="guestEmail" class="form-control" required />
+                    <div class="form-group" *ngIf="guestEmail.invalid && (guestEmail.dirty || guestEmail.touched)" class="alert alert-danger"
+                      style="margin-top: 10px">
+                      <strong *ngIf="guestEmail.errors.required">Email is required.</strong>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label class="col-md-3 control-label">Address
-                      <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6">
-                      <input type="text" formControlName="guestAddress" class="form-control" required />
-                      <div class="form-group" *ngIf="guestAddress.invalid && (guestAddress.dirty || guestAddress.touched)" class="alert alert-danger"
-                        style="margin-top: 10px">
-                        <strong *ngIf="guestAddress.errors.required">Address is required.</strong>
-                      </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Address
+                    <span class="required">*</span>
+                  </label>
+                  <div class="col-md-6">
+                    <input type="text" formControlName="guestAddress" class="form-control" required />
+                    <div class="form-group" *ngIf="guestAddress.invalid && (guestAddress.dirty || guestAddress.touched)" class="alert alert-danger"
+                      style="margin-top: 10px">
+                      <strong *ngIf="guestAddress.errors.required">Address is required.</strong>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label class="col-md-3 control-label">Note</label>
-                    <div class="col-md-6">
-                      <input type="text" class="form-control" name="Note" />
-                    </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Note</label>
+                  <div class="col-md-6">
+                    <input type="text" class="form-control" name="Note" />
                   </div>
-                </form>
-              </div>
+                </div>
+              </form>
             </div>
           </div>
+        </div>
         <!-- </form> -->
       </div>
       <div class="panel-footer">

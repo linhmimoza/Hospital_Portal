@@ -48,7 +48,7 @@ export class AdminNewsService {
     }
 
     update(data): Observable<any> {
-        return this._http.get(`${SERVER}Article/updateArticle?${data}`, OPTIONS).map(res => res);
+        return this._http.post(`${SERVER}Article/updateArticle`, data, OPTIONS).map(res => res);
     }
 
     uploadFile(data): Observable<any> {
