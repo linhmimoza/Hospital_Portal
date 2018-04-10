@@ -1,3 +1,4 @@
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { SettingService } from './setting.service';
@@ -15,6 +16,8 @@ import { CookieService } from 'ngx-cookie-service';
 export class SettingComponent implements OnInit {
   public data: any;
   public roleId: any;
+  public form: FormGroup;
+  public updateForm: FormGroup;
 
   constructor(private _timeSrv: SettingService
     , private _cookieSrv: CookieService
@@ -37,15 +40,63 @@ export class SettingComponent implements OnInit {
     } else {
       this.notificationService.fail('Access denied!').then(() => this._router.navigate(['/main']));
     }
+    this.initForm();
   }
 
-  updateTime() {
-    this.data.date = moment(this.data.date).format('YYY-MM-DD');
-    this._timeSrv.createTime(this.data).subscribe(res => {
+  initForm() {
+    this.form = new FormGroup({
+      limit: new FormControl('', [
+        Validators.required
+      ]),
+      dateto: new FormControl('', [
+        Validators.required
+      ])
+    });
+
+    this.updateForm = new FormGroup({
+      updateLimit: new FormControl('', [
+        Validators.required
+      ])
+    });
+  }
+
+  patchForm(data) {
+    this.form.patchValue({
+      limit: data.limit,
+      dateto: data.dateto
+    });
+  }
+
+  updateTimeLimit() {
+    this._timeSrv.updateLimit(this.updateForm.value).subscribe(res => {
       if (res._body === REQUEST_RESULTS.Success) {
         this.notificationService.success('Update Succeed!');
       }
     });
+  }
+
+  updateTime() {
+    // console.log(this.form.get('dateto'));
+    this.form.patchValue({
+      dateto: moment(this.form.get('dateto').value).format('YYYY-MM-DD')
+    });
+    this._timeSrv.createTime(this.form.value).subscribe(res => {
+      if (res._body === REQUEST_RESULTS.Success) {
+        this.notificationService.success('Update Succeed!');
+      }
+    });
+  }
+
+  public get limit() {
+    return this.form.get('limit');
+  }
+
+  public get updateLimit() {
+    return this.updateForm.get('updateLimit');
+  }
+
+  public get dateto() {
+    return this.form.get('dateto');
   }
 
 }

@@ -1,12 +1,12 @@
 <header class="panel-heading">
-  <h2 style="color: blue">{{news.title}}</h2>
+  <h2 style="color: blue" *ngIf="news">{{news.title}}</h2>
 </header>
 <div class="container" style="background: white; width: 100%" *ngIf="news">
 
   <h5 style="color: black">Upload day: {{news.uploadDate | date: 'dd/MM/yyyy'}}</h5>
   <h5 style="color: black">Author: {{news.uploadByName}}</h5>
   <h5 style="color: black">Download full content:
-    <a (click)="getFile(news.link)" style="cursor: pointer">Tải về</a>
+    <a (click)="getFile(news.articleId)" style="cursor: pointer">Tải về</a>
   </h5>
   <h5 style="color: black">Quickview: </h5>
   {{news.describe}}

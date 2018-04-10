@@ -14,9 +14,13 @@ export class SettingService {
     createSettingTime(data): Observable<any> {
         return this._http.get(`${SERVER}time/updateLimitAmountTime?${data}`).map(res => res);
     }
-    
+
     createTime(data): Observable<any> {
-        return this._http.post(`${SERVER}time/createTime`, data, OPTIONS).map(res => res);
+        return this._http.get(`${SERVER}time/createDate?dateto=${data.dateto}&limit=${data.limit}`, OPTIONS).map(res => res);
+    }
+
+    updateLimit(data): Observable<any> {
+        return this._http.get(`${SERVER}time/updateLimitAmountTime?Limit=${data.updateLimit}`, OPTIONS).map(res => res);
     }
 
 }

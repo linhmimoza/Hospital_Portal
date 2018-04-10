@@ -27,30 +27,38 @@
                     </p> -->
         </header>
         <div class="panel-body">
-          <div class="form-group">
-            <label class="col-md-3 control-label" for="inputDefault">Date
-            </label>
-            <div class="col-md-6">
-              <div class="input-group">
-                <span class="input-group-addon">
-                  <i class="fa fa-calendar"></i>
-                </span>
-                <input type="date" class="form-control" [(ngModel)]="data.date" name="date">
+          <form [formGroup]="form" class="form-horizontal form-bordered">
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="inputDefault">Date
+              </label>
+              <div class="col-md-6">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                  <input type="date" class="form-control" formControlName="dateto" name="dateto" id="dateTo">
+                  <div class="form-group" *ngIf="dateto.invalid && (dateto.dirty || dateto.touched)" class="alert alert-danger" style="margin-top: 10px">
+                    <strong *ngIf="dateto.errors.required">Date is required.</strong>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="col-md-3 control-label" for="inputDefault">Limit
-            </label>
-            <div class="col-md-6">
-              <input type="text" class="form-control" id="inputDefault" name="limit" [(ngModel)]="data.limit" required>
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="inputDefault">Limit
+              </label>
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="limit" name="limit" formControlName="limit" required>
+                <div class="form-group" *ngIf="limit.invalid && (limit.dirty || limit.touched)" class="alert alert-danger" style="margin-top: 10px">
+                    <strong *ngIf="limit.errors.required">Limit is required.</strong>
+                  </div>
+              </div>
             </div>
-          </div>
+          </form>
 
         </div>
         <footer class="panel-footer">
           <div class="row">
-            <div class="col-sm-9 col-sm-offset-3">
+            <div class="col-sm-9 col-sm-offset-3" *ngIf="form.valid">
               <button class="btn btn-primary" (click)="updateTime()">
                 <i class="fa fa-floppy-o"></i>
                 Save</button>
@@ -61,6 +69,44 @@
           </div>
         </footer>
       </section>
+      <section class="panel">
+          <header class="panel-heading">
+            <h4>Create Booking Day</h4>
+  
+            <h2 class="panel-title">{{command}}</h2>
+            <!-- <p class="panel-subtitle">
+                          Basic validation will display a label with the error after the form control.
+                      </p> -->
+          </header>
+          <div class="panel-body">
+            <form [formGroup]="updateForm" class="form-horizontal form-bordered">
+              
+              <div class="form-group">
+                <label class="col-md-3 control-label" for="inputDefault">Limit
+                </label>
+                <div class="col-md-6">
+                  <input type="text" class="form-control" id="updateLimit" name="updateLimit" formControlName="updateLimit" required>
+                  <div class="form-group" *ngIf="updateLimit.invalid && (updateLimit.dirty || updateLimit.touched)" class="alert alert-danger" style="margin-top: 10px">
+                      <strong *ngIf="updateLimit.errors.required">Limit is required.</strong>
+                    </div>
+                </div>
+              </div>
+            </form>
+  
+          </div>
+          <footer class="panel-footer">
+            <div class="row">
+              <div class="col-sm-9 col-sm-offset-3" *ngIf="updateForm.valid">
+                <button class="btn btn-primary" (click)="updateTimeLimit()">
+                  <i class="fa fa-floppy-o"></i>
+                  Save</button>
+                <!-- <button class="btn btn-default" (click)="back()">
+                  <i class="fa fa-undo"></i>
+                  Back</button> -->
+              </div>
+            </div>
+          </footer>
+        </section>
     </div>
   </div>
 </div>

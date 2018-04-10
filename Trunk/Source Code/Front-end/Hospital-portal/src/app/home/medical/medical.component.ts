@@ -7,6 +7,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { MedicalService } from './medical.service';
 import { NotificationService } from '../../main/extra/notification.service';
+import { LoadingService } from '../../main/extra/loading.service';
 // import { NotiService } from '../../common/notification';
 // import { forbiddenNameValidator } from '../../common/Validation';
 // import { ServicesService } from '../services/services.service';
@@ -23,12 +24,16 @@ export class MedicalComponent implements OnInit, AfterViewInit {
   public serviceList: any[];
   public data: any;
   public form: FormGroup;
+  public hasMinMax: boolean;
+
   constructor(
-    private _medicalSrv: MedicalService,
-    private _router: Router
-    , private notificationService: NotificationService
+    private _medicalSrv: MedicalService
+    , private _router: Router
+    , private _notificationService: NotificationService
+    , private _loadingService: LoadingService
   ) {
     this.data = {};
+    this.hasMinMax = false;
   }
 
   ngOnInit() {
@@ -74,6 +79,9 @@ export class MedicalComponent implements OnInit, AfterViewInit {
   }
 
   getServiceList(id) {
+    this.form.patchValue({
+      departmentId: id
+    });
     this._medicalSrv.getServiceList(id).subscribe(res => {
       this.serviceList = res;
       this.moveStep(2);
@@ -84,7 +92,11 @@ export class MedicalComponent implements OnInit, AfterViewInit {
     $(`#step${step}`).css('visibility', 'visible');
     $(`#step${step}Click`).click();
     if (step == 3) {
-      this.selectTime();
+      this._medicalSrv.getMinMax().subscribe(([res]) => {
+        $('#dayTime').attr('min', res.firstdate);
+        $('#dayTime').attr('max', res.lastdate);
+      });
+      // this.selectTime();
     }
   }
 
@@ -99,9 +111,7 @@ export class MedicalComponent implements OnInit, AfterViewInit {
     const now = moment().format('YYYY-MM-DD');
     this.form.patchValue({
       createDate: now,
-      departmentId: this.data.departmentId,
-      serviceId: this.data.serviceId,
-      timeId: this.data.TimeId
+      serviceId: this.data.serviceId
     });
     console.log('form', this.form.value);
     this._medicalSrv.submitBooking(this.form.value) // T co log ra console may gia tri se post ve server, check lai
@@ -116,29 +126,44 @@ export class MedicalComponent implements OnInit, AfterViewInit {
         return this._medicalSrv.createIntendTime(bookingId);
       })
       .flatMap(res => {
-        return this._medicalSrv.bookingSuccess(this.data.TimeId);
+        return this._medicalSrv.bookingSuccess(this.form.get('timeId').value);
       })
       .flatMap(res => {
         return this._medicalSrv.checkAvailable();
       })
       .subscribe(res => {
-        this.notificationService.success('Booking Succeed!');
+        this._notificationService.success('Booking Succeed!');
         setTimeout(() => this._router.navigate(['home/main']), 3000);
       }, err => {
         if (err.status === 400) {
-          this.notificationService.fail('Identity existed!');
+          this._notificationService.fail('Identity existed!');
           console.log(err);
         }
 
         if (err.status === 500) {
-          this.notificationService.fail('Something went wrong! Please try again.');
+          this._notificationService.fail('Something went wrong! Please try again.');
           console.log(err);
         }
       });
   }
 
   selectTime() {
-    this._medicalSrv.getTimeList().subscribe(res => this.listTime = res);
+    const date = moment(this.data.time).format('YYYY-MM-DD');
+    this._medicalSrv.getTimeId(date).subscribe(res => {
+      console.log('timeid', res._body);
+      this.form.patchValue({
+        timeId: res._body
+      });
+      this.moveStep(4);
+      this._loadingService.stop();
+    }, err => {
+      if (err.status === 400) {
+        this._notificationService.fail('This date is unavailable.');
+      }
+      this._loadingService.stop();
+    });
+    this._loadingService.start();
+    // this._medicalSrv.getTimeList().subscribe(res => this.listTime = res);
   }
 
   // #region getter

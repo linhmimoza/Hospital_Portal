@@ -9,8 +9,9 @@ import 'rxjs/add/operator/mergeMap';
 
 import { AdminNewsService } from '../news.service';
 import { HomeService } from '../../../home/home.service';
-import { REQUEST_RESULTS } from '../../../constant/commonConstant';
+import { REQUEST_RESULTS, ROLES, ROLE_ID } from '../../../constant/commonConstant';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NotificationService } from '../../extra/notification.service';
 
 const CREATE = 'CREATE';
 const UPDATE = 'UPDATE';
@@ -23,37 +24,47 @@ const UPDATE = 'UPDATE';
 })
 export class ManageNewsComponent implements OnInit {
   public news: any;
-  public command: any;
+  public command: string;
   public categoryList: any[];
   public form: FormGroup;
   private formData: FormData;
   private userId: any;
+  private roleId: any;
+  private filename: string;
 
   constructor(private _newsSrv: AdminNewsService
     , private activatedRoute: ActivatedRoute
     , private _homeSrv: HomeService
     , private _router: Router
     , private _cookieSrv: CookieService
+    , private notificationService: NotificationService
   ) {
     this.news = {};
     this.userId = this._cookieSrv.get('Auth-UserId');
+    const roleCookie = this._cookieSrv.get(ROLE_ID);
+    roleCookie ? this.roleId = parseInt(roleCookie, 10) : this._router.navigate(['/login']);
   }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe((params: Params) => {
-      const newsId = params['id'];
-      if (newsId) {
-        this.command = UPDATE;
-        this.initForm();
-        this._newsSrv.getDetail(newsId).subscribe(([res]) => {
-          this.patchForm(res);
-        });
-      } else {
-        this.command = CREATE;
-        this.initForm();
-      }
-    });
-    this._homeSrv.getCategoryList().subscribe(res => this.categoryList = res);
+    if (this.roleId && (this.roleId == ROLES.Manager || this.roleId == ROLES.SchedulerPoster || this.roleId == ROLES.Poster)) {
+      this.activatedRoute.params.subscribe((params: Params) => {
+        const newsId = params['id'];
+        if (newsId) {
+          this.command = UPDATE;
+          this.initForm();
+          this._newsSrv.getDetail(newsId).subscribe(([res]) => {
+            this.patchForm(res);
+          });
+        } else {
+          this.command = CREATE;
+          this.initForm();
+        }
+      });
+      this._homeSrv.getCategoryList().subscribe(res => this.categoryList = res);
+    } else {
+      this.notificationService.fail('Access denied!');
+      setTimeout(() => this._router.navigate(['/main']), 3000);
+    }
   }
 
   initForm() {
@@ -62,8 +73,11 @@ export class ManageNewsComponent implements OnInit {
       title: new FormControl('', [
         Validators.required
       ]),
-      describe: new FormControl(),
+      describe: new FormControl('', [
+        Validators.required
+      ]),
       uploadBy: new FormControl(),
+      oldName: new FormControl(),
       link: new FormControl('', [
         Validators.required
       ]),
@@ -89,6 +103,7 @@ export class ManageNewsComponent implements OnInit {
     form.append('file', file, file.name);
     this.formData = form;
     this.form.patchValue({
+      oldName: file.name,
       link: file.name
     });
     // call API here
@@ -120,9 +135,10 @@ export class ManageNewsComponent implements OnInit {
         });
 
     } else {
-      const data = this.form.value;
-      data.updateBy = this.userId;
-      this._newsSrv.update(data).subscribe(res => {
+      this.form.patchValue({
+        uploadBy: this.userId
+      });
+      this._newsSrv.update(this.form.value).subscribe(res => {
         if (res._body === REQUEST_RESULTS.Success) {
           this._router.navigate(['/main/news']);
         }

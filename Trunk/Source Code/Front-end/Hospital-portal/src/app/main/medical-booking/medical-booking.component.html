@@ -45,35 +45,34 @@
               </colgroup>
               <thead>
                 <tr>
+                  <th>Name</th>
                   <th>Department</th>
+                  <th>Service</th>
                   <th>Date</th>
-                  <th>Created Date</th>
+                  <th>Time</th>
+                  <th>Phone</th>
                   <th>Address</th>
                   <th>Email</th>
                   <th>Identity</th>
-                  <th>Name</th>
-                  <th>Phone</th>
-                  <th>Note</th>
-                  <th>Service Name</th>
-                  <th>Time</th>
+                  <th>Created Date</th>
+
                 </tr>
               </thead>
               <tbody *ngIf="medicalBookingList?.length">
                 <tr *ngFor="let item of medicalBookingList | filter:term | paginate: { itemsPerPage: 10, currentPage: p }" class="gradeX">
-
+                  <td>{{item.guestName}}</td>
                   <td>{{item.departmentName}}</td>
+                  <td>{{item.serviceName}}</td>
                   <td>{{item.date}}</td>
-                  <td>
-                    {{item.createDate}}
-                  </td>
+                  <td>{{item.time}}</td>
+                  <td>{{item.guestPhone}}</td>
                   <td>{{item.guestAddress}}</td>
                   <td>{{item.guestEmail}}</td>
                   <td>{{item.guestIdentity}}</td>
-                  <td>{{item.guestName}}</td>
-                  <td>{{item.guestPhone}}</td>
-                  <td>{{item.note}}</td>
-                  <td>{{item.serviceName}}</td>
-                  <td>{{item.time}}</td>
+                  <td>
+                    {{item.createDate}}
+                  </td>
+
                 </tr>
               </tbody>
             </table>

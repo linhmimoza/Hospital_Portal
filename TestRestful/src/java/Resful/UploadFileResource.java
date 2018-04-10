@@ -9,6 +9,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Random;
 import javax.servlet.annotation.MultipartConfig;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -102,8 +105,10 @@ public class UploadFileResource {
             @FormDataParam("file") InputStream uploadedInputStream,
             @FormDataParam("file") FormDataContentDisposition fileDetail) {
 //        String fileLocation = "D://std//doan//FileUpload//" + fileDetail.getFileName();
-        File filename = new File("Hospital_Portal//FileUpload//" + fileDetail.getFileName());
+        String newname = getSaltString();        
+        File filename = new File("Hospital_Portal//FileUpload//" + newname);
         String fileLocation = filename.getAbsolutePath();
+        System.out.println(fileLocation);
         File file = new File(fileLocation);
         file.getParentFile().mkdirs();
         //saving file  
@@ -121,6 +126,19 @@ public class UploadFileResource {
             e.printStackTrace();
         }
 //            String output = "File successfully uploaded to : " + fileLocation;  
-        return fileDetail.getFileName();
+        return newname;
+ 
+    }
+    protected String getSaltString() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 49) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+
     }
 }

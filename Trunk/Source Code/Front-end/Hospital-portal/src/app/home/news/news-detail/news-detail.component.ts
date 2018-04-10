@@ -20,8 +20,8 @@ export class NewsDetailComponent implements OnInit {
     });
   }
 
-  getFile(name) {
-    this._newsSrv.getFile(name);
+  getFile(id) {
+    this._newsSrv.getFile(id);
   }
 
 }

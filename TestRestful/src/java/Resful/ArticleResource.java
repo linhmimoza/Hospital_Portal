@@ -8,6 +8,7 @@ package Resful;
 import dao.ArticleDao;
 import Models.Article;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -96,7 +97,7 @@ public class ArticleResource {
     @Path("/createArticle")
     @POST
     @Produces()
-    public String createArticle(Article article) throws SQLException, ClassNotFoundException {
+    public String createArticle(Article article) throws SQLException, ClassNotFoundException, ParseException {
         ArticleDao dao = new ArticleDao();
         return dao.createArticle(article);
     }
