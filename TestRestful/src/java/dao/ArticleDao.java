@@ -46,6 +46,7 @@ public class ArticleDao {
             e.printStackTrace();
         }
     }
+
     public List<Article> getAllListArticle(int categoryId) throws SQLException, ClassNotFoundException {
         List<Article> listArticle = new ArrayList<>();
         try {
@@ -160,6 +161,7 @@ public class ArticleDao {
         }
         return listArticle;
     }
+
     public List<Article> getListArticleByTitle(String Title) throws SQLException, ClassNotFoundException {
         List<Article> listArticle = new ArrayList<>();
         try {
@@ -169,9 +171,8 @@ public class ArticleDao {
                         + "from Article a\n"
                         + "left outer join [User] u on u.UserId = a.UploadBy\n"
                         + "left outer join [User] u1 on u1.UserId = a.UpdateBy \n"
-                        + "where Title=?";
+                        + "where Title like '%" + Title + "%'";
                 stm = con.prepareStatement(sql);
-                stm.setString(1, Title);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     Integer categoryId = rs.getInt("CategoryId");
@@ -247,7 +248,7 @@ public class ArticleDao {
                 TimeEditor time = new TimeEditor();
                 String now = time.getDate();
                 Date dateparse = inputFormat.parse(now);
-                SimpleDateFormat outputFormat  = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String outputText = outputFormat.format(dateparse);
                 String sql = "insert into Article(Title,CategoryId,UpdateBy,UpdateDate,UploadBy,UploadDate,Status,Link,Describe,OldName)values(?,?,?,?,?,?,?,?,?,?)";
                 stm = con.prepareStatement(sql);
@@ -281,10 +282,10 @@ public class ArticleDao {
                 TimeEditor time = new TimeEditor();
                 String now = time.getDate();
                 Date dateparse = inputFormat.parse(now);
-                SimpleDateFormat outputFormat  = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String outputText = outputFormat.format(dateparse);
                 String sql = "update Article set Title='" + article.getTitle() + "'"
-                        + ",UpdateBy=" + article.getUploadBy()+ " ,UpdateDate='" + outputText + "' ,Describe='" + article.getDescribe()
+                        + ",UpdateBy=" + article.getUploadBy() + " ,UpdateDate='" + outputText + "' ,Describe='" + article.getDescribe()
                         + "' where ArticleId=" + article.getArticleId();
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
@@ -374,23 +375,60 @@ public class ArticleDao {
         }
         return result;
     }
-    public List<Article> getPageArticle(int page) {
- int rows=3*page;
+
+    public List<Article> getListArticleByPageTitle(String Title, int page, int categoryId) throws SQLException, ClassNotFoundException {
+        int rows = 3 * page;
         List<Article> listArticle = new ArrayList<>();
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
                 String sql = "Select a.*, u.FullName as uploadByUser, u1.FullName as updateByUser\n"
-                        + "  from Article a left outer join [User] u on u.UserId = a.UploadBy left outer join [User] u1 on u1.UserId = a.UpdateBy where  a.Status=1 ORDER BY UploadDate"
-                         + " OFFSET 0 ROWS\n"
-                        + "FETCH NEXT "+rows+" ROWS ONLY;";
-             
+                        + "  from Article a left outer join [User] u on u.UserId = a.UploadBy left outer join [User] u1 on u1.UserId = a.UpdateBy where a.Title like '%" + Title + "%' and  a.Status=1 and a.CategoryId="+ categoryId +" ORDER BY UploadDate"
+                        + " OFFSET 0 ROWS\n"
+                        + "FETCH NEXT " + rows + " ROWS ONLY;";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     Integer id = rs.getInt("ArticleId");
+                    Integer uploadBy = rs.getInt("UploadBy");
+                    String uploadDate = rs.getString("UploadDate");
                     String title = rs.getString("Title");
-                    Integer categoryId = rs.getInt("CategoryId");
+                    Integer updateBy = rs.getInt("UpdateBy");
+                    String updateDate = rs.getString("UpdateDate");
+                    Integer status = rs.getInt("Status");
+                    String link = rs.getString("Link");
+                    String describe = rs.getString("Describe");
+                    String uploadByName = rs.getString("uploadByUser");
+                    String updateByName = rs.getString("updateByUser");
+                    Article a = new Article(id, categoryId, uploadBy, updateBy, status, title, uploadDate, updateDate, link, describe, uploadByName, updateByName);
+                    listArticle.add(a);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        return listArticle;
+    }
+
+    public List<Article> getPageArticle(int page, int categoryId) {
+        int rows = 3 * page;
+        List<Article> listArticle = new ArrayList<>();
+        try {
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "Select a.*, u.FullName as uploadByUser, u1.FullName as updateByUser\n"
+                        + "  from Article a left outer join [User] u on u.UserId = a.UploadBy left outer join [User] u1 on u1.UserId = a.UpdateBy where  a.Status=1 and a.CategoryId=? ORDER BY UploadDate"
+                        + " OFFSET 0 ROWS\n"
+                        + "FETCH NEXT " + rows + " ROWS ONLY;";
+
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, categoryId);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    Integer id = rs.getInt("ArticleId");
+                    String title = rs.getString("Title");
                     Integer uploadBy = rs.getInt("UploadBy");
                     String uploadDate = rs.getString("UploadDate");
                     Integer updateBy = rs.getInt("UpdateBy");

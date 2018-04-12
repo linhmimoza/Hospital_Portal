@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import 'rxjs/add/operator/mergeMap';
 
 import { AdminNewsService } from './news.service';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
@@ -19,6 +20,8 @@ export class AdminNewsComponent implements OnInit, AfterViewInit {
   public roleId: number;
   public categoryList: any[];
   public listNews: any[];
+  public categoryId: number;
+  public searchKey: String;
 
   public popoverTitle = 'Are you sure?';
   public popoverMessage = 'Are you really <b>sure</b> you want to do this?';
@@ -40,7 +43,7 @@ export class AdminNewsComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     if (this.roleId && (this.roleId == ROLES.Manager || this.roleId == ROLES.SchedulerPoster || this.roleId == ROLES.Poster)) {
-      this._homeSrv.getCategoryList().subscribe(res => this.categoryList = res);
+      this.getCategory();
     } else {
       this.notificationService.fail('Access denied!');
       setTimeout(() => this._router.navigate(['/main']), 3000);
@@ -48,6 +51,14 @@ export class AdminNewsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+  }
+
+  getCategory() {
+    this._homeSrv.getCategoryList().subscribe(res => {
+      this.categoryList = res;
+      this.categoryId = res[0].categoryId;
+      this.getNews(res[0].categoryId);
+    });
   }
 
   getNews(id) {
@@ -106,5 +117,13 @@ export class AdminNewsComponent implements OnInit, AfterViewInit {
     }
   }
 
-
+  search() {
+    if (this.searchKey) {
+      this._newsSrv.getByName(this.searchKey).subscribe(res => {
+        this.listNews = res;
+      });
+    } else {
+      this.getNews(this.categoryId);
+    }
+  }
 }

@@ -12,8 +12,8 @@ export class NewsService {
     private opts: RequestOptions;
     constructor(private _http: Http) { }
 
-    getNewsList(categoryId): Observable<any> {
-        return this._http.get(`${SERVER}Article/getListArticle?CategoryId=${categoryId}`, OPTIONS).map(res => res.json());
+    getNewsList(categoryId, page): Observable<any> {
+        return this._http.get(`${SERVER}Article/getPageArticle?page=${page}&categoryId=${categoryId}`, OPTIONS).map(res => res.json());
     }
 
     getDetail(id): Observable<any> {
@@ -22,6 +22,11 @@ export class NewsService {
 
     getFile(name) {
         window.open(`${DOWNLOAD_LINK}${name}`);
+    }
+
+    searchArticle(name: string, page: number, categoryId: number) {
+        return this._http.get(`${SERVER}Article/getListArticleByPageTitle?page=${page}&categoryId=${categoryId}&title=${name}`, OPTIONS)
+        .map(res => res.json());
     }
 
 }

@@ -17,7 +17,7 @@
           </header>
           <div class="panel-body">
             <form [formGroup]="form" class="form-horizontal form-bordered">
-              <div class="form-group" *ngIf="command === 'CREATE'">
+              <!-- <div class="form-group" *ngIf="command === 'CREATE'">
                 <label class="col-md-3 control-label" for="inputDefault">Category
                   <span class="required">*</span>
                 </label>
@@ -27,7 +27,7 @@
                     <option *ngFor="let option of categoryList" value="{{option.categoryId}}">{{option.categoryName}}</option>
                   </select>
                 </div>
-              </div>
+              </div> -->
               <div class="form-group">
                 <label class="col-md-3 control-label" for="inputDefault">Title
                   <span class="required">*</span>

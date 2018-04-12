@@ -1,132 +1,10 @@
-<!-- <ng-template [ngIf]="roleId === 2 || roleId === 4 || roleId === 5">
-
-
-  <div class="container" style="width: 100%">
-    <div class="row">
-      <header class="page-header">
-        <h2>Article</h2>
-
-        <div class="right-wrapper pull-right">
-          <ol class="breadcrumbs">
-            <li>
-              <a href="index.html">
-                <i class="fa fa-home"></i>
-              </a>
-            </li>
-          </ol>
-
-        </div>
-      </header>
-      <div class="col-md-10">
-        <div class="form-group">
-          <select class="form-control input-lg mb-md" name="serviceId" [(ngModel)]="categoryId" *ngIf="categoryList?.length" (change)="getNews($event.target.value)">
-            <option value="" selected>Please select</option>
-            <option *ngFor="let option of categoryList" value="{{option.categoryId}}">{{option.categoryName}}</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <a [routerLink]="['/main/manage-news']" class="btn btn-primary" style="width:100%">Add News</a>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12" *ngIf="listNews?.length">
-        <header class="page-header">
-          <h2>Manage News</h2>
-
-          <div class="right-wrapper pull-right">
-            <ol class="breadcrumbs">
-              <li>
-                <a href="index.html">
-                  <i class="fa fa-home"></i>
-                </a>
-              </li>
-              <li>
-                <span>Manage News</span>
-              </li>
-            </ol>
-
-            <a class="sidebar-right-toggle" data-open="sidebar-right">
-              <i class="fa fa-chevron-left"></i>
-            </a>
-          </div>
-        </header>
-        <section class="panel">
-          <header class="panel-heading">
-            <h2 class="panel-title">News</h2>
-          </header>
-          <div class="panel-body">
-            <div class="table-responsive">
-              <table class="table table-bordered table-striped mb-none display">
-                <thead>
-                  <tr>
-                    <th>Title</th>
-                    <th>Upload by</th>
-                    <th>Update by</th>
-                    <th>Quickview</th>
-                    <ng-template [ngIf]="roleId === 2">
-                      <th>Action</th>
-                      <th>Update</th>
-                    </ng-template>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let item of listNews | filter:term | paginate: { itemsPerPage: 10, currentPage: p }" class="gradeX">
-                    <td>{{item.title}}</td>
-                    <td>{{item.uploadByName}}</td>
-                    <td>{{item.updateByName}}</td>
-                    <td>{{item.describe}}</td>
-                    <ng-template [ngIf]="roleId === 2">
-                      <td class="text-center">
-                        <div class="grid-status" [ngClass]="{'bg-primary': item.status == 1, 'bg-danger': item.status == 0, 'bg-warning': item.status == 2 }"
-                          mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmText"
-                          [cancelText]="cancelText" [placement]="placement" (confirm)="switchStatus(item, 'yes')" (cancel)="switchStatus(item, 'no')"
-                          confirmButtonType="danger" cancelButtonType="default" (click)="confirmClicked = false; cancelClicked = false"
-                          [appendToBody]="true">
-                          <p *ngIf="item.status == 1">
-                            Active
-                          </p>
-                          <p *ngIf="item.status == 0">
-                            Disable
-                          </p>
-                          <p *ngIf="item.status == 2">
-                            Waiting
-                          </p>
-                        </div>
-
-                      </td>
-                      <td class="text-center">
-
-                        <a [routerLink]="['/main/manage-news', item.articleId]">
-                          <i class="fa fa-pencil"></i>
-                        </a>
-
-                      </td>
-                    </ng-template>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="row">
-                <div class="col-md-4 col-md-offset-8" style="padding-top: 20px;">
-                  <pagination-controls (pageChange)="p = $event"></pagination-controls>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-    </div>
-  </div>
-</ng-template>
-////////////////// -->
-
 <div class="container" style="width: 100%">
   <header class="page-header">
     <h2>Article</h2>
   </header>
   <div class="row">
 
-    <div class="col-md-12" >
+    <div class="col-md-12">
 
       <section class="panel">
         <header class="panel-heading">
@@ -136,25 +14,25 @@
           <div class="row">
             <div class="col-sm-6">
               <div class="mb-md">
-                <button class="btn btn-primary" [routerLink]="['/main/manage-news']">Add
+                <button class="btn btn-primary" *ngIf="categoryId" [routerLink]="['/main/manage-news/add/', categoryId]">Add
                   <i class="fa fa-plus"></i>
                 </button>
               </div>
             </div>
           </div>
           <div class="row">
-            <!-- <div class="col-md-4">
-                      <label class="col-sm-3 control-label">
-                          <h5>
-                              <strong>Search: </strong>
-                          </h5>
-                      </label>
-                      <div class="col-sm-9">
-                          <div class="mb-md">
-                              <input type="text" class="form-control" (input)="searchService($event.target.value)">
-                          </div>
-                      </div>
-                  </div> -->
+            <div class="col-md-4">
+              <label class="col-sm-3 control-label">
+                <h5>
+                  <strong>Search: </strong>
+                </h5>
+              </label>
+              <div class="col-sm-9">
+                <div class="mb-md">
+                  <input type="text" class="form-control" [(ngModel)]="searchKey" (input)="search($event.target.value)">
+                </div>
+              </div>
+            </div>
 
             <div class="col-md-6 col-md-offset-2">
               <label class="col-sm-3 control-label">
@@ -165,7 +43,7 @@
               <div class="col-sm-7">
                 <select class="form-control" name="categoryId" [(ngModel)]="categoryId" *ngIf="categoryList?.length" (change)="getNews($event.target.value)">
 
-                  <option *ngFor="let option of categoryList" value="{{option.categoryId}}">{{option.categoryName}}</option>
+                  <option *ngFor="let option of categoryList; let i = index" [value]="option.categoryId" [attr.data-index]="i" [attr.selected]="i === 0">{{option.categoryName}}</option>
                 </select>
 
               </div>

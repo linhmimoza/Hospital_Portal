@@ -49,6 +49,7 @@ public class ArticleResource {
         //TODO return proper representation object
         throw new UnsupportedOperationException();
     }
+
     @Path("/getAllListArticle")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -84,7 +85,7 @@ public class ArticleResource {
         List<Article> listArticle = dao.getListArticleById(id);
         return listArticle;
     }
-    
+
     @Path("/getListArticleByTitle")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -106,7 +107,7 @@ public class ArticleResource {
     @POST
     @Produces()
     public String updateArticle(Article article) throws SQLException {
-        
+
         ArticleDao dao = new ArticleDao();
         return dao.updateArticle(article);
     }
@@ -137,12 +138,28 @@ public class ArticleResource {
         ArticleDao dao = new ArticleDao();
         return dao.activeArticle(ArticleId);
     }
+
     @Path("/getPageArticle")
     @GET
     @Produces()
-    public List<Article> getPageArticle(@QueryParam("page") int page) throws SQLException, ClassNotFoundException {
-   ArticleDao dao = new ArticleDao();
-            List<Article> listArticle = dao.getPageArticle(page);        
-            return listArticle;
+    public List<Article> getPageArticle(
+            @QueryParam("page") int page,
+            @QueryParam("categoryId") int categoryId
+    ) throws SQLException, ClassNotFoundException {
+        ArticleDao dao = new ArticleDao();
+        List<Article> listArticle = dao.getPageArticle(page, categoryId);
+        return listArticle;
+    }
+    @Path("/getListArticleByPageTitle")
+    @GET
+    @Produces()
+    public List<Article> getListArticleByPageTitle(
+            @QueryParam("page") int page,
+            @QueryParam("categoryId") int categoryId,
+            @QueryParam("title") String title
+    ) throws SQLException, ClassNotFoundException {
+        ArticleDao dao = new ArticleDao();
+        List<Article> listArticle = dao.getListArticleByPageTitle(title, page, categoryId);
+        return listArticle;
     }
 }

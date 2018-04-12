@@ -35,7 +35,8 @@ export class ManageServiceComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
       const serviceId = params['id'];
-      if (serviceId >= 0) {
+      const deptId = params['deptid'];
+      if (serviceId && !deptId) {
         this.command = UPDATE;
         this.initForm();
         this._serviceSrv.detail(serviceId).subscribe(([res]) => {
@@ -44,9 +45,12 @@ export class ManageServiceComponent implements OnInit {
       } else {
         this.command = CREATE;
         this.initForm();
+        this.form.patchValue({
+          departmentId: deptId
+        });
       }
     });
-    this.getDepartment();
+    // this.getDepartment();
   }
 
   initForm() {
@@ -69,10 +73,6 @@ export class ManageServiceComponent implements OnInit {
       description: data.description,
       departmentId: data.departmentId
     });
-  }
-
-  getDepartment() {
-    this._medicalSrv.getSpecialList().subscribe(res => this.departmentList = res);
   }
 
   setDepartment(departmentId) {

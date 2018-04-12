@@ -27,6 +27,7 @@ export class AdminServiceComponent implements OnInit {
   public confirmClicked = false;
   public cancelClicked = false;
   public roleId: number;
+  public deptId: number;
 
   constructor(private _medicalSrv: MedicalService
     , private _serviceSrv: ServicesService
@@ -39,17 +40,21 @@ export class AdminServiceComponent implements OnInit {
   ngOnInit() {
     this.roleId = parseInt(this._cookieSrv.get(ROLE_ID), 10);
     if (this.roleId && this.roleId == ROLES.Admin) {
-      this._medicalSrv.getSpecialList()
-        .flatMap(res => {
-          this.departmentList = res;
-          const deptId = this.departmentList[0].departmentId;
-          return this._serviceSrv.getListAll(deptId);
-        }).subscribe(res => {
-          this.listService = res;
-        });
+      this.initData();
     } else {
       this.notificationService.fail('Access denied!').then(() => this._router.navigate(['/main']));
     }
+  }
+
+  initData() {
+    this._medicalSrv.getSpecialList()
+        .flatMap(res => {
+          this.departmentList = res;
+          this.deptId = this.departmentList[0].departmentId;
+          return this._serviceSrv.getListAll(this.deptId);
+        }).subscribe(res => {
+          this.listService = res;
+        });
   }
 
   switchStatus(item) {

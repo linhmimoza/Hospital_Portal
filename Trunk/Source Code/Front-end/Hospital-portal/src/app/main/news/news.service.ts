@@ -43,6 +43,10 @@ export class AdminNewsService {
         return this._http.get(`${SERVER}Article/getListArticleById?Id=${id}`, this.opts).map(res => res.json());
     }
 
+    getByName(name): Observable<any> {
+        return this._http.get(`${SERVER}Article/getListArticleByTitle?Title=${name}`, this.opts).map(res => res.json());
+    }
+
     getFile(name) {
         window.open(`${DOWNLOAD_LINK}${name}`);
     }

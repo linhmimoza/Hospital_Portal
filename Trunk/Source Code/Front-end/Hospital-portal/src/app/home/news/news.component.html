@@ -63,13 +63,25 @@
     </div>
 </div> -->
 <section class="panel">
-    <header class="panel-heading">
-        <div class="panel-actions">
-            <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-            <!-- <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a> -->
+    <div class="panel-heading row" style="width: 100%; margin: 0; padding: 15px 15px 0 15px;">
+        <div class="col-md-4">
+            <h2 class="panel-title">News</h2>
         </div>
-        <h2 class="panel-title">News</h2>
-    </header>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4 pul-right">
+            <label class="col-sm-3 control-label">
+                <h5>
+                    <strong>Search: </strong>
+                </h5>
+            </label>
+            <div class="col-sm-9">
+                <div class="mb-md">
+                    <input type="text" class="form-control" [(ngModel)]="searchKey" (input)="searchNews()">
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="panel-body">
         <div class="timeline">
             <div class="tm-body">
@@ -111,7 +123,7 @@
                 </ol>
             </div>
         </div>
-        <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block">Show more</button>
+        <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block" (click)="pageChange()">Show more</button>
 
 
 

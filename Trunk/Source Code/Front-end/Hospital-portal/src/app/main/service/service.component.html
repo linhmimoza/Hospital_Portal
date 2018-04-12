@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="mb-md">
-                        <button class="btn btn-primary" [routerLink]="['/main/manage-service/-1']" >Add
+                        <button class="btn btn-primary" *ngIf="deptId" [routerLink]="['/main/manage-service/add/', deptId]" >Add
                             <i class="fa fa-plus"></i>
                         </button>
                     </div>
@@ -41,7 +41,7 @@
                         </h5>
                     </label>
                     <div class="col-sm-7">
-                        <select class="form-control" name="id" [(ngModel)]="id" *ngIf="departmentList?.length" (change)="getService($event.target.value)">
+                        <select class="form-control" name="id" [(ngModel)]="deptId" *ngIf="departmentList?.length" (change)="getService($event.target.value)">
                           
                             <option *ngFor="let option of departmentList" value="{{option.departmentId}}">{{option.departmentName}}</option>
                           </select>

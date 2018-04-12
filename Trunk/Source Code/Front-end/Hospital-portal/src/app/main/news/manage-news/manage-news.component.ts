@@ -49,7 +49,8 @@ export class ManageNewsComponent implements OnInit {
     if (this.roleId && (this.roleId == ROLES.Manager || this.roleId == ROLES.SchedulerPoster || this.roleId == ROLES.Poster)) {
       this.activatedRoute.params.subscribe((params: Params) => {
         const newsId = params['id'];
-        if (newsId) {
+        const catId = params['catid'];
+        if (newsId && !catId) {
           this.command = UPDATE;
           this.initForm();
           this._newsSrv.getDetail(newsId).subscribe(([res]) => {
@@ -58,9 +59,12 @@ export class ManageNewsComponent implements OnInit {
         } else {
           this.command = CREATE;
           this.initForm();
+          this.form.patchValue({
+            categoryId: catId
+          });
         }
       });
-      this._homeSrv.getCategoryList().subscribe(res => this.categoryList = res);
+      // this._homeSrv.getCategoryList().subscribe(res => this.categoryList = res);
     } else {
       this.notificationService.fail('Access denied!');
       setTimeout(() => this._router.navigate(['/main']), 3000);
