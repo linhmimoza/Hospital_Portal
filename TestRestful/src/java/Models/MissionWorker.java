@@ -21,25 +21,12 @@ import javax.persistence.Table;
  *
  * @author Admin
  */
-@Entity
-@Table(name = "MissionWorker")
-@NamedQueries({
-    @NamedQuery(name = "MissionWorker.findAll", query = "SELECT m FROM MissionWorker m")})
+
 public class MissionWorker implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "MissionWorkerId")
-    private Integer missionWorkerId;
-    
-    @Basic(optional = false)
-    @Column(name = "MissionId")
+    private Integer missionWorkerId;   
     private Integer missionId;
-    
-    @Basic(optional = false)
-    @Column(name = "UserId")
     private Integer userId;
    private String userName;
     public MissionWorker() {

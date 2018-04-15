@@ -29,12 +29,16 @@ export class MeetingDetailComponent {
     }
 
     back() {
-        this.router.navigate(['/main/manage-meeting']);
+        if (this.roleCookie === 2) {
+            this.router.navigate(['/main/manage-meeting']);
+        } else {
+            this.router.navigate(['/main/manageMeeting-Scheduler']);
+        }
     }
 
     ngOnInit() {
         this.roleCookie = +this.cookieService.get("Auth-RoleId");
-        if (this.roleCookie == 2 || this.roleCookie == 3 || this.roleCookie == 5) {
+        if (this.roleCookie == 2 || this.roleCookie == 3) {
             this.form = new FormGroup({
                 meetingId: new FormControl(''),
                 roomId: new FormControl(''),
@@ -59,10 +63,11 @@ export class MeetingDetailComponent {
             // this.loadingService.start();
             this.roomService.getList().then((res: Room[]) => {
                 this.rooms = res;
-                if (this.id == 0) 
-                this.form.patchValue({
-                    roomId: this.rooms[0].roomId
-                });
+                if (this.id == 0) {
+                    this.form.patchValue({
+                        roomId: this.rooms[0].roomId
+                    });
+                }
             }).catch(err => {
                 alert(err);
             });
@@ -87,7 +92,7 @@ export class MeetingDetailComponent {
                         console.log(err);
                     });
                 } else {
-                    this.title = "You are creating new meeting";
+                    this.title = 'You are creating new meeting';
                     this.form.patchValue({
                         updateBy: this.cookieService.get("Auth-UserId"),
                         createBy: this.cookieService.get("Auth-UserId")
@@ -145,13 +150,18 @@ export class MeetingDetailComponent {
             this.id = +params['id']; // (+) converts string 'id' to a number
             // meeting.createBy = +this.cookieService.get("Auth-UserId");
             // meeting.updateBy = +this.cookieService.get("Auth-UserId");
-            console.log(this.meeting);
+
             if (this.id > 0) {
+                meeting.status = 1;
                 this.meetingService.updateMeeting(meeting).then((res: string) => {
                     this.responseText = res;
-                    if (this.responseText === "Success") {
+                    if (this.responseText === 'Success') {
                         this.notificationService.success(this.responseText).then(() => {
-                            this.router.navigate(['/main/manage-meeting']);
+                            if (this.roleCookie === 2) {
+                                this.router.navigate(['/main/manage-meeting']);
+                            } else {
+                                this.router.navigate(['/main/manageMeeting-Scheduler']);
+                            }
                         });
                     } else {
                         this.notificationService.fail(this.responseText);
@@ -164,7 +174,11 @@ export class MeetingDetailComponent {
                     this.responseText = res;
                     if (this.responseText === "Success") {
                         this.notificationService.success(this.responseText).then(() => {
-                            this.router.navigate(['/main/manage-meeting']);
+                            if (this.roleCookie === 2) {
+                                this.router.navigate(['/main/manage-meeting']);
+                            } else {
+                                this.router.navigate(['/main/manageMeeting-Scheduler']);
+                            }
                         });
                     } else {
                         this.notificationService.fail(this.responseText);

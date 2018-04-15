@@ -395,5 +395,48 @@ public String updateMeeting(Meeting meeting) {
         }
         return result;
     }
+  public List<Meeting> getAllMeetingsByUser(int userId) {
+
+        List<Meeting> listMeetings = new ArrayList<>();
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "Select MeetingId, m.RoomId,r.RoomName, MeetingName, StartTime, Date,Duration, Content, Note, CreateBy,CreateDate,\n"
+                        + " UpdateBy, UpdateDate, m.Status from Meeting m, Room r where  m.RoomId=r.RoomId and m.CreateBy="+userId+" ORDER BY Date,StartTime";
+                stm = con.prepareStatement(sql);
+                System.out.println(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    Integer id = rs.getInt("MeetingId");
+                    Integer roomId = rs.getInt("RoomId");
+                    String meetingName = rs.getString("MeetingName");
+                    String startTime = rs.getString("StartTime").substring(0, 5);
+                    String date = rs.getString("Date");
+                    String duration = rs.getString("Duration");
+                    if (duration!=null){
+                        duration=duration.substring(0, 5);
+                    }
+                    String content = rs.getString("Content");
+                    String note = rs.getString("Note");
+                    Integer createBy = rs.getInt("CreateBy");
+                    Date createDate = rs.getDate("CreateDate");
+                    Integer updateBy = rs.getInt("UpdateBy");
+                    Date updateDate = rs.getDate("UpdateDate");
+                    Integer status = rs.getInt("Status");
+                    String roomName = rs.getString("RoomName");
+                    Meeting meeting = new Meeting(id, meetingName, startTime, duration, date, content, note, createDate, updateDate, status, roomId, roomName, createBy, updateBy);
+                    listMeetings.add(meeting);
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeConnection();
+        }
+        return listMeetings;
+    }
+
 
 }

@@ -54,7 +54,7 @@
                         <td>{{notification.notificationName}}</td>
                         <td>{{notification.createDate | date:'dd/MM/yyyy'}}</td>
                         <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
-                        <td>{{notification.createBy}}</td>
+                        <td>{{notification.createName}}</td>
                         <td class="text-center">
                             <div class="grid-status" [ngClass]="{'bg-primary': notification.status == 1, 'bg-danger': notification.status == 2 }" mwlConfirmationPopover
                                 [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmText" [cancelText]="cancelText"

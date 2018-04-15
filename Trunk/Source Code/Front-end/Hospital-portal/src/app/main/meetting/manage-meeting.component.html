@@ -46,7 +46,7 @@
                   <th>Room</th>
                   <th>Date</th>
                   <th>Start Time</th>
-                  <th>Duration</th>
+                  <th>End time</th>
                   <th>Status</th>
                   <th class="hidden-phone"></th>
                 </tr>
@@ -61,7 +61,7 @@
                   <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
                   <td class="text-center">
                     <div *ngIf="meeting.status == 1" class="grid-status" [ngClass]="{'bg-warning':meeting.status == 1,'bg-success':meeting.status == 2,'bg-danger':meeting.status == 3}"
-                      mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmDenyText"
+                      mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="" [confirmText]="confirmDenyText"
                       [cancelText]="confirmAcceptText" [placement]="placement" (confirm)="denyWaitingMeetings(meeting)" (cancel)="acceptWaitingMeetings(meeting)"
                       confirmButtonType="danger" cancelButtonType="success" (click)="confirmClicked = false; cancelClicked = false"
                       [appendToBody]="true">
@@ -99,7 +99,7 @@
                   <th>Room</th>
                   <th>Date</th>
                   <th>Start Time</th>
-                  <th>Duration</th>
+                  <th>End time</th>
                   <th>Status</th>
                   <th class="hidden-phone"></th>
                 </tr>

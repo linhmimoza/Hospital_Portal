@@ -80,9 +80,7 @@ Connection con = null;
                     sql="insert into MissionWorker(MissionId,UserId) values("+missionId+","+worker.getUserId()+")";
                     stm = con.prepareStatement(sql);
                 stm.executeUpdate();
-                   App app= new App();
-                   UserDAO dao= new UserDAO();
-                    app.sendSMS("Hello "+worker.getUserName()+" you are join in a new meeting please check on portal",dao.getUserPhone(worker.getUserId()) );
+                 
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {

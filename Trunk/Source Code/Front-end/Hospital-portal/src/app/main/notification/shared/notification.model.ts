@@ -7,7 +7,7 @@ export class Notification{
     updateDate: Date;
     updateBy: number;
     status: number;
-
+    createName: string;
     constructor(){
         
     }

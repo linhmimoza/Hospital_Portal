@@ -23,20 +23,13 @@ import javax.persistence.Table;
  *
  * @author Admin
  */
-@Entity
-@Table(name = "Role")
-@NamedQueries({
-    @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r")})
+
 public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "RoleId")
+
     private Integer roleId;
-    @Basic(optional = false)
-    @Column(name = "RoleName")
+  
     private String roleName;
 
 

@@ -73,6 +73,8 @@ import { MeetingService } from './main/meetting/service/meeting.service';
 import { UploadShiftScheduleComponent } from './main/shiftScheduler/upload-shiftSchedule.component';
 import { MedicalBookingComponent } from './main/medical-booking/medical-booking.component';
 import { NotiService } from './common/notification';
+import { ManageMeetingSchedulerComponent } from './main/meetting/manageMeeting-Scheduler.component';
+import { ManageMissionSchedulerComponent } from './main/mission/manageMission-Scheduler.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home/main', pathMatch: 'full' },
@@ -115,7 +117,9 @@ const routes: Routes = [
       { path: 'setting', component: SettingComponent },
       { path: 'check-shiftSchedule', component: CheckShiftScheduleComponent },
       { path: 'upload-shiftSchedule', component: UploadShiftScheduleComponent },
-      { path: 'medical-booking', component: MedicalBookingComponent }
+      { path: 'medical-booking', component: MedicalBookingComponent },
+      { path: 'manageMeeting-Scheduler', component: ManageMeetingSchedulerComponent },
+      { path: 'manageMission-Scheduler', component: ManageMissionSchedulerComponent }
     ]
   },
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
@@ -181,7 +185,9 @@ const routes: Routes = [
     AddCategoryComponent,
     PageNotFoundComponent,
     UploadShiftScheduleComponent,
-    MedicalBookingComponent
+    MedicalBookingComponent,
+    ManageMeetingSchedulerComponent,
+    ManageMissionSchedulerComponent
   ],
   imports: [
     BrowserModule,

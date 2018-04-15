@@ -23,28 +23,19 @@ import javax.persistence.Table;
  *
  * @author Admin
  */
-@Entity
-@Table(name = "Room")
-@NamedQueries({
-    @NamedQuery(name = "Room.findAll", query = "SELECT r FROM Room r")})
+
 public class Room implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "RoomId")
+
     private Integer roomId;
-    @Basic(optional = false)
-    @Column(name = "RoomName")
+
     private String roomName;
-    @Basic(optional = false)
-    @Column(name = "RoomSize")
+
     private int roomSize;
-    @Basic(optional = false)
-    @Column(name = "Status")
+
     private int status;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "room")
+
     private List<Meeting> meetingList;
 
     public Room() {

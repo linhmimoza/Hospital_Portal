@@ -26,51 +26,34 @@ import javax.persistence.TemporalType;
  *
  * @author Admin
  */
-@Entity
-@Table(name = "Mission")
-@NamedQueries({
-    @NamedQuery(name = "Mission.findAll", query = "SELECT m FROM Mission m")})
+
 public class Mission implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "MissionId")
+
     private Integer missionId;
-    @Basic(optional = false)
-    @Column(name = "StartDate")
+
     private String startDate;
-    @Basic(optional = false)
-    @Column(name = "EndDate")
+
     private String endDate;
-    @Basic(optional = false)
-    @Column(name = "Place")
+
     private String place;
-    @Basic(optional = false)
-    @Column(name = "Content")
+
     private String content;
-    @Column(name = "Note")
+
     private String note;
-    @Basic(optional = false)
-    @Column(name = "Status")
+
     private int status;
-    @Basic(optional = false)
-    @Column(name = "CreateDate")
-    @Temporal(TemporalType.TIMESTAMP)
+
     private String createDate;
-    @Column(name = "UpdateDate")
-    @Temporal(TemporalType.TIMESTAMP)
+
     private String updateDate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mission")
+  
     private List<MissionWorker> missionWorkerList;
     
-    @Basic(optional = false)
-    @Column(name = "Createby")
+
     private Integer createby;
-    
-    @Basic(optional = false)
-    @Column(name = "Updateby")
+
     private Integer updateby;
 
     public Mission() {

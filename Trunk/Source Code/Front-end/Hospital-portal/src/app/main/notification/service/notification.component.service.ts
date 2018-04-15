@@ -17,7 +17,15 @@ export class NotificationComponentService {
             });
         });
     }
-
+    getActivateNotification() {
+        return new Promise((resolve, reject) => {
+            this.apiService.get('getActivateNotification').then(res => {
+                resolve(res.json());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
     getNotificationById(id) {
         return new Promise((resolve, reject) => {
             this.apiService.get(`getNotificationById/${id}`).then(res => {

@@ -184,7 +184,7 @@ public class MissionDAO implements Serializable {
 "Updateby, UpdateDate from Mission m, MissionWorker w where\n" +
 " m.MissionId=w.MissionId  and m.Status=2 and w.UserId="+userId+" ORDER BY m.StartDate,m.EndDate";
    stm = con.prepareStatement(sql);
-
+          
          rs = stm.executeQuery();
                 while (rs.next()) {
                   Integer id = rs.getInt("MissionId");
@@ -212,7 +212,8 @@ public class MissionDAO implements Serializable {
         }
         return listMission;
     }
-   public List<Mission> getWaitingMissions() {
+ 
+ public List<Mission> getWaitingMissions() {
         List<Mission> listMissions = new ArrayList<>();
         try {
             con = DBUtils.DBUtils.makeConnection();
@@ -220,8 +221,7 @@ public class MissionDAO implements Serializable {
                 String sql = "Select MissionId, StartDate, EndDate, Place, Content, Note, Status, Createby, CreateDate, "
                         + "Updateby, UpdateDate from Mission where Status=1";
                 stm = con.prepareStatement(sql);
-                rs = stm.executeQuery();
-            
+                rs = stm.executeQuery();           
                 while (rs.next()) {
                     Integer id = rs.getInt("MissionId");
                     String startDate = rs.getString("StartDate");
@@ -282,4 +282,42 @@ public List<Mission> getCheckedMissions() {
         }
         return listMissions;
     }
+public List<Mission> getAllMissionByUser(int userId) {
+        List<Mission>  listMission = new ArrayList<>();
+        try {
+          con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+         String   sql = "Select m.MissionId, StartDate, EndDate, Place, Content, Note, Status, Createby, CreateDate, \n" +
+"Updateby, UpdateDate from Mission m where\n" +
+"m.Createby="+userId+" ORDER BY m.StartDate,m.EndDate";
+   stm = con.prepareStatement(sql);
+          
+         rs = stm.executeQuery();
+                while (rs.next()) {
+                  Integer id = rs.getInt("MissionId");
+                    String startDate = rs.getString("StartDate");
+                    String endDate = rs.getString("EndDate");
+                    String place = rs.getString("Place");
+                    String content = rs.getString("Content");
+                    String note = rs.getString("Note");
+                    Integer status = rs.getInt("Status");
+                    Integer createby = rs.getInt("Createby");
+                    String createDate = rs.getString("CreateDate");
+                    Integer updateby = rs.getInt("Updateby");
+                    String updateDate = rs.getString("UpdateDate");
+                    MissionWorkerDAO dao = new MissionWorkerDAO();
+                    List<MissionWorker> listWorker = dao.getMissionWorkersById(id);
+                    Mission mission = new Mission(id, startDate, endDate, place, content, note, status, createDate, updateDate, listWorker, createby, updateby);
+                    listMission.add(mission); 
+                } 
+                }
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(MissionDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeConnection();
+        }
+        return listMission;
+    }
+ 
 }

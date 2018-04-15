@@ -48,8 +48,9 @@ public class NotificationDAO implements Serializable {
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                String sql = "Select NotificationId, NotificationName, Content, CreateDate, CreateBy,UpdateDate,"
-                        + "UpdateBy, Status from Notification ";
+                String sql = "use Hospital_Portal\n" +
+"Select NotificationId, NotificationName, Content, CreateDate, CreateBy,UpdateDate,\n" +
+"UpdateBy, n.Status, u.UserName from Notification n, [User] u  where n.CreateBy=u.UserId ORDER BY CreateDate";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -61,7 +62,8 @@ public class NotificationDAO implements Serializable {
                     Integer updateBy = rs.getInt("UpdateBy");
                     String updateDate = rs.getString("UpdateDate");
                     Integer status = rs.getInt("Status");
-                    Notification notification = new Notification(id, notificationName, content, createDate, updateDate, status , createBy,  updateBy);
+                    String createName= rs.getString("UserName");
+                    Notification notification = new Notification(id, notificationName, content, createDate, updateDate, status , createBy,createName,  updateBy);
                     listNotifications.add(notification);
                 }
             }
@@ -150,6 +152,38 @@ public Notification getNotificationById(int id) {
             closeConnection();
         }
         return notify;
+    }
+ public List<Notification> getActivateNotifications() {
+
+        List<Notification> listNotifications = new ArrayList<>();
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "Select NotificationId, NotificationName, Content, CreateDate, CreateBy,UpdateDate,\n" +
+"UpdateBy, n.Status, u.UserName from Notification n, [User] u \n" +
+" where n.CreateBy=u.UserId and n.Status=1 ORDER BY UpdateDate DESC";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    Integer id = rs.getInt("NotificationId");
+                    String notificationName = rs.getString("NotificationName");
+                    String content = rs.getString("Content");
+                    String createDate = rs.getString("CreateDate");
+                    Integer createBy = rs.getInt("CreateBy");
+                    Integer updateBy = rs.getInt("UpdateBy");
+                    String updateDate = rs.getString("UpdateDate");
+                    Integer status = rs.getInt("Status");
+                    String createName= rs.getString("UserName");
+                    Notification notification = new Notification(id, notificationName, content, createDate, updateDate, status , createBy,createName,  updateBy);
+                    listNotifications.add(notification);
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(NotificationDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeConnection();
+        }
+        return listNotifications;
     }
 
 }

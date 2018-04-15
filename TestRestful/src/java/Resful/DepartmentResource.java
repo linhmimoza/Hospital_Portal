@@ -89,4 +89,12 @@ public class DepartmentResource {
     @Consumes(MediaType.TEXT_PLAIN)
     public void putText(String content) {
     }
+    @Path("/getAllDepartment")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Department> getAllDepartment() throws SQLException, ClassNotFoundException {
+   DepartmentDAO dao = new DepartmentDAO();
+            List<Department> listDepartment = dao.getAllDepartments();        
+            return listDepartment;
+    }
 }

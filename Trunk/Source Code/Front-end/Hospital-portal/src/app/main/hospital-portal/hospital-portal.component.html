@@ -1,1 +1,64 @@
-<div>Never give up</div>
+<section class="panel">
+    <div class="panel-body">
+        <div class="col-md-12" style="padding: 0">
+            <img src="assets/img/bv.jpg" style="width: 100%; height: 350px;" />
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <p style="text-align: center;">
+                    <font size="24" color="#0a87d2">Welcome to Hospital portal</font>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="panel">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+        </div>
+        <h2 class="panel-title">Notification</h2>
+    </header>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-4">
+                <label class="col-sm-3 control-label">
+                    <h5>
+                        <strong>Search: </strong>
+                    </h5>
+                </label>
+                <div class="col-sm-9">
+                    <div class="mb-md">
+                        <input type="text" [(ngModel)]="term" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="pricing-table" *ngFor="let notification of notifications | filter:term | paginate: { itemsPerPage: 2, currentPage: p }">
+                <div class="col-lg-6 col-sm-12">
+                    <div class="plan">
+                        <h3><b>Upload date: </b> {{notification.updateDate | date:'dd/MM/yyyy'}}
+                        </h3>
+                        <ul>
+                            <li>
+                               <h4>{{notification.notificationName}} </h4> 
+                            </li>
+                        </ul>
+                        <a class="btn btn-lg btn-primary" href="#">View content</a>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-8" style="padding-top: 20px;">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

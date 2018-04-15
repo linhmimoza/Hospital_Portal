@@ -26,52 +26,36 @@ import javax.persistence.TemporalType;
  *
  * @author Admin
  */
-@Entity
-@Table(name = "Meeting")
-@NamedQueries({
-    @NamedQuery(name = "Meeting.findAll", query = "SELECT m FROM Meeting m")})
+
 public class Meeting implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "MeetingId")
+
     private Integer meetingId;
-    @Basic(optional = false)
-    @Column(name = "MeetingName")
+
     private String meetingName;
-    @Basic(optional = false)
-    @Column(name = "StartTime")
-    @Temporal(TemporalType.TIMESTAMP)
+
     private String startTime;
     private String duration;
     private String date;
-    @Column(name = "Content")
+
     private String content;
-    @Column(name = "Note")
+
     private String note;
-    @Basic(optional = false)
-    @Column(name = "CreateDate")
-    @Temporal(TemporalType.TIMESTAMP)
+ 
     private Date createDate;
-    @Column(name = "UpdateDate")
-    @Temporal(TemporalType.TIMESTAMP)
+
     private Date updateDate;
-    @Basic(optional = false)
-    @Column(name = "Status")
+
     private int status;
     
-    @Basic(optional = false)
-    @Column(name = "RoomId")
+
     private Integer roomId;
      private String roomName;
-    @Basic(optional = false)
-    @Column(name = "CreateBy")
+
     private Integer createBy;
     
-    @Basic(optional = false)
-    @Column(name = "UpdateBy")
+
     private Integer updateBy;
     
     public Meeting() {

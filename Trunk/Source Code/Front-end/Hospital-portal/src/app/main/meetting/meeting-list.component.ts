@@ -27,8 +27,7 @@ export class MeetingListComponent {
 
     ngOnInit() {
         this.roleCookie = +this.cookieService.get("Auth-RoleId");
-        if (this.roleCookie == 2 || this.roleCookie == 3 || this.roleCookie == 5 || this.roleCookie == 1 ||
-            this.roleCookie == 4 || this.roleCookie == 6) {
+        if (this.roleCookie == 1 || this.roleCookie == 2 || this.roleCookie == 3 || this.roleCookie == 4) {
             this.fromDate = this.toDay.toUTCString;
             this.loadFuture();
             this.loadPass();
@@ -46,13 +45,13 @@ export class MeetingListComponent {
         // this.loadScrip();
     }
     // loadScrip() {
-        // $.getScript('assets/porto/javascripts/theme.init.js', function () {
-        //     $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
-        //         $.getScript('assets/porto/javascripts/ui-elements/examples.modals.js', function () {
+    // $.getScript('assets/porto/javascripts/theme.init.js', function () {
+    //     $.getScript('assets/porto/javascripts/theme.admin.extension.js', function () {
+    //         $.getScript('assets/porto/javascripts/ui-elements/examples.modals.js', function () {
 
-        //         });
-        //     });
-        // });
+    //         });
+    //     });
+    // });
     // }
     loadFuture() {
         // this.loadScrip();

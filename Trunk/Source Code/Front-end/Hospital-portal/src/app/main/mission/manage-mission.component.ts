@@ -29,9 +29,9 @@ export class ManageMissionComponent {
 
     ngOnInit() {
         this.roleCookie = +this.cookieService.get("Auth-RoleId");
-        if (this.roleCookie == 2 || this.roleCookie == 3 || this.roleCookie == 5) {
+        if (this.roleCookie === 2) {
             // this.loadingService.start();
-          this.reload();
+            this.reload();
 
         } else if (isNaN(this.roleCookie)) {
             alert('You don\'t have permission to view this page!');
@@ -42,7 +42,7 @@ export class ManageMissionComponent {
         }
     }
 
-reload() {
+    reload() {
         this.missionService.getWaitingMissions().then((res: Mission[]) => {
             this.waitingMissions = res;
         }).catch(err => {
@@ -53,9 +53,9 @@ reload() {
         }).catch(err => {
             alert(err);
         });
-        
 
-}
+
+    }
     ngAfterViewInit() {
 
     }
@@ -72,6 +72,7 @@ reload() {
         }
         this.missionService.updateMission(mission).then(() => {
             this.notificationService.success('Success');
+            this.missionService.activateMission(mission);
             this.reload();
         });
     }
@@ -88,6 +89,7 @@ reload() {
         mission.status = 2;
         this.missionService.updateMission(mission).then(() => {
             this.notificationService.success('Success');
+            this.missionService.activateMission(mission);
             this.reload();
         });
     }

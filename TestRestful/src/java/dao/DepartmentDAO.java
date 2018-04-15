@@ -50,7 +50,7 @@ public class DepartmentDAO implements Serializable {
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
-                String sql = "Select DepartmentId, DepartmentName, Description, Status, Code from Department";
+                String sql = "Select DepartmentId, DepartmentName, Description, Status, Code from Department where Status=1";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -231,4 +231,33 @@ public class DepartmentDAO implements Serializable {
         }
         return result;
     }
+      public List<Department> getAllDepartments()  {
+     
+        List<Department> listDepartments = new ArrayList<>();
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "Select DepartmentId, DepartmentName, Description, Status, Code from Department ";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    Integer id = rs.getInt("DepartmentId");
+                    String departmentName = rs.getString("DepartmentName");
+                    String description = rs.getString("Description");
+                    String code = rs.getString("Code");
+                    Integer status = rs.getInt("Status");
+                    UserDAO dao=new UserDAO();
+                    int quantity=dao.getDepartmentQuantity(id);
+                    Department department = new Department(id, departmentName, description, code, status, quantity);           
+                    listDepartments.add(department);
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+       closeConnection();
+        }
+        return listDepartments;
+    }
+    
 }

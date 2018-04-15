@@ -42,7 +42,7 @@ public class Notification implements Serializable {
 
 
     private int createBy;
-
+    private String createName;
 
     private int updateBy;
 
@@ -61,6 +61,18 @@ public class Notification implements Serializable {
         this.updateDate = updateDate;
         this.status = status;
         this.createBy = createBy;
+        this.updateBy = updateBy;
+    }
+
+    public Notification(Integer notificationId, String notificationName, String content, String createDate, String updateDate, int status, int createBy, String createName, int updateBy) {
+        this.notificationId = notificationId;
+        this.notificationName = notificationName;
+        this.content = content;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
+        this.status = status;
+        this.createBy = createBy;
+        this.createName = createName;
         this.updateBy = updateBy;
     }
     
@@ -100,6 +112,14 @@ public class Notification implements Serializable {
 
     public String getUpdateDate() {
         return updateDate;
+    }
+
+    public String getCreateName() {
+        return createName;
+    }
+
+    public void setCreateName(String createName) {
+        this.createName = createName;
     }
 
     public void setUpdateDate(String updateDate) {
