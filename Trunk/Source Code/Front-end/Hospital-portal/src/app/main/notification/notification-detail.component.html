@@ -29,10 +29,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="textareaDefault">Content
+                        <label class="col-md-3 control-label">Content
                             <span class="required">*</span>
                         </label>
                         <div class="col-md-7">
+                            <!-- <div class="col-md-9">
+                                <div class="summernote" data-plugin-summernote data-plugin-options='{ "height": 180, "codemirror": { "theme": "ambiance" } }'>Start typing...</div>
+                            </div> -->
                             <textarea class="form-control" formControlName="content" rows="3" id="textareaDefault"></textarea>
                             <div class="form-control-feedback" *ngIf="content.invalid && (content.dirty || content.touched)" class="alert alert-danger"
                                 style="margin-top: 10px">
@@ -40,7 +43,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <footer class="panel-footer">
                     <div class="row">

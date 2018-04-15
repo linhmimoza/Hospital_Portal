@@ -16,6 +16,15 @@ export class DepartmentService {
             });
         });
     }
+    getAll() {
+        return new Promise((resolve, reject) => {
+            this.apiService.get('getAllDepartment').then(res => {
+                resolve(res.json());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
     getDepartment(id) {
         return new Promise((resolve, reject) => {
             this.apiService.get(`getDepartmentById/${id}`).then(res => {

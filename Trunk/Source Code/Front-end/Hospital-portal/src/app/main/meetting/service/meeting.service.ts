@@ -16,6 +16,15 @@ export class MeetingService {
             });
         });
     }
+    getAllByUser(userId) {
+        return new Promise((resolve, reject) => {
+            this.apiService.get('geAllMeetingByUser/' + userId).then(res => {
+                resolve(res.json());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
     getCheked() {
         return new Promise((resolve, reject) => {
             this.apiService.get('getCheckedMeeting').then(res => {

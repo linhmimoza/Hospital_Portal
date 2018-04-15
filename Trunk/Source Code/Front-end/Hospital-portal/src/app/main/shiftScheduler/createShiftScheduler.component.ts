@@ -45,10 +45,10 @@ export class CreateShiftSchedulerComponent {
 
     ngOnInit() {
         this.roleCookie = +this.cookieService.get("Auth-RoleId");
-        if (this.roleCookie == 2 || this.roleCookie == 3 || this.roleCookie == 5) {
+        if (this.roleCookie == 2 || this.roleCookie == 3) {
             this.loadDepartment();
             this.createMember();
-            
+
         } else if (isNaN(this.roleCookie)) {
             alert("You don't have permission to view this page!");
             this.router.navigate(['/login']);
@@ -68,9 +68,8 @@ export class CreateShiftSchedulerComponent {
     loadUser() {
         this.userService.loadUsersByDept(this.department).then((users: User[]) => {
             this.users = users;
-            console.log(users + 'aa' + this.department);
             this.selectService.userSelect(users, this.dropdownList);
-            // console.log(users);
+            console.log(users);
         });
     }
 
@@ -119,6 +118,7 @@ export class CreateShiftSchedulerComponent {
         this.last = null;
         this.star = null;
         this.end = null;
+        this.dropdownList = [];
         this.shiftSchedulerService.dateFullWeek(this.toDay, this.shiftScheduler);
         this.shiftScheduler.week = this.toDay;
     }
@@ -140,7 +140,6 @@ export class CreateShiftSchedulerComponent {
         }
     }
     validation() {
-        console.log('test');
         this.valid = this.shiftSchedulerService.checkValidateScheduler(this.empNumber, this.toDay, this.department,
             this.shiftScheduler, this.valid);
     }

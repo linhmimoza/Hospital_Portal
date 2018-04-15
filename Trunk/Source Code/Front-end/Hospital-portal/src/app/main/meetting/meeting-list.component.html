@@ -6,7 +6,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
+          <h4 class="modal-title">{{selectMeeting.meetingName}} </h4>
         </div>
         <div class="modal-body">
           <div class="modal-wrapper">
@@ -14,8 +14,8 @@
               <div class="form-group">
                 <h4>
                   <p>
-                    <strong>Time :</strong> {{selectMeeting.startTime}} (
-                    <strong>Duration :</strong> {{selectMeeting.duration}})</p>
+                    <strong>Start Time :</strong> {{selectMeeting.startTime}} (
+                    <strong>End time :</strong> {{selectMeeting.duration}})</p>
                 </h4>
                 <h4>
                   <p>
@@ -135,7 +135,7 @@
           </div>
         </div>
 
-        <button [ngClass]="{'hidden':(futureMeetings.length<(fPage*3))}" class="hidden mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block"
+        <button [ngClass]="{'hidden':(futureMeetings.length<(fPage*3))}" class=" mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block"
           (click)="loadFuture()"> Show more</button>
 
 
@@ -241,7 +241,8 @@
             </ol>
           </div>
         </div>
-        <button type="button" class=" mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block" (click)="loadPass()">Show more</button>
+        <button type="button" [ngClass]="{'hidden':(passMeetings.length<(pPage*3))}"
+        class=" mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block" (click)="loadPass()">Show more</button>
 
       </div>
 

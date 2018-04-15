@@ -11,6 +11,7 @@ import { SelectService } from '../select/service/select.service';
 import { forEach } from '@angular/router/src/utils/collection';
 import { CookieService } from 'ngx-cookie-service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NotificationService } from '../extra/notification.service';
 
 
 @Component({
@@ -33,21 +34,28 @@ export class MissionDetailComponent {
     missions: Mission[] = [];
 
     roleCookie: number;
-
     form: any;
+    responseText: string;
+
     constructor(private route: ActivatedRoute, private router: Router, private missionService: MissionService
         , private userService: UserService, private selectService: SelectService
         , private accountService: AccountService,
-        private cookieService: CookieService) {
+        private cookieService: CookieService,
+        private notificationService: NotificationService) {
 
     }
+
     back() {
-        this.router.navigate(['/main/manage-mission']);
+        if (this.roleCookie === 2) {
+            this.router.navigate(['/main/manage-mission']);
+        } else {
+            this.router.navigate(['/main/manageMission-Scheduler']);
+        }
     }
 
     ngOnInit() {
         this.roleCookie = +this.cookieService.get("Auth-RoleId");
-        if (this.roleCookie == 2 || this.roleCookie == 3 || this.roleCookie == 5) {
+        if (this.roleCookie == 2 || this.roleCookie == 3) {
             this.form = new FormGroup({
                 missionId: new FormControl(''),
                 startDate: new FormControl('', [
@@ -137,21 +145,38 @@ export class MissionDetailComponent {
         this.routerSubcription = this.route.params.subscribe(params => {
             this.id = +params['id']; // (+) converts string 'id' to a number
             if (this.id > 0) {
-                this.missionService.updateMission(this.mission).then(() => {
-                    alert('Save success');
-                    this.router.navigate(['/main/manage-mission']);
+                this.mission.status = 1;
+                this.missionService.updateMission(this.mission).then((res: string) => {
+                    this.responseText = res;
+                    if (this.responseText === "Success") {
+                        this.notificationService.success(this.responseText).then(() => {
+                            if (this.roleCookie === 2) {
+                                this.router.navigate(['/main/manage-mission']);
+                            } else {
+                                this.router.navigate(['/main/manageMission-Scheduler']);
+                            }
+                        });
+                    } else {
+                        this.notificationService.fail(this.responseText);
+                    }
                 }).catch(err => {
                     //  debugger;
                     alert(err);
                 });
             } else {
-
-                this.missionService.createMission(this.mission).then(() => {
-                    console.log(this.mission);
-                    //Server trả về role sau khi save
-                    //Nếu là tạo role mới thì res sẽ có giá trị id mới thay vì 0
-                    alert('Save success');
-                    this.router.navigate(['/main/manage-mission']);
+                this.missionService.createMission(this.mission).then((res: string) => {
+                    this.responseText = res;
+                    if (this.responseText === "Success") {
+                        this.notificationService.success(this.responseText).then(() => {
+                            if (this.roleCookie === 2) {
+                                this.router.navigate(['/main/manage-mission']);
+                            } else {
+                                this.router.navigate(['/main/manageMission-Scheduler']);
+                            }
+                        });
+                    } else {
+                        this.notificationService.fail(this.responseText);
+                    }
                 }).catch(err => {
                     // debugger;
                     alert(err);

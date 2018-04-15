@@ -23,81 +23,48 @@ import javax.persistence.Table;
  *
  * @author Admin
  */
-@Entity
-@Table(name = "User")
-@NamedQueries({
-    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")})
+
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "UserId")
+
     private Integer userId;
-    @Basic(optional = false)
-    @Column(name = "UserName")
+
     private String userName;
-    @Basic(optional = false)
-    @Column(name = "Password")
+
     private String password;
-    @Column(name = "Avatar")
+
     private String avatar;
-    @Basic(optional = false)
-    @Column(name = "Email")
+
     private String email;
-    @Basic(optional = false)
-    @Column(name = "FullName")
+
     private String fullName;
-    @Basic(optional = false)
-    @Column(name = "Sex")
+
     private String sex;
-    @Basic(optional = false)
-    @Column(name = "DayOfBirth")
+
     private String dayOfBirth;
-    @Basic(optional = false)
-    @Column(name = "Phone")
+
     private String phone;
-    @Basic(optional = false)
-    @Column(name = "Position")
+
     private String position;
-    @Column(name = "Address")
+
     private String address;
-    @Column(name = "Certificate")
+
     private String certificate;
-    @Basic(optional = false)
-    @Column(name = "Status")
+
     private int status;
     private int roleId;
     private String roleName;
     private String departmentName;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<ShiftSchedule> shiftScheduleList;
-    @OneToMany(mappedBy = "user1")
-    private List<ShiftSchedule> shiftScheduleList1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<MissionWorker> missionWorkerList;
-    
-    @Basic(optional = false)
-    @Column(name = "DepartmentId")
+
     private Integer departmentId;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Meeting> meetingList;
-    @OneToMany(mappedBy = "user1")
-    private List<Meeting> meetingList1;
 
 
-    private List<Notification> notificationList;
-    @OneToMany(mappedBy = "user1")
-    private List<Notification> notificationList1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Mission> missionList;
-    @OneToMany(mappedBy = "user1")
-    private List<Mission> missionList1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<ShiftWorker> shiftWorkerList;
+
+
+
 
     public User() {
     }
@@ -303,91 +270,11 @@ public class User implements Serializable {
         this.status = status;
     }
 
-    public List<ShiftSchedule> getShiftScheduleList() {
-        return shiftScheduleList;
-    }
-
-    public void setShiftScheduleList(List<ShiftSchedule> shiftScheduleList) {
-        this.shiftScheduleList = shiftScheduleList;
-    }
-
-    public List<ShiftSchedule> getShiftScheduleList1() {
-        return shiftScheduleList1;
-    }
-
-    public void setShiftScheduleList1(List<ShiftSchedule> shiftScheduleList1) {
-        this.shiftScheduleList1 = shiftScheduleList1;
-    }
-
-    public List<MissionWorker> getMissionWorkerList() {
-        return missionWorkerList;
-    }
-
-    public void setMissionWorkerList(List<MissionWorker> missionWorkerList) {
-        this.missionWorkerList = missionWorkerList;
-    }
-
- 
-
-    public List<Meeting> getMeetingList() {
-        return meetingList;
-    }
-
-    public void setMeetingList(List<Meeting> meetingList) {
-        this.meetingList = meetingList;
-    }
-
-    public List<Meeting> getMeetingList1() {
-        return meetingList1;
-    }
-
-    public void setMeetingList1(List<Meeting> meetingList1) {
-        this.meetingList1 = meetingList1;
-    }
-
    
-    public List<Notification> getNotificationList() {
-        return notificationList;
-    }
-
-    public void setNotificationList(List<Notification> notificationList) {
-        this.notificationList = notificationList;
-    }
-
-    public List<Notification> getNotificationList1() {
-        return notificationList1;
-    }
-
-    public void setNotificationList1(List<Notification> notificationList1) {
-        this.notificationList1 = notificationList1;
-    }
 
  
 
-    public List<Mission> getMissionList() {
-        return missionList;
-    }
-
-    public void setMissionList(List<Mission> missionList) {
-        this.missionList = missionList;
-    }
-
-    public List<Mission> getMissionList1() {
-        return missionList1;
-    }
-
-    public void setMissionList1(List<Mission> missionList1) {
-        this.missionList1 = missionList1;
-    }
-
-    public List<ShiftWorker> getShiftWorkerList() {
-        return shiftWorkerList;
-    }
-
-    public void setShiftWorkerList(List<ShiftWorker> shiftWorkerList) {
-        this.shiftWorkerList = shiftWorkerList;
-    }
-
+  
     @Override
     public int hashCode() {
         int hash = 0;

@@ -29,7 +29,7 @@ export class ManageShiftSchedulerComponent {
         private departmentService: DepartmentService, private cookieService: CookieService) { }
     ngOnInit() {
         this.roleCookie = +this.cookieService.get("Auth-RoleId");
-        if ((this.roleCookie >= 2) && (this.roleCookie <= 5)) {
+        if (this.roleCookie == 2 || this.roleCookie == 3) {
             this.loadDepartment();
             this.loadPage();
         } else if (isNaN(this.roleCookie)) {

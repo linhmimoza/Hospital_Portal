@@ -20,8 +20,7 @@ export class MissionListComponent {
 
     ngOnInit() {
         this.roleCookie = +this.cookieService.get("Auth-RoleId");
-        if (this.roleCookie == 2 || this.roleCookie == 3 || this.roleCookie == 5 || this.roleCookie == 1 ||
-            this.roleCookie == 4 || this.roleCookie == 6) {
+        if (this.roleCookie == 1 || this.roleCookie == 2 || this.roleCookie == 3 || this.roleCookie == 4) {
             this.userId = this.accountService.getUserId();
             // this.loadingService.start();
             this.missionService.getByUser(this.userId).then((res: Mission[]) => {

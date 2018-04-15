@@ -43,10 +43,18 @@ public class NotificationResource {
      */
      @Path("/getListNotification")
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces()
     public List<Notification> getListNotification() throws SQLException, ClassNotFoundException {
          NotificationDAO dao = new NotificationDAO();
             List<Notification> listShiftSchedule = dao.getNotifications();         
+            return listShiftSchedule;
+    }
+     @Path("/getActivateNotification")
+    @GET
+    @Produces()
+    public List<Notification> getActivateNotification() throws SQLException, ClassNotFoundException {
+         NotificationDAO dao = new NotificationDAO();
+            List<Notification> listShiftSchedule = dao.getActivateNotifications();         
             return listShiftSchedule;
     }
   @Path("/createNotification")
@@ -73,4 +81,5 @@ public class NotificationResource {
           Notification user = dao.getNotificationById(notificationId);         
             return user;
     }
+    
 }

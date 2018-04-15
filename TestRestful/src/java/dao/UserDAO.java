@@ -392,12 +392,11 @@ public boolean isEmailExited(String email, int id){
         try {
           
             con = DBUtils.DBUtils.makeConnection();
-
             if (con != null) {
                 String sql = "Select UserId, UserName, Avatar, Email, FullName, Sex, DayOfBirth,u.RoleId, r.RoleName\n" +
 ",u.DepartmentId,d.DepartmentName, Phone, Position, Address, Certificate, u.Status from [User] u,\n" +
 " Role r,Department d where  r.RoleId=u.RoleId and u.DepartmentId=d.DepartmentId \n" +
-" and u.RoleId>1 and u.DepartmentId="+depId;
+" and u.RoleId>1 and u.Status=1 and u.DepartmentId="+depId;
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {

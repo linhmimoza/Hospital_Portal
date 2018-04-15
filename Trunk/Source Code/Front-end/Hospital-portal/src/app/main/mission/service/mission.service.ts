@@ -43,6 +43,15 @@ export class MissionService {
             });
         });
     }
+    getAllByUser(userId) {
+        return new Promise((resolve, reject) => {
+            this.apiService.get('geAllMissionByUser/' + userId).then(res => {
+                resolve(res.json());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
     getMission(id) {
         return new Promise((resolve, reject) => {
             this.apiService.get(`getMissionById/${id}`).then(res => {
@@ -56,17 +65,25 @@ export class MissionService {
     updateMission(mission: Mission) {
         return new Promise((resolve, reject) => {
             this.apiService.post('updateMission', mission).then(res => {
-                resolve();
+                resolve(res.text());
             }).catch(err => {
                 reject(err);
             });
         });
     }
-
-    createMission(mission: Mission){
+    activateMission(mission: Mission) {
+        return new Promise((resolve, reject) => {
+            this.apiService.post('activateMission', mission).then(res => {
+                resolve(res.text());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
+    createMission(mission: Mission) {
         return new Promise((resolve, reject) => {
             this.apiService.post('createMission', mission).then(res => {
-                resolve();
+                resolve(res.text());
             }).catch(err => {
                 reject(err);
             });

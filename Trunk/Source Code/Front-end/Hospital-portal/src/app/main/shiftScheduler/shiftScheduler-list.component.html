@@ -10,7 +10,7 @@
       <div class="form-group">
           
           <div class="col-sm-6  ">
-              <select class="form-control"  [(ngModel)]="department" >
+              <select class="form-control"  [(ngModel)]="department" (change)="search(toDate,department)" >
                   <option *ngFor="let dept of departments" [ngValue]="dept.departmentId">{{dept.departmentName}}</option>
               </select>
           </div>
@@ -19,12 +19,10 @@
                      <span class="input-group-addon">
                 <i class="fa fa-calendar"></i>
               </span>
-              <input type="week"  class="form-control"  [(ngModel)]="toDate" (change)="to()">
+              <input type="week"  class="form-control"  [(ngModel)]="toDate" (change)="search(toDate,department)">
                </div>             
           </div>
-          <div class="col-sm-6  ">    
-          <button type="button" class="btn btn-default" style="margin: 2px" (click)="search(toDate,department) ">View</button>
-         </div>
+      
         </div>
         <h1>  {{(shiftScheduler.shiftDayList==null)? 'This schedule is empty please select other schedule':''}}</h1>
       <div class="table-responsive">

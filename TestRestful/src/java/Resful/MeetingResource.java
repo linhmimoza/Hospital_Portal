@@ -111,4 +111,12 @@ public class MeetingResource {
      MeetingDAO dao=new MeetingDAO();   
     return dao.updateMeeting(meeting);
    }
+   @Path("/geAllMeetingByUser/{userId}")
+    @GET
+    @Produces()
+    public List<Meeting> geAllMeetingByUser(@PathParam("userId") int userId) throws SQLException, ClassNotFoundException {
+    MeetingDAO dao = new MeetingDAO();
+            List<Meeting> listMission = dao.getAllMeetingsByUser(userId);
+            return listMission;
+    }
 }
