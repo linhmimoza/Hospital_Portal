@@ -4,6 +4,7 @@ import { ApiService } from '../api.service';
 
 const DOWNLOAD_LINK = 'http://localhost:8080/TestRestful/webresources/DownloadFile/DownloadFile?Id=';
 const SERVER = 'http://localhost:8080/TestRestful/webresources/';
+const GENERIC_HOST = 'http://localhost:8080/TestRestful/webresources/generic/';
 const headers = new Headers({ 'Content-Type': 'application/json' });
 const OPTIONS = new RequestOptions({ headers });
 const REQUEST_RESULTS = {
@@ -26,4 +27,4 @@ const ROLES = {
     SchedulerPoster: 5
 };
 
-export { DOWNLOAD_LINK, SERVER, OPTIONS, REQUEST_RESULTS, STATUS, ROLE_ID, ROLES };
+export { DOWNLOAD_LINK, SERVER, OPTIONS, REQUEST_RESULTS, STATUS, ROLE_ID, ROLES, GENERIC_HOST };

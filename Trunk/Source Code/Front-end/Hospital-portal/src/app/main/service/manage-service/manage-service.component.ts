@@ -18,6 +18,7 @@ const UPDATE = 'UPDATE';
 })
 export class ManageServiceComponent implements OnInit {
   public data: any;
+  public deptName: String;
   public departmentList: any[];
   public command: any;
   public form: FormGroup;
@@ -48,8 +49,8 @@ export class ManageServiceComponent implements OnInit {
           departmentId: deptId
         });
       }
+      this.getDepartment(deptId || serviceId);
     });
-    // this.getDepartment();
   }
 
   initForm() {
@@ -76,6 +77,14 @@ export class ManageServiceComponent implements OnInit {
 
   setDepartment(departmentId) {
     this.form.patchValue({ departmentId });
+  }
+
+  getDepartment(id) {
+    this._serviceSrv.getDepartment(id).subscribe(res => {
+      if (res) {
+        this.deptName = res.departmentName;
+      }
+    });
   }
 
   save() {

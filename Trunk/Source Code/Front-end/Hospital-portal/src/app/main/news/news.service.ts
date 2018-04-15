@@ -58,5 +58,4 @@ export class AdminNewsService {
     uploadFile(data): Observable<any> {
         return this._http.post(`${SERVER}UploadFile/upload`, data).map(res => res);
     }
-
 }

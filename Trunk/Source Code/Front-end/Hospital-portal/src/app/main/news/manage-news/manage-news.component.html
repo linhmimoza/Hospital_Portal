@@ -17,17 +17,15 @@
           </header>
           <div class="panel-body">
             <form [formGroup]="form" class="form-horizontal form-bordered">
-              <!-- <div class="form-group" *ngIf="command === 'CREATE'">
-                <label class="col-md-3 control-label" for="inputDefault">Category
-                  <span class="required">*</span>
+              <div class="form-group" *ngIf="catName">
+                <label class="col-md-3 control-label" for="inputDefault">Category name
                 </label>
-                <div class="col-md-6" >
-                  <select class="form-control input-lg mb-md " name="categoryId" formControlName="categoryId" *ngIf=" categoryList?.length" (change)="setCategoryId($event.target.value)">
-                    <option value="" selected>Please select</option>
-                    <option *ngFor="let option of categoryList" value="{{option.categoryId}}">{{option.categoryName}}</option>
-                  </select>
+                <div class="col-md-6">
+                  <label class="col-md-9 control-label" style="text-align: left;" for="inputDefault" >{{catName}}
+                  </label>
                 </div>
-              </div> -->
+  
+              </div>
               <div class="form-group">
                 <label class="col-md-3 control-label" for="inputDefault">Title
                   <span class="required">*</span>

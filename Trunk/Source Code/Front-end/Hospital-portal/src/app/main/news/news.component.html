@@ -14,7 +14,7 @@
           <div class="row">
             <div class="col-sm-6">
               <div class="mb-md">
-                <button class="btn btn-primary" *ngIf="categoryId" [routerLink]="['/main/manage-news/add/', categoryId]">Add
+                <button class="btn btn-primary" *ngIf="categoryId" [routerLink]="['/main/manage-news', categoryId]">Add
                   <i class="fa fa-plus"></i>
                 </button>
               </div>
@@ -101,7 +101,7 @@
                     </td>
                     <td class="text-center">
 
-                      <a [routerLink]="['/main/manage-news', item.articleId]">
+                      <a *ngIf="categoryId" [routerLink]="['/main/manage-news', item.articleId, categoryId]">
                         <i class="fa fa-pencil"></i>
                       </a>
 

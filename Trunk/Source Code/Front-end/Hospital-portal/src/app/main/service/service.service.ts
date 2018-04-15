@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { ApiService } from '../../../app/api.service';
-import { SERVER, OPTIONS } from '../../constant/commonConstant';
+import { SERVER, OPTIONS, GENERIC_HOST } from '../../constant/commonConstant';
 
 @Injectable()
 export class ServicesService {
@@ -38,13 +38,8 @@ export class ServicesService {
     detail(id): Observable<any> {
         return this._http.get(`${SERVER}service/getListServiceById?ServiceId=${id}`, OPTIONS).map(res => res.json());
     }
+
     getDepartment(id) {
-        return new Promise((resolve, reject) => {
-            this.apiService.get(`getDepartmentById/${id}`).then(res => {
-                resolve(res.json());
-            }).catch(err => {
-                reject(err);
-            });
-        });
+        return this._http.get(`${GENERIC_HOST}getDepartmentById/${id}`).map(res => res.json());
     }
 }

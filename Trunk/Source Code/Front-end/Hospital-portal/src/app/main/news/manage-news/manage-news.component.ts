@@ -12,6 +12,7 @@ import { HomeService } from '../../../home/home.service';
 import { ROLES, ROLE_ID } from '../../../constant/commonConstant';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NotificationService } from '../../extra/notification.service';
+import { CategoryService } from '../../managecategory/managecategory.service';
 
 const CREATE = 'CREATE';
 const UPDATE = 'UPDATE';
@@ -20,7 +21,7 @@ const UPDATE = 'UPDATE';
   selector: 'app-manage-news',
   templateUrl: './manage-news.component.html',
   styleUrls: ['./manage-news.component.css'],
-  providers: [AdminNewsService, HomeService]
+  providers: [AdminNewsService, HomeService, CategoryService]
 })
 export class ManageNewsComponent implements OnInit {
   public news: any;
@@ -31,9 +32,11 @@ export class ManageNewsComponent implements OnInit {
   private userId: any;
   private roleId: any;
   private filename: string;
+  private catName: string;
 
   constructor(private _newsSrv: AdminNewsService
     , private activatedRoute: ActivatedRoute
+    , private _catSrv: CategoryService
     , private _homeSrv: HomeService
     , private _router: Router
     , private _cookieSrv: CookieService
@@ -50,7 +53,7 @@ export class ManageNewsComponent implements OnInit {
       this.activatedRoute.params.subscribe((params: Params) => {
         const newsId = params['id'];
         const catId = params['catid'];
-        if (newsId && !catId) {
+        if (newsId && catId) {
           this.command = UPDATE;
           this.initForm();
           this._newsSrv.getDetail(newsId).subscribe(([res]) => {
@@ -63,8 +66,10 @@ export class ManageNewsComponent implements OnInit {
             categoryId: catId
           });
         }
+        this._catSrv.detail(catId || newsId).subscribe(([res]) => {
+          this.catName = res.categoryName;
+        });
       });
-      // this._homeSrv.getCategoryList().subscribe(res => this.categoryList = res);
     } else {
       this.notificationService.fail('Access denied!');
       setTimeout(() => this._router.navigate(['/main']), 3000);

@@ -85,7 +85,7 @@
                     <!-- <a [routerLink]="['/main/manage-service', item.serviceId]">
                       <i class="fa fa-pencil" style="display: inline-block"></i>
                     </a> -->
-                    <a [routerLink]="['/main/manage-service', item.serviceId]">
+                    <a *ngIf="deptId" [routerLink]="['/main/manage-service', item.serviceId, deptId]">
                         <i style="cursor:pointer" class="fa fa-pencil-square-o"></i>
                     </a>
                   </td>
