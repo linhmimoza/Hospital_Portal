@@ -4,7 +4,6 @@ import { Params } from '@angular/router/src/shared';
 
 import { MedicalService } from './../../../home/medical/medical.service';
 import { ServicesService } from '../service.service';
-import { REQUEST_RESULTS } from '../../../constant/commonConstant';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NotificationService } from '../../extra/notification.service';
 
@@ -71,7 +70,7 @@ export class ManageServiceComponent implements OnInit {
       serviceId: data.serviceId,
       serviceName: data.serviceName,
       description: data.description,
-      departmentId: data.departmentId
+      departmentId: data.departmentId,
     });
   }
 

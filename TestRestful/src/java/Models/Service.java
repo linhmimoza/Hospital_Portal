@@ -16,6 +16,8 @@ public class Service {
     public Service() {
     }
 
+    
+
     public Service(int serviceId, int departmentId, String serviceName, String description) {
         this.serviceId = serviceId;
         this.departmentId = departmentId;
@@ -38,6 +40,8 @@ public class Service {
     public void setStatus(int status) {
         this.status = status;
     }
+
+    
 
    
     

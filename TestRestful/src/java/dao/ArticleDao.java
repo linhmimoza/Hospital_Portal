@@ -162,7 +162,7 @@ public class ArticleDao {
         return listArticle;
     }
 
-    public List<Article> getListArticleByTitle(String Title) throws SQLException, ClassNotFoundException {
+    public List<Article> getListArticleByTitle(String Title,int CategoryId) throws SQLException, ClassNotFoundException {
         List<Article> listArticle = new ArrayList<>();
         try {
             con = DBUtils.makeConnection();
@@ -171,7 +171,7 @@ public class ArticleDao {
                         + "from Article a\n"
                         + "left outer join [User] u on u.UserId = a.UploadBy\n"
                         + "left outer join [User] u1 on u1.UserId = a.UpdateBy \n"
-                        + "where Title like '%" + Title + "%'";
+                        + "where Title like '%" + Title + "%' and CategoryId="+ CategoryId +"";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -237,10 +237,35 @@ public class ArticleDao {
         }
         return listArticle;
     }
+    
+        public boolean isTitleExited(String title) {
+        boolean result = false;
+        try {
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "select ArticleId from Article where  Title='" + title + "'";
+                stm = con.prepareStatement(sql);
+                System.out.println(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    result = true;
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            ex.printStackTrace();
+
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
 
     public String createArticle(Article article) throws SQLException, ClassNotFoundException, ParseException {
 
         String result = "Success";
+        if (isTitleExited(article.getTitle()) == true) {
+            result = "Existed";
+        } else {
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
@@ -269,7 +294,7 @@ public class ArticleDao {
             result = "Failed";
         } finally {
             closeConnection();
-        }
+        }}
         return result;
     }
 

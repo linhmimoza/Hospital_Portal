@@ -134,7 +134,7 @@ public class TimeResource {
     @Produces()
     public String createDate(
             @QueryParam("dateto") String dateto,
-            @QueryParam("limit") int limit) throws SQLException, ParseException {
+            @QueryParam("limit") int limit) throws SQLException, ParseException, ClassNotFoundException {
         TimeDao dao = new TimeDao();
         return dao.createDate(dateto, limit);
     }

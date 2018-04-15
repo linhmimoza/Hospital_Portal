@@ -45,9 +45,9 @@ public class MedicalBookingDao {
     public String createMedicalBooking(MedicalBooking mb) throws SQLException {
 
         String result = "Success";
-        if (isIdentityExited(mb.getGuestIdentity()) == true) {
-            result = "Existed";
-        } else {
+//        if (isIdentityExited(mb.getGuestIdentity()) == true) {
+//            result = "Existed";
+//        } else {
             try {
                 con = DBUtils.makeConnection();
                 if (con != null) {
@@ -71,7 +71,7 @@ public class MedicalBookingDao {
             } finally {
                 closeConnection();
             }
-        }
+//        }
         return result;
     }
 
@@ -193,27 +193,27 @@ public class MedicalBookingDao {
         return listMb;
     }
 
-    public boolean isIdentityExited(String Identity) {
-        boolean result = false;
-        try {
-            con = DBUtils.makeConnection();
-            if (con != null) {
-                String sql = "select BookingId from MedicalBooking where  GuestIdentity='" + Identity + "'";
-                stm = con.prepareStatement(sql);
-                System.out.println(sql);
-                rs = stm.executeQuery();
-                while (rs.next()) {
-                    result = true;
-                }
-            }
-        } catch (ClassNotFoundException | SQLException ex) {
-            ex.printStackTrace();
-
-        } finally {
-            closeConnection();
-        }
-        return result;
-    }
+//    public boolean isIdentityExited(String Identity) {
+//        boolean result = false;
+//        try {
+//            con = DBUtils.makeConnection();
+//            if (con != null) {
+//                String sql = "select BookingId from MedicalBooking where  GuestIdentity='" + Identity + "'";
+//                stm = con.prepareStatement(sql);
+//                System.out.println(sql);
+//                rs = stm.executeQuery();
+//                while (rs.next()) {
+//                    result = true;
+//                }
+//            }
+//        } catch (ClassNotFoundException | SQLException ex) {
+//            ex.printStackTrace();
+//
+//        } finally {
+//            closeConnection();
+//        }
+//        return result;
+//    }
 
     public String createBookingNumber(int BookingId, String date) throws SQLException {
         String result = "Success";

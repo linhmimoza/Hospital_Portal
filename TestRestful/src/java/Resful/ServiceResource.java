@@ -77,9 +77,10 @@ public class ServiceResource {
     @Path("/getListServiceByName")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Service> getListSServiceByName( @QueryParam("ServiceName") String ServiceName) throws SQLException, ClassNotFoundException {
+    public List<Service> getListSServiceByName( @QueryParam("ServiceName") String ServiceName,
+        @QueryParam("DepartmentId") int DepartmentId) throws SQLException, ClassNotFoundException {
             ServiceDao dao = new ServiceDao();
-            List<Service> listService = dao.getListServiceByName(ServiceName);        
+            List<Service> listService = dao.getListServiceByName(ServiceName,DepartmentId);        
             return listService;
     }
     @Path("/createService")

@@ -11,7 +11,7 @@ package Models;
  */
 public class Article {
     int articleId,categoryId,uploadBy,updateBy,status;
-    String title,uploadDate,updateDate,link,describe,uploadByName,updateByName,oldName;
+    String title,uploadDate,updateDate,link,describe,uploadByName,updateByName,oldName,categoryName;
 
     public Article() {
     }
@@ -27,6 +27,23 @@ public class Article {
         this.updateDate = updateDate;
         this.link = link;
         this.describe = describe;
+    }
+    
+    public Article(int articleId, int categoryId, int uploadBy, int updateBy, int status, String title, String uploadDate, String updateDate, String link, String describe, String uploadByName, String updateByName, String oldName, String categoryName) {
+        this.articleId = articleId;
+        this.categoryId = categoryId;
+        this.uploadBy = uploadBy;
+        this.updateBy = updateBy;
+        this.status = status;
+        this.title = title;
+        this.uploadDate = uploadDate;
+        this.updateDate = updateDate;
+        this.link = link;
+        this.describe = describe;
+        this.uploadByName = uploadByName;
+        this.updateByName = updateByName;
+        this.oldName = oldName;
+        this.categoryName = categoryName;
     }
 
     public Article(int articleId, int categoryId, int uploadBy, int updateBy, int status, String title, String uploadDate, String updateDate, String link, String describe, String uploadByName, String updateByName, String oldName) {
@@ -59,6 +76,15 @@ public class Article {
         this.uploadByName = uploadByName;
         this.updateByName = updateByName;
     }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+    
 
     public String getOldName() {
         return oldName;

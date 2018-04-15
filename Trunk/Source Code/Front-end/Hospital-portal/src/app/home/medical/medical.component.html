@@ -113,6 +113,7 @@
                     <input type="text" formControlName="guestName" class="form-control" required />
                     <div class="form-group" *ngIf="guestName.invalid && (guestName.dirty || guestName.touched)" class="alert alert-danger" style="margin-top: 10px">
                       <strong *ngIf="guestName.errors.required">Name is required.</strong>
+                      <strong *ngIf="guestName.errors.minlength">Name is not less than 4 characters.</strong>
                     </div>
                   </div>
                 </div>
@@ -125,6 +126,7 @@
                     <div class="form-group" *ngIf="guestIdentity.invalid && (guestIdentity.dirty || guestIdentity.touched)" class="alert alert-danger"
                       style="margin-top: 10px">
                       <strong *ngIf="guestIdentity.errors.required">Identity is required.</strong>
+                      <strong *ngIf="guestIdentity.errors.pattern">Identity is not valid.</strong>
                     </div>
                   </div>
                 </div>
@@ -137,6 +139,7 @@
                     <div class="form-group" *ngIf="guestPhone.invalid && (guestPhone.dirty || guestPhone.touched)" class="alert alert-danger"
                       style="margin-top: 10px">
                       <strong *ngIf="guestPhone.errors.required">Phone is required.</strong>
+                      <strong *ngIf="guestPhone.errors.pattern">Phone is not valid.</strong>
                     </div>
                   </div>
                 </div>
@@ -149,6 +152,7 @@
                     <div class="form-group" *ngIf="guestEmail.invalid && (guestEmail.dirty || guestEmail.touched)" class="alert alert-danger"
                       style="margin-top: 10px">
                       <strong *ngIf="guestEmail.errors.required">Email is required.</strong>
+                      <strong *ngIf="guestEmail.errors.email">Email is not valid.</strong>
                     </div>
                   </div>
                 </div>

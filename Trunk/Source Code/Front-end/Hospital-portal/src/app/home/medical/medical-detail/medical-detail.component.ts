@@ -12,8 +12,7 @@ export class MedicalDetailComponent implements OnInit {
   public identity: String;
   public guest: any;
   constructor(private _medicalSrv: MedicalService) {
-    this.guest = {};
-   }
+  }
 
   ngOnInit() {
 
@@ -21,8 +20,13 @@ export class MedicalDetailComponent implements OnInit {
 
   submitIdentity() {
     this._medicalSrv.getMedicalIdentity(this.identity).subscribe(([res]) => {
-      console.log(res);
-      this.guest = res;
+      if (res) {
+        $('#searchRes').hide();
+        this.guest = res;
+      } else {
+        this.guest = null;
+        $('#searchRes').show();
+      }
     });
   }
 }

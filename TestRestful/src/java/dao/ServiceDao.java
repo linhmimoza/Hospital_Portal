@@ -96,7 +96,7 @@ public class ServiceDao {
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
-                String sql = "Select DepartmentId, ServiceName, Description from Service where ServiceId=?";
+                String sql = "Select s.DepartmentId, s.ServiceName, s.Description, d.DepartmentName from Service s, Department d where s.ServiceId=? and s.DepartmentId=d.DepartmentId";
                 stm = con.prepareStatement(sql);
                 stm.setInt(1, ServiceId);
                 rs = stm.executeQuery();
@@ -116,12 +116,12 @@ public class ServiceDao {
         return listService;
     }
 
-    public List<Service> getListServiceByName(String ServiceName) throws SQLException, ClassNotFoundException {
+    public List<Service> getListServiceByName(String ServiceName, int DepartmentId) throws SQLException, ClassNotFoundException {
         List<Service> listService = new ArrayList<>();
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
-                String sql = "Select DepartmentId, ServiceId, Description, Status, ServiceName from Service where ServiceName like '%" + ServiceName + "%'";
+                String sql = "Select DepartmentId, ServiceId, Description, Status, ServiceName from Service where ServiceName like '%" + ServiceName + "%' and DepartmentId="+ DepartmentId +"";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {

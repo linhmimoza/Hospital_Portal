@@ -1,7 +1,9 @@
+import { Router } from '@angular/router';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as moment from 'moment';
 
 import { HomeService } from './home.service';
+import { CookieService } from 'ngx-cookie-service';
 declare var $: any;
 // "./assets/javascripts/theme.init.js"
 @Component({
@@ -14,15 +16,19 @@ export class HomeComponent implements OnInit, AfterViewInit {
   public categoryList: any[];
   public introduceList: any[];
   public data: any;
+  public user: any;
 
-  constructor(private _homeSrv: HomeService) {
+  constructor(private _homeSrv: HomeService, private cookieService: CookieService, private router: Router) {
     this.data = {};
   }
 
   ngOnInit() {
     this.getCategory();
     this.getIntroduceList();
-
+    this.user = {
+      roleId: this.cookieService.get('Auth-RoleId'),
+      name: this.cookieService.get('Auth-Username')
+    };
     setInterval(() => {
       const now = moment().utc().hour();
       if (now === 0) { this._homeSrv.resetBookingNumber().subscribe(res => console.log('reseted')); }
@@ -67,5 +73,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
       sidebarLeft.scrollTop = parseInt(initialPosition, 10);
     }
+  }
+
+  logout() {
+    this.cookieService.deleteAll();
+    this.router.navigate(['/login']);
   }
 }

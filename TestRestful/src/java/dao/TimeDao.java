@@ -75,7 +75,7 @@ public class TimeDao {
         }
         return listTime;
     }
-    
+
     public List<Time> getFirstAndLastDate() throws SQLException, ClassNotFoundException, ParseException {
         List<Time> listTime = new ArrayList<>();
         try {
@@ -88,7 +88,7 @@ public class TimeDao {
                 SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String outputText = outputFormat.format(dateparse);
                 String sql = "SELECT top 1 Date FROM Time\n"
-                    + "order by Date desc";
+                        + "order by Date desc";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -126,9 +126,9 @@ public class TimeDao {
         }
         return listTime;
     }
-    
+
     public int checkDateAvailable(String date) throws SQLException, ClassNotFoundException {
-        int id=-1;
+        int id = -1;
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
@@ -140,10 +140,9 @@ public class TimeDao {
                     id = rs.getInt("TimeId");
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             closeConnection();
         }
         return id;
@@ -221,7 +220,7 @@ public class TimeDao {
         return result;
     }
 
-    public String createDate(String dateto, int limit) throws SQLException, ParseException {
+    public String createDate(String dateto, int limit) throws SQLException, ParseException, ClassNotFoundException {
         String topdate = "";
         String result = "Success";
         try {
@@ -232,9 +231,14 @@ public class TimeDao {
             rs = stm.executeQuery();
             if (rs.next()) {
                 topdate = rs.getString("Date");
+            } else {
+                DateFormat inputFormat = new SimpleDateFormat("yyyy/MM/dd");
+                TimeEditor time = new TimeEditor();
+                String now = time.getDate();
+                Date dateparse = inputFormat.parse(now);
+                SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+                topdate = outputFormat.format(dateparse);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         } finally {
             closeConnection();
         }
@@ -251,10 +255,10 @@ public class TimeDao {
                     date = c.getTime();
                     SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
                     String outputText = outputFormat.format(date);
-                    String sql = "IF '"+ outputText +"'<='"+ dateto +"'\n"
+                    String sql = "IF '" + outputText + "'<='" + dateto + "'\n"
                             + "Begin\n"
                             + "Insert into [Time]([Date],Amount,Available,Limit)\n"
-                            + "values('"+ outputText +"',0,1,"+ limit +")\n"
+                            + "values('" + outputText + "',0,1," + limit + ")\n"
                             + "End";
                     stm = con.prepareStatement(sql);
                     success = stm.executeUpdate();

@@ -20,6 +20,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * REST Web Service
@@ -89,27 +90,37 @@ public class ArticleResource {
     @Path("/getListArticleByTitle")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Article> getListArticleByTitle(@QueryParam("Title") String Title) throws SQLException, ClassNotFoundException {
+    public List<Article> getListArticleByTitle(@QueryParam("Title") String Title,@QueryParam("CategoryId") int CategoryId) throws SQLException, ClassNotFoundException {
         ArticleDao dao = new ArticleDao();
-        List<Article> listArticle = dao.getListArticleByTitle(Title);
+        List<Article> listArticle = dao.getListArticleByTitle(Title,CategoryId);
         return listArticle;
     }
 
     @Path("/createArticle")
     @POST
     @Produces()
-    public String createArticle(Article article) throws SQLException, ClassNotFoundException, ParseException {
+    public Response createArticle(Article article) throws SQLException, ClassNotFoundException, ParseException {
         ArticleDao dao = new ArticleDao();
-        return dao.createArticle(article);
+        String result=dao.createArticle(article);
+        if (result == "Failed") {
+            return Response.status(500).build();
+        } else if (result == "Existed") {
+            return Response.status(400).build();
+        }
+        return Response.status(200).build();
     }
 
     @Path("/updateArticle")
     @POST
     @Produces()
-    public String updateArticle(Article article) throws SQLException {
+    public Response updateArticle(Article article) throws SQLException {
 
         ArticleDao dao = new ArticleDao();
-        return dao.updateArticle(article);
+        String result=dao.updateArticle(article);
+        if (result == "Failed") {
+            return Response.status(500).build();
+        }
+        return Response.status(200).build();
     }
 
     @Path("/disableArticle")

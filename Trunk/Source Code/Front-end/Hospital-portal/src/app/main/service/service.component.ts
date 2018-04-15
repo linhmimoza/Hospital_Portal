@@ -42,7 +42,10 @@ export class AdminServiceComponent implements OnInit {
     if (this.roleId && this.roleId == ROLES.Admin) {
       this.initData();
     } else {
-      this.notificationService.fail('Access denied!').then(() => this._router.navigate(['/main']));
+      this.notificationService.fail('Access denied!');
+      setTimeout(() => {
+        this._router.navigate(['/main']);
+      }, 1500);
     }
   }
 
@@ -79,7 +82,7 @@ export class AdminServiceComponent implements OnInit {
   }
 
   searchService(name) {
-    this._serviceSrv.searchByName(name).subscribe(res => this.listService = res);
+    this._serviceSrv.searchByName(name, this.deptId).subscribe(res => this.listService = res);
     // CASE: Once result return empty set list as the the first list.
     // if (res && res.length) {
     //   this.listService = res;
@@ -90,6 +93,7 @@ export class AdminServiceComponent implements OnInit {
   }
 
   getService(id) {
+    this.deptId = id;
     this._serviceSrv.getListAll(id).subscribe(res => this.listService = res);
 }
 

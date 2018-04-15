@@ -24,11 +24,38 @@
 
             <span class="separator"></span>
 
-            <div id="userbox" class="userbox" >
+            <div id="userbox" class="userbox" *ngIf="!user.roleId">
                 <a [routerLink]="['/login']" class="login-block">
                     <i class="fa fa-user" aria-hidden="true" ></i>
                     <p >Login</p>
                 </a>
+            </div>
+            <div id="userbox" class="userbox" *ngIf="user.roleId">
+                <a href="#" data-toggle="dropdown">
+                    <figure class="profile-picture">
+                        <img src="assets/porto/images/!logged-user.jpg" alt="Joseph Doe" class="img-circle" data-lock-picture="assets/images/!logged-user.jpg"
+                        />
+                    </figure>
+                    <div class="profile-info">
+                        <span class="name">{{user.name}}</span>
+                    </div>
+
+                    <i class="fa custom-caret"></i>
+                </a>
+
+                <div class="dropdown-menu">
+                    <ul class="list-unstyled">
+                        <li class="divider"></li>
+                        <li>
+                            <a role="menuitem" tabindex="-1" [routerLink]="['/main']">
+                                <i class="fa fa-cog" aria-hidden="true"></i> Manage</a>
+                        </li>
+                        <li>
+                            <a role="menuitem" tabindex="-1" (click)="logout()">
+                                <i class="fa fa-power-off"></i> Logout</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
         <!-- end: search & user box -->

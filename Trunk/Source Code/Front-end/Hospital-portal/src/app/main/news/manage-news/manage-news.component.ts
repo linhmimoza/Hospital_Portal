@@ -9,7 +9,7 @@ import 'rxjs/add/operator/mergeMap';
 
 import { AdminNewsService } from '../news.service';
 import { HomeService } from '../../../home/home.service';
-import { REQUEST_RESULTS, ROLES, ROLE_ID } from '../../../constant/commonConstant';
+import { ROLES, ROLE_ID } from '../../../constant/commonConstant';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NotificationService } from '../../extra/notification.service';
 
@@ -133,8 +133,16 @@ export class ManageNewsComponent implements OnInit {
           //   `Describe=${this.news.describe}`;
           return this._newsSrv.createNews(this.form.value);
         }).subscribe(res => {
-          if (res._body === REQUEST_RESULTS.Success) {
-            this._router.navigate(['/main/news']);
+          if (res._body) {
+            this.notificationService.success('Create Succeed!');
+            setTimeout(() => this._router.navigate(['/main/news']), 1500);
+          }
+        }, err => {
+          if (err.status === 400) {
+            this.notificationService.error('This article is existed!');
+          }
+          if (err.status === 500) {
+            this.notificationService.error('Something went wrong!');
           }
         });
 
@@ -143,8 +151,11 @@ export class ManageNewsComponent implements OnInit {
         uploadBy: this.userId
       });
       this._newsSrv.update(this.form.value).subscribe(res => {
-        if (res._body === REQUEST_RESULTS.Success) {
-          this._router.navigate(['/main/news']);
+        this.notificationService.success('Update Succeed!');
+        this._router.navigate(['/main/news']);
+      }, err => {
+        if (err.status === 500) {
+          this.notificationService.error('Something went wrong!');
         }
       });
     }

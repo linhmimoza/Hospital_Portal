@@ -46,7 +46,7 @@ export class AdminNewsComponent implements OnInit, AfterViewInit {
       this.getCategory();
     } else {
       this.notificationService.fail('Access denied!');
-      setTimeout(() => this._router.navigate(['/main']), 3000);
+      setTimeout(() => this._router.navigate(['/main']), 1500);
     }
   }
 
@@ -119,10 +119,10 @@ export class AdminNewsComponent implements OnInit, AfterViewInit {
 
   search() {
     if (this.searchKey) {
-      this._newsSrv.getByName(this.searchKey).subscribe(res => {
+      this._newsSrv.getByName(this.searchKey, this.categoryId).subscribe(res => {
         this.listNews = res;
       });
-    } else {
+    } else { 
       this.getNews(this.categoryId);
     }
   }

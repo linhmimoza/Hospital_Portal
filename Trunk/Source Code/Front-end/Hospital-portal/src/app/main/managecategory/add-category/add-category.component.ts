@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Params } from '@angular/router/src/shared';
 
 import { CategoryService } from '../managecategory.service';
-import { REQUEST_RESULTS, ROLES, ROLE_ID } from '../../../constant/commonConstant';
+import { ROLES, ROLE_ID } from '../../../constant/commonConstant';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NotificationService } from '../../extra/notification.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -86,7 +86,7 @@ export class AddCategoryComponent implements OnInit {
         }
         if (err.status === 500) {
           this.notificationService.error('Create Failed');
-          console.log(err);
+          // console.log(err);
         }
       });
     }
@@ -97,7 +97,7 @@ export class AddCategoryComponent implements OnInit {
       }, err => {
         if (err.status === 500) {
           this.notificationService.error('Update Failed');
-          console.log(err);
+          // console.log(err);
         }
       });
     }

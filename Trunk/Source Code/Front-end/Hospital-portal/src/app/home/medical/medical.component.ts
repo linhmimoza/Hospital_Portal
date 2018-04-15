@@ -1,3 +1,4 @@
+import { Validator } from '@angular/forms';
 import { Time } from '@angular/common';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -62,7 +63,8 @@ export class MedicalComponent implements OnInit, AfterViewInit {
         Validators.email
       ]),
       guestIdentity: new FormControl('', [
-        Validators.required
+        Validators.required,
+        Validators.pattern('[0-9]{9,10}')
       ]),
       note: new FormControl(''),
       createDate: new FormControl(''),
@@ -73,7 +75,8 @@ export class MedicalComponent implements OnInit, AfterViewInit {
         Validators.required
       ]),
       guestPhone: new FormControl('', [
-        Validators.required
+        Validators.required,
+        Validators.pattern('^0[0-9]{9,10}')
       ]),
     });
   }
