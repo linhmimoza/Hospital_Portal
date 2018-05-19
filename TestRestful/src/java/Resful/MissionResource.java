@@ -7,6 +7,7 @@ package Resful;
 
 import Function.App;
 import Models.Mission;
+import Models.ShiftDay;
 import dao.MissionDAO;
 import java.sql.SQLException;
 import java.util.List;
@@ -108,5 +109,19 @@ public class MissionResource {
    public void activateMission(Mission mission){
          App app=new App();   
     app.activateMission(mission);
+   }
+   @Path("/testUser")
+   @POST
+   @Produces()
+   public  List<Mission> testUser(Mission mission){
+     MissionDAO dao=new MissionDAO();   
+    return dao.getUserMissionInDateRange(mission);
+   }
+   @Path("/testDate")
+   @POST
+   @Produces()
+   public  List<ShiftDay> testDate(Mission mission){
+     MissionDAO dao=new MissionDAO();   
+    return dao.getShiftDaysByUser(mission);
    }
 }

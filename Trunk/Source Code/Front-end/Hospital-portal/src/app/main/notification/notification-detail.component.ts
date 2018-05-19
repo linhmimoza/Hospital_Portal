@@ -6,7 +6,7 @@ import { NotificationComponentService } from './service/notification.component.s
 import { CookieService } from 'ngx-cookie-service';
 import { NotificationService } from '../extra/notification.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
+declare var $: any;
 @Component({
     selector: 'notification-detail',
     templateUrl: './notification-detail.component.html'
@@ -31,11 +31,7 @@ export class NotificationDetailComponent {
     }
 
     ngOnInit() {
-        $.getScript("assets/porto/javascripts/theme.admin.extension.js", function () {
-            $.getScript("assets/porto/javascripts/theme.init.js", function () {
 
-            });
-        });
         this.roleCookie = +this.cookieService.get("Auth-RoleId");
         if (this.roleCookie == 2 || this.roleCookie == 3) {
             this.form = new FormGroup({
@@ -56,7 +52,7 @@ export class NotificationDetailComponent {
                 this.id = +params['id']; // (+) converts string 'id' to a number        
                 this.notificationComponentService.getList().then((notifications: Notification[]) => {
                     this.notifications = notifications;
-                    if (this.id == 0) this.notification.notificationId = notifications[0].notificationId;
+                    if (this.id == 0) { this.notification.notificationId = notifications[0].notificationId; }
                 });
                 if (this.id > 0) {
                     this.title = "You are updating notification";
@@ -101,7 +97,8 @@ export class NotificationDetailComponent {
 
     onFormSubmit(notification: Notification) {
         if (this.form.valid) {
-            console.log(notification);
+            // debugger
+            // console.log(notification.content);
             this.save(notification);
         } else {
             alert('Invalid format');

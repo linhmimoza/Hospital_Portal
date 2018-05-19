@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import Models.Mission;
 import Models.MissionWorker;
+import Models.Shift;
+import Models.ShiftDay;
 import java.util.AbstractList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -105,7 +107,6 @@ public class MissionDAO implements Serializable {
                     MissionWorkerDAO dao = new MissionWorkerDAO();
                     List<MissionWorker> listWorker = dao.getMissionWorkersById(id);
                     mission = new Mission(id, startDate, endDate, place, content, note, status, createDate, updateDate, listWorker, createby, updateby);
-
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -149,7 +150,6 @@ public class MissionDAO implements Serializable {
 
     public String updateMission(Mission mission) {
         String result = "Success";
-
         try {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
@@ -319,5 +319,84 @@ public List<Mission> getAllMissionByUser(int userId) {
         }
         return listMission;
     }
+  public List<Mission> getUserMissionInDateRange(Mission m) {
+        List<Mission>  listMission = new ArrayList<>();
+        try {
+          con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                for (MissionWorker w:m.getMissionWorkerList()){
+         String   sql = "Select m.MissionId, StartDate, EndDate, Place, Content, Note, Status, Createby, CreateDate, \n" +
+"Updateby, UpdateDate from Mission m, MissionWorker w where\n" +
+"  m.MissionId=w.MissionId and w.UserId=" +w.getUserId()+
+"and m.Status=2 and \n" +
+"((m.StartDate<'"+m.getStartDate()+"' and m.EndDate>'"+m.getStartDate()+"') or\n" +
+" (m.StartDate<'"+m.getEndDate()+"' and m.EndDate>'"+m.getEndDate()+"') or \n" +
+" ('"+m.getStartDate()+"'<=m.StartDate and '"+m.getEndDate()+"'>=m.EndDate))";
+   stm = con.prepareStatement(sql);
+          
+         rs = stm.executeQuery();
+                while (rs.next()) {
+                  Integer id = rs.getInt("MissionId");
+                    String startDate = rs.getString("StartDate");
+                    String endDate = rs.getString("EndDate");
+                    String place = rs.getString("Place");
+                    String content = rs.getString("Content");
+                    String note = rs.getString("Note");
+                    Integer status = rs.getInt("Status");
+                    Integer createby = rs.getInt("Createby");
+                    String createDate = rs.getString("CreateDate");
+                    Integer updateby = rs.getInt("Updateby");
+                    String updateDate = rs.getString("UpdateDate");
+                    MissionWorkerDAO dao = new MissionWorkerDAO();
+                    List<MissionWorker> listWorker = new ArrayList<>();
+                    listWorker.add(w);
+                    Mission mission = new Mission(id, startDate, endDate, place, content, note, status, createDate, updateDate, listWorker, createby, updateby);
+                    listMission.add(mission); 
+                } 
+                }}
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(MissionDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeConnection();
+        }
+        return listMission;
+    }
+  public List<ShiftDay> getShiftDaysByUser(Mission m)  {
  
+        List<ShiftDay> listShiftDays = new ArrayList<>();
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                 for (MissionWorker w:m.getMissionWorkerList()){
+                String sql = "select d.ShiftDayID,d.ShiftDay,d.DayInWeek,d.ShiftScheduleId\n" +
+" from ShiftSchedulerManager m, ShiftSchedule ss, ShiftDay d,Shift s, \n" +
+"ShiftWorker w where\n" +
+"m.Checked=ss.ShiftScheduleId \n" +
+" and ss.ShiftScheduleId=d.ShiftScheduleId and d.ShiftDay<='"+m.getEndDate()+"' and d.ShiftDay>='"+m.getStartDate()+"'\n" +
+" and d.ShiftDayID=s.ShiftDayID and s.ShiftId=w.ShiftId and w.UserId=" +w.getUserId()+
+" group by d.ShiftDayID,d.ShiftDay,d.DayInWeek,d.ShiftScheduleId\n" +
+"having COUNT(d.ShiftDayID) = 1";
+                     System.out.println(sql);
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    Integer id = rs.getInt("ShiftDayId");
+                    String shiftDay = rs.getString("ShiftDay");
+                    String dayInWeek = rs.getString("DayInWeek");
+                    Integer shiftScheduleId = rs.getInt("ShiftScheduleId"); 
+                    ShiftDAO dao=new ShiftDAO();
+                    List<Shift> listShifts=dao.getShiftByDateId(id);
+                    ShiftDay shiftDayTable = new ShiftDay(id, shiftDay, dayInWeek, shiftScheduleId,listShifts);
+                    listShiftDays.add(shiftDayTable);
+                }
+            }}
+        } catch (ClassNotFoundException | SQLException ex) {
+         Logger.getLogger(ShiftDayDAO.class.getName()).log(Level.SEVERE, null, ex);
+     } finally {
+     closeConnection();
+        }
+        return listShiftDays;
+    }
+   
 }

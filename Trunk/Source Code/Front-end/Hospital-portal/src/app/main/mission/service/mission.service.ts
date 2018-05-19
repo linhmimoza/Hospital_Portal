@@ -89,7 +89,23 @@ export class MissionService {
             });
         });
     }
-
+    testUser(mission: Mission) {
+        return new Promise((resolve, reject) => {
+            this.apiService.post('testUser', mission).then(res => {
+                resolve(res.json());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
+    getMessage(mission: Mission[]){
+        let s = '';
+        mission.forEach(function(m) {
+            s = s + m.missionWorkerList[0].userName + ' has a mission to '
+            + m.place + ' from ' + m.startDate + ' to ' + m.endDate + '\n';
+        });
+        return s;
+    }
     // deleteDepartment(id){
     //     return new Promise((resolve, reject) => {
     //         this.apiService.get(`deleteDepartment/${id}`).then(res => {

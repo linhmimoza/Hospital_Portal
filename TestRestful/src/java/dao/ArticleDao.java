@@ -59,6 +59,7 @@ public class ArticleDao {
                         + "where a.CategoryId=?";
                 //select * from Article order by id desc limit 5;
                 stm = con.prepareStatement(sql);
+                System.out.println(sql);
                 stm.setInt(1, categoryId);
                 rs = stm.executeQuery();
                 while (rs.next()) {

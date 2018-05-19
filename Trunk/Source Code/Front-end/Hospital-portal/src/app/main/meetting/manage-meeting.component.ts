@@ -23,6 +23,9 @@ export class ManageMeetingComponent {
     checkedMeetings: Meeting[] = [];
     waitingMeetings: Meeting[] = [];
     roleCookie: number;
+
+    p: number = 1;
+    
     constructor(private router: Router,
         private meetingService: MeetingService, private cookieService: CookieService, private notificationService: NotificationService) { }
 

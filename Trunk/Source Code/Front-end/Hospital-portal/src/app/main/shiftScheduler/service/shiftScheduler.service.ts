@@ -84,7 +84,6 @@ getPassManagerByDepartmentId(depId, week) {
     });
 }
 setListManager(list: ShiftSchedulerManager[]){
-  
     list.forEach(function(manage){
         let today = manage.week;
         if (today != null) {
@@ -99,7 +98,7 @@ setListManager(list: ShiftSchedulerManager[]){
           + (d.getTimezoneOffset() - offset) * 60 * 1000);
       d.setDate(d.getDate() - 3);
       let result = d.toLocaleDateString() + '-';
-      d.setDate(d.getDate() + 7);
+      d.setDate(d.getDate() + 6);
       result = result + d.toLocaleDateString();
       manage.range = result;
         }
@@ -149,21 +148,25 @@ setListManager(list: ShiftSchedulerManager[]){
     // back to Monday (from Thursday)
     d.setDate(d.getDate() - 3);
     scheduler.shiftDayList =
-    [{ shiftDayID: 0, dayInWeek: 'Mon', shiftScheduleId: 0, shiftDay: d.toLocaleDateString(), shiftList: [] }];
-  let tue: Date ;
-        tue = d;
-  tue.setDate(tue.getDate() + 1);
-  scheduler.shiftDayList.push( { shiftDayID: 0, dayInWeek: 'Tue', shiftScheduleId: 0, shiftDay: tue.toLocaleDateString(), shiftList: [] });
-  tue.setDate(tue.getDate() + 1);
-  scheduler.shiftDayList.push( { shiftDayID: 0, dayInWeek: 'Wed', shiftScheduleId: 0, shiftDay: tue.toLocaleDateString(), shiftList: [] });
-  tue.setDate(tue.getDate() + 1);
-  scheduler.shiftDayList.push( { shiftDayID: 0, dayInWeek: 'Thu', shiftScheduleId: 0, shiftDay: tue.toLocaleDateString(), shiftList: [] });
-  tue.setDate(tue.getDate() + 1);
-  scheduler.shiftDayList.push( { shiftDayID: 0, dayInWeek: 'Fri', shiftScheduleId: 0, shiftDay: tue.toLocaleDateString(), shiftList: [] });
-  tue.setDate(tue.getDate() + 1);
-  scheduler.shiftDayList.push( { shiftDayID: 0, dayInWeek: 'Sat', shiftScheduleId: 0, shiftDay: tue.toLocaleDateString(), shiftList: [] });
-  tue.setDate(tue.getDate() + 1);
-  scheduler.shiftDayList.push( { shiftDayID: 0, dayInWeek: 'Sun', shiftScheduleId: 0, shiftDay: tue.toLocaleDateString(), shiftList: [] });
+    [{ shiftDayID: 0, dayInWeek: 'Mon', shiftScheduleId: 0, shiftDay: d, shiftList: [] }];
+  let tue = new  Date(d.getFullYear(), d.getMonth(), 1) ;
+  tue.setDate(d.getDate() + 1);
+  scheduler.shiftDayList.push( { shiftDayID: 0, dayInWeek: 'Tue', shiftScheduleId: 0, shiftDay: tue, shiftList: [] });
+  let wed = new  Date(d.getFullYear(), d.getMonth(), 1) ;
+  wed.setDate(tue.getDate() + 1);
+  scheduler.shiftDayList.push( { shiftDayID: 0, dayInWeek: 'Wed', shiftScheduleId: 0, shiftDay: wed, shiftList: [] });
+  let thu = new  Date(d.getFullYear(), d.getMonth(), 1) ;
+  thu.setDate(wed.getDate() + 1);
+  scheduler.shiftDayList.push( { shiftDayID: 0, dayInWeek: 'Thu', shiftScheduleId: 0, shiftDay: thu, shiftList: [] });
+  let fri = new  Date(d.getFullYear(), d.getMonth(), 1) ;
+  fri.setDate(thu.getDate() + 1);
+  scheduler.shiftDayList.push( { shiftDayID: 0, dayInWeek: 'Fri', shiftScheduleId: 0, shiftDay: fri, shiftList: [] });
+  let sat = new  Date(d.getFullYear(), d.getMonth(), 1) ;
+  sat.setDate(fri.getDate() + 1);
+  scheduler.shiftDayList.push( { shiftDayID: 0, dayInWeek: 'Sat', shiftScheduleId: 0, shiftDay: sat, shiftList: [] });
+  let sun = new Date(d.getFullYear(), d.getMonth(), 1) ;
+  sun.setDate(sat.getDate() + 1);
+  scheduler.shiftDayList.push( { shiftDayID: 0, dayInWeek: 'Sun', shiftScheduleId: 0, shiftDay: sun, shiftList: [] });
     }
     createMission(shiftSchedule: CreateShiftScheduler) {
         return new Promise((resolve, reject) => {
@@ -195,8 +198,8 @@ setListManager(list: ShiftSchedulerManager[]){
     getThisWeek() {
         let today = new Date();
         let onejan = new Date(today.getFullYear(), 0, 1);
-        let week=Math.ceil((((today.getTime() - onejan.getTime()) / 86400000) + onejan.getDay()+ 1)/ 7 - 1);
-        let thisWeek =today.getFullYear() + '-W' + week;
+        let week=Math.ceil((((today.getTime() - onejan.getTime()) / 86400000) + onejan.getDay())/ 7 );
+        let thisWeek = today.getFullYear() + '-W' + week;
        return thisWeek;
     }
     
@@ -212,7 +215,7 @@ setListManager(list: ShiftSchedulerManager[]){
           + (d.getTimezoneOffset() - offset) * 60 * 1000);
       d.setDate(d.getDate() - 3);
       let result = d.toLocaleDateString() + '-';
-      d.setDate(d.getDate() + 7);
+      d.setDate(d.getDate() + 6);
       result = result + d.toLocaleDateString();
       return result;
     }
