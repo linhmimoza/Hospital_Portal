@@ -478,4 +478,39 @@ public class ArticleDao {
         }
         return listArticle;
     }
+    public List<Article> getArticleByUser(int userId) throws SQLException, ClassNotFoundException {
+        List<Article> listArticle = new ArrayList<>();
+        try {
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "select a.ArticleId,a.CategoryId,a.Describe,a.Status,a.Title,\n" +
+"a.UpdateDate,a.UploadDate,c.CategoryName from Article a,Category c where \n" +
+"a.UpdateBy="+userId+" and a.CategoryId=c.CategoryId";
+              
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    Integer id = rs.getInt("ArticleId");
+                    Integer caId = rs.getInt("CategoryId");
+                    String title = rs.getString("Title");
+            
+                    String uploadDate = rs.getString("UploadDate");
+            
+                    String updateDate = rs.getString("UpdateDate");
+                    Integer status = rs.getInt("Status");
+        String categoryName = rs.getString("CategoryName");
+                    String describe = rs.getString("Describe");
+
+                    Article a = new Article(id,caId,status,title,uploadDate,updateDate,describe,categoryName);
+                    listArticle.add(a);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        return listArticle;
+    }
+
 }

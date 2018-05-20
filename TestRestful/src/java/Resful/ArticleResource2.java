@@ -18,6 +18,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
@@ -38,12 +39,12 @@ public class ArticleResource2 {
     public ArticleResource2() {
     }
 
-    @Path("/getListArticle")
+    @Path("/getArticleByUser/{userId}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Article> getListArticle(@QueryParam("CategoryId") int categoryId) throws SQLException, ClassNotFoundException {
+    public List<Article> getArticleByUser(@PathParam("userId") int userId) throws SQLException, ClassNotFoundException {
         ArticleDao dao = new ArticleDao();
-        List<Article> listArticle = dao.getListArticle(categoryId);
+        List<Article> listArticle = dao.getArticleByUser(userId);
         return listArticle;
     }
      @Path("/getListCategory")

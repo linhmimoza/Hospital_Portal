@@ -1,95 +1,68 @@
 <section class="panel">
     <header class="panel-heading">
-        <div class="panel-actions">
-            <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-            <!-- <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a> -->
-        </div>
-        <h2 class="panel-title">Department list</h2>
+      <div class="panel-actions">
+        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+        <!-- <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a> -->
+      </div>
+      <h2 class="panel-title">Meeting upload by {{userName}}</h2>
     </header>
     <div class="panel-body">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="mb-md">
-                    <button class="btn btn-primary" [routerLink]="['/main/department-detail',0]">Add
-                        <i class="fa fa-plus"></i>
-                    </button>
-                </div>
-            </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="mb-md">
+            <button class="btn btn-primary" [routerLink]="['/main/meeting-detail',0]">Add
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
         </div>
+      </div>
 
-        <div class="row">
-            <div class="col-md-4">
-                <label class="col-sm-3 control-label">
-                    <h5>
-                        <strong>Search: </strong>
-                    </h5>
-                </label>
-                <div class="col-sm-9">
-                    <div class="mb-md">
-                        <input type="text" [(ngModel)]="term" class="form-control">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-bordered table-striped mb-none">
-                <colgroup>
-                    <col width="350px" />
-                    <col />
-                    <col width="150px" />
-                    <col width="150px" />
-                    <col width="50px" />
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Code</th>
-                        <th>Quantity</th>
-                        <th>Status</th>
-                        <th class="hidden-phone"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let department of departments | filter:term | paginate: { itemsPerPage: 10, currentPage: p }" class="gradeX">
-                        <td data-toggle="tooltip" data-placement="bottom" title="{{department.description}}">{{department.departmentName}}</td>
-                        <td>{{department.code}}</td>
-                        <td>{{department.quantity}}</td>
-                        <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
-                        <td class="text-center">
-                            <div *ngIf="department.quantity != 0 && department.status == 1" class="grid-status" [ngClass]="{'bg-primary': department.status == 1, 'bg-danger': department.status == 2 }"
-                                (click)="disableDeny()">
-                                {{department.status == 1? 'Active':'Disable'}}
-                            </div>
-
-                            <div *ngIf="department.quantity == 0" class="grid-status" [ngClass]="{'bg-primary': department.status == 1, 'bg-danger': department.status == 2 }"
-                                mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmText"
-                                [cancelText]="cancelText" [placement]="placement" (confirm)="switchStatus(department)" (cancel)="cancelClicked = true"
-                                confirmButtonType="danger" cancelButtonType="default" (click)="confirmClicked = false; cancelClicked = false"
-                                [appendToBody]="true">
-                                {{department.status == 1? 'Active':'Disable'}}
-                            </div>
-
-                            <div *ngIf="department.quantity != 0 && department.status == 2" class="grid-status" [ngClass]="{'bg-primary': department.status == 1, 'bg-danger': department.status == 2 }"
-                                mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmText"
-                                [cancelText]="cancelText" [placement]="placement" (confirm)="switchStatus(department)" (cancel)="cancelClicked = true"
-                                confirmButtonType="danger" cancelButtonType="default" (click)="confirmClicked = false; cancelClicked = false"
-                                [appendToBody]="true">
-                                {{department.status == 1? 'Active':'Disable'}}
-                            </div>
-                        </td>
-                        <td align="center">
-                            <a>
-                                <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(department)"></i>
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
+      <div class="table-responsive">
+            <table class="table">
+              <colgroup>
+                <col />
+                <col width="150px" />
+                <col width="150px" />
+                <col width="150px" />
+                <col width="150px" />
+                <col width="150px" />
+                <col width="50px" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>Meeting name</th>
+                  <th>Room</th>
+                  <th>Date</th>
+                  <th>Start Time</th>
+                  <th>End time</th>
+                  <th>Status</th>
+                  <th class="hidden-phone"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let meeting of waitingMeetings" class="gradeX">
+                  <td>{{meeting.meetingName}}</td>
+                  <td>{{meeting.roomName}}</td>
+                  <td>{{meeting.date}}</td>
+                  <td>{{meeting.startTime}}</td>
+                  <td>{{meeting.duration}}</td>
+                  <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
+                  <td class="text-center">
+                        <div  class="btn"   style="width: 90%"
+                        [ngClass]="{'bg-warning':meeting.status == 1,'bg-success':meeting.status == 2,'bg-danger':meeting.status == 3}">
+                                {{meeting.status == 1?'Waiting':''}} {{meeting.status == 2?'Accept':''}} {{meeting.status == 3?'Deny':''}}
+        
+                        </div>
+                  </td>
+                  <td align="center">
+                    <a>
+                      <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(meeting)"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
             </table>
-            <div class="row">
-                <div class="col-md-4 col-md-offset-8" style="padding-top: 20px;">
-                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+          </div>
+ 
+      </div>
+      </section>
