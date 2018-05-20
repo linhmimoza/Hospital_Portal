@@ -295,6 +295,7 @@ public class ArticleDao {
             result = "Failed";
         } finally {
             closeConnection();
+            System.out.println(result);
         }}
         return result;
     }

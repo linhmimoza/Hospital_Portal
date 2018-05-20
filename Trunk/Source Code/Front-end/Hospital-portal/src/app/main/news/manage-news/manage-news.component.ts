@@ -141,6 +141,7 @@ export class ManageNewsComponent implements OnInit {
           return this._newsSrv.createNews(this.form.value);
         }).subscribe(res => {
           if (res._body) {
+            console.log(res);
             this.notificationService.success('Create Succeed!');
             setTimeout(() => this._router.navigate(['/main/news']), 1500);
           }

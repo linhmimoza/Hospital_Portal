@@ -42,8 +42,9 @@ export class NotificationService {
             swal({
                 type: 'error',
                 title: msg,
-                text: ''
-            })
+                text: '',
+                timer: 100000
+            });
         });
     }
 

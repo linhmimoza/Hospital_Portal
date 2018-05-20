@@ -84,7 +84,6 @@ export class ManageMissionComponent {
     }
 
     accept(mission: Mission) {
-        console.log(mission);
         this.missionService.testUser(mission).then((res: Mission[]) => {
             if (res.length > 0) {
                 this.notificationService.error(this.missionService.getMessage(res));
