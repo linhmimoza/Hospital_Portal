@@ -369,13 +369,13 @@ public List<Mission> getAllMissionByUser(int userId) {
             con = DBUtils.DBUtils.makeConnection();
             if (con != null) {
                  for (MissionWorker w:m.getMissionWorkerList()){
-                String sql = "select d.ShiftDayID,d.ShiftDay,d.DayInWeek,d.ShiftScheduleId\n" +
+                String sql = "select u.UserName, d.ShiftDayID,d.ShiftDay,d.DayInWeek,d.ShiftScheduleId\n" +
 " from ShiftSchedulerManager m, ShiftSchedule ss, ShiftDay d,Shift s, \n" +
-"ShiftWorker w where\n" +
+"ShiftWorker w , [User] u where\n" +
 "m.Checked=ss.ShiftScheduleId \n" +
 " and ss.ShiftScheduleId=d.ShiftScheduleId and d.ShiftDay<='"+m.getEndDate()+"' and d.ShiftDay>='"+m.getStartDate()+"'\n" +
 " and d.ShiftDayID=s.ShiftDayID and s.ShiftId=w.ShiftId and w.UserId=" +w.getUserId()+
-" group by d.ShiftDayID,d.ShiftDay,d.DayInWeek,d.ShiftScheduleId\n" +
+" and w.UserId=u.UserId group by u.UserName,d.ShiftDayID,d.ShiftDay,d.DayInWeek,d.ShiftScheduleId\n" +
 "having COUNT(d.ShiftDayID) = 1";
                      System.out.println(sql);
                 stm = con.prepareStatement(sql);
@@ -383,11 +383,9 @@ public List<Mission> getAllMissionByUser(int userId) {
                 while (rs.next()) {
                     Integer id = rs.getInt("ShiftDayId");
                     String shiftDay = rs.getString("ShiftDay");
-                    String dayInWeek = rs.getString("DayInWeek");
-                    Integer shiftScheduleId = rs.getInt("ShiftScheduleId"); 
-                    ShiftDAO dao=new ShiftDAO();
-                    List<Shift> listShifts=dao.getShiftByDateId(id);
-                    ShiftDay shiftDayTable = new ShiftDay(id, shiftDay, dayInWeek, shiftScheduleId,listShifts);
+                    String dayInWeek = rs.getString("UserName");
+                    Integer shiftScheduleId = rs.getInt("ShiftScheduleId");                  
+                    ShiftDay shiftDayTable = new ShiftDay(id, shiftDay, dayInWeek, shiftScheduleId);
                     listShiftDays.add(shiftDayTable);
                 }
             }}

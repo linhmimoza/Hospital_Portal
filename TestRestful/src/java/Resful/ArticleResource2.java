@@ -55,4 +55,13 @@ public class ArticleResource2 {
         List<Category> list = dao.getAllCategory();
         return list;
     }
+     @Path("/getArticleByCategory/{categoryId}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Article> getArticleByCategoryId(@PathParam("categoryId") int categoryId) throws SQLException, ClassNotFoundException {
+        ArticleDao dao = new ArticleDao();
+        List<Article> listArticle = dao.getArticleByCategory(categoryId);
+        return listArticle;
+    }
+    
 }

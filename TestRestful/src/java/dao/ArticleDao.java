@@ -512,5 +512,42 @@ public class ArticleDao {
         }
         return listArticle;
     }
+public List<Article> getArticleByCategory( int categoryId) {
+        List<Article> listArticle = new ArrayList<>();
+        try {
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "select u.UserName, a.ArticleId,a.CategoryId,a.Describe,\n" +
+"a.Link,a.OldName,a.Status,a.Title,a.UpdateBy,\n" +
+"a.UpdateDate,a.UploadBy,a.UploadDate\n" +
+" from Article a,[User] u where  u.UserId=a.UploadBy and a.CategoryId="+categoryId;
 
+                stm = con.prepareStatement(sql);
+              
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    Integer id = rs.getInt("ArticleId");
+                    String title = rs.getString("Title");
+                    Integer uploadBy = rs.getInt("UploadBy");
+                    String uploadDate = rs.getString("UploadDate");
+                    Integer updateBy = rs.getInt("UpdateBy");
+                    String updateDate = rs.getString("UpdateDate");
+                    Integer status = rs.getInt("Status");
+                    String link = rs.getString("Link");
+                    String describe = rs.getString("Describe");
+                    String uploadByName = rs.getString("UserName");
+                    String updateByName = rs.getString("UserName");
+                    Article a = new Article(id, categoryId, uploadBy, updateBy, status, title, uploadDate, updateDate, link, describe, uploadByName, updateByName);
+                    listArticle.add(a);
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeConnection();
+        }
+        return listArticle;
+    }
 }

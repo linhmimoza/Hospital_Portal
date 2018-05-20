@@ -4,6 +4,7 @@ import { Mission } from './shared/mission.model';
 import { MissionService } from './service/mission.service';
 import { CookieService } from 'ngx-cookie-service';
 import { NotificationService } from '../extra/notification.service';
+import { ShiftDay } from '../shiftScheduler/shared/shiftDay.model';
 @Component({
     selector: 'manage-mission',
     templateUrl: './manage-mission.component.html',
@@ -88,17 +89,19 @@ export class ManageMissionComponent {
             if (res.length > 0) {
                 this.notificationService.error(this.missionService.getMessage(res));
             } else {
-                mission.status = 2;
-                this.missionService.updateMission(mission).then(() => {
-                    this.notificationService.success('Success');
-                    this.missionService.activateMission(mission);
-                    this.reload();
-                });
-            }
-        }).catch(err => {
+                this.missionService.testDate(mission).then((rest: ShiftDay[]) => {
+                    console.log(rest);
+                    if (rest.length > 0) {
+                        this.notificationService.error(this.missionService.getMessage2(rest));
+                    } else {     mission.status = 2;
+                        this.missionService.updateMission(mission).then(() => {
+                            this.notificationService.success('Success');
+                            this.missionService.activateMission(mission);
+                            this.reload();
+                        }); }
+            });
+        }}).catch(err => {
             alert(err);
         });
-
-        
     }
 }
