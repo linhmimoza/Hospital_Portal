@@ -10,7 +10,11 @@ export class ApiService {
     constructor(private router: Router, private http: Http, private cookieService: CookieService) {
         $.browser.device = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
         if ($.browser.device) {
+<<<<<<< HEAD
             this.host = 'http://localhost:8080/TestRestful/webresources/generic/';
+=======
+            this.host = 'http://localhost:8084/TestRestful/webresources/generic/';
+>>>>>>> master
         }
     }
 
