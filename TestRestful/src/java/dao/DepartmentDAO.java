@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import Models.Department;
+import Models.Service;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -63,6 +64,39 @@ public class DepartmentDAO implements Serializable {
                     int quantity=dao.getDepartmentQuantity(id);
                     Department department = new Department(id, departmentName, description, code, status, quantity);           
                     listDepartments.add(department);
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+       closeConnection();
+        }
+        return listDepartments;
+    }
+    public List<Department> getUseDepartments()  {
+     
+        List<Department> listDepartments = new ArrayList<>();
+        try {
+            con = DBUtils.DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "Select DepartmentId, DepartmentName, Description, Status, Code from Department where Status=1";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    Integer id = rs.getInt("DepartmentId");
+                    String departmentName = rs.getString("DepartmentName");
+                    String description = rs.getString("Description");
+                    String code = rs.getString("Code");
+                    Integer status = rs.getInt("Status");
+                    UserDAO dao=new UserDAO();
+                    ServiceDao serdao=new ServiceDao();
+                    int quantity=dao.getDepartmentQuantity(id);
+                    List<Service> listService = serdao.getAllListService(id);
+                    if(!listService.isEmpty()){
+                        Department department = new Department(id, departmentName, description, code, status, quantity);           
+                        listDepartments.add(department);
+                    }
+                    
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
