@@ -1,0 +1,68 @@
+<section class="panel">
+    <header class="panel-heading">
+      <div class="panel-actions">
+        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+        <!-- <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a> -->
+      </div>
+      <h2 class="panel-title">Meeting upload by {{userName}}</h2>
+    </header>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="mb-md">
+            <button class="btn btn-primary" [routerLink]="['/main/meeting-detail',0]">Add
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+            <table class="table">
+              <colgroup>
+                <col />
+                <col width="150px" />
+                <col width="150px" />
+                <col width="150px" />
+                <col width="150px" />
+                <col width="150px" />
+                <col width="50px" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>Meeting name</th>
+                  <th>Room</th>
+                  <th>Date</th>
+                  <th>Start Time</th>
+                  <th>End time</th>
+                  <th>Status</th>
+                  <th class="hidden-phone"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let meeting of waitingMeetings" class="gradeX">
+                  <td>{{meeting.meetingName}}</td>
+                  <td>{{meeting.roomName}}</td>
+                  <td>{{meeting.date}}</td>
+                  <td>{{meeting.startTime}}</td>
+                  <td>{{meeting.duration}}</td>
+                  <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
+                  <td class="text-center">
+                        <div  class="btn"   style="width: 90%"
+                        [ngClass]="{'bg-warning':meeting.status == 1,'bg-success':meeting.status == 2,'bg-danger':meeting.status == 3}">
+                                {{meeting.status == 1?'Waiting':''}} {{meeting.status == 2?'Accept':''}} {{meeting.status == 3?'Deny':''}}
+        
+                        </div>
+                  </td>
+                  <td align="center">
+                    <a>
+                      <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(meeting)"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+ 
+      </div>
+      </section>

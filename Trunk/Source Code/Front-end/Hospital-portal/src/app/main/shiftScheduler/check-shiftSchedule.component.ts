@@ -11,13 +11,14 @@ import { Department } from '../department/shared/department.model';
 import { ManageService } from './service/shiftSchedulerManage.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ShiftSchedulerManager } from './shared/ShiftSchedulerManager.model';
+import { NotificationService } from '../extra/notification.service';
 declare var $: any;
 @Component({
     selector: 'check-shiftSchedule',
     templateUrl: './check-shiftSchedule.component.html'
     //   styleUrls: ['./css/dropdown.css']
 })
-export class CheckShiftScheduleComponent{
+export class CheckShiftScheduleComponent {
     popoverTitle: string = 'Are you sure?';
     popoverMessage: string = 'Are you really <b>sure</b> you want to do this?';
     confirmText: string = 'Yes <i class="glyphicon glyphicon-ok"></i>';
@@ -38,19 +39,19 @@ export class CheckShiftScheduleComponent{
     constructor(private router: Router,
         private shiftSchedulerService: ShiftSchedulerService, private userService: UserService,
         private departmentService: DepartmentService, private cookieService: CookieService,
-        private manageService: ManageService) { }
+        private manageService: ManageService, private notificationService: NotificationService) { }
 
     ngOnInit() {
         this.manage = this.manageService.getSelect();
         console.log(this.manage);
-        if (this.manage.departmentId > 0)        {
+        if (this.manage.departmentId > 0) {
             this.toDate = this.manage.week;
             this.department = this.manage.departmentId;
             this.search(this.manage.week, this.manage.departmentId);
         }
         this.shiftSchedulerService.getThisWeek();
         this.roleCookie = +this.cookieService.get('Auth-RoleId');
-        if (this.roleCookie === 2 ) {
+        if (this.roleCookie === 2) {
             this.loadDepartment();
             // this.loadingService.start();
             this.userService.getList().then((users: User[]) => {
@@ -106,18 +107,20 @@ export class CheckShiftScheduleComponent{
             // this.loadingService.stop();
         });
     }
-    accept(){
+    accept() {
         this.shiftScheduler.status = 2;
         this.manage.checked = this.manage.waiting;
         this.shiftSchedulerService.checkScheduler(this.shiftScheduler);
         this.shiftSchedulerService.checkSchedulerManager(this.manage);
+        this.notificationService.success("Success");
         this.router.navigate(['/main/manage-shiftSchedule']);
     }
-    deny(){
+    deny() {
         this.shiftScheduler.status = 3;
         this.manage.waiting = this.manage.checked;
         this.shiftSchedulerService.checkScheduler(this.shiftScheduler);
         this.shiftSchedulerService.checkSchedulerManager(this.manage);
+        this.notificationService.success("Success");
         this.router.navigate(['/main/manage-shiftSchedule']);
     }
 }

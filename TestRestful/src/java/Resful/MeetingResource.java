@@ -119,4 +119,11 @@ public class MeetingResource {
             List<Meeting> listMission = dao.getAllMeetingsByUser(userId);
             return listMission;
     }
+     @Path("/testMeeting")
+   @POST
+   @Produces()
+   public  List<Meeting> testUser(Meeting meeting){
+     MeetingDAO dao=new MeetingDAO();   
+    return dao.checkMeetings(meeting);
+   }
 }

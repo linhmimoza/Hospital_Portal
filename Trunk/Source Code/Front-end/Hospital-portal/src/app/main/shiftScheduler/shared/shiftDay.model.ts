@@ -3,7 +3,7 @@ import { Shift } from './shift.model';
 
 export class ShiftDay {
     shiftDayID: number;
-    shiftDay: string;
+    shiftDay: Date;
     dayInWeek: string;
     shiftScheduleId: number;
     shiftList: Shift[];
