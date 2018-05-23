@@ -30,20 +30,6 @@
       <div class="tab-content">
         <div id="popular1" class="tab-pane active">
           <div class="table-responsive">
-            <div class="row">
-              <div class="col-md-4">
-                <label class="col-sm-3 control-label">
-                  <h5>
-                    <strong>Search: </strong>
-                  </h5>
-                </label>
-                <div class="col-sm-9">
-                  <div class="mb-md">
-                    <input type="text" [(ngModel)]="term1" class="form-control">
-                  </div>
-                </div>
-              </div>
-            </div>
             <table class="table">
               <colgroup>
                 <col />
@@ -66,7 +52,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let meeting of waitingMeetings | filter:term1 | paginate: { itemsPerPage: 5, currentPage: p ,id: 'd'}">
+                <tr *ngFor="let meeting of waitingMeetings" class="gradeX">
                   <td>{{meeting.meetingName}}</td>
                   <td>{{meeting.roomName}}</td>
                   <td>{{meeting.date}}</td>
@@ -91,31 +77,12 @@
                 </tr>
               </tbody>
             </table>
-            <div class="row">
-              <div class="col-md-4 col-md-offset-8" style="padding-top: 20px;">
-                <pagination-controls (pageChange)="p = $event " id="d"></pagination-controls>
-              </div>
-            </div>
           </div>
 
 
         </div>
         <div id="recent1" class="tab-pane">
           <div class="table-responsive">
-            <div class="row">
-              <div class="col-md-4">
-                <label class="col-sm-3 control-label">
-                  <h5>
-                    <strong>Search: </strong>
-                  </h5>
-                </label>
-                <div class="col-sm-9">
-                  <div class="mb-md">
-                    <input type="text" [(ngModel)]="term" class="form-control">
-                  </div>
-                </div>
-              </div>
-            </div>
             <table class="table table-bordered table-striped mb-none">
               <colgroup>
                 <col />
@@ -138,7 +105,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let meeting of checkedMeetings | filter:term | paginate: { itemsPerPage: 5, currentPage: f }" class="gradeX">
+                <tr *ngFor="let meeting of checkedMeetings" class="gradeX">
                   <td>{{meeting.meetingName}}</td>
                   <td>{{meeting.roomName}}</td>
                   <td>{{meeting.date}}</td>
@@ -171,11 +138,6 @@
                 </tr>
               </tbody>
             </table>
-            <div class="row">
-              <div class="col-md-4 col-md-offset-8" style="padding-top: 20px;">
-                <pagination-controls (pageChange)="f = $event"></pagination-controls>
-              </div>
-            </div>
           </div>
         </div>
       </div>

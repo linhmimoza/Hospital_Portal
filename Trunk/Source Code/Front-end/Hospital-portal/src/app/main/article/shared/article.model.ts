@@ -11,5 +11,6 @@ export class Article{
     link: string;
 
     constructor(){
+        
     }
 }

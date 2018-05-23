@@ -77,17 +77,6 @@ public class Article {
         this.updateByName = updateByName;
     }
 
-    public Article(int articleId, int categoryId, int status, String title, String uploadDate, String updateDate, String describe, String categoryName) {
-        this.articleId = articleId;
-        this.categoryId = categoryId;
-        this.status = status;
-        this.title = title;
-        this.uploadDate = uploadDate;
-        this.updateDate = updateDate;
-        this.describe = describe;
-        this.categoryName = categoryName;
-    }
-
     public String getCategoryName() {
         return categoryName;
     }

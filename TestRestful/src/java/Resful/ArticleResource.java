@@ -106,10 +106,8 @@ public class ArticleResource {
             return Response.status(500).build();
         } else if (result == "Existed") {
             return Response.status(400).build();
-        }else{
-            return Response.status(200).build();
         }
-        
+        return Response.status(200).build();
     }
 
     @Path("/updateArticle")

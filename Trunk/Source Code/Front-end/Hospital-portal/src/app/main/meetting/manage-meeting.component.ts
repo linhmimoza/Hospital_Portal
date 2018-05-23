@@ -23,9 +23,6 @@ export class ManageMeetingComponent {
     checkedMeetings: Meeting[] = [];
     waitingMeetings: Meeting[] = [];
     roleCookie: number;
-
-    p: number = 1;
-
     constructor(private router: Router,
         private meetingService: MeetingService, private cookieService: CookieService, private notificationService: NotificationService) { }
 
@@ -74,10 +71,15 @@ export class ManageMeetingComponent {
 
     switchStatusCheckedMeetings(meeting: Meeting) {
         if (meeting.status == 2) {
-            this.denyWaitingMeetings(meeting);
+            meeting.status = 3;
         } else {
-            this.acceptWaitingMeetings(meeting);
+            meeting.status = 2;
         }
+        this.meetingService.updateMeeting(meeting).then(() => {
+            this.notificationService.success("Success");
+            this.loadChecked();
+            this.loadWaiting();
+        });
     }
 
     denyWaitingMeetings(meeting: Meeting) {
@@ -90,20 +92,11 @@ export class ManageMeetingComponent {
     }
 
     acceptWaitingMeetings(meeting: Meeting) {
-        this.meetingService.testMetting(meeting).then((res: Meeting[]) => {
-            if (res.length > 0) {
-                console.log(res);
-                this.notificationService.error(this.meetingService.getMessage(res));
-            } else {
-                meeting.status = 2;
-                this.meetingService.updateMeeting(meeting).then(() => {
-                    this.notificationService.success('Success');
-                    this.loadChecked();
-                    this.loadWaiting();
-                });
-            }
-        }).catch(err => {
-            alert(err);
+        meeting.status = 2;
+        this.meetingService.updateMeeting(meeting).then(() => {
+            this.notificationService.success("Success");
+            this.loadChecked();
+            this.loadWaiting();
         });
     }
 }

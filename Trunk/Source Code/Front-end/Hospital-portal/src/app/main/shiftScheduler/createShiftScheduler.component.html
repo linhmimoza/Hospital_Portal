@@ -3,7 +3,7 @@
       <div class="panel-actions">
 
       </div>
-      <h2 class="panel-title">Create Shift Schedule</h2>
+      <h2 class="panel-title">ShiftScheduler list</h2>
     </header>
 
   
@@ -54,7 +54,7 @@
           <thead>
             <tr>
              
-              <th *ngFor="let Day of shiftScheduler.shiftDayList">{{Day.dayInWeek}}<br/>{{Day.shiftDay.toLocaleDateString()}}</th>
+              <th *ngFor="let Day of shiftScheduler.shiftDayList">{{Day.dayInWeek}}<br/>{{Day.shiftDay}}</th>
             </tr>
           </thead>
           <tbody>

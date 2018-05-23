@@ -102,8 +102,7 @@ public class ShiftDayDAO implements Serializable {
             if (con != null) {
                 String sql = "insert into ShiftDay(ShiftDay,DayInWeek,ShiftScheduleId)\n" +
 " OUTPUT INSERTED.ShiftDayID\n" +
-" values('"+day.getShiftDay()+"','"+day.getDayInWeek()+"',"+scheduleId+")";    
-                System.out.println(sql);
+" values('"+day.getShiftDay()+"','"+day.getDayInWeek()+"',"+scheduleId+")";           
                 stm = con.prepareStatement(sql);
                  rs = stm.executeQuery();
                   System.out.println(sql);

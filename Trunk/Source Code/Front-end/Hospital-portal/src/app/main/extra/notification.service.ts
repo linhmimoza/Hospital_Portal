@@ -41,10 +41,9 @@ export class NotificationService {
         return new Promise(resolve => {
             swal({
                 type: 'error',
-                title: msg,
-                text: '',
-                timer: 100000
-            });
+                title: 'Oops...',
+                text: msg
+            })
         });
     }
 

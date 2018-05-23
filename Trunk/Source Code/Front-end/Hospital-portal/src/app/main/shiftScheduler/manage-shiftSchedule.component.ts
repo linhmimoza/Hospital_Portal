@@ -30,8 +30,8 @@ export class ManageShiftSchedulerComponent {
     ngOnInit() {
         this.roleCookie = +this.cookieService.get("Auth-RoleId");
         if (this.roleCookie == 2 || this.roleCookie == 3) {
-            this.loadPage();
             this.loadDepartment();
+            this.loadPage();
         } else if (isNaN(this.roleCookie)) {
             alert("You don't have permission to view this page!");
             this.router.navigate(['/login']);
@@ -43,7 +43,6 @@ export class ManageShiftSchedulerComponent {
     loadPage() {
         this.thisWeek = this.shiftSchedulerService.getThisWeek();
         this.weekDate = this.shiftSchedulerService.weekToDate(this.thisWeek);
-        console.log(this.thisWeek);
     }
     view(manage: ShiftSchedulerManager) {
         if (manage.checked > 0) {
@@ -67,17 +66,17 @@ export class ManageShiftSchedulerComponent {
 
     }
     selectDept() {
-        this.shiftSchedulerService.getFutureManagerByDepartmentId(this.department,
-            this.shiftSchedulerService.getThisWeek()).then((res: ShiftSchedulerManager[]) => {
+        this.shiftSchedulerService.getFutureManagerByDepartmentId(this.department, this.thisWeek).then((res: ShiftSchedulerManager[]) => {
             res = this.shiftSchedulerService.setListManager(res);
             this.futureListManage = res;
+            console.log(res);
         }).catch(err => {
             alert(err);
         });
-        this.shiftSchedulerService.getPassManagerByDepartmentId(this.department,
-             this.shiftSchedulerService.getThisWeek()).then((res: ShiftSchedulerManager[]) => {
+        this.shiftSchedulerService.getPassManagerByDepartmentId(this.department, this.thisWeek).then((res: ShiftSchedulerManager[]) => {
             res = this.shiftSchedulerService.setListManager(res);
             this.passListManage = res;
+            console.log(res);
         }).catch(err => {
             alert(err);
         });
@@ -90,6 +89,7 @@ export class ManageShiftSchedulerComponent {
                 res = this.shiftSchedulerService.setListManager(res);
             }
             this.searchListManage = res;
+            console.log(res);
         }).catch(err => {
             alert(err);
         });

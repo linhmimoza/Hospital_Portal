@@ -53,7 +53,6 @@ export class ManageNewsComponent implements OnInit {
       this.activatedRoute.params.subscribe((params: Params) => {
         const newsId = params['id'];
         const catId = params['catid'];
-        console.log('xxxxx' + newsId);
         if (newsId && catId) {
           this.command = UPDATE;
           this.initForm();
@@ -64,7 +63,7 @@ export class ManageNewsComponent implements OnInit {
           this.command = CREATE;
           this.initForm();
           this.form.patchValue({
-            categoryId: newsId
+            categoryId: catId
           });
         }
         this._catSrv.detail(catId || newsId).subscribe(([res]) => {
@@ -137,11 +136,9 @@ export class ManageNewsComponent implements OnInit {
           //   `UploadDate=${moment().format('YYYY-MM-DD HH:mm:ss.SSS')}&` +
           //   `Link=${filename}&` +
           //   `Describe=${this.news.describe}`;
-          console.log(this.form.value);
           return this._newsSrv.createNews(this.form.value);
         }).subscribe(res => {
           if (res._body) {
-            console.log(res);
             this.notificationService.success('Create Succeed!');
             setTimeout(() => this._router.navigate(['/main/news']), 1500);
           }

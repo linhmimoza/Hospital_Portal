@@ -4,7 +4,6 @@ import { Mission } from './shared/mission.model';
 import { MissionService } from './service/mission.service';
 import { CookieService } from 'ngx-cookie-service';
 import { NotificationService } from '../extra/notification.service';
-import { ShiftDay } from '../shiftScheduler/shared/shiftDay.model';
 @Component({
     selector: 'manage-mission',
     templateUrl: './manage-mission.component.html',
@@ -22,10 +21,7 @@ export class ManageMissionComponent {
     cancelClicked: boolean = false;
     waitingMissions: Mission[] = [];
     checkedMissons: Mission[] = [];
-    dupMissions: Mission[] = [];
     roleCookie: number;
-    p: number = 1;
-    
     constructor(private router: Router,
         private missionService: MissionService, private cookieService: CookieService,
         private notificationService: NotificationService
@@ -69,11 +65,16 @@ export class ManageMissionComponent {
     }
 
     switchStatus(mission: Mission) {
-        if (mission.status === 2) {
-        this.deny(mission);
+        if (mission.status == 2) {
+            mission.status = 3;
         } else {
-            this.accept(mission);
+            mission.status = 2;
         }
+        this.missionService.updateMission(mission).then(() => {
+            this.notificationService.success('Success');
+            this.missionService.activateMission(mission);
+            this.reload();
+        });
     }
 
     deny(mission: Mission) {
@@ -85,23 +86,11 @@ export class ManageMissionComponent {
     }
 
     accept(mission: Mission) {
-        this.missionService.testUser(mission).then((res: Mission[]) => {
-            if (res.length > 0) {
-                this.notificationService.error(this.missionService.getMessage(res));
-            } else {
-                this.missionService.testDate(mission).then((rest: ShiftDay[]) => {
-                    console.log(rest);
-                    if (rest.length > 0) {
-                        this.notificationService.error(this.missionService.getMessage2(rest));
-                    } else {     mission.status = 2;
-                        this.missionService.updateMission(mission).then(() => {
-                            this.notificationService.success('Success');
-                            this.missionService.activateMission(mission);
-                            this.reload();
-                        }); }
-            });
-        }}).catch(err => {
-            alert(err);
+        mission.status = 2;
+        this.missionService.updateMission(mission).then(() => {
+            this.notificationService.success('Success');
+            this.missionService.activateMission(mission);
+            this.reload();
         });
     }
 }

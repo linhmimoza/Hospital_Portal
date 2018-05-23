@@ -168,7 +168,6 @@ public class CategoryDao {
                 con = DBUtils.makeConnection();
                 if (con != null) {
                     String sql = "insert into Category(CategoryName,Description,Status)values(?,?,1)";
-            
                     stm = con.prepareStatement(sql);
                     stm.setString(1, category.getCategoryName());
                     stm.setString(2, category.getDescription());
