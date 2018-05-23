@@ -55,12 +55,4 @@ public class DepartmentResource2 {
             List<Department> listDepartment = dao.getDepartments();        
             return listDepartment;
     }
-    @Path("/getListUseDepartment")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Department> getListUseDepartment() throws SQLException, ClassNotFoundException {
-            DepartmentDAO dao = new DepartmentDAO();
-            List<Department> listDepartment = dao.getUseDepartments();        
-            return listDepartment;
-    }
 }

@@ -24,156 +24,196 @@
             <i class="fa fa-star"></i> Waiting Mission</a>
         </li>
         <li>
-          <a href="#recent1" data-toggle="tab">Checked Mission</a>
+          <a href="#recent1" data-toggle="tab">
+            <i class="fa fa-star"></i>Checked Mission</a>
         </li>
       </ul>
       <div class="tab-content">
         <div id="popular1" class="tab-pane active">
-          <table class="table table-bordered table-striped mb-none">
-            <colgroup>
-              <col width="150px" />
-              <col width="150px" />
-              <col width="150px" />
-              <col width="350px" />
-              <col width="150px" />
-              <col width="50px" />
-            </colgroup>
-            <thead>
-              <tr>
-                <th>Start date</th>
-                <th>End date</th>
-                <th>Place</th>
-                <th>Worker</th>
-                <th>Status</th>
-                <th class="hidden-phone"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let mission of waitingMissions" class="gradeX">
-                <td>{{mission.startDate}}</td>
-                <td>{{mission.endDate}}</td>
-                <td>{{mission.place}}</td>
-                <td>
-                  <div class="bootstrap-tagsinput">
-                    <span *ngFor="let worker of mission.missionWorkerList" class="tag label label-info">
-                      {{worker.userName}}
-                      <span data-role="remove">
+          <div class="table-responsive">
+              <div class="row">
+                  <div class="col-md-4">
+                    <label class="col-sm-3 control-label">
+                      <h5>
+                        <strong>Search: </strong>
+                      </h5>
+                    </label>
+                    <div class="col-sm-9">
+                      <div class="mb-md">
+                        <input type="text" [(ngModel)]="term" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            <table class="table table-bordered table-striped mb-none">
+              <colgroup>
+                <col width="150px" />
+                <col width="150px" />
+                <col width="150px" />
+                <col width="350px" />
+                <col width="150px" />
+                <col width="50px" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>Start date</th>
+                  <th>End date</th>
+                  <th>Place</th>
+                  <th>Worker</th>
+                  <th>Status</th>
+                  <th class="hidden-phone"></th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let mission of waitingMissions | filter:term | paginate: { itemsPerPage: 5, currentPage: p, id: 'd' }" class="gradeX">
+
+                  <td>{{mission.startDate}}</td>
+                  <td>{{mission.endDate}}</td>
+                  <td>{{mission.place}}</td>
+                  <td>
+                    <div class="bootstrap-tagsinput">
+                      <span *ngFor="let worker of mission.missionWorkerList" class="tag label label-info">
+                        {{worker.userName}}
+                        <span data-role="remove">
+                        </span>
                       </span>
-                    </span>
-                  </div>
-                </td>
+                    </div>
+                  </td>
 
-                <td class="text-center">
-                  <div *ngIf="mission.status == 1" class="grid-status" [ngClass]="{'bg-warning':mission.status == 1,'bg-success':mission.status == 2,'bg-danger':mission.status == 3}"
-                    mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmDenyText"
-                    [cancelText]="confirmAcceptText" [placement]="placement" (confirm)="deny(mission)" (cancel)="accept(mission)"
-                    confirmButtonType="danger" cancelButtonType="success" (click)="confirmClicked = false; cancelClicked = false"
-                    [appendToBody]="true">
-                    {{mission.status == 1?'Waiting':''}} {{mission.status == 2?'Accept':''}} {{mission.status == 3?'Deny':''}}
-                  </div>
+                  <td class="text-center">
+                    <div *ngIf="mission.status == 1" class="grid-status" [ngClass]="{'bg-warning':mission.status == 1,'bg-success':mission.status == 2,'bg-danger':mission.status == 3}"
+                      mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmDenyText"
+                      [cancelText]="confirmAcceptText" [placement]="placement" (confirm)="deny(mission)" (cancel)="accept(mission)"
+                      confirmButtonType="danger" cancelButtonType="success" (click)="confirmClicked = false; cancelClicked = false"
+                      [appendToBody]="true">
+                      {{mission.status == 1?'Waiting':''}} {{mission.status == 2?'Accept':''}} {{mission.status == 3?'Deny':''}}
+                    </div>
 
-                  <div *ngIf="mission.status == 2" class="grid-status" [ngClass]="{'bg-warning':mission.status == 1,'bg-success':mission.status == 2,'bg-danger':mission.status == 3}"
-                    mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmDenyText"
-                    [cancelText]="cancelText" [placement]="placement" (confirm)="switchStatus(mission)" (cancel)="cancelClicked = true"
-                    confirmButtonType="danger" cancelButtonType="default" (click)="confirmClicked = false; cancelClicked = false"
-                    [appendToBody]="true">
-                    {{mission.status == 1?'Waiting':''}} {{mission.status == 2?'Accept':''}} {{mission.status == 3?'Deny':''}}
-                  </div>
+                    <div *ngIf="mission.status == 2" class="grid-status" [ngClass]="{'bg-warning':mission.status == 1,'bg-success':mission.status == 2,'bg-danger':mission.status == 3}"
+                      mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmDenyText"
+                      [cancelText]="cancelText" [placement]="placement" (confirm)="switchStatus(mission)" (cancel)="cancelClicked = true"
+                      confirmButtonType="danger" cancelButtonType="default" (click)="confirmClicked = false; cancelClicked = false"
+                      [appendToBody]="true">
+                      {{mission.status == 1?'Waiting':''}} {{mission.status == 2?'Accept':''}} {{mission.status == 3?'Deny':''}}
+                    </div>
 
-                  <div *ngIf="mission.status == 3" class="grid-status" [ngClass]="{'bg-warning':mission.status == 1,'bg-success':mission.status == 2,'bg-danger':mission.status == 3}"
-                    mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmAcceptText"
-                    [cancelText]="cancelText" [placement]="placement" (confirm)="switchStatus(mission)" (cancel)="cancelClicked = true"
-                    confirmButtonType="success" cancelButtonType="default" (click)="confirmClicked = false; cancelClicked = false"
-                    [appendToBody]="true">
-                    {{mission.status == 1?'Waiting':''}} {{mission.status == 2?'Accept':''}} {{mission.status == 3?'Deny':''}}
-                  </div>
-                </td>
-                <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
-
-                <td align="center">
-                  <a>
-                    <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(mission)"></i>
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-
+                    <div *ngIf="mission.status == 3" class="grid-status" [ngClass]="{'bg-warning':mission.status == 1,'bg-success':mission.status == 2,'bg-danger':mission.status == 3}"
+                      mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmAcceptText"
+                      [cancelText]="cancelText" [placement]="placement" (confirm)="switchStatus(mission)" (cancel)="cancelClicked = true"
+                      confirmButtonType="success" cancelButtonType="default" (click)="confirmClicked = false; cancelClicked = false"
+                      [appendToBody]="true">
+                      {{mission.status == 1?'Waiting':''}} {{mission.status == 2?'Accept':''}} {{mission.status == 3?'Deny':''}}
+                    </div>
+                  </td>
+                  <td align="center">
+                    <a>
+                      <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(mission)"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="row">
+              <div class="col-md-4 col-md-offset-8" style="padding-top: 20px;">
+                <pagination-controls (pageChange)="p = $event" id="d"></pagination-controls>
+              </div>
+            </div>
+          </div>
         </div>
         <div id="recent1" class="tab-pane">
-          <table class="table table-bordered table-striped mb-none">
-            <colgroup>
-              <col width="150px" />
-              <col width="150px" />
-              <col width="150px" />
-              <col width="350px" />
-              <col width="150px" />
-              <col width="50px" />
-            </colgroup>
-            <thead>
-              <tr>
-                <th>Start date</th>
-                <th>End date</th>
-                <th>Place</th>
-                <th>Worker</th>
-                <th>Status</th>
-                <th class="hidden-phone"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let mission of checkedMissons" class="gradeX">
-                <td>{{mission.startDate}}</td>
-                <td>{{mission.endDate}}</td>
-                <td>{{mission.place}}</td>
-                <td>
-                  <div class="bootstrap-tagsinput">
-                    <span *ngFor="let worker of mission.missionWorkerList" class="tag label label-info">
-                      {{worker.userName}}
-                      <span data-role="remove">
+            
+          <div class="table-responsive">
+              <div class="row">
+                  <div class="col-md-4">
+                    <label class="col-sm-3 control-label">
+                      <h5>
+                        <strong>Search: </strong>
+                      </h5>
+                    </label>
+                    <div class="col-sm-9">
+                      <div class="mb-md">
+                        <input type="text" [(ngModel)]="term1" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            <table class="table table-bordered table-striped mb-none">
+              <colgroup>
+                <col width="150px" />
+                <col width="150px" />
+                <col width="150px" />
+                <col width="350px" />
+                <col width="150px" />
+                <col width="50px" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>Start date</th>
+                  <th>End date</th>
+                  <th>Place</th>
+                  <th>Worker</th>
+                  <th>Status</th>
+                  <th class="hidden-phone"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let mission of checkedMissons | filter:term1 | paginate: { itemsPerPage: 5, currentPage: q }" class="gradeX">
+                  <td>{{mission.startDate}}</td>
+                  <td>{{mission.endDate}}</td>
+                  <td>{{mission.place}}</td>
+                  <td>
+                    <div class="bootstrap-tagsinput">
+                      <span *ngFor="let worker of mission.missionWorkerList " class="tag label label-info">
+
+                        {{worker.userName}}
+                        <span data-role="remove">
+                        </span>
                       </span>
-                    </span>
-                  </div>
-                </td>
+                    </div>
+                  </td>
 
-                <td class="text-center">
-                  <div *ngIf="mission.status == 1" class="grid-status" [ngClass]="{'bg-warning':mission.status == 1,'bg-success':mission.status == 2,'bg-danger':mission.status == 3}"
-                    mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmDenyText"
-                    [cancelText]="confirmAcceptText" [placement]="placement" (confirm)="deny(mission)" (cancel)="accept(mission)"
-                    confirmButtonType="danger" cancelButtonType="success" (click)="confirmClicked = false; cancelClicked = false"
-                    [appendToBody]="true">
-                    {{mission.status == 1?'Waiting':''}} {{mission.status == 2?'Accept':''}} {{mission.status == 3?'Deny':''}}
-                  </div>
+                  <td class="text-center">
+                    <div *ngIf="mission.status == 1" class="grid-status" [ngClass]="{'bg-warning':mission.status == 1,'bg-success':mission.status == 2,'bg-danger':mission.status == 3}"
+                      mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmDenyText"
+                      [cancelText]="confirmAcceptText" [placement]="placement" (confirm)="deny(mission)" (cancel)="accept(mission)"
+                      confirmButtonType="danger" cancelButtonType="success" (click)="confirmClicked = false; cancelClicked = false"
+                      [appendToBody]="true">
+                      {{mission.status == 1?'Waiting':''}} {{mission.status == 2?'Accept':''}} {{mission.status == 3?'Deny':''}}
+                    </div>
 
-                  <div *ngIf="mission.status == 2" class="grid-status" [ngClass]="{'bg-warning':mission.status == 1,'bg-success':mission.status == 2,'bg-danger':mission.status == 3}"
-                    mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmDenyText"
-                    [cancelText]="cancelText" [placement]="placement" (confirm)="switchStatus(mission)" (cancel)="cancelClicked = true"
-                    confirmButtonType="danger" cancelButtonType="default" (click)="confirmClicked = false; cancelClicked = false"
-                    [appendToBody]="true">
-                    {{mission.status == 1?'Waiting':''}} {{mission.status == 2?'Accept':''}} {{mission.status == 3?'Deny':''}}
-                  </div>
+                    <div *ngIf="mission.status == 2" class="grid-status" [ngClass]="{'bg-warning':mission.status == 1,'bg-success':mission.status == 2,'bg-danger':mission.status == 3}"
+                      mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmDenyText"
+                      [cancelText]="cancelText" [placement]="placement" (confirm)="switchStatus(mission)" (cancel)="cancelClicked = true"
+                      confirmButtonType="danger" cancelButtonType="default" (click)="confirmClicked = false; cancelClicked = false"
+                      [appendToBody]="true">
+                      {{mission.status == 1?'Waiting':''}} {{mission.status == 2?'Accept':''}} {{mission.status == 3?'Deny':''}}
+                    </div>
 
-                  <div *ngIf="mission.status == 3" class="grid-status" [ngClass]="{'bg-warning':mission.status == 1,'bg-success':mission.status == 2,'bg-danger':mission.status == 3}"
-                    mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmAcceptText"
-                    [cancelText]="cancelText" [placement]="placement" (confirm)="switchStatus(mission)" (cancel)="cancelClicked = true"
-                    confirmButtonType="success" cancelButtonType="default" (click)="confirmClicked = false; cancelClicked = false"
-                    [appendToBody]="true">
-                    {{mission.status == 1?'Waiting':''}} {{mission.status == 2?'Accept':''}} {{mission.status == 3?'Deny':''}}
-                  </div>
-                </td>
-                <!-- <td class="text-center">{{user.CreatedDate | date:'dd/MM/yyyy'}}</td> -->
-
-                <td align="center">
-                  <a>
-                    <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(mission)"></i>
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                    <div *ngIf="mission.status == 3" class="grid-status" [ngClass]="{'bg-warning':mission.status == 1,'bg-success':mission.status == 2,'bg-danger':mission.status == 3}"
+                      mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" [confirmText]="confirmAcceptText"
+                      [cancelText]="cancelText" [placement]="placement" (confirm)="switchStatus(mission)" (cancel)="cancelClicked = true"
+                      confirmButtonType="success" cancelButtonType="default" (click)="confirmClicked = false; cancelClicked = false"
+                      [appendToBody]="true">
+                      {{mission.status == 1?'Waiting':''}} {{mission.status == 2?'Accept':''}} {{mission.status == 3?'Deny':''}}
+                    </div>
+                  </td>
+                  <td align="center">
+                    <a>
+                      <i style="cursor:pointer" class="fa fa-pencil-square-o" (click)="detail(mission)"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="row">
+              <div class="col-md-4 col-md-offset-8" style="padding-top: 20px;">
+                <pagination-controls (pageChange)="q = $event"></pagination-controls>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
   </div>
 </section>

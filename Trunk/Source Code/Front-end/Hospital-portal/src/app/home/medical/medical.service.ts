@@ -13,7 +13,7 @@ export class MedicalService {
     constructor(private _http: Http) { }
 
     getSpecialList(): Observable<any> {
-        return this._http.get(`${SERVER}Department/getListUseDepartment`, OPTIONS).map(res => res.json());
+        return this._http.get(`${SERVER}Department/getListDepartment`, OPTIONS).map(res => res.json());
     }
 
     getServiceList(id): Observable<any> {
@@ -25,7 +25,7 @@ export class MedicalService {
     }
 
     getMedicalIdentity(identity): Observable<any> {
-        return this._http.get(`${SERVER}MedicalBooking/getListMedicalBooking?GuestPhone=${identity}`, OPTIONS).map(res => res.json());
+        return this._http.get(`${SERVER}MedicalBooking/getListMedicalBooking?GuestIdentity=${identity}`, OPTIONS).map(res => res.json());
     }
 
     submitBooking(data): Observable<any> {

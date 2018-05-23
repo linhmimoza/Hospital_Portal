@@ -78,9 +78,9 @@ public class MedicalBookingResource {
     @Path("/getListMedicalBooking")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<MedicalBooking> getListMb(@QueryParam("GuestPhone") String guestPhone) throws SQLException, ClassNotFoundException {
+    public List<MedicalBooking> getListMb(@QueryParam("GuestIdentity") String guestIdentity) throws SQLException, ClassNotFoundException {
         MedicalBookingDao dao = new MedicalBookingDao();
-        List<MedicalBooking> listMb = dao.getListMb(guestPhone);
+        List<MedicalBooking> listMb = dao.getListMb(guestIdentity);
         return listMb;
     }
 

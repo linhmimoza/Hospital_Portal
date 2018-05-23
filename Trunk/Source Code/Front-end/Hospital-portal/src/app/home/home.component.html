@@ -68,7 +68,7 @@
 
             <div class="sidebar-header">
                 <div class="sidebar-title">
-                    Menu
+                    Navigation
                 </div>
                 <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
                     <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
@@ -100,12 +100,12 @@
 
                             <li class="nav-parent">
                                 <a>
-                                    <i class="fa fa-copy" aria-hidden="true" style="color: #0088cc;"></i>
-                                    <span style="color: #0088cc;">News</span>
+                                    <i class="fa fa-copy" aria-hidden="true"></i>
+                                    <span>News</span>
                                 </a>
                                 <ul class="nav nav-children">
                                     <li (change)="getCategoryList($event.target.value)" name="categoryId" *ngFor="let item of categoryList">
-                                        <a  [routerLink]="['/home/news', item.categoryId]" style="color: #0088cc;">
+                                        <a  [routerLink]="['/home/news', item.categoryId]">
                                             {{item.categoryName}}
                                         </a>
                                     </li>
@@ -113,7 +113,7 @@
                                 </ul>
                             </li>
 
-                            <!-- <li class="nav-parent">
+                            <li class="nav-parent">
                                 <a>
                                     <i class="fa fa-copy" aria-hidden="true"></i>
                                     <span>About us</span>
@@ -126,7 +126,7 @@
                                     </li>
                                     
                                 </ul>
-                            </li> -->
+                            </li>
 
                         </ul>
                     </nav>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './../../../api.service';
 import { Mission } from '../shared/mission.model';
+import { ShiftDay } from '../../shiftScheduler/shared/shiftDay.model';
 
 
 @Injectable()// dùng để chưa sẽ tài nguyên
@@ -89,7 +90,40 @@ export class MissionService {
             });
         });
     }
-
+    testUser(mission: Mission) {
+        return new Promise((resolve, reject) => {
+            this.apiService.post('testUser', mission).then(res => {
+                resolve(res.json());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
+    testDate(mission: Mission) {
+        return new Promise((resolve, reject) => {
+            this.apiService.post('testDate', mission).then(res => {
+                resolve(res.json());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
+    getMessage(mission: Mission[]){
+        let s = '';
+        mission.forEach(function(m) {
+            s = s + m.missionWorkerList[0].userName + ' has a mission to '
+            + m.place + ' from ' + m.startDate + ' to ' + m.endDate + '\n';
+        });
+        return s;
+    }
+    getMessage2(shiftDay: ShiftDay[]) {
+        let s = 'There are some duplication with shift schedule \n';
+        shiftDay.forEach(function(m) {
+            s = s + m.dayInWeek + ' : '
+            + m.shiftDay + '\n';
+        });
+        return s;
+    }
     // deleteDepartment(id){
     //     return new Promise((resolve, reject) => {
     //         this.apiService.get(`deleteDepartment/${id}`).then(res => {

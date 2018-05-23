@@ -93,16 +93,16 @@ public class MedicalBookingDao {
         return id;
     }
 
-    public List<MedicalBooking> getListMb(String guestPhone) throws SQLException, ClassNotFoundException {
+    public List<MedicalBooking> getListMb(String guestIdentity) throws SQLException, ClassNotFoundException {
         List<MedicalBooking> listMb = new ArrayList<>();
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
                 String sql = "Select d.DepartmentName,s.ServiceName,t.Date,m.GuestName,m.BookingNumber,m.IntendTime \n"
                         + "from Service s,Time t,Department d,MedicalBooking m \n"
-                        + "where m.GuestPhone=? and s.ServiceId=m.ServiceId and t.TimeId=m.TimeId and d.DepartmentId=m.DepartmentId";
+                        + "where m.GuestIdentity=? and s.ServiceId=m.ServiceId and t.TimeId=m.TimeId and d.DepartmentId=m.DepartmentId";
                 stm = con.prepareStatement(sql);
-                stm.setString(1, guestPhone);
+                stm.setString(1, guestIdentity);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     int bookingNumber = rs.getInt("BookingNumber");
