@@ -20,7 +20,7 @@
     <section class="panel">
       <header class="panel-heading">
 
-        <h2 class="panel-title">Input your identity number:</h2>
+        <h2 class="panel-title">Input your phone number:</h2>
         <form class="search nav-form">
           <div class="input-group input-search" style="padding-top: 10px">
             <input type="text" class="form-control" name="identity" id="identity" placeholder="Search..." (keyup.enter)="submitIdentity()" [(ngModel)]="identity" />
@@ -34,34 +34,37 @@
       </header>
       <div class="panel-body" >
         <p id="searchRes" hidden>No matches</p>
-        <form class="form-horizontal form-bordered" method="get" *ngIf="guest">
+        <form class="form-horizontal form-bordered" method="get" *ngIf="guest" >
+                    <div *ngFor="let item of guest">
           <div class="form-group">
             <label class="col-md-3 control-label" for="inputSuccess">Department:</label>
             <label class="col-md-6 label-value">
-              {{guest.departmentName}}
+              {{item.departmentName}}
             </label>
           </div>
 
           <div class="form-group">
             <label class="col-md-3 control-label" for="inputSuccess">Service:</label>
             <label class="col-md-6 label-value">
-              {{guest.serviceName}}
+              {{item.serviceName}}
             </label>
           </div>
 
           <div class="form-group">
             <label class="col-md-3 control-label">Day:</label>
             <label class="col-md-6 label-value">
-              {{guest.date}}
+              {{item.date}}
             </label>
           </div>
 
           <div class="form-group">
             <label class="col-md-3 control-label" for="inputSuccess">Time:</label>
             <label class="col-md-6 label-value">
-              {{guest.time}}
+              {{item.time}}
             </label>
           </div>
+          ---------------------------------------------------
+        </div>
         </form>
       </div>
       <!-- <a href="index.html">

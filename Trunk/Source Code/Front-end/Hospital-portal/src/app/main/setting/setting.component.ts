@@ -47,7 +47,7 @@ export class SettingComponent implements OnInit {
     this.form = new FormGroup({
       limit: new FormControl('', [
         Validators.required,
-        Validators.pattern('[0-9]')
+        Validators.pattern('[0-9999]')
       ]),
       dateto: new FormControl('', [
         Validators.required
@@ -57,7 +57,7 @@ export class SettingComponent implements OnInit {
     this.updateForm = new FormGroup({
       updateLimit: new FormControl('', [
         Validators.required,
-        Validators.pattern('[0-9]')
+        Validators.pattern('[0-9999]')
       ])
     });
   }
