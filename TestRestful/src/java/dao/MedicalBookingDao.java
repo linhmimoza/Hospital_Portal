@@ -51,7 +51,9 @@ public class MedicalBookingDao {
             try {
                 con = DBUtils.makeConnection();
                 if (con != null) {
-                    String sql = "insert into MedicalBooking(DepartmentId,ServiceId,TimeId,CreateDate,GuestName,GuestPhone,GuestEmail,GuestAddress,GuestIdentity,Note)values(?,?,?,?,?,?,?,?,?,?)";
+                    String sql = "insert into MedicalBooking(DepartmentId,ServiceId,"
+                            + "TimeId,CreateDate,GuestName,GuestPhone,GuestEmail,GuestAddress,"
+                            + "GuestIdentity,Note)values(?,?,?,?,?,?,?,?,?,?)";
                     stm = con.prepareStatement(sql);
                     stm.setInt(1, mb.getDepartmentId());
                     stm.setInt(2, mb.getServiceId());

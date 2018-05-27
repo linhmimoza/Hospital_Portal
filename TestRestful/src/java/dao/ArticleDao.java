@@ -520,10 +520,11 @@ public List<Article> getArticleByCategory( int categoryId) {
                 String sql = "select u.UserName, a.ArticleId,a.CategoryId,a.Describe,\n" +
 "a.Link,a.OldName,a.Status,a.Title,a.UpdateBy,\n" +
 "a.UpdateDate,a.UploadBy,a.UploadDate\n" +
-" from Article a,[User] u where  u.UserId=a.UploadBy and a.CategoryId="+categoryId;
+" from Article a,[User] u where  u.UserId=a.UploadBy and a.CategoryId="+categoryId 
+                        + " and a.Status=1 ORDER BY a.UpdateDate DESC";
 
                 stm = con.prepareStatement(sql);
-              
+                System.out.println(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     Integer id = rs.getInt("ArticleId");
