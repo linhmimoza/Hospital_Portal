@@ -1,50 +1,22 @@
-<div class="row" style="position: relative">
-    <!-- <div class="container" style="background: white; width: 100%" *ngIf="news"> -->
-
-  <header class="page-header">
-    <h2>Home page</h2>
-
-    <div class="right-wrapper pull-right">
-      <ol class="breadcrumbs">
-        <li>
-          <a href="index.html">
-            <i class="fa fa-home"></i>
-          </a>
-        </li>
-      </ol>
-    </div>
-  </header>
-  <div class="col-md-9" style="padding: 0">
-    <img src="assets/img/bv.jpg" style="width: 100%" />
-    <hr/>
-    <div class="row" style="text-align: center">
-        <h3>Contact with us</h3>
-        <p>Address : <a href="https://www.google.com/maps/search/C%C3%B4ng+Vi%C3%AAn+Ph%E1%BA%A7n+M%E1%BB%81m+Quang+Trung,+Q12/@10.854595,106.6257913,17z/data=!3m1!4b1">Công Viên Phần Mềm Quang Trung, Q12</a></p>
-        <p>Phone number : 0823456789</p>
-        <p>Email : hospital@gmail.com</p>
-      </div>
-  </div>
-  <div class="col-md-3 adv">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <h3>Social Network</h3>
-        <a href="https://www.facebook.com">
-          <img src="../../assets/img/facebook.png" style="width: 100%" />
-        </a>
-        <a href="https://twitter.com/" >
-          <img src="../../assets/img/Twitter.jpg" style="width: 100%;height: 80px" />
-        </a>
-
-      </div>
-    </div>
-    <div class="panel panel-default">
-      <div class="panel-body" *ngIf="listNews.length">
-        <h3>Top latest news</h3>
-        <div class="row" *ngFor="let item of listNews; let idx = index">
-          <a [routerLink]="['/home/news-detail', item.articleId]">{{idx + 1}}. {{item.title}}</a>
+<section class="panel">
+  <div class="panel-body" style="position: relative">
+    <nav class="navbar navbar-inverse" *ngFor="let list of listNews">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">{{list.categoryName}}</a>
         </div>
       </div>
+    </nav>
+  </div>
+  <div class="panel-footer" style="padding: 0">
+    <hr/>
+    <div class="row" style="text-align: center">
+      <h3>Contact with us</h3>
+      <p>Address :
+        <a href="https://www.google.com/maps/search/C%C3%B4ng+Vi%C3%AAn+Ph%E1%BA%A7n+M%E1%BB%81m+Quang+Trung,+Q12/@10.854595,106.6257913,17z/data=!3m1!4b1">Công Viên Phần Mềm Quang Trung, Q12</a>
+      </p>
+      <p>Phone number : 0823456789</p>
+      <p>Email : hospital@gmail.com</p>
     </div>
   </div>
-</div>
-
+</section>

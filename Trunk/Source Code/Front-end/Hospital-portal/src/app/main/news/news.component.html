@@ -50,7 +50,6 @@
 
             </div>
           </div>
-
           <div class="table-responsive">
             <table class="table table-bordered table-striped mb-none display" *ngIf="listNews?.length">
               <colgroup>
@@ -75,7 +74,6 @@
               </thead>
               <tbody>
                 <tr *ngFor="let item of listNews | filter:term | paginate: { itemsPerPage: 10, currentPage: p }" class="gradeX">
-
                   <td>{{item.title}}</td>
                   <td>{{item.uploadByName}}</td>
                   <td>{{item.updateByName}}</td>
@@ -97,14 +95,11 @@
                           Waiting
                         </p>
                       </div>
-
                     </td>
                     <td class="text-center">
-
                       <a *ngIf="categoryId" [routerLink]="['/main/manage-news', item.articleId, categoryId]">
                         <i class="fa fa-pencil"></i>
                       </a>
-
                     </td>
                   </ng-template>
                 </tr>

@@ -76,6 +76,7 @@ import { MedicalBookingComponent } from './main/medical-booking/medical-booking.
 import { NotiService } from './common/notification';
 import { ManageMeetingSchedulerComponent } from './main/meetting/manageMeeting-Scheduler.component';
 import { ManageMissionSchedulerComponent } from './main/mission/manageMission-Scheduler.component';
+import { PosterNewsComponent } from './main/news/poster-news.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home/main', pathMatch: 'full' },
@@ -120,7 +121,8 @@ const routes: Routes = [
       { path: 'upload-shiftSchedule', component: UploadShiftScheduleComponent },
       { path: 'medical-booking', component: MedicalBookingComponent },
       { path: 'manageMeeting-Scheduler', component: ManageMeetingSchedulerComponent },
-      { path: 'manageMission-Scheduler', component: ManageMissionSchedulerComponent }
+      { path: 'manageMission-Scheduler', component: ManageMissionSchedulerComponent },
+      { path: 'poster-news', component: PosterNewsComponent }
     ]
   },
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
@@ -188,7 +190,8 @@ const routes: Routes = [
     UploadShiftScheduleComponent,
     MedicalBookingComponent,
     ManageMeetingSchedulerComponent,
-    ManageMissionSchedulerComponent
+    ManageMissionSchedulerComponent,
+    PosterNewsComponent
   ],
   imports: [
     BrowserModule,
@@ -203,7 +206,8 @@ const routes: Routes = [
     Ng2SearchPipeModule,
     ConfirmationPopoverModule.forRoot({
       confirmButtonType: 'danger' // set defaults here
-    })
+    }),
+    EditorModule 
   ],
   providers: [
     NotificationService, LoadingService, LoginService, AccountService, ApiService, UserService,

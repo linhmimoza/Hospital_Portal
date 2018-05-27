@@ -18,4 +18,8 @@ export class HomeMainService {
     getNewsList(): Observable<any> {
         return this._http.get(`${SERVER}Article/getTopListArticle`, OPTIONS).map(res => res.json());
     }
+
+    getCategoryList(): Observable<any> {
+        return this._http.get(`${SERVER}generic/getListCategory`, OPTIONS).map(res => res.json());
+    }
 }

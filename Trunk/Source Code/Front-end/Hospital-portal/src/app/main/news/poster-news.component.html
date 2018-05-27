@@ -1,0 +1,114 @@
+<div class="container" style="width: 100%">
+    <header class="page-header">
+        <h2>Article</h2>
+    </header>
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <section class="panel">
+                <header class="panel-heading">
+                    <h2 class="panel-title">List Article</h2>
+                </header>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="mb-md">
+                                <button class="btn btn-primary" *ngIf="categoryId" [routerLink]="['/main/manage-news', categoryId]">Add
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="col-sm-3 control-label">
+                                <h5>
+                                    <strong>Search: </strong>
+                                </h5>
+                            </label>
+                            <div class="col-sm-9">
+                                <div class="mb-md">
+                                    <input type="text" class="form-control" [(ngModel)]="searchKey" (input)="search($event.target.value)">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-md-6 col-md-offset-2">
+                            <label class="col-sm-3 control-label">
+                                <h5>
+                                    <strong>Category: </strong>
+                                </h5>
+                            </label>
+                            <div class="col-sm-7">
+                                <select class="form-control" name="categoryId" [(ngModel)]="categoryId" *ngIf="categoryList?.length" (change)="getNews($event.target.value)">
+
+                                    <option *ngFor="let option of categoryList; let i = index" [value]="option.categoryId" [attr.data-index]="i" [attr.selected]="i === 0">{{option.categoryName}}</option>
+                                </select>
+
+                            </div>
+
+                        </div> -->
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped mb-none display" *ngIf="listNews?.length">
+                            <colgroup>
+                                <col width="150px" />
+                                <col width="150px" />
+                                <col width="150px" />
+                                <col width="550px" />
+                                <col width="150px" />
+                                <col width="50px" />
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Upload date</th>
+                                    <th>Update date</th>
+                                    <th>Quickview</th>
+                                    <th>Status</th>
+                                    <th>Update</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of listNews | filter:term | paginate: { itemsPerPage: 10, currentPage: p }" class="gradeX">
+
+                                    <td>{{item.title}}</td>
+                                    <td>{{item.uploadDate | date:'dd/MM/yyyy'}}</td>
+                                    <td>{{item.updateDate | date:'dd/MM/yyyy'}}</td>
+                                    <td>{{item.describe}}</td>
+                                    <td class="text-center">
+                                        <div class="grid-status" [ngClass]="{'bg-primary': item.status == 1, 'bg-danger': item.status == 0, 'bg-warning': item.status == 2 }">
+                                            <p *ngIf="item.status == 1">
+                                                Active
+                                            </p>
+                                            <p *ngIf="item.status == 0">
+                                                Disable
+                                            </p>
+                                            <p *ngIf="item.status == 2">
+                                                Waiting
+                                            </p>
+                                        </div>
+
+                                    </td>
+                                    <td class="text-center">
+                                        <a [routerLink]="['/main/manage-news', item.articleId, categoryId]">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-md-4 col-md-offset-8" style="padding-top: 20px;">
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

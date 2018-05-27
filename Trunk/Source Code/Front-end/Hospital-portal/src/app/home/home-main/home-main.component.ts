@@ -16,7 +16,7 @@ export class HomeMainComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this._homeMainSrv.getNewsList().subscribe(list => {
+    this._homeMainSrv.getCategoryList().subscribe(list => {
       this.listNews = list;
     });
   }

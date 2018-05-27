@@ -15,6 +15,10 @@ export class AdminNewsService {
         this.opts = new RequestOptions({ headers });
     }
 
+    getArticleByUser(userId): Observable<any> {
+        return this._http.get(`${SERVER}generic/getArticleByUser/${userId}`, this.opts).map(res => res.json());
+    }
+
     activeNews(id): Observable<any> {
         return this._http.get(`${SERVER}Article/activeArticle?ArticleId=${id}`, OPTIONS).map(res => res);
     }

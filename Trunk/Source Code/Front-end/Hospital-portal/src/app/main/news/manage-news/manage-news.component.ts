@@ -143,7 +143,11 @@ export class ManageNewsComponent implements OnInit {
           if (res._body) {
             console.log(res);
             this.notificationService.success('Create Succeed!');
-            setTimeout(() => this._router.navigate(['/main/news']), 1500);
+            if (this.roleId === 2) {
+              setTimeout(() => this._router.navigate(['/main/news']), 1500);
+            } else {
+              setTimeout(() => this._router.navigate(['/main/poster-news']), 1500);
+            }
           }
         }, err => {
           if (err.status === 400) {
@@ -160,7 +164,11 @@ export class ManageNewsComponent implements OnInit {
       });
       this._newsSrv.update(this.form.value).subscribe(res => {
         this.notificationService.success('Update Succeed!');
-        this._router.navigate(['/main/news']);
+        if (this.roleId === 2) {
+          setTimeout(() => this._router.navigate(['/main/news']), 1500);
+        } else {
+          setTimeout(() => this._router.navigate(['/main/poster-news']), 1500);
+        }
       }, err => {
         if (err.status === 500) {
           this.notificationService.error('Something went wrong!');
@@ -169,7 +177,11 @@ export class ManageNewsComponent implements OnInit {
     }
   }
   back() {
-    this._router.navigate(['/main/news']);
+    if (this.roleId === 2) {
+      this._router.navigate(['/main/news']);
+    } else {
+      this._router.navigate(['/main/poster-news']);
+    }
   }
 
   setCategoryId(categoryId) {
