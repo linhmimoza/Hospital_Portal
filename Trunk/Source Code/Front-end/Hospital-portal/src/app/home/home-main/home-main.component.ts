@@ -1,6 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 import { HomeMainService } from './home-main.service';
+import { Category } from '../../main/category/shared/category.model';
+import { Article } from '../../main/article/shared/article.model';
 
 @Component({
   selector: 'app-home-main',
@@ -9,15 +11,20 @@ import { HomeMainService } from './home-main.service';
   providers: [HomeMainService]
 })
 export class HomeMainComponent implements OnInit, AfterViewInit {
-  public mainArt: any;
-  public listNews: any[];
+  public listCategories: Category[] = [];
+  p: number = 1;
+  tempArticle: Article[] = [];
   constructor(private _homeMainSrv: HomeMainService) {
-    this.listNews = [];
   }
 
   ngOnInit() {
-    this._homeMainSrv.getCategoryList().subscribe(list => {
-      this.listNews = list;
+    this._homeMainSrv.getCategoryList().then((res: Category[]) => {
+      this.listCategories = res;
+      for (let j of this.listCategories) {
+        if (j.listArticle.length > 1) {
+          j.showMore = true;
+        }
+      }
     });
   }
 

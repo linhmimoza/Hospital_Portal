@@ -1,12 +1,28 @@
 <section class="panel">
-  <div class="panel-body" style="position: relative">
-    <nav class="navbar navbar-inverse" *ngFor="let list of listNews">
+  <div class="panel-body" style="position: relative; margin-bottom: 20px" *ngFor="let list of listCategories">
+    <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
           <a class="navbar-brand" href="#">{{list.categoryName}}</a>
         </div>
       </div>
     </nav>
+    <div class="row">
+      <div class="pricing-table" *ngFor="let article of list.listArticle | paginate: { itemsPerPage: 2, currentPage: p }">
+        <div class="col-lg-6 col-sm-12">
+          <div class="plan">
+            <h3>
+              <b>Upload date: </b> {{article.updateDate | date:'dd/MM/yyyy'}}
+            </h3>
+            <h4>{{article.title}} </h4>
+            <a class="btn btn-lg btn-primary" (click)="view(article)">View content</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="list.showMore == true">
+      <a class="btn btn-lg btn-primary pull-right" [routerLink]="['/home/news', list.categoryId]">Show more</a>
+    </div>
   </div>
   <div class="panel-footer" style="padding: 0">
     <hr/>
