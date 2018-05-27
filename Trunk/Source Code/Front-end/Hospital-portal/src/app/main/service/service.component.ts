@@ -50,7 +50,7 @@ export class AdminServiceComponent implements OnInit {
   }
 
   initData() {
-    this._medicalSrv.getSpecialList()
+    this._medicalSrv.getDepartment()
         .flatMap(res => {
           this.departmentList = res;
           this.deptId = this.departmentList[0].departmentId;

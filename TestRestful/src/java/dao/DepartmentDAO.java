@@ -76,6 +76,7 @@ public class DepartmentDAO implements Serializable {
         } finally {
        closeConnection();
         }
+        System.out.println("aaa"+listDepartments.size());
         return listDepartments;
     }
 

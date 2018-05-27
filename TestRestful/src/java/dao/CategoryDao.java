@@ -6,6 +6,7 @@
 package dao;
 
 import DBUtils.DBUtils;
+import Models.Article;
 import Models.Category;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -53,7 +54,9 @@ public class CategoryDao {
                     String name = rs.getString("CategoryName");
                     String description = rs.getString("Description");
                     Integer status = rs.getInt("Status");
-                    Category ca = new Category(categoryId, status, name, description);
+                     ArticleDao dao = new ArticleDao();
+        List<Article> listArticle = dao.getArticleByCategory(categoryId);
+                    Category ca = new Category(categoryId, status, name, description,listArticle);
                     listCategory.add(ca);
                 }
             }

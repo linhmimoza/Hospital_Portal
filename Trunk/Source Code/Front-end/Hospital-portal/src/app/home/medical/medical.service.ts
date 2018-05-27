@@ -12,10 +12,12 @@ export class MedicalService {
     private opts: any;
     constructor(private _http: Http) { }
 
+    getDepartment(): Observable<any> {
+        return this._http.get(`${SERVER}Department/getListDepartment`, OPTIONS).map(res => res.json());
+    }
     getSpecialList(): Observable<any> {
         return this._http.get(`${SERVER}Department/getListUseDepartment`, OPTIONS).map(res => res.json());
     }
-
     getServiceList(id): Observable<any> {
         return this._http.get(`${SERVER}service/getListService?DepartmentId=${id}`, OPTIONS).map(res => res.json());
     }

@@ -5,6 +5,8 @@
  */
 package Models;
 
+import java.util.List;
+
 /**
  *
  * @author Tung
@@ -12,6 +14,7 @@ package Models;
 public class Category {
     int categoryId,status;
     String categoryName,description;
+    List<Article> listArticle;
 
     public Category() {
     }
@@ -21,6 +24,22 @@ public class Category {
         this.status = status;
         this.categoryName = categoryName;
         this.description = description;
+    }
+
+    public Category(int categoryId, int status, String categoryName, String description, List<Article> listArticle) {
+        this.categoryId = categoryId;
+        this.status = status;
+        this.categoryName = categoryName;
+        this.description = description;
+        this.listArticle = listArticle;
+    }
+
+    public List<Article> getListArticle() {
+        return listArticle;
+    }
+
+    public void setListArticle(List<Article> listArticle) {
+        this.listArticle = listArticle;
     }
 
     public int getCategoryId() {

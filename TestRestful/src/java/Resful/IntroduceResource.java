@@ -8,6 +8,7 @@ package Resful;
 import Models.Introduce;
 import dao.IntroduceDao;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -53,7 +54,7 @@ public class IntroduceResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<Introduce> getListIntroduce() throws SQLException, ClassNotFoundException {
             IntroduceDao dao = new IntroduceDao();
-            List<Introduce> listIntroduce = dao.getIntroduce();        
+            List<Introduce> listIntroduce = new ArrayList<>();        
             return listIntroduce;
     }
     @Path("/createIntroduce")

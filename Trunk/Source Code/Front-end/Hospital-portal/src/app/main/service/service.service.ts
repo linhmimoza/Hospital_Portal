@@ -24,6 +24,7 @@ export class ServicesService {
     }
 
     searchByName(searchText, departmentId): Observable<any> {
+        // tslint:disable-next-line:max-line-length
         return this._http.get(`${SERVER}service/getListServiceByName?ServiceName=${searchText}&DepartmentId=${departmentId}`).map(res => res.json());
     }
 

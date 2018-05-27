@@ -60,7 +60,7 @@ public class DepartmentResource2 {
     @Produces(MediaType.APPLICATION_JSON)
     public List<Department> getListUseDepartment() throws SQLException, ClassNotFoundException {
             DepartmentDAO dao = new DepartmentDAO();
-            List<Department> listDepartment = dao.getUseDepartments();        
+            List<Department> listDepartment = dao.getUseDepartments();       
             return listDepartment;
     }
 }
