@@ -77,6 +77,7 @@ import { NotiService } from './common/notification';
 import { ManageMeetingSchedulerComponent } from './main/meetting/manageMeeting-Scheduler.component';
 import { ManageMissionSchedulerComponent } from './main/mission/manageMission-Scheduler.component';
 import { PosterNewsComponent } from './main/news/poster-news.component';
+import { ServicesService } from './main/service/service.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home/main', pathMatch: 'full' },
@@ -207,12 +208,13 @@ const routes: Routes = [
     ConfirmationPopoverModule.forRoot({
       confirmButtonType: 'danger' // set defaults here
     }),
-    EditorModule 
+    EditorModule
   ],
   providers: [
     NotificationService, LoadingService, LoginService, AccountService, ApiService, UserService,
     DepartmentService, RoleService, CategoryService, RoomService, MissionService,
-    ShiftSchedulerService, ManageService, MeetingService, ArticleService, CookieService, SelectService, NotificationComponentService
+    ShiftSchedulerService, ManageService, MeetingService, ArticleService, CookieService, SelectService, NotificationComponentService,
+    ServicesService
     , NotiService
   ],
   bootstrap: [AppComponent]

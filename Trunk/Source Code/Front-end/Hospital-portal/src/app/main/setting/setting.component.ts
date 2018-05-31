@@ -6,6 +6,9 @@ import * as moment from 'moment';
 import { REQUEST_RESULTS, ROLE_ID, ROLES } from '../../constant/commonConstant';
 import { NotificationService } from '../extra/notification.service';
 import { CookieService } from 'ngx-cookie-service';
+import { DepartmentService } from '../department/service/department.service';
+import { Department } from '../department/shared/department.model';
+import { ServicesService } from '../service/service.service';
 
 @Component({
   selector: 'app-setting',
@@ -18,29 +21,45 @@ export class SettingComponent implements OnInit {
   public roleId: any;
   public form: FormGroup;
   public updateForm: FormGroup;
+  public departmentList: Department[] = [];
+  public serviceList: any;
 
   constructor(private _timeSrv: SettingService
     , private _cookieSrv: CookieService
     , private notificationService: NotificationService
-    , private _router: Router) {
+    , private _router: Router
+    , private departmentService: DepartmentService
+    , private serviceService: ServicesService) {
     this.data = {};
   }
   // Amount=50&date=2018-03-29
   ngOnInit() {
     this.roleId = parseInt(this._cookieSrv.get(ROLE_ID), 10);
     if (this.roleId && this.roleId == ROLES.Admin) {
-      // this._medicalSrv.getSpecialList()
-      //   .flatMap(res => {
-      //     this.departmentList = res;
-      //     const deptId = this.departmentList[0].departmentId;
-      //     return this._serviceSrv.getListAll(deptId);
-      //   }).subscribe(res => {
-      //     this.listService = res;
-      //   });
+      this.initForm();
+      this.departmentService.getList().then((res: Department[]) => {
+        if (res != undefined || res != null) {
+          this.departmentList = res;
+          this.form.patchValue({
+            departmentId: this.departmentList[0].departmentId
+          })          
+        }
+
+        this.serviceService.getListAll(this.departmentList[0].departmentId).subscribe((res) => {
+          if (res != undefined || res != null) {
+            this.serviceList = res;
+            console.log(this.serviceList);
+            this.form.patchValue({
+              serviceId: this.serviceList[0].serviceId
+            })
+          }
+        })
+      })
+
     } else {
       this.notificationService.fail('Access denied!').then(() => this._router.navigate(['/main']));
     }
-    this.initForm();
+
   }
 
   initForm() {
@@ -51,7 +70,9 @@ export class SettingComponent implements OnInit {
       ]),
       dateto: new FormControl('', [
         Validators.required
-      ])
+      ]),
+      departmentId: new FormControl(''),
+      serviceId: new FormControl('')
     });
 
     this.updateForm = new FormGroup({
@@ -65,7 +86,9 @@ export class SettingComponent implements OnInit {
   patchForm(data) {
     this.form.patchValue({
       limit: data.limit,
-      dateto: data.dateto
+      dateto: data.dateto,
+      departmentId: this.departmentList[0].departmentId,
+      serviceId: this.serviceList[0].serviceId
     });
   }
 

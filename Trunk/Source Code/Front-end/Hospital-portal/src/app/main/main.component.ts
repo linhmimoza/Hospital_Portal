@@ -69,6 +69,6 @@ export class MainComponent {
         this.cookieService.set("Auth-UserId", null);
         this.cookieService.set("Auth-Username", null);
         this.cookieService.set("Auth-RoleId", null);
-        this.router.navigate(['/login']);
+        this.router.navigate(['/home/main']);
     }
 }

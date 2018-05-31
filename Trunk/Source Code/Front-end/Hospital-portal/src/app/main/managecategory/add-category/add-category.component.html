@@ -36,7 +36,7 @@
         </div>
         <footer class="panel-footer">
           <div class="row">
-            <div class="col-sm-9 col-sm-offset-3">
+            <div class="col-sm-9 col-sm-offset-3" *ngIf="form.valid">
               <button class="btn btn-primary" (click)="save()">
                 <i class="fa fa-floppy-o"></i>
                 Save</button>
