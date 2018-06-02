@@ -23,6 +23,7 @@ export class SettingComponent implements OnInit {
   public updateForm: FormGroup;
   public departmentList: Department[] = [];
   public serviceList: any;
+  public departmentIdChange: number;
 
   constructor(private _timeSrv: SettingService
     , private _cookieSrv: CookieService
@@ -42,7 +43,7 @@ export class SettingComponent implements OnInit {
           this.departmentList = res;
           this.form.patchValue({
             departmentId: this.departmentList[0].departmentId
-          })          
+          })
         }
 
         this.serviceService.getListAll(this.departmentList[0].departmentId).subscribe((res) => {
@@ -60,6 +61,19 @@ export class SettingComponent implements OnInit {
       this.notificationService.fail('Access denied!').then(() => this._router.navigate(['/main']));
     }
 
+  }
+
+  changeService(departmentId: string) {
+    console.log(departmentId);
+    this.serviceService.getListAll(departmentId).subscribe((res) => {
+      if (res != undefined || res != null) {
+        this.serviceList = res;
+        console.log(this.serviceList);
+        this.form.patchValue({
+          serviceId: this.serviceList[0].serviceId
+        })
+      }
+    })
   }
 
   initForm() {
@@ -123,5 +137,10 @@ export class SettingComponent implements OnInit {
   public get dateto() {
     return this.form.get('dateto');
   }
+
+  get departmentId() {
+    return this.form.get('departmentId');
+}
+
 
 }

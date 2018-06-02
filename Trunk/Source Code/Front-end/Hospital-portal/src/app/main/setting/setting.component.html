@@ -28,27 +28,25 @@
         </header>
         <div class="panel-body">
           <form [formGroup]="form" class="form-horizontal form-bordered">
-
             <div class="form-group">
               <label class="col-md-3 control-label" for="inputDefault">Department
               </label>
               <div class="col-md-6">
-                  <select formControlName="departmentId" class="form-control">
-                      <option *ngFor="let dept of departmentList" [ngValue]="dept.departmentId">{{dept.departmentName}}</option>
-                  </select>                        
+                <select formControlName="departmentId" class="form-control" (change)="changeService(departmentId.value)">
+                  <option *ngFor="let dept of departmentList" [ngValue]="dept.departmentId">{{dept.departmentName}}</option>
+                </select>
               </div>
             </div>
 
             <div class="form-group">
-                <label class="col-md-3 control-label" for="inputDefault">Service
-                </label>
-                <div class="col-md-6">
-                    <select formControlName="serviceId" class="form-control">
-                        <option *ngFor="let service of serviceList" [ngValue]="service.serviceId">{{service.serviceName}}</option>
-                    </select>                        
-                </div>
+              <label class="col-md-3 control-label" for="inputDefault">Service
+              </label>
+              <div class="col-md-6">
+                <select formControlName="serviceId" class="form-control">
+                  <option *ngFor="let service of serviceList" [ngValue]="service.serviceId">{{service.serviceName}}</option>
+                </select>
               </div>
-
+            </div>
             <div class="form-group">
               <label class="col-md-3 control-label" for="inputDefault">Date
               </label>
@@ -80,7 +78,7 @@
         </div>
         <footer class="panel-footer">
           <div class="row">
-            <div class="col-sm-9 col-sm-offset-3" *ngIf="form.valid">
+            <div class="col-sm-9 col-sm-offset-3">
               <button class="btn btn-primary" (click)="updateTime()">
                 <i class="fa fa-floppy-o"></i>
                 Save</button>
@@ -120,7 +118,7 @@
         </div>
         <footer class="panel-footer">
           <div class="row">
-            <div class="col-sm-9 col-sm-offset-3" *ngIf="updateForm.valid">
+            <div class="col-sm-9 col-sm-offset-3">
               <button class="btn btn-primary" (click)="updateTimeLimit()">
                 <i class="fa fa-floppy-o"></i>
                 Save</button>
