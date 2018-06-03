@@ -15,7 +15,9 @@ export class MedicalBookingService {
     getListAll(): Observable<any> {
         return this._http.get(`${SERVER}MedicalBooking/getListMedicalBookingAdmin`).map(res => res.json());
     }
-
+    getListbyDate(date, serviceId): Observable<any> {
+        return this._http.get(`${SERVER}time/getBookingByDate?date=${date}&serviceId=${serviceId}`, OPTIONS).map(res => res);
+    }
     searchByName(searchText): Observable<any> {
         return this._http.get(`${SERVER}MedicalBooking/getListMbAdminByName?GuestName=${searchText}`).map(res => res.json());
     }
