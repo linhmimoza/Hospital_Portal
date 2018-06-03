@@ -108,12 +108,20 @@ export class CheckShiftScheduleComponent {
         });
     }
     accept() {
+        
+      this.shiftSchedulerService.testScheduler(this.shiftScheduler).then((res: string) => {
+     if (res.length == 0) {
         this.shiftScheduler.status = 2;
         this.manage.checked = this.manage.waiting;
         this.shiftSchedulerService.checkScheduler(this.shiftScheduler);
         this.shiftSchedulerService.checkSchedulerManager(this.manage);
         this.notificationService.success("Success");
         this.router.navigate(['/main/manage-shiftSchedule']);
+     }else{
+        this.notificationService.error(res);
+     }
+    });
+        
     }
     deny() {
         this.shiftScheduler.status = 3;

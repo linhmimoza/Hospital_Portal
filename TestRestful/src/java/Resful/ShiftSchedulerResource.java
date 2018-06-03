@@ -73,6 +73,18 @@ public class ShiftSchedulerResource {
          return dao.checkShiftScheduler(scheduler);
            
     }
+    
+    
+    @Path("/testShiftScheduler")
+    @POST
+    @Produces()
+    public String testShiftScheduler(ShiftSchedule scheduler) throws SQLException, ClassNotFoundException {
+         ShiftScheduleDAO dao= new ShiftScheduleDAO();
+         System.out.println(dao.testShiftScheduler(scheduler));
+         return dao.testShiftScheduler(scheduler);   
+    }
+    
+    
      @Path("/getShiftSchedulesByWeek")
     @GET
     @Produces()
