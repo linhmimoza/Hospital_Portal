@@ -45,9 +45,9 @@ public class ServiceDao {
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
-                String sql = "Select ServiceId, ServiceName, Description, Status from Service where DepartmentId=?";
+                String sql = "Select ServiceId, ServiceName, Description, Status from Service where DepartmentId="+departmentId;
                 stm = con.prepareStatement(sql);
-                stm.setInt(1, departmentId);
+                System.out.println(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     Integer id = rs.getInt("ServiceId");

@@ -228,6 +228,15 @@ setListManager(list: ShiftSchedulerManager[]){
             });
         });
     }
+    testScheduler(shiftSchedule: ShiftScheduler) {
+        return new Promise((resolve, reject) => {
+            this.apiService.post('testShiftScheduler', shiftSchedule).then(res => {
+                resolve(res.text());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
     checkSchedulerManager(manage: ShiftSchedulerManager) {
         return new Promise((resolve, reject) => {
             this.apiService.post('checkShiftSchedulerManager', manage).then(res => {
