@@ -119,5 +119,14 @@ public class MedicalBookingResource {
         MedicalBookingDao dao = new MedicalBookingDao();
         return "";
     }
-
+@Path("/getBookingByDate")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<MedicalBooking> getBookingByDate(
+    @QueryParam("serviceId") int serviceId,
+            @QueryParam("date") String date) throws SQLException, ClassNotFoundException {
+        MedicalBookingDao dao = new MedicalBookingDao();
+        List<MedicalBooking> listMb = dao.getListByDate(date, serviceId);
+        return listMb;
+    }
 }

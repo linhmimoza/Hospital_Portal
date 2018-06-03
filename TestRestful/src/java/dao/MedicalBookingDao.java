@@ -164,6 +164,7 @@ public class MedicalBookingDao {
                         + "from Service s,Time t,Department d,MedicalBooking m \n"
                         + "where m.GuestName like '%"+ GuestName.trim() +"%' and s.ServiceId=m.ServiceId and t.TimeId=m.TimeId and d.DepartmentId=m.DepartmentId";
                 stm = con.prepareStatement(sql);
+                System.out.println(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     int bookingNumber = rs.getInt("BookingNumber");
@@ -303,5 +304,41 @@ public class MedicalBookingDao {
         }
         return result;
     }
-
+public List<MedicalBooking> getListByDate(String date, int serviceId) throws SQLException, ClassNotFoundException {
+        List<MedicalBooking> listMb = new ArrayList<>();
+        try {
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "Select d.DepartmentName,s.ServiceName,t.Date,m.GuestName,m.BookingNumber,"
+                        + "m.IntendTime,m.CreateDate,m.GuestPhone,m.GuestEmail,m.GuestAddress,m.Note,m.GuestIdentity \n"
+                        + "from Service s,Time t,Department d,MedicalBooking m \n"
+                        + "where s.ServiceId=m.ServiceId and t.TimeId=m.TimeId and d.DepartmentId=m.DepartmentId"
+                        + " and s.ServiceId="+serviceId+" and t.Date='"+date+"'";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int bookingNumber = rs.getInt("BookingNumber");
+                    String createDate = rs.getString("CreateDate");
+                    String guestName = rs.getString("GuestName");
+                    String guestPhone = rs.getString("GuestPhone");
+                    String guestEmail = rs.getString("GuestEmail");
+                    String guestAddress = rs.getString("GuestAddress");
+                    String guestIdentity = rs.getString("GuestIdentity");
+                    String note = rs.getString("Note");
+                    String DepartmentName = rs.getString("DepartmentName");
+                    String ServiceName = rs.getString("ServiceName");
+                    String Time = rs.getString("IntendTime");
+                    String Date = rs.getString("Date");
+                    MedicalBooking mb = new MedicalBooking( bookingNumber, createDate, guestName, guestPhone, guestEmail, guestAddress, note, DepartmentName, ServiceName, Time, Date, guestIdentity );
+                    listMb.add(mb);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        return listMb;
+    }
+    
 }
