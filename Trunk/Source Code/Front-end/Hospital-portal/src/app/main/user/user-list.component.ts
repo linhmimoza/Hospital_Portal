@@ -57,7 +57,7 @@ export class UserListComponent {
             this.router.navigate(['/login']);
         } else {
             alert("You don't have permission to view this page!");
-            this.router.navigate(['/main/hospital-portal']);
+            this.router.navigate(['/home/main']);
         }
 
     }

@@ -21,7 +21,7 @@ export class HomeMainComponent implements OnInit, AfterViewInit {
     this._homeMainSrv.getCategoryList().then((res: Category[]) => {
       this.listCategories = res;
       for (let j of this.listCategories) {
-        if (j.listArticle.length > 1) {
+        if (j.listArticle.length > 2) {
           j.showMore = true;
         }
       }
@@ -29,7 +29,13 @@ export class HomeMainComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    $.getScript("assets/porto/javascripts/theme.init.js", function () {
+      $.getScript("assets/porto/javascripts/theme.custom.js", function () {
+        $.getScript("assets/porto/javascripts/theme.js", function () {
 
+        });
+      });
+    });
   }
 
 }
