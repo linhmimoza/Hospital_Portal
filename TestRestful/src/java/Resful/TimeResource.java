@@ -69,18 +69,18 @@ public class TimeResource {
     @Path("/getFirstAndLastDate")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Time> getFirstAndLastDate() throws SQLException, ClassNotFoundException, ParseException {
+    public List<Time> getFirstAndLastDate(@QueryParam("serviceId") int serviceId) throws SQLException, ClassNotFoundException, ParseException {
         TimeDao dao = new TimeDao();
-        List<Time> listTime = dao.getFirstAndLastDate();
+        List<Time> listTime = dao.getFirstAndLastDate(serviceId);
         return listTime;
     }
     @Path("/checkDateAvailable")
     @GET
     @Produces()
-    public Response checkDateAvailable(
+    public Response checkDateAvailable(@QueryParam("serviceId") int serviceId,
             @QueryParam("date") String date) throws SQLException, ClassNotFoundException {
         TimeDao dao = new TimeDao();
-        int result = dao.checkDateAvailable(date);
+        int result = dao.checkDateAvailable(date,serviceId);
         if (result == -1) {
             return Response.status(400).build();
         }
@@ -120,22 +120,16 @@ public class TimeResource {
         return Response.status(204).build();
     }
 
-    @Path("/updateLimitAmountTime")
-    @GET
-    @Produces()
-    public String updateLimitAmountTime(
-            @QueryParam("Limit") int Limit) throws SQLException {
-        TimeDao dao = new TimeDao();
-        return dao.updateLimitAmountTime(Limit);
-    }
+  
 
     @Path("/createDate")
     @GET
     @Produces()
     public String createDate(
             @QueryParam("dateto") String dateto,
-            @QueryParam("limit") int limit) throws SQLException, ParseException, ClassNotFoundException {
+            @QueryParam("limit") int limit,
+            @QueryParam("serviceId") int serviceId) throws SQLException, ParseException, ClassNotFoundException {
         TimeDao dao = new TimeDao();
-        return dao.createDate(dateto, limit);
+        return dao.createDate(dateto, limit,serviceId);
     }
 }

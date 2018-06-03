@@ -7,9 +7,19 @@ import { Department } from '../shared/department.model';
 
 export class DepartmentService {
     constructor(private apiService: ApiService) { }
+    
     getList() {
         return new Promise((resolve, reject) => {
             this.apiService.get('getListDepartment').then(res => {
+                resolve(res.json());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
+    getListUseDepartment() {
+        return new Promise((resolve, reject) => {
+            this.apiService.get('getListUseDepartment').then(res => {
                 resolve(res.json());
             }).catch(err => {
                 reject(err);

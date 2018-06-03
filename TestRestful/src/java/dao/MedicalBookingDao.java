@@ -45,26 +45,21 @@ public class MedicalBookingDao {
     public String createMedicalBooking(MedicalBooking mb) throws SQLException {
 
         String result = "Success";
-//        if (isIdentityExited(mb.getGuestIdentity()) == true) {
-//            result = "Existed";
-//        } else {
+        TimeDao dao= new TimeDao();
+                int number=dao.getNumber(mb.getTimeId())+1;
             try {
                 con = DBUtils.makeConnection();
                 if (con != null) {
                     String sql = "insert into MedicalBooking(DepartmentId,ServiceId,"
                             + "TimeId,CreateDate,GuestName,GuestPhone,GuestEmail,GuestAddress,"
-                            + "GuestIdentity,Note)values(?,?,?,?,?,?,?,?,?,?)";
+                            + "GuestIdentity,Note, BookingNumber)values"
+                            + "("+mb.getDepartmentId()+","+mb.getServiceId()+","
+                            + ""+mb.getTimeId()+",'"+mb.getCreateDate()+
+                            "','"+mb.getGuestName()+"','"+mb.getGuestPhone()+"','"
+                            + ""+mb.getGuestEmail()+"','"+mb.getGuestAddress()+"','"
+                            +mb.getGuestIdentity()+"','"+mb.getNote()+"',"+number+")";
                     stm = con.prepareStatement(sql);
-                    stm.setInt(1, mb.getDepartmentId());
-                    stm.setInt(2, mb.getServiceId());
-                    stm.setInt(3, mb.getTimeId());
-                    stm.setString(4, mb.getCreateDate());
-                    stm.setString(5, mb.getGuestName());
-                    stm.setString(6, mb.getGuestPhone());
-                    stm.setString(7, mb.getGuestEmail());
-                    stm.setString(8, mb.getGuestAddress());
-                    stm.setString(9, mb.getGuestIdentity());
-                    stm.setString(10, mb.getNote());
+                 
                     stm.executeUpdate();
                 }
             } catch (Exception e) {

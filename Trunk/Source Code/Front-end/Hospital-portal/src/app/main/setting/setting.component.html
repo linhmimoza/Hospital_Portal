@@ -89,46 +89,7 @@
           </div>
         </footer>
       </section>
-      <section class="panel">
-        <header class="panel-heading">
-          <h4>Update limit booking day</h4>
-
-          <h2 class="panel-title">{{command}}</h2>
-          <!-- <p class="panel-subtitle">
-                          Basic validation will display a label with the error after the form control.
-                      </p> -->
-        </header>
-        <div class="panel-body">
-          <form [formGroup]="updateForm" class="form-horizontal form-bordered">
-
-            <div class="form-group">
-              <label class="col-md-3 control-label" for="inputDefault">Limit
-              </label>
-              <div class="col-md-6">
-                <input type="text" class="form-control" id="updateLimit" name="updateLimit" formControlName="updateLimit" required>
-                <div class="form-group" *ngIf="updateLimit.invalid && (updateLimit.dirty || updateLimit.touched)" class="alert alert-danger"
-                  style="margin-top: 10px">
-                  <strong *ngIf="updateLimit.errors.required">Limit is required.</strong>
-                  <strong *ngIf="updateLimit.errors.pattern">Limit is not valid.</strong>
-                </div>
-              </div>
-            </div>
-          </form>
-
-        </div>
-        <footer class="panel-footer">
-          <div class="row">
-            <div class="col-sm-9 col-sm-offset-3">
-              <button class="btn btn-primary" (click)="updateTimeLimit()">
-                <i class="fa fa-floppy-o"></i>
-                Save</button>
-              <!-- <button class="btn btn-default" (click)="back()">
-                  <i class="fa fa-undo"></i>
-                  Back</button> -->
-            </div>
-          </div>
-        </footer>
-      </section>
+  
     </div>
   </div>
 </div>

@@ -109,7 +109,7 @@ public class MedicalBookingResource {
             @QueryParam("BookingId") int BookingId,
             @QueryParam("date") String date) throws SQLException {
         MedicalBookingDao dao = new MedicalBookingDao();
-        return dao.createBookingNumber(BookingId, date);
+        return "";
     }
 
     @Path("/createIntendTime")
@@ -117,7 +117,7 @@ public class MedicalBookingResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String createIntendTime(@QueryParam("BookingId") int BookingId) throws SQLException {
         MedicalBookingDao dao = new MedicalBookingDao();
-        return dao.createIntendTime(BookingId);
+        return "";
     }
 
 }

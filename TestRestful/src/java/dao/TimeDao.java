@@ -76,7 +76,7 @@ public class TimeDao {
         return listTime;
     }
 
-    public List<Time> getFirstAndLastDate() throws SQLException, ClassNotFoundException, ParseException {
+    public List<Time> getFirstAndLastDate(int serviceId) throws SQLException, ClassNotFoundException, ParseException {
         List<Time> listTime = new ArrayList<>();
         try {
             con = DBUtils.makeConnection();
@@ -87,7 +87,7 @@ public class TimeDao {
                 Date dateparse = inputFormat.parse(now);
                 SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String outputText = outputFormat.format(dateparse);
-                String sql = "SELECT top 1 Date FROM Time\n"
+                String sql = "SELECT top 1 Date FROM Time where ServiceId= "+serviceId+"\n"
                         + "order by Date desc";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
@@ -127,12 +127,12 @@ public class TimeDao {
         return listTime;
     }
 
-    public int checkDateAvailable(String date) throws SQLException, ClassNotFoundException {
+    public int checkDateAvailable(String date,int serviceId) throws SQLException, ClassNotFoundException {
         int id = -1;
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
-                String sql = "Select * from Time where Date=? and Available=1";
+                String sql = "Select * from Time where Date=? and Available=1 and ServiceId="+serviceId;
                 stm = con.prepareStatement(sql);
                 stm.setString(1, date);
                 rs = stm.executeQuery();
@@ -194,7 +194,7 @@ public class TimeDao {
         return check;
     }
 
-    public String updateLimitAmountTime(int Limit) {
+    public String updateLimitAmountTime(int Limit, int serviceId, String date) {
         String result = "Success";
         try {
             con = DBUtils.makeConnection();
@@ -206,7 +206,8 @@ public class TimeDao {
                 SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String outputText = outputFormat.format(dateparse);
                 String sql = "update Time set Limit=" + Limit + ""
-                        + "where Date >= '" + outputText + "'";
+                        + "where Date >= '" + outputText + "' and ServiceId="
+                        +serviceId+" and Date <= '"+date+"'";
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
 
@@ -220,17 +221,18 @@ public class TimeDao {
         return result;
     }
 
-    public String createDate(String dateto, int limit) throws SQLException, ParseException, ClassNotFoundException {
+    public String createDate(String dateto, int limit, int serviceId) throws SQLException, ParseException, ClassNotFoundException {
         String topdate = "";
         String result = "Success";
         try {
             con = DBUtils.makeConnection();
-            String sql = "SELECT top 1 Date FROM Time\n"
+            String sql = "SELECT top 1 Date FROM Time where ServiceId="+serviceId+"\n"
                     + "order by Date desc";
             stm = con.prepareStatement(sql);
             rs = stm.executeQuery();
             if (rs.next()) {
                 topdate = rs.getString("Date");
+                updateLimitAmountTime(limit, serviceId, topdate);
             } else {
                 DateFormat inputFormat = new SimpleDateFormat("yyyy/MM/dd");
                 TimeEditor time = new TimeEditor();
@@ -257,8 +259,8 @@ public class TimeDao {
                     String outputText = outputFormat.format(date);
                     String sql = "IF '" + outputText + "'<='" + dateto + "'\n"
                             + "Begin\n"
-                            + "Insert into [Time]([Date],Amount,Available,Limit)\n"
-                            + "values('" + outputText + "',0,1," + limit + ")\n"
+                            + "Insert into [Time]([Date],Amount,Available,Limit,ServiceId)\n"
+                            + "values('" + outputText + "',0,1," + limit + ", "+serviceId+")\n"
                             + "End";
                     stm = con.prepareStatement(sql);
                     success = stm.executeUpdate();
@@ -291,6 +293,25 @@ public class TimeDao {
         } catch (ClassNotFoundException | SQLException ex) {
             ex.printStackTrace();
 
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
+     public int getNumber(int timeId) {
+        int result = 0;
+        try {
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "select t.Amount from Time t where t.TimeId="+timeId;
+                stm = con.prepareStatement(sql);
+                System.out.println(sql);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    result = rs.getInt("Amount");
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
         } finally {
             closeConnection();
         }

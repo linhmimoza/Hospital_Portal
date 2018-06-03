@@ -95,7 +95,7 @@ export class MedicalComponent implements OnInit, AfterViewInit {
     $(`#step${step}`).css('visibility', 'visible');
     $(`#step${step}Click`).click();
     if (step == 3) {
-      this._medicalSrv.getMinMax().subscribe(([res]) => {
+      this._medicalSrv.getMinMax(this.data.serviceId).subscribe(([res]) => {
         $('#dayTime').attr('min', res.firstdate);
         $('#dayTime').attr('max', res.lastdate);
       });
@@ -151,8 +151,9 @@ export class MedicalComponent implements OnInit, AfterViewInit {
   }
 
   selectTime() {
+    const serviceId = this.data.serviceId;
     const date = moment(this.data.time).format('YYYY-MM-DD');
-    this._medicalSrv.getTimeId(date).subscribe(res => {
+    this._medicalSrv.getTimeId(date, serviceId).subscribe(res => {
       console.log('timeid', res._body);
       this.form.patchValue({
         timeId: res._body

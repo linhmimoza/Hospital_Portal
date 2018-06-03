@@ -38,7 +38,7 @@ export class SettingComponent implements OnInit {
     this.roleId = parseInt(this._cookieSrv.get(ROLE_ID), 10);
     if (this.roleId && this.roleId == ROLES.Admin) {
       this.initForm();
-      this.departmentService.getList().then((res: Department[]) => {
+      this.departmentService.getListUseDepartment().then((res: Department[]) => {
         if (res != undefined || res != null) {
           this.departmentList = res;
           this.form.patchValue({
@@ -106,13 +106,6 @@ export class SettingComponent implements OnInit {
     });
   }
 
-  updateTimeLimit() {
-    this._timeSrv.updateLimit(this.updateForm.value).subscribe(res => {
-      if (res._body === REQUEST_RESULTS.Success) {
-        this.notificationService.success('Update Succeed!');
-      }
-    });
-  }
 
   updateTime() {
     // console.log(this.form.get('dateto'));
@@ -141,6 +134,8 @@ export class SettingComponent implements OnInit {
   get departmentId() {
     return this.form.get('departmentId');
 }
-
+get serviceId() {
+  return this.form.get('serviceId');
+}
 
 }
