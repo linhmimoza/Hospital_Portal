@@ -4,17 +4,17 @@
       <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
     </div>
     <div>
-      <h2 class="panel-title">{{news.title}}</h2>
+      <h2 class="panel-title">{{title}}</h2>
     </div>
   </header>
   <div class="panel-body">
-    <code>{{news.uploadDate | date: 'dd/MM/yyyy'}}</code>
+    <code>{{uploadDate | date: 'dd/MM/yyyy'}}</code>
     <div id="article">
-      {{news.describe}}
+      <div [innerHTML]="describe"></div>
       <br/>
       <div>
-        <a (click)="getFile(news.articleId)" style="cursor: pointer">View more <i class="fa fa-arrow-right"></i></a>
-        <h5 style="color: black">Author: {{news.uploadByName}}</h5>
+        <a (click)="getFile(articleId)" style="cursor: pointer">View more <i class="fa fa-arrow-right"></i></a>
+        <h5 style="color: black">Author: {{uploadByName}}</h5>
       </div>
     </div>
   </div>

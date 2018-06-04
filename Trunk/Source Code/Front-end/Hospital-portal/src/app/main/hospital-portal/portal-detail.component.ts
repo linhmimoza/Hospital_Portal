@@ -13,11 +13,14 @@ declare var $: any;
 })
 export class PortalDetailComponent {
     roleCookie: number;
-    notification: Notification;
+    notification: any;
+    notificationName: any;
+    updateDate:  Date;
+    content: any;
     routerSubcription: any;
     id: number = 0;
 
-    constructor(private route: ActivatedRoute, private router: Router, 
+    constructor(private route: ActivatedRoute, private router: Router,
         private notificationComponentService: NotificationComponentService,
         private loadingService: LoadingService, private cookieService: CookieService) {
 
@@ -25,17 +28,17 @@ export class PortalDetailComponent {
     ngOnInit() {
         this.roleCookie = +this.cookieService.get("Auth-RoleId");
         if ((this.roleCookie >= 1) && (this.roleCookie <= 6)) {
-            this.loadingService.start();
-
             this.routerSubcription = this.route.params.subscribe(params => {
-                this.id = +params['id']; // (+) converts string 'id' to a number        
+                this.id = +params['id']; // (+) converts string 'id' to a number
                 this.notificationComponentService.getNotificationById(this.id).then((res: Notification) => {
-                    this.notification = res;
+                    this.notificationName = res.notificationName;
+                    this.updateDate = res.updateDate;
+                    this.content = res.content;
                 }).catch(err => {
                     console.log(err);
                 });
-            })
-            this.loadingService.stop();
+            });
+
         } else if (isNaN(this.roleCookie)) {
             alert("You don't have permission to view this page!");
             this.router.navigate(['/login']);

@@ -4,13 +4,13 @@
             <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
         </div>
         <div>
-            <h2 class="panel-title">{{notification.notificationName}}</h2>
+            <h2 class="panel-title">{{notificationName}}</h2>
         </div>
     </header>
     <div class="panel-body">
-        <code>{{notification.updateDate | date: 'dd/MM/yyyy'}}</code>
+        <code>{{updateDate | date: 'dd/MM/yyyy'}}</code>
         <div id="article">
-            {{notification.content}}
+         <div [innerHTML]="content"></div>
             <br/>
             <div>             
                 <!-- <h5 style="color: black">Author: {{notification.uploadByName}}</h5> -->

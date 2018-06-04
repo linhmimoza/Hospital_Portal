@@ -1,4 +1,4 @@
-export class Notification{
+export class Notification {
     notificationId: number;
     notificationName: string;
     content: string;
@@ -8,7 +8,7 @@ export class Notification{
     updateBy: number;
     status: number;
     createName: string;
-    constructor(){
-        
+    constructor() {
+
     }
 }

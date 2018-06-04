@@ -11,12 +11,25 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class NewsDetailComponent implements OnInit {
   public news: any;
+  public title: any;
+  public uploadDate: any;
+  public describe: any;
+  public articleId: any;
+  public uploadByName: any;
+  
   constructor(private _newsSrv: NewsService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
       const newsId = params['id'];
-      this._newsSrv.getDetail(newsId).subscribe(res => [this.news] = res);
+      this._newsSrv.getDetail(newsId).subscribe((res: any) => {
+        console.log(res);
+      this.title = res[0].title;
+      this.uploadDate = res[0].uploadDate;
+      this.describe = res[0].describe;
+      this.articleId = res[0].articleId;
+      this.uploadByName = res[0].uploadByName;
+      });
     });
   }
 
