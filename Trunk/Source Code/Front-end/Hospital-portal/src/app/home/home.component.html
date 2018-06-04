@@ -2,7 +2,7 @@
     <!-- start: header -->
     <header class="header">
         <div class="logo-container">
-            <a href="../" class="logo">
+            <a href="/home/main" class="logo">
                 <img src="assets/porto/images/Hospital_Logo.png" height="35" alt="Porto Admin" />
             </a>
             <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
@@ -14,20 +14,20 @@
 
             <span class="separator"></span>
 
-            <div id="userbox" class="userbox" *ngIf="!user.roleId">
+            <div id="userbox" class="userbox" *ngIf="(roleId.length==0||roleId==null)">
                 <a [routerLink]="['/login']" class="login-block">
                     <i class="fa fa-user" aria-hidden="true" ></i>
                     <p >Login</p>
                 </a>
             </div>
-            <div id="userbox" class="userbox" *ngIf="user.roleId">
+            <div id="userbox" class="userbox" *ngIf="(roleId.length>0)">
                 <a href="#" data-toggle="dropdown">
                     <figure class="profile-picture">
                         <img src="assets/porto/images/!logged-user.jpg" alt="Joseph Doe" class="img-circle" data-lock-picture="assets/images/!logged-user.jpg"
                         />
                     </figure>
                     <div class="profile-info">
-                        <span class="name">{{user.name}}</span>
+                        <span class="name">{{name}}</span>
                     </div>
 
                     <i class="fa custom-caret"></i>

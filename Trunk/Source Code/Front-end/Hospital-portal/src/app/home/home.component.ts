@@ -17,6 +17,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   public introduceList: any[];
   public data: any;
   public user: any;
+  public roleId: any;
+  public name: any;
   public title: string;
 
   constructor(private _homeSrv: HomeService, private cookieService: CookieService, private router: Router) {
@@ -27,10 +29,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.getCategory();
     this.getIntroduceList();
     this.title = "Hospital article";
-    this.user = {
-      roleId: this.cookieService.get('Auth-RoleId'),
-      name: this.cookieService.get('Auth-Username')
-    };
+      this.roleId = this.cookieService.get('Auth-RoleId');
+      this.name = this.cookieService.get('Auth-Username');
+      console.log(this.cookieService.get('Auth-Username'));
     setInterval(() => {
       const now = moment().utc().hour();
       if (now === 0) { this._homeSrv.resetBookingNumber().subscribe(res => console.log('reseted')); }
@@ -78,7 +79,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   logout() {
-    this.cookieService.deleteAll();
-    this.router.navigate(['/home/main']);
+    this.cookieService.set('Auth-Username', '');
+    this.cookieService.set('Auth-RoleId', '');
+    this.roleId = this.cookieService.get('Auth-RoleId');
+      this.name = this.cookieService.get('Auth-Username');
+    this.router.navigate(['../']);
   }
 }

@@ -44,10 +44,12 @@ export class MainComponent {
     }
 
     ngOnInit() {
+        if (this.cookieService.get("Auth-Username") != null) {
         this.userName = this.cookieService.get("Auth-Username");
-        console.log(this.userName);
         this.roleId = this.cookieService.get("Auth-RoleId");
-        console.log(this.roleId);
+ } else {
+            this.router.navigate(['/home/main']);
+        }
     }
 
     ngAfterViewInit() {
@@ -62,11 +64,14 @@ export class MainComponent {
     }
 
     ngOnDestroy() {
-        if (this.routerSubcription) this.routerSubcription.unsubscribe();
+        if (this.routerSubcription) { this.routerSubcription.unsubscribe(); }
     }
 
     logout() {
-        this.cookieService.deleteAll();
+        this.cookieService.set('Auth-Username', '');
+        this.cookieService.set('Auth-RoleId', '');
+        this.userName = this.cookieService.get("Auth-Username");
+        this.roleId = this.cookieService.get("Auth-RoleId");
         this.router.navigate(['/home/main']);
     }
 }
