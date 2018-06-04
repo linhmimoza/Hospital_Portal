@@ -26,33 +26,33 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.getCategory();
-    this.getIntroduceList();
+    // this.getCategory();
+    // this.getIntroduceList();
     this.title = "Hospital article";
-      this.roleId = this.cookieService.get('Auth-RoleId');
-      this.name = this.cookieService.get('Auth-Username');
-      console.log(this.cookieService.get('Auth-Username'));
+    this.roleId = this.cookieService.get('Auth-RoleId');
+    this.name = this.cookieService.get('Auth-Username');
+    console.log(this.cookieService.get('Auth-Username'));
     setInterval(() => {
       const now = moment().utc().hour();
       if (now === 0) { this._homeSrv.resetBookingNumber().subscribe(res => console.log('reseted')); }
     }, 60000);
   }
 
-  getCategory() {
-    this._homeSrv.getCategoryList().subscribe(res => {
-      if (res.length) {
-        this.categoryList = res;
-      }
-    });
-  }
+  // getCategory() {
+  //   this._homeSrv.getCategoryList().subscribe(res => {
+  //     if (res.length) {
+  //       this.categoryList = res;
+  //     }
+  //   });
+  // }
 
-  getIntroduceList() {
-    this._homeSrv.getIntroduceList().subscribe(res => {
-      if (res.length) {
-        this.introduceList = res;
-      }
-    });
-  }
+  // getIntroduceList() {
+  //   this._homeSrv.getIntroduceList().subscribe(res => {
+  //     if (res.length) {
+  //       this.introduceList = res;
+  //     }
+  //   });
+  // }
 
   loadScript(path) {
     return new Promise<any>((resolve, reject) => {
@@ -82,7 +82,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.cookieService.set('Auth-Username', '');
     this.cookieService.set('Auth-RoleId', '');
     this.roleId = this.cookieService.get('Auth-RoleId');
-      this.name = this.cookieService.get('Auth-Username');
+    this.name = this.cookieService.get('Auth-Username');
     this.router.navigate(['../']);
   }
 }

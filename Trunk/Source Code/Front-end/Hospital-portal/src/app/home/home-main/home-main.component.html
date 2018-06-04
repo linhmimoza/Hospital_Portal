@@ -5,41 +5,42 @@
     </div>
   </div>
 </section>
-<section class="panel">
 
-  <div class="toggle" data-plugin-toggle>
-    <section class="toggle active" *ngFor="let list of listCategories">
-      <label>{{list.categoryName}}</label>
-      <div class="toggle-content">
-        <div class="row" style="background-color: white">
-          <div class="pricing-table" *ngFor="let article of list.listArticle | paginate: { itemsPerPage: 2, currentPage: p }">
-            <div class="col-lg-6 col-sm-12">
-              <div class="plan">
-                <h3>
-                  <b>Upload date: </b> {{article.updateDate | date:'dd/MM/yyyy'}}
-                </h3>
-                <h4>{{article.title}} </h4>
-                <a class="btn btn-lg btn-warning" [routerLink]="['/home/news-detail', article.articleId]">View content</a>
-              </div>
-            </div>
-          </div>
-          <div class="row" *ngIf="list.showMore == true" style="margin: 20px">
-            <a class="btn btn-lg btn-warning pull-right" [routerLink]="['/home/news', list.categoryId]">Show more</a>
-          </div>
+
+<section class="panel panel-secondary" id="panel-2" data-portlet-item *ngFor="let list of listCategories">
+  <header class="panel-heading portlet-handler">
+    <div class="panel-actions">
+      <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+    </div>
+    <h2 class="panel-title">{{list.categoryName}}</h2>
+  </header>
+  <div class="panel-body">
+    <div class="pricing-table" *ngFor="let article of list.listArticle | paginate: { itemsPerPage: 2, currentPage: p }">
+      <div class="col-lg-6 col-sm-12">
+        <div class="plan">
+          <h3>
+            <b>Upload date: </b> {{article.updateDate | date:'dd/MM/yyyy'}}
+          </h3>
+          <h4>{{article.title}} </h4>
+          <a class="btn btn-lg btn-warning" [routerLink]="['/home/news-detail', article.articleId]">View content</a>
         </div>
       </div>
-    </section>
-  </div>
-
-  <div class="panel-footer" style="padding: 0">
-    <hr/>
-    <div class="row" style="text-align: center">
-      <h3>Contact with us</h3>
-      <p>Address :
-        <a href="https://www.google.com/maps/search/C%C3%B4ng+Vi%C3%AAn+Ph%E1%BA%A7n+M%E1%BB%81m+Quang+Trung,+Q12/@10.854595,106.6257913,17z/data=!3m1!4b1">Công Viên Phần Mềm Quang Trung, Q12</a>
-      </p>
-      <p>Phone number : 0823456789</p>
-      <p>Email : hospital@gmail.com</p>
+    </div>
+    <div class="row" *ngIf="list.showMore == true" style="margin: 20px">
+      <a class="btn btn-lg btn-warning pull-right" [routerLink]="['/home/news', list.categoryId]">Show more</a>
     </div>
   </div>
 </section>
+
+
+<div class="panel-footer" style="padding: 0">
+  <hr/>
+  <div class="row" style="text-align: center">
+    <h3>Contact with us</h3>
+    <p>Address :
+      <a href="https://www.google.com/maps/search/C%C3%B4ng+Vi%C3%AAn+Ph%E1%BA%A7n+M%E1%BB%81m+Quang+Trung,+Q12/@10.854595,106.6257913,17z/data=!3m1!4b1">Công Viên Phần Mềm Quang Trung, Q12</a>
+    </p>
+    <p>Phone number : 0823456789</p>
+    <p>Email : hospital@gmail.com</p>
+  </div>
+</div>
