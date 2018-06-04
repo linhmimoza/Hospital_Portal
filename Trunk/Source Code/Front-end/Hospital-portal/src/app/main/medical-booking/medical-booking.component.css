@@ -1,0 +1,32 @@
+.table-wrapper-2 {
+    display: block;
+    max-height: 300px;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.table-fixheader {
+    position: relative;
+    padding-top: 40px;
+}
+.table-fixheader>div {
+    height:150px;
+    overflow-y:auto;
+}
+.table-fixheader thead{
+    position: absolute;
+    width: 100%;
+    top: 0;
+}
+.table-fixheader thead tr{
+    position: absolute;
+    width: 100%;
+}
+.table-fixheader thead tr th{
+    display:inline-block;
+}
+
+label{
+    font-weight: bold;
+    font-size: 1.125em;
+}

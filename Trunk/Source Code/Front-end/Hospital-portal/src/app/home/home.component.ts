@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   public introduceList: any[];
   public data: any;
   public user: any;
+  public title: string;
 
   constructor(private _homeSrv: HomeService, private cookieService: CookieService, private router: Router) {
     this.data = {};
@@ -25,6 +26,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.getCategory();
     this.getIntroduceList();
+    this.title = "Hospital article";
     this.user = {
       roleId: this.cookieService.get('Auth-RoleId'),
       name: this.cookieService.get('Auth-Username')
@@ -77,6 +79,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   logout() {
     this.cookieService.deleteAll();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home/main']);
   }
 }

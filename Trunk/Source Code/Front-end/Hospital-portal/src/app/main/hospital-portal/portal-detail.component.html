@@ -1,0 +1,20 @@
+<section class="panel panel-danger">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+        </div>
+        <div>
+            <h2 class="panel-title">{{notification.notificationName}}</h2>
+        </div>
+    </header>
+    <div class="panel-body">
+        <code>{{notification.updateDate | date: 'dd/MM/yyyy'}}</code>
+        <div id="article">
+            {{notification.content}}
+            <br/>
+            <div>             
+                <!-- <h5 style="color: black">Author: {{notification.uploadByName}}</h5> -->
+            </div>
+        </div>
+    </div>
+</section>

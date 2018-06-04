@@ -78,6 +78,10 @@ import { ManageMeetingSchedulerComponent } from './main/meetting/manageMeeting-S
 import { ManageMissionSchedulerComponent } from './main/mission/manageMission-Scheduler.component';
 import { PosterNewsComponent } from './main/news/poster-news.component';
 import { ServicesService } from './main/service/service.service';
+import { BookingDetailService } from './main/booking-detail/service/booking-detail.service';
+import { MedicalService } from './home/medical/medical.service';
+import { PortalDetailComponent } from './main/hospital-portal/portal-detail.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'home/main', pathMatch: 'full' },
@@ -123,7 +127,8 @@ const routes: Routes = [
       { path: 'medical-booking', component: MedicalBookingComponent },
       { path: 'manageMeeting-Scheduler', component: ManageMeetingSchedulerComponent },
       { path: 'manageMission-Scheduler', component: ManageMissionSchedulerComponent },
-      { path: 'poster-news', component: PosterNewsComponent }
+      { path: 'poster-news', component: PosterNewsComponent },
+      { path: 'portal-detail/:id', component: PortalDetailComponent }
     ]
   },
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
@@ -192,7 +197,8 @@ const routes: Routes = [
     MedicalBookingComponent,
     ManageMeetingSchedulerComponent,
     ManageMissionSchedulerComponent,
-    PosterNewsComponent
+    PosterNewsComponent,
+    PortalDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -214,8 +220,8 @@ const routes: Routes = [
     NotificationService, LoadingService, LoginService, AccountService, ApiService, UserService,
     DepartmentService, RoleService, CategoryService, RoomService, MissionService,
     ShiftSchedulerService, ManageService, MeetingService, ArticleService, CookieService, SelectService, NotificationComponentService,
-    ServicesService
-    , NotiService
+    ServicesService, MedicalService
+    , NotiService, BookingDetailService
   ],
   bootstrap: [AppComponent]
 })

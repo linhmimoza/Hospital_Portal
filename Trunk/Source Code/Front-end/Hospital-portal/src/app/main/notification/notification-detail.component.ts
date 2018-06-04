@@ -49,11 +49,7 @@ export class NotificationDetailComponent {
                 status: new FormControl('')
             });
             this.routerSubcription = this.route.params.subscribe(params => {
-                this.id = +params['id']; // (+) converts string 'id' to a number        
-                this.notificationComponentService.getList().then((notifications: Notification[]) => {
-                    this.notifications = notifications;
-                    if (this.id == 0) { this.notification.notificationId = notifications[0].notificationId; }
-                });
+                this.id = +params['id']; // (+) converts string 'id' to a number                      
                 if (this.id > 0) {
                     this.title = "You are updating notification";
                     this.notificationComponentService.getNotificationById(this.id).then((res: Notification) => {

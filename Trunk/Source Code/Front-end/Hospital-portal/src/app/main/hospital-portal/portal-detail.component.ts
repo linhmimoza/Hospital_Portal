@@ -1,34 +1,40 @@
 import { Component } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { NotificationComponentService } from "../notification/service/notification.component.service";
-import { NotificationService } from "../extra/notification.service";
 import { LoadingService } from "../extra/loading.service";
 import { CookieService } from "ngx-cookie-service";
 import { Notification } from "../notification/shared/notification.model";
 declare var $: any;
 
 @Component({
-    selector: 'hospital-portal',
-    templateUrl: './hospital-portal.component.html'
-    // styleUrls:['user-list.component.css']
+    selector: 'portal-detail',
+    templateUrl: './portal-detail.component.html',
+    styleUrls:['portal-detail.component.css']
 })
-export class HospitalPortalComponent {
+export class PortalDetailComponent {
     roleCookie: number;
-    notifications: Notification[] = [];
-    constructor(private router: Router, private notificationComponentService: NotificationComponentService,
-        private notificationService: NotificationService,
+    notification: Notification;
+    routerSubcription: any;
+    id: number = 0;
+
+    constructor(private route: ActivatedRoute, private router: Router, 
+        private notificationComponentService: NotificationComponentService,
         private loadingService: LoadingService, private cookieService: CookieService) {
 
     }
     ngOnInit() {
         this.roleCookie = +this.cookieService.get("Auth-RoleId");
-        if ((this.roleCookie >= 1 ) && (this.roleCookie <= 6)) {
+        if ((this.roleCookie >= 1) && (this.roleCookie <= 6)) {
             this.loadingService.start();
-            this.notificationComponentService.getActivateNotification().then((res: Notification[]) => {
-                this.notifications = res;
-            }).catch(err => {
-                alert(err);
-            });
+
+            this.routerSubcription = this.route.params.subscribe(params => {
+                this.id = +params['id']; // (+) converts string 'id' to a number        
+                this.notificationComponentService.getNotificationById(this.id).then((res: Notification) => {
+                    this.notification = res;
+                }).catch(err => {
+                    console.log(err);
+                });
+            })
             this.loadingService.stop();
         } else if (isNaN(this.roleCookie)) {
             alert("You don't have permission to view this page!");
@@ -37,10 +43,5 @@ export class HospitalPortalComponent {
             alert("You don't have permission to view this page!");
             this.router.navigate(['/home/main']);
         }
-
-    }
-
-    view(notification) {
-        this.router.navigate(['/main/portal-detail', notification.notificationId]);       
     }
 }
