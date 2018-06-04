@@ -62,10 +62,6 @@ export class MedicalComponent implements OnInit, AfterViewInit {
         Validators.required,
         Validators.email
       ]),
-      guestIdentity: new FormControl('', [
-        Validators.required,
-        Validators.pattern('[0-9]{9,10}')
-      ]),
       note: new FormControl(''),
       createDate: new FormControl(''),
       departmentId: new FormControl(''),
@@ -177,9 +173,6 @@ export class MedicalComponent implements OnInit, AfterViewInit {
   }
   get guestEmail() {
     return this.form.get('guestEmail');
-  }
-  get guestIdentity() {
-    return this.form.get('guestIdentity');
   }
   get guestAddress() {
     return this.form.get('guestAddress');

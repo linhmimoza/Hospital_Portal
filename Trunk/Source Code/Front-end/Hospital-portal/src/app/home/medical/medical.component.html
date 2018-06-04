@@ -58,7 +58,6 @@
               <label class="col-md-3 control-label">Select department</label>
               <div class="col-md-6">
                 <select class="form-control input-lg mb-md" (change)="getServiceList($event.target.value)" name="id" [(ngModel)]="data.departmentId">
-                  <option value="" [selected]>Please select</option>
                   <option *ngFor="let item of list" value="{{item.departmentId}}">{{item.departmentName}}</option>
                 </select>
               </div>
@@ -69,7 +68,6 @@
               <label class="col-md-3 control-label">Select service</label>
               <div class="col-md-6">
                 <select class="form-control input-lg mb-md" name="serviceId" [(ngModel)]="data.serviceId" *ngIf="serviceList?.length" (change)="moveStep(3)">
-                  <option value="" [selected]>Please select</option>
                   <option *ngFor="let option of serviceList" value="{{option.serviceId}}">{{option.serviceName}}</option>
                 </select>
               </div>
@@ -114,19 +112,6 @@
                     <div class="form-group" *ngIf="guestName.invalid && (guestName.dirty || guestName.touched)" class="alert alert-danger" style="margin-top: 10px">
                       <strong *ngIf="guestName.errors.required">Name is required.</strong>
                       <strong *ngIf="guestName.errors.minlength">Name is not less than 4 characters.</strong>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-md-3 control-label">Identity number
-                    <span class="required">*</span>
-                  </label>
-                  <div class="col-md-6">
-                    <input formControlName="guestIdentity" type="text" class="form-control" required/>
-                    <div class="form-group" *ngIf="guestIdentity.invalid && (guestIdentity.dirty || guestIdentity.touched)" class="alert alert-danger"
-                      style="margin-top: 10px">
-                      <strong *ngIf="guestIdentity.errors.required">Identity is required.</strong>
-                      <strong *ngIf="guestIdentity.errors.pattern">Identity is not valid.</strong>
                     </div>
                   </div>
                 </div>
