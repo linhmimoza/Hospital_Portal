@@ -121,7 +121,7 @@ export class MeetingService {
     getMessage(meeting: Meeting[]){
         let s = '';
         meeting.forEach(function(m) {
-            s = s +m.roomName +'is booked for '+m.meetingName+' from '+m.startTime
+            s = s +m.roomName +' is booked for '+m.meetingName+' from '+m.startTime
             +' to '+m.duration+ '\n';
         });
         return s;
