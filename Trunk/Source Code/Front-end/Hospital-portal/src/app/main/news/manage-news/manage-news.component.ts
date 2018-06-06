@@ -140,7 +140,7 @@ export class ManageNewsComponent implements OnInit {
           console.log(this.form.value);
           return this._newsSrv.createNews(this.form.value);
         }).subscribe(res => {
-          if (res._body) {
+          if (res) {
             console.log(res);
             this.notificationService.success('Create Succeed!');
             if (this.roleId === 2) {
