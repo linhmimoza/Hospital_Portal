@@ -9,6 +9,7 @@ import Models.Article;
 import Models.Category;
 import dao.ArticleDao;
 import dao.CategoryDao;
+import dao.TimeDao;
 import java.sql.SQLException;
 import java.util.List;
 import javax.ws.rs.core.Context;
@@ -21,6 +22,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * REST Web Service
@@ -63,5 +65,18 @@ public class ArticleResource2 {
         List<Article> listArticle = dao.getArticleByCategory(categoryId);
         return listArticle;
     }
-    
+    @Path("/checkAvailable")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response checkAvailable() throws SQLException, ClassNotFoundException {
+        try {
+            TimeDao dao = new TimeDao();
+            dao.checkAvailable();
+
+        } catch (Exception e) {
+            System.out.println("error");
+            return Response.status(204).build();
+        }
+        return Response.status(204).build();
+    }
 }

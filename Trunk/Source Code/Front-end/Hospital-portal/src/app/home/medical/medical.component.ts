@@ -127,9 +127,6 @@ export class MedicalComponent implements OnInit, AfterViewInit {
       .flatMap(res => {
         return this._medicalSrv.bookingSuccess(this.form.get('timeId').value);
       })
-      .flatMap(res => {
-        return this._medicalSrv.checkAvailable();
-      })
       .subscribe(res => {
         this._notificationService.success('Booking Succeed!');
         setTimeout(() => this._router.navigate(['home/main']), 3000);
@@ -158,7 +155,7 @@ export class MedicalComponent implements OnInit, AfterViewInit {
       this._loadingService.stop();
     }, err => {
       if (err.status === 400) {
-        this._notificationService.fail('This date is unavailable.');
+        this._notificationService.fail('This date has been full registered.');
       }
       this._loadingService.stop();
     });

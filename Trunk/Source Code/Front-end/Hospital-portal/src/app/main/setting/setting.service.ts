@@ -23,5 +23,8 @@ export class SettingService {
     updateLimit(data): Observable<any> {
         return this._http.get(`${SERVER}time/updateLimitAmountTime?Limit=${data.updateLimit}`, OPTIONS).map(res => res);
     }
+    checkAvailable(): Observable<any> {
+        return this._http.get(`${SERVER}time/checkAvailable`, OPTIONS).map(res => res.json());
+    }
 
 }

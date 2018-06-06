@@ -132,7 +132,8 @@ public class TimeDao {
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
-                String sql = "Select * from Time where Date=? and Available=1 and ServiceId="+serviceId;
+                String sql = "Select * from Time where Date=? and Available=1 and Amount<Limit"
+                        + " and ServiceId="+serviceId;
                 stm = con.prepareStatement(sql);
                 stm.setString(1, date);
                 rs = stm.executeQuery();

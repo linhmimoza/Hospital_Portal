@@ -17,6 +17,7 @@ export class MedicalBookingService {
     }
 
     getListbyDate(date, serviceId): Observable<any> {
+        // tslint:disable-next-line:max-line-length
         return this._http.get(`${SERVER}MedicalBooking/getBookingByDate?date=${date}&serviceId=${serviceId}`, OPTIONS).map(res => res.json());
     }
 

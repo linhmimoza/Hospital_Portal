@@ -1,7 +1,7 @@
 <section class="panel panel-danger">
   <header class="panel-heading">
     <div class="panel-actions">
-      <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+
     </div>
     <div>
       <h2 class="panel-title">{{title}}</h2>
@@ -13,7 +13,7 @@
       <div [innerHTML]="describe"></div>
       <br/>
       <div>
-        <a (click)="getFile(articleId)" style="cursor: pointer">View more <i class="fa fa-arrow-right"></i></a>
+        <a (click)="getFile(articleId)" style="cursor: pointer">Download <i class="fa fa-arrow-right"></i></a>
         <h5 style="color: black">Author: {{uploadByName}}</h5>
       </div>
     </div>

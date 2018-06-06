@@ -53,10 +53,10 @@
           <div class="table-responsive">
             <table class="table table-bordered table-striped mb-none display" *ngIf="listNews?.length">
               <colgroup>
-                <col width="150px" />
-                <col width="150px" />
-                <col width="150px" />
                 <col width="550px" />
+                <col width="150px" />
+                <col width="150px" />
+                <col width="150px" />
                 <col width="150px" />
                 <col width="50px" />
               </colgroup>
@@ -65,7 +65,7 @@
                   <th>Title</th>
                   <th>Upload by</th>
                   <th>Update by</th>
-                  <th>Quickview</th>
+                  <th>Upload Date</th>
                   <ng-template [ngIf]="roleId === 2">
                     <th>Action</th>
                     <th>Update</th>
@@ -77,7 +77,7 @@
                   <td>{{item.title}}</td>
                   <td>{{item.uploadByName}}</td>
                   <td>{{item.updateByName}}</td>
-                  <td>{{item.describe}}</td>
+                  <td>{{item.updateDate}}</td>
                   <ng-template [ngIf]="roleId === 2">
                     <td class="text-center">
                       <div class="grid-status" [ngClass]="{'bg-primary': item.status == 1, 'bg-danger': item.status == 0, 'bg-warning': item.status == 2 }"

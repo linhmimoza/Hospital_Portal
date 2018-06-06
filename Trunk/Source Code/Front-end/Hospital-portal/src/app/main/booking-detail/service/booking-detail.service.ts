@@ -17,4 +17,14 @@ export class BookingDetailService {
             });
         });
     }
+    checkAvailable(id) {
+        return new Promise((resolve, reject) => {
+            this.apiService.get('checkAvailable').then(res => {
+                resolve(res.json());
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
+
 }

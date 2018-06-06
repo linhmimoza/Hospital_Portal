@@ -61,21 +61,6 @@
             </div>
 
 
-            <div class="row" *ngIf="(medicalBookingList != null)">
-              <div class="col-md-12">
-                <label class="col-sm-3 control-label">
-                  <h5>
-                    <strong>Search: </strong>
-                  </h5>
-                </label>
-                <div class="col-sm-7">
-                  <div class="mb-md">
-                    <input type="text" class="form-control" (input)="search($event.target.value)">
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <!-- <div class="row" *ngIf="(medicalBookingList?.length == 0)">
                 <div class="col-md-12">
                   <label class="col-sm-12 control-label">

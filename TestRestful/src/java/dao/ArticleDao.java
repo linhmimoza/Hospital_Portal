@@ -59,7 +59,7 @@ public class ArticleDao {
                         + "where a.CategoryId=?";
                 //select * from Article order by id desc limit 5;
                 stm = con.prepareStatement(sql);
-                System.out.println(sql);
+           
                 stm.setInt(1, categoryId);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -68,7 +68,7 @@ public class ArticleDao {
                     Integer uploadBy = rs.getInt("UploadBy");
                     String uploadDate = rs.getString("UploadDate");
                     Integer updateBy = rs.getInt("UpdateBy");
-                    String updateDate = rs.getString("UpdateDate");
+                    String updateDate = rs.getString("UpdateDate").substring(0, 10);
                     Integer status = rs.getInt("Status");
                     String link = rs.getString("Link");
                     String describe = rs.getString("Describe");
@@ -246,7 +246,7 @@ public class ArticleDao {
             if (con != null) {
                 String sql = "select ArticleId from Article where  Title='" + title + "'";
                 stm = con.prepareStatement(sql);
-                System.out.println(sql);
+             
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     result = true;
@@ -294,8 +294,7 @@ public class ArticleDao {
             e.printStackTrace();
             result = "Failed";
         } finally {
-            closeConnection();
-            System.out.println(result);
+         
         }}
         return result;
     }
@@ -524,7 +523,7 @@ public List<Article> getArticleByCategory( int categoryId) {
                         + " and a.Status=1 ORDER BY a.UpdateDate DESC";
 
                 stm = con.prepareStatement(sql);
-                System.out.println(sql);
+        
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     Integer id = rs.getInt("ArticleId");

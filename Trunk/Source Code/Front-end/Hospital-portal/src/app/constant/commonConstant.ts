@@ -23,9 +23,9 @@ const ROLES = {
     Admin: 1,
     Manager: 2,
     Scheduler: 3,
-    Poster: 4,
-    SchedulerPoster: 5,
-    User: 6
+    Poster: 5,
+    SchedulerPoster: 6,
+    User: 4
 };
 
 export { DOWNLOAD_LINK, SERVER, OPTIONS, REQUEST_RESULTS, STATUS, ROLE_ID, ROLES, GENERIC_HOST };

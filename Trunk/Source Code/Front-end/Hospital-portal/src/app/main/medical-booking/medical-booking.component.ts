@@ -92,19 +92,13 @@ export class MedicalBookingComponent implements OnInit {
       $('#dayTime').attr('min', res.firstdate);
       $('#dayTime').attr('max', res.lastdate);
     });
+    this.selectTime();
   }
 
   selectTime() {
     const date = moment(this.data.time).format('YYYY-MM-DD');
-    this._medicalSrv.getTimeId(date, this.serviceIdChange).subscribe(res => {
-      console.log('timeid', res._body);
       this._medicalBookingSrv.getListbyDate(date, this.serviceIdChange).subscribe((res: BookingDetail[]) => {
         this.medicalBookingList = res;
       });
-    }, err => {
-      if (err.status === 400) {
-        this._notificationService.fail('This date is unavailable.');
-      }
-    });
-  }
+     }
 }
